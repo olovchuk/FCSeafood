@@ -40,9 +40,9 @@ public class User {
     [Column("FK_Address")]
     public Guid? AddressId { get; set; }
 
-    [Column("Created_At")]
-    public DateTime CreatedAt { get; set; }
+    [Column("Created_Date")]
+    public DateTime CreatedDate { get; set; }
 
-    [Column("Updated_At")]
-    public DateTime UpdatedAt { get; set; }
+    [Column("Updated_Date")]
+    public DateTime UpdatedDate { get; set; }
 }
