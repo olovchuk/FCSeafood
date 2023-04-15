@@ -1,5 +1,4 @@
 using FCSeafood.BLL.User.Auth.Models.Params;
-using Microsoft.AspNetCore.Mvc;
 
 namespace FCSeafood.WebAPI.Controllers;
 

@@ -1,6 +1,5 @@
 using FCSeafood.BLL.User.Info;
 using FCSeafood.BLL.User.Info.Models.Params;
-using Microsoft.AspNetCore.Mvc;
 
 namespace FCSeafood.WebAPI.Controllers;
 
@@ -14,7 +13,7 @@ public class UserController : ControllerBase {
     }
 
     [HttpGet("GetUser")]
-    public async Task<IActionResult> GetUser([FromQuery]GetUserParams getUserParams) {
+    public async Task<IActionResult> GetUserAsync([FromQuery] GetUserParams getUserParams) {
         var result = await _userManager.GetUser(getUserParams);
         if (!result.IsSuccessful) return BadRequest(result);
 
