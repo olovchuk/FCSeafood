@@ -1,3 +1,5 @@
+using FCSeafood.BLL.User.Info;
+using FCSeafood.BLL.User.Info.Helpers;
 using FCSeafood.DAL.Context;
 using FCSeafood.DAL.Events.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,8 @@ public static class Configuration {
         serviceCollection.AddTransient<AuthManager>();
         serviceCollection.AddTransient<AuthJWTHelper>();
         serviceCollection.AddTransient<AuthRefreshJWTHelper>();
+        serviceCollection.AddTransient<UserManager>();
+        serviceCollection.AddTransient<UserMapperHelper>();
 
         // DAL
         serviceCollection.AddTransient<AddressRepository>();

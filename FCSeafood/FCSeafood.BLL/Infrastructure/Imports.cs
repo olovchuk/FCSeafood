@@ -7,3 +7,4 @@ global using FCSeafood.BLL.User.Auth.Models.Response;
 global using FCSeafood.BLL.User.Auth.Models.Common;
 global using FCSeafood.BLL.User.Auth.Helpers.Models;
 global using FCSeafood.BLL.User.Auth.Helpers.Models.Claims;
+global using FCSeafood.BusinessObjects.Models;
