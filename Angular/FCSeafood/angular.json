@@ -31,7 +31,11 @@
               "src/web.config"
             ],
             "styles": [
-              "src/styles.scss"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/primeflex/themes/saga-blue.css",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           },
@@ -95,7 +99,11 @@
               "src/web.config"
             ],
             "styles": [
-              "src/styles.scss"
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss",
+              "node_modules/primeflex/primeflex.css",
+              "node_modules/primeflex/themes/saga-blue.css",
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           }
