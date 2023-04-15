@@ -1,9 +1,6 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace FCSeafood.DAL.Events.Models;
 
-[Table("T_User_Credentials")]
+[Table("T_User_Credentials", Schema = "dbo")]
 public class UserCredential {
     [Column("PK_User")]
     [Key]

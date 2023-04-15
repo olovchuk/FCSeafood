@@ -15,7 +15,9 @@ public static class Configuration {
         serviceCollection.AddTransient<AuthRefreshJWTHelper>();
 
         // DAL
+        serviceCollection.AddTransient<AddressRepository>();
         serviceCollection.AddTransient<UserRepository>();
         serviceCollection.AddTransient<UserCredentialRepository>();
+        serviceCollection.AddTransient<ItemRepository>();
     }
 }
