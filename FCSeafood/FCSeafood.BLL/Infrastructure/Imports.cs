@@ -1,3 +1,4 @@
+global using FCSeafood.BusinessObjects;
 global using Microsoft.Extensions.Logging;
 global using FCSeafood.BLL.User.Auth;
 global using FCSeafood.BLL.User.Auth.Helpers;
@@ -9,6 +10,9 @@ global using FCSeafood.BLL.User.Auth.Helpers.Models;
 global using FCSeafood.BLL.User.Auth.Helpers.Models.Claims;
 global using FCSeafood.BLL.User.Info;
 global using FCSeafood.BLL.User.Info.Helpers;
+global using FCSeafood.BLL.User.Info.Models.Common;
+global using FCSeafood.BLL.User.Info.Models.Params;
+global using FCSeafood.BLL.User.Info.Models.Response;
 global using FCSeafood.BLL.Common;
 global using FCSeafood.BLL.Common.Models.Helpers;
 global using FCSeafood.BLL.Common.Models.Response;

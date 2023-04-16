@@ -1,4 +1,4 @@
-namespace FCSeafood.DAL.Events;
+namespace FCSeafood.BusinessObjects;
 
 #region Enumeration from database
 

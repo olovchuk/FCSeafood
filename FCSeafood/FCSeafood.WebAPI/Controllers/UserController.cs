@@ -1,3 +1,4 @@
+using FCSeafood.BLL.User.Auth.Helpers;
 using FCSeafood.BLL.User.Info;
 using FCSeafood.BLL.User.Info.Models.Params;
 
@@ -15,6 +16,15 @@ public class UserController : ControllerBase {
     [HttpGet("GetUser")]
     public async Task<IActionResult> GetUserAsync([FromQuery] GetUserParams getUserParams) {
         var result = await _userManager.GetUser(getUserParams);
+        if (!result.IsSuccessful) return BadRequest(result);
+
+        return Ok(result);
+    }
+
+    [HttpGet("GetUserInformation")]
+    public async Task<IActionResult> GetUserInformation() {
+        var claimsValues = JWTClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
+        var result = await _userManager.GetUserInformationAsync(new GetUserInformationParams(claimsValues.UserId));
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);

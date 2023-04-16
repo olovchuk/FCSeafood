@@ -1,6 +1,3 @@
-using FCSeafood.BLL.User.Info.Helpers;
-using FCSeafood.BLL.User.Info.Models.Params;
-using FCSeafood.BLL.User.Info.Models.Response;
 using FCSeafood.DAL.Events.Repository;
 
 namespace FCSeafood.BLL.User.Info;
@@ -26,6 +23,19 @@ public class UserManager {
         } catch (Exception ex) {
             log.LogError($"Failed to get user;\r\nUser Id: [{getUserParams.Id}]\r\nError: [{ex.Message}]");
             return new GetUserResponse(false, "The user is not defined", null);
+        }
+    }
+
+    public async Task<GetUserInformationResponse> GetUserInformationAsync(GetUserInformationParams getUserInformationParams) {
+        try {
+            var getUserResponse = await GetUser(new GetUserParams(getUserInformationParams.Id));
+            if (!getUserResponse.IsSuccessful) return new GetUserInformationResponse(false, getUserResponse.Message, null);
+
+            var user = getUserResponse.UserModel;
+            return new GetUserInformationResponse(true, "", new UserInformationModel(user.FirstName, user.LastName, user.Email, user.RoleType));
+        } catch (Exception ex) {
+            log.LogError($"Failed to get user information;\r\nUser Id: [{getUserInformationParams.Id}]\r\nError: [{ex.Message}]");
+            return new GetUserInformationResponse(false, "The user is not defined", null);
         }
     }
 }
