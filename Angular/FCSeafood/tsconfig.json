@@ -2,7 +2,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
+    "paths": {
+      "@environments/*": ["environments/*"],
+      "@interceptors/*": ["app/interceptors/*"],
+      "@modules/*": ["app/modules/*"],
+      "@settings/*": ["app/settings/*"],
+      "@common-data/*": ["app/common/data/*"],
+      "@common-enums/*": ["app/common/enums/*"],
+      "@common-helpers/*": ["app/common/helpers/*"],
+      "@common-models/*": ["app/common/models/*"],
+      "@common-models-components/*": ["app/common/models/components/*"],
+      "@common-models-material/*": ["app/common/models/material/*"],
+      "@common-models-pages/*": ["app/common/models/pages/*"],
+      "@common-services/*": ["app/common/services/*"],
+      "@common-states/*": ["app/common/states/*"],
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

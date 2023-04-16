@@ -1,0 +1,37 @@
+<div class="login-popup">
+  Login popup
+
+  <mat-dialog-content>
+    <form (ngSubmit)="OnSignIn()" [formGroup]="authorization">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+               placeholder="Ex. pat@example.com">
+        <mat-error
+          *ngIf="authorization.controls['email'].hasError('email') && !authorization.controls['email'].hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="authorization.controls['email'].hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input [type]="showPassword ? 'text' : 'password'" matInput formControlName="password">
+        <mat-icon title="Show/Hide Password" (click)="showPassword = !showPassword"
+                  matSuffix>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+      <button #btn class="hidden" type="submit"></button>
+    </form>
+
+    <mat-error *ngIf="authorization.errors">
+      <p *ngIf="authorization.errors['http'] != null" style="text-align: center">{{authorization.errors['http']}}</p>
+    </mat-error>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button (click)="OnClose()" mat-raised-button color="primary" title="Sign In">Close</button>
+    <button (click)="btn.click()" mat-raised-button color="primary" title="Sign In">Sign In</button>
+  </mat-dialog-actions>
+</div>

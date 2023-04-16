@@ -1,1 +1,9 @@
-<p>header works!</p>
+<header class="flex flex-column justify-content-end w-max">
+  <div *ngIf="!authStateService.IsAuthorized" class="united-states font-tahoma">
+    <button (click)="openLoginPopup()" mat-raised-button color="primary" title="Sign In">Sign In</button>
+  </div>
+  <div *ngIf="authStateService.IsAuthorized" class="united-states font-tahoma">
+    <button (click)="OnSignOutClick()" mat-raised-button color="primary" title="Sign In">Sign Out</button><br/>
+    <b>IsAuthorized: {{authStateService.IsAuthorized}}</b><br/>
+  </div>
+</header>
