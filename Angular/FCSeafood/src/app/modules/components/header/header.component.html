@@ -1,9 +1,7 @@
-<header class="flex flex-column justify-content-end w-max">
-  <div *ngIf="!authStateService.IsAuthorized" class="united-states font-tahoma">
-    <button (click)="openLoginPopup()" mat-raised-button color="primary" title="Sign In">Sign In</button>
-  </div>
-  <div *ngIf="authStateService.IsAuthorized" class="united-states font-tahoma">
-    <button (click)="OnSignOutClick()" mat-raised-button color="primary" title="Sign In">Sign Out</button><br/>
-    <b>IsAuthorized: {{authStateService.IsAuthorized}}</b><br/>
-  </div>
+<header class="flex flex-row justify-content-around w-full">
+
+  <div class="w-3 bg-purple-500 text-white font-bold text-center p-4 border-round">1</div>
+  <div class="w-5 bg-purple-500 text-white font-bold text-center p-4 border-round mx-4">2</div>
+  <div class="w-2 bg-purple-500 text-white font-bold text-center p-4 border-round">3</div>
+
 </header>
