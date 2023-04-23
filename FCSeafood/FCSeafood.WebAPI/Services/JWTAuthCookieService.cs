@@ -41,6 +41,6 @@ public class JWTAuthCookieService {
         _cookieHelper.RemoveCookie(_configuration.GetValue<string>("TokenKeys:Access"));
         _cookieHelper.RemoveCookie(_configuration.GetValue<string>("TokenKeys:Refresh"));
 
-        return new SignOutResponse(true);
+        return new SignOutResponse(true, "");
     }
 }
