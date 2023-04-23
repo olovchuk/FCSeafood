@@ -4,12 +4,12 @@ public static class EnumHelper {
     public static CategoryTypeModel GetCategoryType(CategoryType categoryType) {
         var result = new CategoryTypeModel {
             Type = categoryType
-          , Text = categoryType switch {
-                CategoryType.Fish       => "Fish"
-              , CategoryType.Caviar     => "Caviar"
-              , CategoryType.Seafood    => "Seafood"
-              , CategoryType.CannedFood => "CannedFood"
-              , _                       => string.Empty
+          , Name = categoryType switch {
+                CategoryType.Fish          => "Fish"
+              , CategoryType.Caviar        => "Caviar"
+              , CategoryType.Seafood       => "Seafood"
+              , CategoryType.CrabsСrayfish => "Crabs/Сrayfish"
+              , _                          => string.Empty
             }
         };
         return result;
@@ -18,7 +18,7 @@ public static class EnumHelper {
     public static SubCategoryTypeModel GetSubCategoryType(SubCategoryType subCategoryType) {
         var result = new SubCategoryTypeModel {
             Type = subCategoryType
-          , Text = subCategoryType switch {
+          , Name = subCategoryType switch {
                 // Fish
                 SubCategoryType.SeaFish   => "Fish"
               , SubCategoryType.RiverFish => "Caviar"

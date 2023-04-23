@@ -34,7 +34,7 @@ public enum CategoryType {
   , Fish = 1
   , Caviar = 2
   , Seafood = 3
-  , CannedFood = 4
+  , CrabsСrayfish = 4
 }
 
 // E_Sub_Category_Type

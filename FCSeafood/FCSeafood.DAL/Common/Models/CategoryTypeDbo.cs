@@ -9,4 +9,7 @@ public class CategoryTypeDbo {
 
     [Column("Name")]
     public string Name { get; set; }
+
+    [Column("Image_Path")]
+    public string ImagePath { get; set; }
 }

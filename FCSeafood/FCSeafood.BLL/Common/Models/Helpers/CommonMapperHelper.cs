@@ -6,7 +6,13 @@ public class CommonMapperHelper {
     public (bool success, CategoryTypeModel model) ToModel(DAL.Common.Models.CategoryTypeDbo dbo) {
         if (dbo.Equals(null)) return (false, new CategoryTypeModel());
 
-        var model = EnumHelper.GetCategoryType((CategoryType)dbo.Id);
+        var config = new MapperConfiguration(cfg => {
+            cfg.CreateMap<DAL.Common.Models.CategoryTypeDbo, CategoryTypeModel>()
+               .ForMember(memberOptions => memberOptions.Type
+                        , options => options.MapFrom(source => Enum.GetName(typeof(CategoryType), source.Id)));
+        });
+        var maper = new Mapper(config);
+        var model = maper.Map<CategoryTypeModel>(dbo);
         return (true, model);
     }
 
@@ -24,7 +30,13 @@ public class CommonMapperHelper {
     public (bool success, SubCategoryTypeModel model) ToModel(DAL.Common.Models.SubCategoryTypeDbo dbo) {
         if (dbo.Equals(null)) return (false, new SubCategoryTypeModel());
 
-        var model = EnumHelper.GetSubCategoryType((SubCategoryType)dbo.Id);
+        var config = new MapperConfiguration(cfg => {
+            cfg.CreateMap<DAL.Common.Models.SubCategoryTypeDbo, SubCategoryTypeModel>()
+               .ForMember(memberOptions => memberOptions.Type
+                        , options => options.MapFrom(source => Enum.GetName(typeof(SubCategoryType), source.Id)));
+        });
+        var maper = new Mapper(config);
+        var model = maper.Map<SubCategoryTypeModel>(dbo);
         return (true, model);
     }
 
