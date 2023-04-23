@@ -33,7 +33,7 @@ public class CommonManager {
 
     public async Task<GetSubCategoryTypeResponse> GetSubCategoryTypeListAsync() {
         try {
-            var dbos = await _subCategoryTypeRepository.GetAll();
+            var dbos = await _subCategoryTypeRepository.GetAllAsync();
             var result = _commonMapperHelper.ToModel(dbos);
             if (!result.success) return new GetSubCategoryTypeResponse(false, "Something goes wrong when retrieving categories", Enumerable.Empty<SubCategoryTypeModel>());
             return new GetSubCategoryTypeResponse(true, "", result.models);
