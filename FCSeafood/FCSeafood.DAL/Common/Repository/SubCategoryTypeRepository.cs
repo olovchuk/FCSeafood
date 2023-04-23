@@ -1,11 +1,5 @@
 namespace FCSeafood.DAL.Common.Repository;
 
-public class SubCategoryTypeRepository {
-    private readonly CommonFCSeafoodContext db;
-
-    public SubCategoryTypeRepository(CommonFCSeafoodContext db) {
-        this.db = db;
-    }
-
-    public async Task<List<SubCategoryTypeDbo>> GetAll() => await db.SubCategoryTypeDbos.AsNoTracking().ToListAsync().ConfigureAwait(false);
+public class SubCategoryTypeRepository : DAL.Common.Repository.Base.BaseRepository<SubCategoryTypeDbo> {
+    public SubCategoryTypeRepository(CommonFCSeafoodContext context) : base(context) { }
 }
