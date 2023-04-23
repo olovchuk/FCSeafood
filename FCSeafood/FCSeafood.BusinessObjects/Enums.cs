@@ -32,22 +32,36 @@ public enum GenderType {
 public enum CategoryType {
     Unknown = 0
   , Fish = 1
-  , Sushi = 2
-  , Caviar = 3
-  , Seafood = 4
-  , CannedFood = 5
-  , Soup = 6
+  , Caviar = 2
+  , Seafood = 3
+  , CannedFood = 4
 }
 
 // E_Sub_Category_Type
 public enum SubCategoryType {
     Unknown = 0
-  , Grill = 1
-  , Smoked = 2
-  , Cooked = 3
-  , Dried = 4
-  , Frozen = 5
-  , BoiledFrozen = 6
+
+    // Fish
+  , SeaFish = 1
+  , RiverFish = 2
+  , LakeFish = 3
+
+    // Cavier
+  , RedCaviar = 4
+  , BlackSturgeonCaviar = 5
+  , CodCaviar = 6
+  , PikeCaviar = 7
+
+    // Seafood
+  , Mussels = 8
+  , Squid = 9
+  , Octopus = 10
+  , Rapani = 11
+  , SeafoodCocktail = 12
+  , Shrimp = 13
+  , LiveOyster = 14
+  , CrabAndLobster = 15
+  , Pectinida = 16
 }
 
 // E_Currency_Code_Type
