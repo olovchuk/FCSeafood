@@ -1,3 +1,4 @@
+using FCSeafood.DAL.Auxiliary.Repository;
 using FCSeafood.DAL.Context;
 using FCSeafood.DAL.Events.Repository;
 using FCSeafood.DAL.Common.Repository;
@@ -10,6 +11,7 @@ public static class Configuration {
     public static void ConfigurationService(IServiceCollection serviceCollection, string connectionString) {
         serviceCollection.AddDbContext<EventFCSeafoodContext>(options => options.UseSqlServer(connectionString));
         serviceCollection.AddDbContext<CommonFCSeafoodContext>(options => options.UseSqlServer(connectionString));
+        serviceCollection.AddDbContext<AuxiliaryFCSeafoodContext>(options => options.UseSqlServer(connectionString));
 
         // BLL
         serviceCollection.AddTransient<AuthManager>();
@@ -26,5 +28,7 @@ public static class Configuration {
         serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<ItemRepository>();
         serviceCollection.AddTransient<CategoryTypeRepository>();
+        serviceCollection.AddTransient<SubCategoryTypeRepository>();
+        serviceCollection.AddTransient<BindCategoryRepository>();
     }
 }

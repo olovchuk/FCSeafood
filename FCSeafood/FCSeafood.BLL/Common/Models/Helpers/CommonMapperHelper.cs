@@ -24,4 +24,26 @@ public class CommonMapperHelper {
         }
         return listResult;
     }
+    
+    public SubCategoryTypeModel? ToModel(DAL.Common.Models.SubCategoryTypeDbo dbo) {
+        if (dbo.Equals(null)) return null;
+
+        var config = new MapperConfiguration(cfg => {
+            cfg.CreateMap<DAL.Common.Models.SubCategoryTypeDbo, SubCategoryTypeModel>();
+        });
+        var maper = new Mapper(config);
+        var model = maper.Map<SubCategoryTypeModel>(dbo);
+        return model;
+    }
+
+    public List<SubCategoryTypeModel>? ToModel(List<DAL.Common.Models.SubCategoryTypeDbo> listDbo) {
+        if (listDbo.Equals(null)) return null;
+
+        var listResult = new List<SubCategoryTypeModel>();
+        foreach (var model in listDbo.Select(this.ToModel)) {
+            if (model == null) return null;
+            listResult.Add(model);
+        }
+        return listResult;
+    }
 }

@@ -15,5 +15,6 @@ global using FCSeafood.BLL.User.Info.Models.Params;
 global using FCSeafood.BLL.User.Info.Models.Response;
 global using FCSeafood.BLL.Common;
 global using FCSeafood.BLL.Common.Models.Helpers;
+global using FCSeafood.BLL.Common.Models.Params;
 global using FCSeafood.BLL.Common.Models.Response;
 global using FCSeafood.BusinessObjects.Models;

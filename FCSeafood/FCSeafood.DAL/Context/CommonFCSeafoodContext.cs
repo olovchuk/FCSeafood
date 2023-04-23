@@ -4,4 +4,5 @@ public class CommonFCSeafoodContext : DbContext {
     public CommonFCSeafoodContext(DbContextOptions<CommonFCSeafoodContext> options) : base(options) { }
 
     public DbSet<CategoryTypeDbo> CategoryTypeDbos { get; set; }
+    public DbSet<SubCategoryTypeDbo> SubCategoryTypeDbos { get; set; }
 }
