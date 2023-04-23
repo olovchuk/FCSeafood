@@ -1,0 +1,29 @@
+.why-us-card {
+  background-color: #538487;
+  height: 266px;
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  img {
+    height: 100px;
+    width: 100px;
+    margin-top: 40px;
+    background-color: #272727;
+    border-radius: 50%;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+
+  .description {
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 10px;
+  }
+}

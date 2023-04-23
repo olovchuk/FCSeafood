@@ -1,0 +1,36 @@
+:host {
+  .section-main {
+    height: 680px !important;
+
+    background: linear-gradient(90.34deg, rgba(0, 0, 0, 0.2) 35.68%, rgba(0, 0, 0, 0) 79.26%), url("/assets/images/home/home-bg-1.png") no-repeat center center;
+    background-size: cover;
+  }
+
+  .section-products {
+    background-color: #538487;
+  }
+
+  .section-first-purchase {
+    background: url("/assets/images/home/home-bg-2.jpg") no-repeat center center;
+    background-size: cover;
+
+    div:first-child {
+      background: rgba(7, 7, 7, 0.6);
+      backdrop-filter: blur(4px);
+    }
+  }
+
+  .section-why-us {
+    .why-us-cards {
+      max-width: calc(440px * 3 + (1.5rem * 6))
+    }
+  }
+
+  .section-best-offers {
+    background-color: #538487;
+  }
+
+  .section-description {
+    background-color: #538487;
+  }
+}

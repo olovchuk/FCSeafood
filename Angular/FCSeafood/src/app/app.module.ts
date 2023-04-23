@@ -13,6 +13,7 @@ import {GetToken} from "@common-services/auth/auth.service";
 import {AppSettings} from "@settings/app.settings";
 import {RefreshTokenInterceptor} from "@interceptors/refresh-token.interceptor/refresh-token.interceptor";
 import {PopupsComponentsModule} from "@modules/components/popups/popups-components.module";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {PopupsComponentsModule} from "@modules/components/popups/popups-componen
     MaterialModule,
     HttpClientModule,
     PopupsComponentsModule,
+    NgOptimizedImage,
     JwtModule.forRoot({
       config: {
         tokenGetter: GetToken,

@@ -31,7 +31,7 @@
               "src/web.config"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/css/FCSeafood-theme.scss",
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css",
               "node_modules/primeflex/themes/saga-blue.css"
@@ -98,7 +98,7 @@
               "src/web.config"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/css/FCSeafood-theme.scss",
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css",
               "node_modules/primeflex/themes/saga-blue.css"

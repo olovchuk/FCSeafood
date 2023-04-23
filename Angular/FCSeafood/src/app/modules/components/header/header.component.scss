@@ -1,4 +1,10 @@
 header {
-  height: 75px;
+  height: 120px;
   background-color: #197275;
+
+  .header-block {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  }
 }
