@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using FCSeafood.BLL.User.Auth.Helpers.Models.Claims;
-using FCSeafood.BusinessObjects;
 using FCSeafood.DAL.Events;
 
 namespace FCSeafood.BLL.User.Auth.Helpers;

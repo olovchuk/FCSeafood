@@ -2,7 +2,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using FCSeafood.BusinessObjects;
 using FCSeafood.DAL.Events;
 
 namespace FCSeafood.BLL.User.Auth.Helpers;

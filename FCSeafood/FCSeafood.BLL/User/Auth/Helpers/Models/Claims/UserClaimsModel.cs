@@ -1,5 +1,3 @@
-using FCSeafood.BusinessObjects;
-
 namespace FCSeafood.BLL.User.Auth.Helpers.Models.Claims;
 
 public class UserClaimsModel {
