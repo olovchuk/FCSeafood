@@ -36,7 +36,7 @@ public class CommonMapperHelper {
         return (true, model);
     }
 
-    public (bool success, IEnumerable<SubCategoryTypeModel>) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTypeDbo> listDbo) {
+    public (bool success, IEnumerable<SubCategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTypeDbo> listDbo) {
         if (listDbo.Equals(null)) return (false, Enumerable.Empty<SubCategoryTypeModel>());
 
         var listResult = new List<SubCategoryTypeModel>();
