@@ -46,4 +46,28 @@ public class CommonMapperHelper {
         }
         return (true, listResult);
     }
+
+    public (bool success, BindCategoryModel model) ToModel(DAL.Auxiliary.Models.BindCategoryDbo dbo) {
+        if (dbo.Equals(null)) return (false, new BindCategoryModel());
+
+        var config = new MapperConfiguration(cfg => {
+            cfg.CreateMap<DAL.Auxiliary.Models.BindCategoryDbo, BindCategoryModel>();
+        });
+        var maper = new Mapper(config);
+        var model = maper.Map<BindCategoryModel>(dbo);
+        model.CategoryTypeModel = EnumHelper.GetCategoryType(dbo.CategoryType);
+        model.SubCategoryTypeModel = EnumHelper.GetSubCategoryType(dbo.SubCategoryType);
+        return (true, model);
+    }
+
+    public (bool success, IEnumerable<BindCategoryModel> models) ToModel(IEnumerable<DAL.Auxiliary.Models.BindCategoryDbo> listDbo) {
+        if (listDbo.Equals(null)) return (false, Enumerable.Empty<BindCategoryModel>());
+
+        var listResult = new List<BindCategoryModel>();
+        foreach (var result in listDbo.Select(this.ToModel)) {
+            if (!result.success) return (false, Enumerable.Empty<BindCategoryModel>());
+            listResult.Add(result.model);
+        }
+        return (true, listResult);
+    }
 }

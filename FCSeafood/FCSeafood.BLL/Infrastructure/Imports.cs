@@ -1,5 +1,6 @@
 global using FCSeafood.BusinessObjects;
 global using Microsoft.Extensions.Logging;
+global using FCSeafood.BLL.Helpers;
 global using FCSeafood.BLL.User.Auth;
 global using FCSeafood.BLL.User.Auth.Helpers;
 global using FCSeafood.BLL.User.Auth.Settings;

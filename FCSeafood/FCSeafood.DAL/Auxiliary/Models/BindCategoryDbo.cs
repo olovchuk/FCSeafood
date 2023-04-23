@@ -1,7 +1,7 @@
 namespace FCSeafood.DAL.Auxiliary.Models;
 
 [Table("B_Category", Schema = "erfx")]
-public class BindCategory {
+public class BindCategoryDbo {
     [Column("PK_Category")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

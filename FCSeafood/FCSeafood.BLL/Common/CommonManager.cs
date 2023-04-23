@@ -35,7 +35,7 @@ public class CommonManager {
         try {
             var dbos = await _subCategoryTypeRepository.GetAllAsync();
             var result = _commonMapperHelper.ToModel(dbos);
-            if (!result.success) return new GetSubCategoryTypeResponse(false, "Something goes wrong when retrieving categories", Enumerable.Empty<SubCategoryTypeModel>());
+            if (!result.success) return new GetSubCategoryTypeResponse(false, "Something goes wrong when retrieving sub categories", Enumerable.Empty<SubCategoryTypeModel>());
             return new GetSubCategoryTypeResponse(true, "", result.models);
         } catch (Exception ex) {
             log.LogError($"Failed to get category type list;\r\nError: [{ex.Message}]");
@@ -45,10 +45,10 @@ public class CommonManager {
 
     public async Task<GetSubCategoryTypeResponse> GetSubCategoryTypeByCategoryTypeListAsync(GetSubCategoryTypeByCategoryTypeParams subCategoryTypeByCategoryTypeParams) {
         try {
-            var dbos = await _bindCategoryRepository.GetByCategoryType(subCategoryTypeByCategoryTypeParams.CategoryType);
-            var s = dbos.Select(x => x.SubCategoryType).ToList();
-            // TODO: Mapper
-            return new GetSubCategoryTypeResponse(true, "", new List<SubCategoryTypeModel>());
+            var dbos = await _bindCategoryRepository.GetByCategoryTypeAsync(subCategoryTypeByCategoryTypeParams.CategoryType);
+            var result = _commonMapperHelper.ToModel(dbos);
+            if (!result.success) return new GetSubCategoryTypeResponse(false, "Something goes wrong when retrieving sub categories", Enumerable.Empty<SubCategoryTypeModel>());
+            return new GetSubCategoryTypeResponse(true, "", result.models.Select(x => x.SubCategoryTypeModel));
         } catch (Exception ex) {
             log.LogError($"Failed to get category type list;\r\nError: [{ex.Message}]");
             return new GetSubCategoryTypeResponse(false, "Something goes wrong when retrieving sub categories", null);

@@ -7,6 +7,6 @@ public class BindCategoryRepository {
         this.db = db;
     }
 
-    public async Task<List<BindCategory>> GetByCategoryType(CategoryType categoryType) => await db.BindCategories.Where(x => x.CategoryType == categoryType).AsNoTracking().ToListAsync().ConfigureAwait(false);
-    public async Task<List<BindCategory>> GetBySubCategoryType(SubCategoryType subCategoryType) => await db.BindCategories.Where(x => x.SubCategoryType == subCategoryType).AsNoTracking().ToListAsync().ConfigureAwait(false);
+    public async Task<IReadOnlyCollection<BindCategoryDbo>> GetByCategoryTypeAsync(CategoryType categoryType) => await db.BindCategories.Where(x => x.CategoryType == categoryType).AsNoTracking().ToListAsync().ConfigureAwait(false);
+    public async Task<IReadOnlyCollection<BindCategoryDbo>> GetBySubCategoryTypeAsync(SubCategoryType subCategoryType) => await db.BindCategories.Where(x => x.SubCategoryType == subCategoryType).AsNoTracking().ToListAsync().ConfigureAwait(false);
 }
