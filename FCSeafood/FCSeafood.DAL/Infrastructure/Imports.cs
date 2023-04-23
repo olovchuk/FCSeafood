@@ -5,5 +5,6 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Logging;
 global using FCSeafood.DAL.Context;
 global using FCSeafood.DAL.Events.Models;
+global using FCSeafood.DAL.Events.Repository.Base;
 global using FCSeafood.DAL.Common.Models;
 global using FCSeafood.DAL.Auxiliary.Models;
