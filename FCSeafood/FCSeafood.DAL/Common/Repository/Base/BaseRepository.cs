@@ -10,6 +10,6 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
     }
 
     public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync() {
-        return await this.Entities.AsNoTracking().ToListAsync().ConfigureAwait(false);
+        return await this.Entities.Skip(1).AsNoTracking().ToListAsync().ConfigureAwait(false);
     }
 }

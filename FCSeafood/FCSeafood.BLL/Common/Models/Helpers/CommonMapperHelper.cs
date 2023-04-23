@@ -6,11 +6,7 @@ public class CommonMapperHelper {
     public (bool success, CategoryTypeModel model) ToModel(DAL.Common.Models.CategoryTypeDbo dbo) {
         if (dbo.Equals(null)) return (false, new CategoryTypeModel());
 
-        var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Common.Models.CategoryTypeDbo, CategoryTypeModel>();
-        });
-        var maper = new Mapper(config);
-        var model = maper.Map<CategoryTypeModel>(dbo);
+        var model = EnumHelper.GetCategoryType((CategoryType)dbo.Id);
         return (true, model);
     }
 
@@ -28,11 +24,7 @@ public class CommonMapperHelper {
     public (bool success, SubCategoryTypeModel model) ToModel(DAL.Common.Models.SubCategoryTypeDbo dbo) {
         if (dbo.Equals(null)) return (false, new SubCategoryTypeModel());
 
-        var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Common.Models.SubCategoryTypeDbo, SubCategoryTypeModel>();
-        });
-        var maper = new Mapper(config);
-        var model = maper.Map<SubCategoryTypeModel>(dbo);
+        var model = EnumHelper.GetSubCategoryType((SubCategoryType)dbo.Id);
         return (true, model);
     }
 
@@ -50,13 +42,10 @@ public class CommonMapperHelper {
     public (bool success, BindCategoryModel model) ToModel(DAL.Auxiliary.Models.BindCategoryDbo dbo) {
         if (dbo.Equals(null)) return (false, new BindCategoryModel());
 
-        var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Auxiliary.Models.BindCategoryDbo, BindCategoryModel>();
-        });
-        var maper = new Mapper(config);
-        var model = maper.Map<BindCategoryModel>(dbo);
-        model.CategoryTypeModel = EnumHelper.GetCategoryType(dbo.CategoryType);
-        model.SubCategoryTypeModel = EnumHelper.GetSubCategoryType(dbo.SubCategoryType);
+        var model = new BindCategoryModel {
+            CategoryTypeModel = EnumHelper.GetCategoryType(dbo.CategoryType)
+          , SubCategoryTypeModel = EnumHelper.GetSubCategoryType(dbo.SubCategoryType)
+        };
         return (true, model);
     }
 
