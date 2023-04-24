@@ -8,10 +8,10 @@ public class User {
     public Guid Id { get; set; }
 
     [Column("First_Name")]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = "";
 
     [Column("Last_Name")]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = "";
 
     [Column("FK_Role_Type")]
     public RoleType RoleType { get; set; }

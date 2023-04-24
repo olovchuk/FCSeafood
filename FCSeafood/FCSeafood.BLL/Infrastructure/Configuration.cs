@@ -21,6 +21,7 @@ public static class Configuration {
         serviceCollection.AddTransient<UserMapperHelper>();
         serviceCollection.AddTransient<CommonManager>();
         serviceCollection.AddTransient<CommonMapperHelper>();
+        serviceCollection.AddTransient<UserService>();
 
         // DAL
         serviceCollection.AddTransient<AddressRepository>();

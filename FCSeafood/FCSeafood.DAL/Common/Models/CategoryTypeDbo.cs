@@ -8,8 +8,8 @@ public class CategoryTypeDbo {
     public int Id { get; set; }
 
     [Column("Name")]
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 
     [Column("Image_Path")]
-    public string ImagePath { get; set; }
+    public string ImagePath { get; set; } = "";
 }

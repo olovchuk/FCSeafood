@@ -8,10 +8,10 @@ public class UserCredential {
     public Guid Id { get; set; }
 
     [Column("Email")]
-    public string Email { get; set; }
+    public string Email { get; set; } = "";
 
     [Column("Password")]
-    public string Password { get; set; }
+    public string Password { get; set; } = "";
 
     [Column("Last_Login_Date")]
     public DateTime? LastLoginDate { get; set; }

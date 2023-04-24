@@ -8,10 +8,10 @@ public class Item {
     public Guid Id { get; set; }
 
     [Column("Name")]
-    public string Name { get; set; }
+    public string Name { get; set; } = "";
 
     [Column("Code")]
-    public string Code { get; set; }
+    public string Code { get; set; } = "";
 
     [Column("FK_Price")]
     public Guid PriceId { get; set; }

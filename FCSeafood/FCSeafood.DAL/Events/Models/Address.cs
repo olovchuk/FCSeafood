@@ -8,13 +8,13 @@ public class Address {
     public Guid Id { get; set; }
 
     [Column("Country")]
-    public string Country { get; set; }
+    public string Country { get; set; } = "";
 
     [Column("City")]
-    public string City { get; set; }
+    public string City { get; set; } = "";
 
     [Column("Street")]
-    public string Street { get; set; }
+    public string Street { get; set; } = "";
 
     [Column("Apartment_Number")]
     public int ApartmentNumber { get; set; }
