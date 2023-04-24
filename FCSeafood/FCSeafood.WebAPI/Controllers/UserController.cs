@@ -23,7 +23,7 @@ public class UserController : ControllerBase {
 
     [HttpGet("GetUserInformation")]
     public async Task<IActionResult> GetUserInformation() {
-        var claimsValues = JWTClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
+        var claimsValues = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
         var result = await _userManager.GetUserInformationAsync(new GetUserInformationParams(claimsValues.UserId));
         if (!result.IsSuccessful) return BadRequest(result);
 

@@ -31,7 +31,7 @@ public class AuthController : ControllerBase {
 
     [HttpPost("SignOut")]
     public IActionResult _SignOut() {
-        var claims = JWTClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
+        var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
         var result = _jwtCookieAuthService.SignOut(new SignOutParams(claims.UserId));
         if (!result.IsSuccessful) return BadRequest(result);
 

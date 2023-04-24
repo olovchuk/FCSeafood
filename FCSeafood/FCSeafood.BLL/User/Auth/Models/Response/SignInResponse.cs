@@ -1,3 +1,3 @@
 namespace FCSeafood.BLL.User.Auth.Models.Response;
 
-public record SignInResponse(bool IsSuccessful, string Message, RoleType RoleType, Common.JWTAuthModel? JWTAuthModel) : IResponse;
+public record SignInResponse(bool IsSuccessful, string Message, RoleType RoleType, JwtAuthModel? JwtAuthModel) : IResponse;

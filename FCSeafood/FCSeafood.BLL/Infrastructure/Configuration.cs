@@ -15,8 +15,8 @@ public static class Configuration {
 
         // BLL
         serviceCollection.AddTransient<AuthManager>();
-        serviceCollection.AddTransient<AuthJWTHelper>();
-        serviceCollection.AddTransient<AuthRefreshJWTHelper>();
+        serviceCollection.AddTransient<AuthJwtHelper>();
+        serviceCollection.AddTransient<AuthRefreshJwtHelper>();
         serviceCollection.AddTransient<UserManager>();
         serviceCollection.AddTransient<UserMapperHelper>();
         serviceCollection.AddTransient<CommonManager>();

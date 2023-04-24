@@ -4,17 +4,18 @@ using FCSeafood.DAL.Events;
 
 namespace FCSeafood.BLL.User.Auth.Helpers;
 
-public class JWTClaimsHelper {
+public abstract class JwtClaimsHelper {
     public static UserClaimsModel GetUserClaims(IEnumerable<Claim> claims) {
         var result = new UserClaimsModel();
 
-        var userIdString = claims?.FirstOrDefault(x => x.Type.Equals(JWTCustomClaims.UserId, StringComparison.OrdinalIgnoreCase))?.Value;
+        var enumerable = claims as Claim[] ?? claims.ToArray();
+        var userIdString = enumerable.FirstOrDefault(x => x.Type.Equals(JwtCustomClaims.UserId, StringComparison.OrdinalIgnoreCase))?.Value;
         if (Guid.TryParse(userIdString, out var userId)) result.UserId = userId;
 
-        var userEmail = claims?.FirstOrDefault(x => x.Type.Equals(JWTCustomClaims.Email, StringComparison.OrdinalIgnoreCase))?.Value;
+        var userEmail = enumerable.FirstOrDefault(x => x.Type.Equals(JwtCustomClaims.Email, StringComparison.OrdinalIgnoreCase))?.Value;
         result.Email = userEmail ?? "";
 
-        var userRoleString = claims?.FirstOrDefault(x => x.Type.Equals(JWTCustomClaims.RoleType, StringComparison.OrdinalIgnoreCase))?.Value;
+        var userRoleString = enumerable?.FirstOrDefault(x => x.Type.Equals(JwtCustomClaims.RoleType, StringComparison.OrdinalIgnoreCase))?.Value;
         if (int.TryParse(userRoleString, out var userRole)) result.RoleType = (RoleType)userRole;
 
         return result;

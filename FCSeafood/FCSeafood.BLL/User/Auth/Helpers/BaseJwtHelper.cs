@@ -6,18 +6,18 @@ using FCSeafood.DAL.Events;
 
 namespace FCSeafood.BLL.User.Auth.Helpers;
 
-public abstract class BaseJWTHelper {
+public abstract class BaseJwtHelper {
     private readonly IJWTSettings _jwtSettings;
 
-    public BaseJWTHelper(IJWTSettings jwtSettings) {
+    public BaseJwtHelper(IJWTSettings jwtSettings) {
         _jwtSettings = jwtSettings;
     }
 
-    public string GenerateJWT(Guid userId, string userEmail, RoleType userRoleType) {
+    public string GenerateJwt(Guid userId, string userEmail, RoleType userRoleType) {
         var claims = new List<Claim> {
-            new(JWTCustomClaims.UserId, userId.ToString())
-          , new(JWTCustomClaims.Email, userEmail)
-          , new(JWTCustomClaims.RoleType, ((int)userRoleType).ToString())
+            new(JwtCustomClaims.UserId, userId.ToString())
+          , new(JwtCustomClaims.Email, userEmail)
+          , new(JwtCustomClaims.RoleType, ((int)userRoleType).ToString())
         };
 
         return TokenGenerator.GenerateJwtToken(_jwtSettings.Secret, _jwtSettings.Issuer, _jwtSettings.Audience, _jwtSettings.TokenLifeTime, claims);

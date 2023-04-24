@@ -22,8 +22,8 @@ public class JWTAuthCookieService {
 
         if (!result.IsSuccessful) return result;
 
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Access"), result.JWTAuthModel.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Refresh"), result.JWTAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Access"), result.JwtAuthModel.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Refresh"), result.JwtAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
         return result;
     }
 
@@ -32,8 +32,8 @@ public class JWTAuthCookieService {
 
         if (!result.IsSuccessful) return result;
 
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Access"), result.JWTAuthModel.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Refresh"), result.JWTAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Access"), result.JwtAuthModel.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Refresh"), result.JwtAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
         return result;
     }
 
