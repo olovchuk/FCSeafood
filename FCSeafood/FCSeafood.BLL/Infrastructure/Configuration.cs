@@ -9,21 +9,35 @@ namespace FCSeafood.BLL.Infrastructure;
 
 public static class Configuration {
     public static void ConfigurationService(IServiceCollection serviceCollection, string connectionString) {
+#region Context
+
         serviceCollection.AddDbContext<EventFCSeafoodContext>(options => options.UseSqlServer(connectionString));
         serviceCollection.AddDbContext<CommonFCSeafoodContext>(options => options.UseSqlServer(connectionString));
         serviceCollection.AddDbContext<AuxiliaryFCSeafoodContext>(options => options.UseSqlServer(connectionString));
 
-        // BLL
+#endregion
+
+#region BLL
+
+        // Managers
         serviceCollection.AddTransient<AuthManager>();
-        serviceCollection.AddTransient<AuthJwtHelper>();
-        serviceCollection.AddTransient<AuthRefreshJwtHelper>();
         serviceCollection.AddTransient<UserManager>();
-        serviceCollection.AddTransient<UserMapperHelper>();
         serviceCollection.AddTransient<CommonManager>();
-        serviceCollection.AddTransient<CommonMapperHelper>();
+
+        // Services
         serviceCollection.AddTransient<UserService>();
 
-        // DAL
+        // Helpers
+        serviceCollection.AddTransient<AuthJwtHelper>();
+        serviceCollection.AddTransient<AuthRefreshJwtHelper>();
+        serviceCollection.AddTransient<UserMapperHelper>();
+        serviceCollection.AddTransient<CommonMapperHelper>();
+
+#endregion
+
+#region DAL
+
+        // Repositories
         serviceCollection.AddTransient<AddressRepository>();
         serviceCollection.AddTransient<UserRepository>();
         serviceCollection.AddTransient<UserCredentialRepository>();
@@ -31,5 +45,7 @@ public static class Configuration {
         serviceCollection.AddTransient<CategoryTypeRepository>();
         serviceCollection.AddTransient<SubCategoryTypeRepository>();
         serviceCollection.AddTransient<BindCategoryRepository>();
+
+#endregion
     }
 }
