@@ -13,25 +13,25 @@ public class CommonController : ControllerBase {
         _commonManager = commonManager;
     }
 
-    [HttpGet("GetCategoryTypeList")]
-    public async Task<IActionResult> GetCategoryTypeListAsync() {
-        var result = await _commonManager.GetCategoryTypeListAsync();
+    [HttpGet("GetCategoryTList")]
+    public async Task<IActionResult> GetCategoryTListAsync() {
+        var result = await _commonManager.GetCategoryTListAsync();
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);
     }
 
-    [HttpGet("GetSubCategoryTypeList")]
-    public async Task<IActionResult> GetSubCategoryTypeListAsync() {
-        var result = await _commonManager.GetSubCategoryTypeListAsync();
+    [HttpGet("GetSubCategoryTList")]
+    public async Task<IActionResult> GetSubCategoryTListAsync() {
+        var result = await _commonManager.GetSubCategoryTListAsync();
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);
     }
 
-    [HttpGet("GetSubCategoryByCategoryTypeList")]
-    public async Task<IActionResult> GetSubCategoryTypeListAsync(GetSubCategoryTypeByCategoryTypeParams subCategoryTypeByCategoryTypeParams) {
-        var result = await _commonManager.GetSubCategoryTypeByCategoryTypeListAsync(subCategoryTypeByCategoryTypeParams);
+    [HttpGet("GetSubCategoryByCategoryTList")]
+    public async Task<IActionResult> GetSubCategoryTListAsync(CategoryTParams subCategoryTParams) {
+        var result = await _commonManager.GetSubCategoryTListAsync(subCategoryTParams);
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);

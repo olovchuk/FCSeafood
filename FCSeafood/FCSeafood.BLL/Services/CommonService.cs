@@ -8,21 +8,21 @@ public class CommonService {
 
     private readonly CommonMapperHelper _commonMapperHelper;
     private readonly BindCategoryRepository _bindCategoryRepository;
-    private readonly CategoryTypeRepository _categoryTypeRepository;
-    private readonly SubCategoryTypeRepository _subCategoryTypeRepository;
+    private readonly CategoryTRepository _categoryTRepository;
+    private readonly SubCategoryTRepository _subCategoryTRepository;
 
-    public CommonService(CommonMapperHelper commonMapperHelper, BindCategoryRepository bindCategoryRepository, CategoryTypeRepository categoryTypeRepository, SubCategoryTypeRepository subCategoryTypeRepository) {
+    public CommonService(CommonMapperHelper commonMapperHelper, BindCategoryRepository bindCategoryRepository, CategoryTRepository categoryTRepository, SubCategoryTRepository subCategoryTRepository) {
         _commonMapperHelper = commonMapperHelper;
         _bindCategoryRepository = bindCategoryRepository;
-        _categoryTypeRepository = categoryTypeRepository;
-        _subCategoryTypeRepository = subCategoryTypeRepository;
+        _categoryTRepository = categoryTRepository;
+        _subCategoryTRepository = subCategoryTRepository;
     }
 
 #region CategoryType
 
     public async Task<IReadOnlyCollection<CategoryTypeModel>> GetCategoryTypeListAsync() {
         try {
-            var categoryTypeListDbo = await _categoryTypeRepository.GetAllAsync();
+            var categoryTypeListDbo = await _categoryTRepository.GetAllAsync();
 
             var result = _commonMapperHelper.ToModel(categoryTypeListDbo);
             return result.success ? result.models : Array.Empty<CategoryTypeModel>();
@@ -38,7 +38,7 @@ public class CommonService {
 
     public async Task<IReadOnlyCollection<SubCategoryTypeModel>> GetSubCategoryTypeListAsync() {
         try {
-            var subCategoryTypeListDbo = await _subCategoryTypeRepository.GetAllAsync();
+            var subCategoryTypeListDbo = await _subCategoryTRepository.GetAllAsync();
 
             var result = _commonMapperHelper.ToModel(subCategoryTypeListDbo);
             return result.success ? result.models : Array.Empty<SubCategoryTypeModel>();

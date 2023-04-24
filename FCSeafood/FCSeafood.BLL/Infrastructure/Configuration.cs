@@ -42,8 +42,8 @@ public static class Configuration {
         serviceCollection.AddTransient<UserRepository>();
         serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<ItemRepository>();
-        serviceCollection.AddTransient<CategoryTypeRepository>();
-        serviceCollection.AddTransient<SubCategoryTypeRepository>();
+        serviceCollection.AddTransient<CategoryTRepository>();
+        serviceCollection.AddTransient<SubCategoryTRepository>();
         serviceCollection.AddTransient<BindCategoryRepository>();
 
 #endregion

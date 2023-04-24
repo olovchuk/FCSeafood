@@ -3,11 +3,11 @@ using AutoMapper;
 namespace FCSeafood.BLL.Helpers;
 
 public class CommonMapperHelper {
-    public (bool success, CategoryTypeModel model) ToModel(DAL.Common.Models.CategoryTypeDbo dbo) {
+    public (bool success, CategoryTypeModel model) ToModel(DAL.Common.Models.CategoryTDbo dbo) {
         if (dbo.Equals(null)) return (false, new CategoryTypeModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Common.Models.CategoryTypeDbo, CategoryTypeModel>()
+            cfg.CreateMap<DAL.Common.Models.CategoryTDbo, CategoryTypeModel>()
                .ForMember(memberOptions => memberOptions.Type
                         , options => options.MapFrom(source => Enum.GetName(typeof(CategoryType), source.Id)));
         });
@@ -16,7 +16,7 @@ public class CommonMapperHelper {
         return (true, model);
     }
 
-    public (bool success, IReadOnlyCollection<CategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.CategoryTypeDbo> listDbo) {
+    public (bool success, IReadOnlyCollection<CategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.CategoryTDbo> listDbo) {
         if (listDbo.Equals(null)) return (false, Array.Empty<CategoryTypeModel>());
 
         var listResult = new List<CategoryTypeModel>();
@@ -27,11 +27,11 @@ public class CommonMapperHelper {
         return (true, listResult);
     }
 
-    public (bool success, SubCategoryTypeModel model) ToModel(DAL.Common.Models.SubCategoryTypeDbo dbo) {
+    public (bool success, SubCategoryTypeModel model) ToModel(DAL.Common.Models.SubCategoryTDbo dbo) {
         if (dbo.Equals(null)) return (false, new SubCategoryTypeModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Common.Models.SubCategoryTypeDbo, SubCategoryTypeModel>()
+            cfg.CreateMap<DAL.Common.Models.SubCategoryTDbo, SubCategoryTypeModel>()
                .ForMember(memberOptions => memberOptions.Type
                         , options => options.MapFrom(source => Enum.GetName(typeof(SubCategoryType), source.Id)));
         });
@@ -40,7 +40,7 @@ public class CommonMapperHelper {
         return (true, model);
     }
 
-    public (bool success, IReadOnlyCollection<SubCategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTypeDbo> listDbo) {
+    public (bool success, IReadOnlyCollection<SubCategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTDbo> listDbo) {
         if (listDbo.Equals(null)) return (false, Array.Empty<SubCategoryTypeModel>());
 
         var listResult = new List<SubCategoryTypeModel>();
