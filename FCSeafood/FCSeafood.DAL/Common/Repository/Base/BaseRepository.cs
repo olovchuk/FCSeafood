@@ -1,15 +1,25 @@
 namespace FCSeafood.DAL.Common.Repository.Base;
 
 public abstract class BaseRepository<TEntity> where TEntity : class {
-    protected readonly CommonFCSeafoodContext context;
+    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(TEntity));
+
+    protected readonly CommonFCSeafoodContext Context;
     protected DbSet<TEntity> Entities { get; }
 
     protected BaseRepository(CommonFCSeafoodContext context) {
-        this.context = context;
-        Entities = this.context.Set<TEntity>();
+        this.Context = context;
+        Entities = this.Context.Set<TEntity>();
     }
 
-    public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync() {
-        return await this.Entities.Skip(1).AsNoTracking().ToListAsync().ConfigureAwait(false);
+    protected IQueryable<TEntity> NoTracking() => this.Entities.AsNoTracking();
+
+    public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync(bool skipNoneValues = true) {
+        try {
+            if (skipNoneValues) return await this.NoTracking().Skip(1).ToListAsync().ConfigureAwait(false);
+            else return await this.NoTracking().ToListAsync().ConfigureAwait(false);
+        } catch (Exception ex) {
+            _loggger.LogError($"An error was caught while manipulating the database;\r\nError: [{ex.Message}]");
+            return Array.Empty<TEntity>();
+        }
     }
 }

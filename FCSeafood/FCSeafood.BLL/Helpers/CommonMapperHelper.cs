@@ -16,12 +16,12 @@ public class CommonMapperHelper {
         return (true, model);
     }
 
-    public (bool success, IEnumerable<CategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.CategoryTypeDbo> listDbo) {
-        if (listDbo.Equals(null)) return (false, Enumerable.Empty<CategoryTypeModel>());
+    public (bool success, IReadOnlyCollection<CategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.CategoryTypeDbo> listDbo) {
+        if (listDbo.Equals(null)) return (false, Array.Empty<CategoryTypeModel>());
 
         var listResult = new List<CategoryTypeModel>();
         foreach (var result in listDbo.Select(this.ToModel)) {
-            if (!result.success) return (false, Enumerable.Empty<CategoryTypeModel>());
+            if (!result.success) return (false, Array.Empty<CategoryTypeModel>());
             listResult.Add(result.model);
         }
         return (true, listResult);
@@ -40,12 +40,12 @@ public class CommonMapperHelper {
         return (true, model);
     }
 
-    public (bool success, IEnumerable<SubCategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTypeDbo> listDbo) {
-        if (listDbo.Equals(null)) return (false, Enumerable.Empty<SubCategoryTypeModel>());
+    public (bool success, IReadOnlyCollection<SubCategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTypeDbo> listDbo) {
+        if (listDbo.Equals(null)) return (false, Array.Empty<SubCategoryTypeModel>());
 
         var listResult = new List<SubCategoryTypeModel>();
         foreach (var result in listDbo.Select(this.ToModel)) {
-            if (!result.success) return (false, Enumerable.Empty<SubCategoryTypeModel>());
+            if (!result.success) return (false, Array.Empty<SubCategoryTypeModel>());
             listResult.Add(result.model);
         }
         return (true, listResult);
@@ -61,12 +61,12 @@ public class CommonMapperHelper {
         return (true, model);
     }
 
-    public (bool success, IEnumerable<BindCategoryModel> models) ToModel(IEnumerable<DAL.Auxiliary.Models.BindCategoryDbo> listDbo) {
-        if (listDbo.Equals(null)) return (false, Enumerable.Empty<BindCategoryModel>());
+    public (bool success, IReadOnlyCollection<BindCategoryModel> models) ToModel(IEnumerable<DAL.Auxiliary.Models.BindCategoryDbo> listDbo) {
+        if (listDbo.Equals(null)) return (false, Array.Empty<BindCategoryModel>());
 
         var listResult = new List<BindCategoryModel>();
         foreach (var result in listDbo.Select(this.ToModel)) {
-            if (!result.success) return (false, Enumerable.Empty<BindCategoryModel>());
+            if (!result.success) return (false, Array.Empty<BindCategoryModel>());
             listResult.Add(result.model);
         }
         return (true, listResult);
