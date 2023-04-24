@@ -37,7 +37,7 @@ public class AuthManager {
             return new SignInResponse(true, "", refreshUserResult.RoleType, jwtAuthModel);
         } catch (Exception ex) {
             _loggger.LogError($"An error occurred during management;\r\nError: [{ex.Message}]");
-            return new SignInResponse(false, ex.Message, 0, null);
+            return new SignInResponse(false, GlobalMessageError, 0, null);
         }
     }
 
