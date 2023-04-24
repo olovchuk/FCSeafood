@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace FCSeafood.BLL.Common.Models.Helpers;
+namespace FCSeafood.BLL.Helpers;
 
 public class CommonMapperHelper {
     public (bool success, CategoryTypeModel model) ToModel(DAL.Common.Models.CategoryTypeDbo dbo) {

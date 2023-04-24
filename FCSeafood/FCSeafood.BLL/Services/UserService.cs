@@ -1,5 +1,3 @@
-using FCSeafood.BusinessObjects.Models.Events;
-using FCSeafood.DAL.Events.Models;
 using FCSeafood.DAL.Events.Repository;
 
 namespace FCSeafood.BLL.Services;

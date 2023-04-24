@@ -1,8 +1,7 @@
 using AutoMapper;
-using FCSeafood.BusinessObjects.Models.Events;
 using FCSeafood.DAL.Events.Repository;
 
-namespace FCSeafood.BLL.User.Info.Helpers;
+namespace FCSeafood.BLL.Helpers;
 
 public class UserMapperHelper {
     private readonly AddressRepository _addressRepository;
