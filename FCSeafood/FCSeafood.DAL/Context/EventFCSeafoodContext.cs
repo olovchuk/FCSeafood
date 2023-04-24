@@ -3,8 +3,8 @@ namespace FCSeafood.DAL.Context;
 public class EventFCSeafoodContext : DbContext {
     public EventFCSeafoodContext(DbContextOptions<EventFCSeafoodContext> options) : base(options) { }
 
-    public DbSet<Address> Addresses { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<UserCredential> UserCredentials { get; set; }
-    public DbSet<Item> Items { get; set; }
+    public DbSet<AddressDbo> Addresses { get; set; }
+    public DbSet<UserDbo> Users { get; set; }
+    public DbSet<UserCredentialDbo> UserCredentials { get; set; }
+    public DbSet<ItemDbo> Items { get; set; }
 }

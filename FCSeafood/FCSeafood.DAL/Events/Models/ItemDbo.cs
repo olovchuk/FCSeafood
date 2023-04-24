@@ -1,7 +1,7 @@
 namespace FCSeafood.DAL.Events.Models;
 
 [Table("T_Item", Schema = "dbo")]
-public class Item {
+public class ItemDbo {
     [Column("PK_Item")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

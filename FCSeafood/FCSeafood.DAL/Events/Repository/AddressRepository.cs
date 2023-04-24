@@ -1,5 +1,5 @@
 namespace FCSeafood.DAL.Events.Repository;
 
-public class AddressRepository : BaseRepository<Address> {
+public class AddressRepository : BaseRepository<AddressDbo> {
     public AddressRepository(EventFCSeafoodContext context) : base(context) { }
 }

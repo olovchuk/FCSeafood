@@ -1,7 +1,7 @@
 namespace FCSeafood.DAL.Events.Models;
 
 [Table("T_User_Credentials", Schema = "dbo")]
-public class UserCredential {
+public class UserCredentialDbo {
     [Column("PK_User")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

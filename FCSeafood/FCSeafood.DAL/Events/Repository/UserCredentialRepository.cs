@@ -1,13 +1,13 @@
 namespace FCSeafood.DAL.Events.Repository;
 
-public class UserCredentialRepository : BaseRepository<UserCredential> {
+public class UserCredentialRepository : BaseRepository<UserCredentialDbo> {
     private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(UserCredentialRepository));
 
     public UserCredentialRepository(EventFCSeafoodContext context) : base(context) { }
 
-    public async Task<UserCredential?> GetByUserIdAsync(Guid id) => await this.FindByConditionAsync(x => x.Id == id);
+    public async Task<UserCredentialDbo?> GetByUserIdAsync(Guid id) => await this.FindByConditionAsync(x => x.Id == id);
 
-    public async Task<UserCredential?> GetByEmailAsync(string email) => await this.FindByConditionAsync(uc => uc.Email == email);
+    public async Task<UserCredentialDbo?> GetByEmailAsync(string email) => await this.FindByConditionAsync(uc => uc.Email == email);
 
     public async Task<Guid> GetUserIdByEmailAsync(string email) {
         try {

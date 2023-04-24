@@ -10,12 +10,12 @@ public class UserMapperHelper {
         _addressRepository = addressRepository;
     }
 
-    public async Task<UserModel?> ToModelAsync(DAL.Events.Models.User dbo) {
+    public async Task<UserModel?> ToModelAsync(DAL.Events.Models.UserDbo dbo) {
         if (dbo.Equals(null)) return null;
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Events.Models.User, UserModel>();
-            cfg.CreateMap<DAL.Events.Models.Address, AddressModel>();
+            cfg.CreateMap<DAL.Events.Models.UserDbo, UserModel>();
+            cfg.CreateMap<DAL.Events.Models.AddressDbo, AddressModel>();
         });
         var maper = new Mapper(config);
         var userModel = maper.Map<UserModel>(dbo);
@@ -31,11 +31,11 @@ public class UserMapperHelper {
         return userModel;
     }
 
-    public (bool success, UserCredentialModel model) ToModel(DAL.Events.Models.UserCredential dbo) {
+    public (bool success, UserCredentialModel model) ToModel(DAL.Events.Models.UserCredentialDbo dbo) {
         if (dbo.Equals(null)) return (false, new UserCredentialModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Events.Models.UserCredential, UserCredentialModel>();
+            cfg.CreateMap<DAL.Events.Models.UserCredentialDbo, UserCredentialModel>();
         });
         var maper = new Mapper(config);
         var model = maper.Map<UserCredentialModel>(dbo);

@@ -1,7 +1,7 @@
 namespace FCSeafood.DAL.Events.Models;
 
 [Table("T_Address", Schema = "dbo")]
-public class Address {
+public class AddressDbo {
     [Column("PK_Address")]
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
