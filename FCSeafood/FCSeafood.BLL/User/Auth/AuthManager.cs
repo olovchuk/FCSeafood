@@ -36,7 +36,7 @@ public class AuthManager {
             var jwtAuthModel = new JWTAuthModel(refreshUserResult.JWTAuthModel?.AccessToken!, refreshUserResult.JWTAuthModel?.RefreshToken!);
             return new SignInResponse(true, "", refreshUserResult.RoleType, jwtAuthModel);
         } catch (Exception ex) {
-            _loggger.LogError($"Failed to sign in;\r\nEmail: [{singInParams.Email}]\r\nError: [{ex.Message}]");
+            _loggger.LogError($"An error occurred during management;\r\nError: [{ex.Message}]");
             return new SignInResponse(false, ex.Message, 0, null);
         }
     }
@@ -61,7 +61,7 @@ public class AuthManager {
 
             return new SignInRefreshResponse(true, "", new JWTAuthModel(accessToken, refreshToken));
         } catch (Exception ex) {
-            _loggger.LogError($"Failed to sign in refresh;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"An error occurred during management;\r\nError: [{ex.Message}]");
             return new SignInRefreshResponse(false, GlobalMessageError, null);
         }
     }
@@ -77,7 +77,7 @@ public class AuthManager {
 
             return new RefreshUserResponse(true, "", userParams.User.RoleType, new JWTAuthModel(accessToken, refreshToken));
         } catch (Exception ex) {
-            _loggger.LogError($"Failed to refresh user;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"An error occurred during management;\r\nError: [{ex.Message}]");
             return new RefreshUserResponse(false, GlobalMessageError, 0, null);
         }
     }
