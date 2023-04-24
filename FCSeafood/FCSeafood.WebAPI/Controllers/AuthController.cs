@@ -1,15 +1,14 @@
 using FCSeafood.BLL.User.Auth.Helpers;
 using FCSeafood.BLL.User.Auth.Models.Params;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FCSeafood.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class AuthController : ControllerBase {
-    private readonly JWTAuthCookieService _jwtCookieAuthService;
+    private readonly JwtAuthCookieService _jwtCookieAuthService;
 
-    public AuthController(JWTAuthCookieService jwtCookieAuthService) {
+    public AuthController(JwtAuthCookieService jwtCookieAuthService) {
         _jwtCookieAuthService = jwtCookieAuthService;
     }
 
@@ -22,8 +21,8 @@ public class AuthController : ControllerBase {
     }
 
     [HttpPost("SignInRefresh")]
-    public async Task<IActionResult> SignInRefreshAsync(SignInRefreshParams SignInRefreshParams) {
-        var result = await _jwtCookieAuthService.SignInRefreshAsync(SignInRefreshParams);
+    public async Task<IActionResult> SignInRefreshAsync(SignInRefreshParams signInRefreshParams) {
+        var result = await _jwtCookieAuthService.SignInRefreshAsync(signInRefreshParams);
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);

@@ -4,17 +4,17 @@ using FCSeafood.BLL.User.Auth.Models.Response;
 
 namespace FCSeafood.WebAPI.Services;
 
-public class JWTAuthCookieService {
+public class JwtAuthCookieService {
     private readonly AuthManager _authManager;
     private readonly CookieHelper _cookieHelper;
-    private readonly JWTAuthSettings _jwtAuthSettings;
-    public readonly IConfiguration _configuration;
+    private readonly JwtAuthSettings _jwtAuthSettings;
+    public readonly IConfiguration Configuration;
 
-    public JWTAuthCookieService(AuthManager authManager, CookieHelper cookieHelper, JWTAuthSettings jwtAuthSettings, IConfiguration configuration) {
+    public JwtAuthCookieService(AuthManager authManager, CookieHelper cookieHelper, JwtAuthSettings jwtAuthSettings, IConfiguration configuration) {
         _authManager = authManager;
         _cookieHelper = cookieHelper;
         _jwtAuthSettings = jwtAuthSettings;
-        _configuration = configuration;
+        Configuration = configuration;
     }
 
     public async Task<SignInResponse> SignInAsync(SignInParams signInParams) {
@@ -22,8 +22,8 @@ public class JWTAuthCookieService {
 
         if (!result.IsSuccessful) return result;
 
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Access"), result.JwtAuthModel.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Refresh"), result.JwtAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(Configuration.GetValue<string>("TokenKeys:Access")!, result.JwtAuthModel!.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(Configuration.GetValue<string>("TokenKeys:Refresh")!, result.JwtAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
         return result;
     }
 
@@ -32,14 +32,14 @@ public class JWTAuthCookieService {
 
         if (!result.IsSuccessful) return result;
 
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Access"), result.JwtAuthModel.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
-        _cookieHelper.SetCookie(_configuration.GetValue<string>("TokenKeys:Refresh"), result.JwtAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(Configuration.GetValue<string>("TokenKeys:Access")!, result.JwtAuthModel!.AccessToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
+        _cookieHelper.SetCookie(Configuration.GetValue<string>("TokenKeys:Refresh")!, result.JwtAuthModel.RefreshToken, TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime), false);
         return result;
     }
 
     public SignOutResponse SignOut(SignOutParams signOutParams) {
-        _cookieHelper.RemoveCookie(_configuration.GetValue<string>("TokenKeys:Access"));
-        _cookieHelper.RemoveCookie(_configuration.GetValue<string>("TokenKeys:Refresh"));
+        _cookieHelper.RemoveCookie(Configuration.GetValue<string>("TokenKeys:Access")!);
+        _cookieHelper.RemoveCookie(Configuration.GetValue<string>("TokenKeys:Refresh")!);
 
         return new SignOutResponse(true, "");
     }
