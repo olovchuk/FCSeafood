@@ -1,4 +1,6 @@
-namespace FCSeafood.BusinessObjects.Models;
+using FCSeafood.BusinessObjects.Models.Common;
+
+namespace FCSeafood.BusinessObjects.Models.Auxiliary;
 
 public class BindCategoryModel {
     public CategoryTypeModel CategoryTypeModel { get; set; } = new();

@@ -1,4 +1,4 @@
-namespace FCSeafood.BusinessObjects.Models;
+namespace FCSeafood.BusinessObjects.Models.Events;
 
 public class AddressModel {
     public Guid Id { get; set; }

@@ -1,4 +1,4 @@
-namespace FCSeafood.BusinessObjects.Models;
+namespace FCSeafood.BusinessObjects.Models.Common;
 
 public class CategoryTypeModel {
     public CategoryType Type { get; set; }
