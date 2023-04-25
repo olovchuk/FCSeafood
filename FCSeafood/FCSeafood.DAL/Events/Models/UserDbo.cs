@@ -14,13 +14,13 @@ public class UserDbo {
     public string LastName { get; set; } = "";
 
     [Column("FK_Role_Type")]
-    public RoleType RoleType { get; set; }
+    public RoleType RoleType { get; set; } = RoleType.User;
 
     [Column("FK_Gender_Type")]
-    public GenderType GenderType { get; set; }
+    public GenderType GenderType { get; set; } = GenderType.None;
 
     [Column("IsActive")]
-    public bool IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
 
     [Column("IsVerified")]
     public bool IsVerified { get; set; }
@@ -38,8 +38,8 @@ public class UserDbo {
     public Guid? AddressId { get; set; }
 
     [Column("Created_Date")]
-    public DateTime CreatedDate { get; set; }
+    public DateTime CreatedDate { get; set; } = DateTime.Now;
 
     [Column("Updated_Date")]
-    public DateTime UpdatedDate { get; set; }
+    public DateTime UpdatedDate { get; set; } = DateTime.Now;
 }
