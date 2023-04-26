@@ -22,8 +22,8 @@ public class UserService {
             var userDbo = await _userRepository.FindByConditionAsync(x => x.Id == id);
             if (userDbo is null) return null;
 
-            // TODO: Replace "ToModelAsync" to "ToModel"
-            return await _userMapperHelper.ToModelAsync(userDbo);
+            var result = await _userMapperHelper.ToModel(userDbo);
+            return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
             return null;
@@ -36,7 +36,7 @@ public class UserService {
 
     public async Task<UserCredentialModel?> GetCredentialByUserIdAsync(Guid id) {
         try {
-            var userCredentialDbo = await _credentialRepository.GetByUserIdAsync(id);
+            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
             if (userCredentialDbo is null) return null;
 
             var result = _userMapperHelper.ToModel(userCredentialDbo);
@@ -49,7 +49,7 @@ public class UserService {
 
     public async Task<UserCredentialModel?> GetCredentialByEmailAsync(string email) {
         try {
-            var userCredentialDbo = await _credentialRepository.GetByEmailAsync(email);
+            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
             if (userCredentialDbo is null) return null;
 
             var result = _userMapperHelper.ToModel(userCredentialDbo);
@@ -62,7 +62,8 @@ public class UserService {
 
     public async Task<bool> IsExistsCredentialAsync(Guid id, string email, string password) {
         try {
-            return await _credentialRepository.IsExistsAsync(id, email, password);
+            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id && x.Email == email && x.Password == password);
+            return userCredentialDbo is not null;
         } catch (Exception ex) {
             _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
             return false;
@@ -71,7 +72,11 @@ public class UserService {
 
     public async Task SetLastLoginDateAsync(Guid id) {
         try {
-            await _credentialRepository.SetLastLoginDateAsync(id);
+            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
+            if (userCredentialDbo is null) return;
+
+            userCredentialDbo.LastLoginDate = DateTime.Now;
+            await _credentialRepository.UpdateAsync(userCredentialDbo);
         } catch (Exception ex) {
             _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
         }
