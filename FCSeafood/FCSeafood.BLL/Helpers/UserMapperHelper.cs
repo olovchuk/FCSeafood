@@ -4,31 +4,32 @@ using FCSeafood.DAL.Events.Repository;
 namespace FCSeafood.BLL.Helpers;
 
 public class UserMapperHelper {
-    private readonly AddressRepository _addressRepository;
+    private readonly UserService _userService;
+    private readonly AddressService _addressService;
 
-    public UserMapperHelper(AddressRepository addressRepository) {
-        _addressRepository = addressRepository;
+    public UserMapperHelper(UserService userService, AddressService addressService) {
+        _userService = userService;
+        _addressService = addressService;
     }
 
-    public async Task<UserModel?> ToModelAsync(DAL.Events.Models.UserDbo dbo) {
-        if (dbo.Equals(null)) return null;
+    public async ValueTask<(bool success, UserModel model)> ToModel(DAL.Events.Models.UserDbo dbo) {
+        if (dbo.Equals(null)) return (false, new UserModel());
 
         var config = new MapperConfiguration(cfg => {
             cfg.CreateMap<DAL.Events.Models.UserDbo, UserModel>();
-            cfg.CreateMap<DAL.Events.Models.AddressDbo, AddressModel>();
         });
         var maper = new Mapper(config);
-        var userModel = maper.Map<UserModel>(dbo);
+        var model = maper.Map<UserModel>(dbo);
 
         if (dbo.AddressId is not null) {
-            var addressId = dbo.AddressId ?? Guid.Empty;
-
-            // TODO: Use address service
-            var address = await _addressRepository.FindByConditionAsync(x => x.Id == addressId);
-            userModel.Address = maper.Map(address, userModel.Address);
+            var addressModel = await _addressService.GetAddressAsync(dbo.AddressId ?? Guid.Empty);
+            if (addressModel is not null) model.Address = addressModel;
         }
 
-        return userModel;
+        var email = await _userService.GetUserEmailAsync(dbo.Id);
+        if (!string.IsNullOrWhiteSpace(email)) model.Email = email;
+
+        return (true, model);
     }
 
     public (bool success, UserCredentialModel model) ToModel(DAL.Events.Models.UserCredentialDbo dbo) {

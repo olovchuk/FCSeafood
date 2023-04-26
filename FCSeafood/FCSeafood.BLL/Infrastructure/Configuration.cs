@@ -25,11 +25,14 @@ public static class Configuration {
         serviceCollection.AddTransient<CommonManager>();
 
         // Services
+        serviceCollection.AddTransient<AddressService>();
         serviceCollection.AddTransient<UserService>();
+        serviceCollection.AddTransient<CommonService>();
 
         // Helpers
         serviceCollection.AddTransient<AuthJwtHelper>();
         serviceCollection.AddTransient<AuthRefreshJwtHelper>();
+        serviceCollection.AddTransient<AddressMapperHelper>();
         serviceCollection.AddTransient<UserMapperHelper>();
         serviceCollection.AddTransient<CommonMapperHelper>();
 

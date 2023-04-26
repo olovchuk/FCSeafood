@@ -34,6 +34,16 @@ public class UserService {
 
 #region Credential
 
+    public async Task<string> GetUserEmailAsync(Guid id) {
+        try {
+            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
+            return userCredentialDbo is null ? string.Empty : userCredentialDbo.Email;
+        } catch (Exception ex) {
+            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            return string.Empty;
+        }
+    }
+
     public async Task<UserCredentialModel?> GetCredentialByUserIdAsync(Guid id) {
         try {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
