@@ -1,4 +1,5 @@
 global using FCSeafood.BusinessObjects;
+global using FCSeafood.BusinessObjects.Error;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Microsoft.EntityFrameworkCore;

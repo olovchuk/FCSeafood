@@ -27,7 +27,7 @@ public class CommonService {
             var result = _commonMapperHelper.ToModel(categoryTypeListDbo);
             return result.success ? result.models : Array.Empty<CategoryTypeModel>();
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<CategoryTypeModel>();
         }
     }
@@ -43,7 +43,7 @@ public class CommonService {
             var result = _commonMapperHelper.ToModel(subCategoryTypeListDbo);
             return result.success ? result.models : Array.Empty<SubCategoryTypeModel>();
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<SubCategoryTypeModel>();
         }
     }
@@ -59,7 +59,7 @@ public class CommonService {
             var result = _commonMapperHelper.ToModel(bindCategoryListDbos);
             return result.success ? result.models : Array.Empty<BindCategoryModel>();
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<BindCategoryModel>();
         }
     }

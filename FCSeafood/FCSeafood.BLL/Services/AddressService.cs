@@ -21,7 +21,7 @@ public class AddressService {
             var result = _addressMapperHelper.ToModel(addressDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }

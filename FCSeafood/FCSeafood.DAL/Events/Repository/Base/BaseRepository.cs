@@ -20,7 +20,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
             await this.Entities.AddAsync(data).ConfigureAwait(false);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
-            _loggger.LogError($"An error was caught while manipulating the database;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
         }
     }
 
@@ -28,7 +28,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
         try {
             return await this.NoTracking().ToListAsync().ConfigureAwait(false);
         } catch (Exception ex) {
-            _loggger.LogError($"An error was caught while manipulating the database;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<TEntity>();
         }
     }
@@ -37,7 +37,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
         try {
             return await this.NoTracking().FirstOrDefaultAsync(predicate).ConfigureAwait(false);
         } catch (Exception ex) {
-            _loggger.LogError($"An error was caught while manipulating the database;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
@@ -46,7 +46,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
         try {
             return await this.NoTracking().Where(predicate).ToListAsync().ConfigureAwait(false);
         } catch (Exception ex) {
-            _loggger.LogError($"An error was caught while manipulating the database;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<TEntity>();
         }
     }
@@ -56,7 +56,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
             this.Entities.Update(data);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
-            _loggger.LogError($"An error was caught while manipulating the database;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
         }
     }
 }

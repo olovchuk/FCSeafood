@@ -1,4 +1,6 @@
 global using FCSeafood.BusinessObjects;
+global using FCSeafood.BusinessObjects.Error;
+global using FCSeafood.BusinessObjects.Interfaces;
 global using FCSeafood.BusinessObjects.Models.Auxiliary;
 global using FCSeafood.BusinessObjects.Models.Events;
 global using FCSeafood.BusinessObjects.Models.Common;
@@ -20,4 +22,3 @@ global using FCSeafood.BLL.User.Info.Models.Response;
 global using FCSeafood.BLL.Common;
 global using FCSeafood.BLL.Common.Models.Params;
 global using FCSeafood.BLL.Common.Models.Response;
-global using FCSeafood.BusinessObjects.Interfaces;

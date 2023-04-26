@@ -25,7 +25,7 @@ public class UserService {
             var result = await _userMapperHelper.ToModel(userDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
@@ -39,7 +39,7 @@ public class UserService {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
             return userCredentialDbo is null ? string.Empty : userCredentialDbo.Email;
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return string.Empty;
         }
     }
@@ -52,7 +52,7 @@ public class UserService {
             var result = _userMapperHelper.ToModel(userCredentialDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
@@ -65,7 +65,7 @@ public class UserService {
             var result = _userMapperHelper.ToModel(userCredentialDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
@@ -75,7 +75,7 @@ public class UserService {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id && x.Email == email && x.Password == password);
             return userCredentialDbo is not null;
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return false;
         }
     }
@@ -88,7 +88,7 @@ public class UserService {
             userCredentialDbo.LastLoginDate = DateTime.Now;
             await _credentialRepository.UpdateAsync(userCredentialDbo);
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during a service operation;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
         }
     }
 

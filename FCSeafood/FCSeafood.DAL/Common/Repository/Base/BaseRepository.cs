@@ -18,7 +18,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
             if (skipNoneValues) return await this.NoTracking().Skip(1).ToListAsync().ConfigureAwait(false);
             else return await this.NoTracking().ToListAsync().ConfigureAwait(false);
         } catch (Exception ex) {
-            _loggger.LogError($"An error was caught while manipulating the database;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<TEntity>();
         }
     }
