@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
               , ValidateAudience = true
               , ValidAudience = builder.Configuration.GetValue<string>("JWTAuthSetting:AuthAudience")
               , ValidateLifetime = true
-              , IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("JWTAuthSetting:AuthSecret")))
+              , IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("JWTAuthSetting:AuthSecret") ?? string.Empty))
               , ValidateIssuerSigningKey = true
             };
         });
@@ -43,7 +43,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 if (builder.Configuration.GetValue<bool>("AppSettings:UseCORS"))
     builder.Services.AddCors(options => {
         options.AddDefaultPolicy(policy => {
-            policy.WithOrigins(builder.Configuration.GetValue<string>("AppSettings:CORSAllowedHosts").Split(',')).AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins(builder.Configuration.GetValue<string>("AppSettings:CORSAllowedHosts")?.Split(',') ?? Array.Empty<string>())
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
         });
     });
 

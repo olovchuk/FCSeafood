@@ -7,6 +7,8 @@ using FCSeafood.DAL.Events;
 namespace FCSeafood.BLL.User.Auth.Helpers;
 
 public abstract class BaseJwtHelper {
+    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(BaseJwtHelper));
+
     private readonly IJWTSettings _jwtSettings;
 
     public BaseJwtHelper(IJWTSettings jwtSettings) {
@@ -37,6 +39,9 @@ public abstract class BaseJwtHelper {
         try {
             jwtSecurityTokenHandler.ValidateToken(tokenValue, tokenValidationParameters, out var validatedToken);
             return jwtSecurityTokenHandler.ReadJwtToken(tokenValue);
-        } catch (Exception ex) { return null; }
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Jwt.ValidateFailed}\r\nError: [{ex.Message}]");
+            return null;
+        }
     }
 }

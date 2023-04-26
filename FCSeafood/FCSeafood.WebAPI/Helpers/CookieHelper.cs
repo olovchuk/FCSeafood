@@ -16,17 +16,19 @@ public class CookieHelper {
 
         try {
             _httpContextAccessor.HttpContext?.Response.Cookies.Append(key, value, options);
-        } catch (Exception ex) { _loggger.LogError($"An error occurred while manipulating cookies;\r\nError: [{ex.Message}]"); }
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Cookie.Global}\r\nError: [{ex.Message}]");
+        }
     }
 
     public string GetCookie(string key) {
         try {
-            if ((bool)_httpContextAccessor.HttpContext?.Request.Cookies.ContainsKey(key)) 
+            if (_httpContextAccessor.HttpContext?.Request.Cookies.ContainsKey(key) ?? false) 
                 return _httpContextAccessor.HttpContext?.Request.Cookies[key] ?? string.Empty;
                 
             return string.Empty;
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred while manipulating cookies;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Cookie.Global}\r\nError: [{ex.Message}]");
             return string.Empty;
         }
     }
@@ -35,7 +37,7 @@ public class CookieHelper {
         try {
             _httpContextAccessor.HttpContext?.Response.Cookies.Delete(key);
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred while manipulating cookies;\r\nError: [{ex.Message}]");
+            _loggger.LogError($"{ErrorMessage.Cookie.Global}\r\nError: [{ex.Message}]");
         }
     }
 }

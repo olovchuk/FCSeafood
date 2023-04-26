@@ -21,4 +21,12 @@ public static class ErrorMessage {
         public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
         public static string EmailOrPasswordIncorrect => "Email or Password incorrect. Please try again.";
     }
+
+    public static class Cookie {
+        public static string Global => "An error occurred while manipulating cookies;";
+    }
+
+    public static class Jwt {
+        public static string ValidateFailed => "An error occurred during validation;";
+    }
 }
