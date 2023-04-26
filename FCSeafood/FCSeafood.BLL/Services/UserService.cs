@@ -22,7 +22,7 @@ public class UserService {
             var userDbo = await _userRepository.FindByConditionAsync(x => x.Id == id);
             if (userDbo is null) return null;
 
-            var result = await _userMapperHelper.ToModel(userDbo);
+            var result = await _userMapperHelper.ToModel(userDbo, this);
             return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");

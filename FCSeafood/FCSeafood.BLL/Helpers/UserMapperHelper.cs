@@ -4,15 +4,13 @@ using FCSeafood.DAL.Events.Repository;
 namespace FCSeafood.BLL.Helpers;
 
 public class UserMapperHelper {
-    private readonly UserService _userService;
     private readonly AddressService _addressService;
 
-    public UserMapperHelper(UserService userService, AddressService addressService) {
-        _userService = userService;
+    public UserMapperHelper(AddressService addressService) {
         _addressService = addressService;
     }
 
-    public async ValueTask<(bool success, UserModel model)> ToModel(DAL.Events.Models.UserDbo dbo) {
+    public async ValueTask<(bool success, UserModel model)> ToModel(DAL.Events.Models.UserDbo dbo, UserService userService) {
         if (dbo.Equals(null)) return (false, new UserModel());
 
         var config = new MapperConfiguration(cfg => {
@@ -26,7 +24,7 @@ public class UserMapperHelper {
             if (addressModel is not null) model.Address = addressModel;
         }
 
-        var email = await _userService.GetUserEmailAsync(dbo.Id);
+        var email = await userService.GetUserEmailAsync(dbo.Id);
         if (!string.IsNullOrWhiteSpace(email)) model.Email = email;
 
         return (true, model);
