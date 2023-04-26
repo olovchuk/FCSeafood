@@ -5,9 +5,6 @@ namespace FCSeafood.BLL.User.Auth;
 public class AuthManager {
     private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(AuthManager));
 
-    // TODO: Set support email from global settings
-    private const string GlobalMessageError = "Authentication failed. Please please try to sign in again or contact us via [Email]";
-
     private readonly UserService _userService;
     private readonly AuthJwtHelper _authJwtHelper;
     private readonly AuthRefreshJwtHelper _authRefreshJwtHelper;
@@ -19,7 +16,7 @@ public class AuthManager {
     }
 
     public async Task<SignInResponse> SignInAsync(SignInParams singInParams) {
-        var errorResponse = new SignInResponse(false, "Email or Password incorrect. Please try again.", RoleType.Unknown, null);
+        var errorResponse = new SignInResponse(false, ErrorMessage.Authentication.EmailOrPasswordIncorrect, RoleType.Unknown, null);
         try {
             var userCredential = await _userService.GetCredentialByEmailAsync(singInParams.Email);
             if (userCredential is null) return errorResponse;
@@ -36,13 +33,13 @@ public class AuthManager {
             var jwtAuthModel = new JwtAuthModel(refreshUserResult.JwtAuthModel?.AccessToken!, refreshUserResult.JwtAuthModel?.RefreshToken!);
             return new SignInResponse(true, "", refreshUserResult.RoleType, jwtAuthModel);
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during management;\r\nError: [{ex.Message}]");
-            return new SignInResponse(false, GlobalMessageError, RoleType.Unknown, null);
+            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new SignInResponse(false, ErrorMessage.Authentication.AuthenticationFailed, RoleType.Unknown, null);
         }
     }
 
     public async Task<SignInRefreshResponse> SignInRefreshAsync(SignInRefreshParams signInRefreshParams) {
-        var errorResponse = new SignInRefreshResponse(false, GlobalMessageError, null);
+        var errorResponse = new SignInRefreshResponse(false, ErrorMessage.Authentication.AuthenticationFailed, null);
         try {
             var token = _authJwtHelper.Validate(signInRefreshParams.RefreshToken);
             if (token is null) return errorResponse;
@@ -61,14 +58,14 @@ public class AuthManager {
 
             return new SignInRefreshResponse(true, "", new JwtAuthModel(accessToken, refreshToken));
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during management;\r\nError: [{ex.Message}]");
-            return new SignInRefreshResponse(false, GlobalMessageError, null);
+            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new SignInRefreshResponse(false, ErrorMessage.Authentication.AuthenticationFailed, null);
         }
     }
 
     private async Task<RefreshUserResponse> RefreshUserAsync(RefreshUserParams userParams) {
         try {
-            if (userParams.User.Equals(null) || userParams.User.Id.Equals(Guid.Empty)) return new RefreshUserResponse(false, "Set current user failed. User was not provided.", RoleType.Unknown, null);
+            if (userParams.User.Equals(null) || userParams.User.Id.Equals(Guid.Empty)) return new RefreshUserResponse(false, ErrorMessage.User.IsNotDefined, RoleType.Unknown, null);
 
             await _userService.SetLastLoginDateAsync(userParams.User.Id);
 
@@ -77,8 +74,8 @@ public class AuthManager {
 
             return new RefreshUserResponse(true, "", userParams.User.RoleType, new JwtAuthModel(accessToken, refreshToken));
         } catch (Exception ex) {
-            _loggger.LogError($"An error occurred during management;\r\nError: [{ex.Message}]");
-            return new RefreshUserResponse(false, GlobalMessageError, RoleType.Unknown, null);
+            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new RefreshUserResponse(false, ErrorMessage.Authentication.AuthenticationFailed, RoleType.Unknown, null);
         }
     }
 }
