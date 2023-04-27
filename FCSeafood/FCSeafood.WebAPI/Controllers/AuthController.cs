@@ -1,5 +1,6 @@
 using FCSeafood.BLL.User.Auth.Helpers;
 using FCSeafood.BLL.User.Auth.Models.Params;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FCSeafood.WebAPI.Controllers;
 
@@ -28,7 +29,7 @@ public class AuthController : ControllerBase {
         return Ok(result);
     }
 
-    [HttpPost("SignOut")]
+    [HttpPost("SignOut"), Authorize]
     public IActionResult _SignOut() {
         var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
         var result = _jwtCookieAuthService.SignOut(new SignOutParams(claims.UserId));
