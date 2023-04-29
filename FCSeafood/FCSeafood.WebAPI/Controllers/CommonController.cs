@@ -29,7 +29,7 @@ public class CommonController : ControllerBase {
     }
 
     [HttpGet("GetSubCategoryByCategoryTList")]
-    public async Task<IActionResult> GetSubCategoryTListAsync(CategoryTParams subCategoryTParams) {
+    public async Task<IActionResult> GetSubCategoryTListAsync([FromQuery]CategoryTParams subCategoryTParams) {
         var result = await _commonManager.GetSubCategoryTListAsync(subCategoryTParams);
         if (!result.IsSuccessful) return BadRequest(result);
 

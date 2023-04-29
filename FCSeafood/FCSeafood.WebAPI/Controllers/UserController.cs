@@ -15,7 +15,7 @@ public class UserController : ControllerBase {
     }
 
     [HttpGet("GetUser")]
-    public async Task<IActionResult> GetUserAsync(GetUserParams getUserParams) {
+    public async Task<IActionResult> GetUserAsync([FromQuery]GetUserParams getUserParams) {
         var result = await _userManager.GetUser(getUserParams);
         if (!result.IsSuccessful) return BadRequest(result);
 
