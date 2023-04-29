@@ -17,6 +17,10 @@ public static class ErrorMessage {
         public static string IsNotDefined => "The user is not defined.";
     }
 
+    public static class Item {
+        public static string IsNotDefined => "The item(s) is not defined.";
+    }
+
     public static class Authentication {
         public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
         public static string EmailOrPasswordIncorrect => "Email or Password incorrect. Please try again.";

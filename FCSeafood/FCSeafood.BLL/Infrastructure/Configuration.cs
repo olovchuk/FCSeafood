@@ -23,11 +23,13 @@ public static class Configuration {
         serviceCollection.AddTransient<AuthManager>();
         serviceCollection.AddTransient<UserManager>();
         serviceCollection.AddTransient<CommonManager>();
+        serviceCollection.AddTransient<ItemManager>();
 
         // Services
         serviceCollection.AddTransient<AddressService>();
         serviceCollection.AddTransient<UserService>();
         serviceCollection.AddTransient<CommonService>();
+        serviceCollection.AddTransient<ItemService>();
 
         // Helpers
         serviceCollection.AddTransient<AuthJwtHelper>();
@@ -35,6 +37,7 @@ public static class Configuration {
         serviceCollection.AddTransient<AddressMapperHelper>();
         serviceCollection.AddTransient<UserMapperHelper>();
         serviceCollection.AddTransient<CommonMapperHelper>();
+        serviceCollection.AddTransient<ItemMapperHelper>();
 
 #endregion
 

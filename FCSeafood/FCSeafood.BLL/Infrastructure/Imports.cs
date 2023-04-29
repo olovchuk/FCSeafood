@@ -22,3 +22,7 @@ global using FCSeafood.BLL.User.Info.Models.Response;
 global using FCSeafood.BLL.Common;
 global using FCSeafood.BLL.Common.Models.Params;
 global using FCSeafood.BLL.Common.Models.Response;
+global using FCSeafood.BLL.Item;
+global using FCSeafood.BLL.Item.Models.Params;
+global using FCSeafood.BLL.Item.Models.Response;
+global using FCSeafood.BLL.Item.Models.Common;
