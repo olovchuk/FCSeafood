@@ -17,13 +17,13 @@ public class ItemDbo {
     public Guid PriceId { get; set; }
 
     [Column("FK_Category_Type")]
-    public CategoryType CategoryType { get; set; }
+    public CategoryType CategoryType { get; set; } = CategoryType.Unknown;
 
     [Column("FK_Sub_Category_Type")]
-    public SubCategoryType SubCategoryType { get; set; }
+    public SubCategoryType SubCategoryType { get; set; } = SubCategoryType.Unknown;
 
     [Column("FK_Item_Status_Type")]
-    public ItemStatusType ItemStatusType { get; set; }
+    public ItemStatusType ItemStatusType { get; set; } = ItemStatusType.Unknown;
 
     [Column("Quantity_Per_Kg")]
     public double QuantityPerKg { get; set; }
