@@ -11,31 +11,31 @@ public class CommonManager {
 
     public async Task<CategoryTListResponse> GetCategoryTListAsync() {
         try {
-            var categoryTypeListModel = await _commonService.GetCategoryTypeListAsync();
-            return new CategoryTListResponse(true, "", categoryTypeListModel);
+            var categoryTListModel = await _commonService.GetCategoryTypeListAsync();
+            return new CategoryTListResponse(true, "", categoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new CategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<CategoryTypeModel>());
+            return new CategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<CategoryTModel>());
         }
     }
 
     public async Task<SubCategoryTListResponse> GetSubCategoryTListAsync() {
         try {
-            var subCategoryTypeListModel = await _commonService.GetSubCategoryTypeListAsync();
-            return new SubCategoryTListResponse(true, "", subCategoryTypeListModel);
+            var subCategoryTListModel = await _commonService.GetSubCategoryTypeListAsync();
+            return new SubCategoryTListResponse(true, "", subCategoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new SubCategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubCategoryTypeModel>());
+            return new SubCategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubCategoryTModel>());
         }
     }
 
     public async Task<SubCategoryTListResponse> GetSubCategoryTListAsync(CategoryTParams categoryTParams) {
         try {
             var bindCategoryListModel = await _commonService.GetBindCategoryListAsync(categoryTParams.CategoryType);
-            return new SubCategoryTListResponse(true, "", bindCategoryListModel.Select(x => x.SubCategoryTypeModel));
+            return new SubCategoryTListResponse(true, "", bindCategoryListModel.Select(x => x.SubCategoryTModel));
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new SubCategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubCategoryTypeModel>());
+            return new SubCategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubCategoryTModel>());
         }
     }
 }

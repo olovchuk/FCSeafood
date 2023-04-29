@@ -20,15 +20,15 @@ public class CommonService {
 
 #region CategoryType
 
-    public async Task<IReadOnlyCollection<CategoryTypeModel>> GetCategoryTypeListAsync() {
+    public async Task<IReadOnlyCollection<CategoryTModel>> GetCategoryTypeListAsync() {
         try {
-            var categoryTypeListDbo = await _categoryTRepository.GetAllAsync();
+            var categoryTListDbo = await _categoryTRepository.GetAllAsync();
 
-            var result = _commonMapperHelper.ToModel(categoryTypeListDbo);
-            return result.success ? result.models : Array.Empty<CategoryTypeModel>();
+            var result = _commonMapperHelper.ToModel(categoryTListDbo);
+            return result.success ? result.models : Array.Empty<CategoryTModel>();
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
-            return Array.Empty<CategoryTypeModel>();
+            return Array.Empty<CategoryTModel>();
         }
     }
 
@@ -36,15 +36,15 @@ public class CommonService {
 
 #region SubCategoryType
 
-    public async Task<IReadOnlyCollection<SubCategoryTypeModel>> GetSubCategoryTypeListAsync() {
+    public async Task<IReadOnlyCollection<SubCategoryTModel>> GetSubCategoryTypeListAsync() {
         try {
-            var subCategoryTypeListDbo = await _subCategoryTRepository.GetAllAsync();
+            var subCategoryTListDbo = await _subCategoryTRepository.GetAllAsync();
 
-            var result = _commonMapperHelper.ToModel(subCategoryTypeListDbo);
-            return result.success ? result.models : Array.Empty<SubCategoryTypeModel>();
+            var result = _commonMapperHelper.ToModel(subCategoryTListDbo);
+            return result.success ? result.models : Array.Empty<SubCategoryTModel>();
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
-            return Array.Empty<SubCategoryTypeModel>();
+            return Array.Empty<SubCategoryTModel>();
         }
     }
 

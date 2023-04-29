@@ -1,8 +1,8 @@
 namespace FCSeafood.BLL.Helpers;
 
 public static class EnumHelper {
-    public static CategoryTypeModel GetCategoryType(CategoryType categoryType) {
-        var result = new CategoryTypeModel {
+    public static CategoryTModel GetCategoryType(CategoryType categoryType) {
+        var result = new CategoryTModel {
             Type = categoryType
           , Name = categoryType switch {
                 CategoryType.Fish          => "Fish"
@@ -15,8 +15,8 @@ public static class EnumHelper {
         return result;
     }
 
-    public static SubCategoryTypeModel GetSubCategoryType(SubCategoryType subCategoryType) {
-        var result = new SubCategoryTypeModel {
+    public static SubCategoryTModel GetSubCategoryType(SubCategoryType subCategoryType) {
+        var result = new SubCategoryTModel {
             Type = subCategoryType
           , Name = subCategoryType switch {
                 // Fish

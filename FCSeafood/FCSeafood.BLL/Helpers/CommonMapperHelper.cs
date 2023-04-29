@@ -3,49 +3,49 @@ using AutoMapper;
 namespace FCSeafood.BLL.Helpers;
 
 public class CommonMapperHelper {
-    public (bool success, CategoryTypeModel model) ToModel(DAL.Common.Models.CategoryTDbo dbo) {
-        if (dbo.Equals(null)) return (false, new CategoryTypeModel());
+    public (bool success, CategoryTModel model) ToModel(DAL.Common.Models.CategoryTDbo dbo) {
+        if (dbo.Equals(null)) return (false, new CategoryTModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Common.Models.CategoryTDbo, CategoryTypeModel>()
+            cfg.CreateMap<DAL.Common.Models.CategoryTDbo, CategoryTModel>()
                .ForMember(memberOptions => memberOptions.Type
                         , options => options.MapFrom(source => Enum.GetName(typeof(CategoryType), source.Id)));
         });
         var maper = new Mapper(config);
-        var model = maper.Map<CategoryTypeModel>(dbo);
+        var model = maper.Map<CategoryTModel>(dbo);
         return (true, model);
     }
 
-    public (bool success, IReadOnlyCollection<CategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.CategoryTDbo> listDbo) {
-        if (listDbo.Equals(null)) return (false, Array.Empty<CategoryTypeModel>());
+    public (bool success, IReadOnlyCollection<CategoryTModel> models) ToModel(IEnumerable<DAL.Common.Models.CategoryTDbo> listDbo) {
+        if (listDbo.Equals(null)) return (false, Array.Empty<CategoryTModel>());
 
-        var listResult = new List<CategoryTypeModel>();
+        var listResult = new List<CategoryTModel>();
         foreach (var result in listDbo.Select(this.ToModel)) {
-            if (!result.success) return (false, Array.Empty<CategoryTypeModel>());
+            if (!result.success) return (false, Array.Empty<CategoryTModel>());
             listResult.Add(result.model);
         }
         return (true, listResult);
     }
 
-    public (bool success, SubCategoryTypeModel model) ToModel(DAL.Common.Models.SubCategoryTDbo dbo) {
-        if (dbo.Equals(null)) return (false, new SubCategoryTypeModel());
+    public (bool success, SubCategoryTModel model) ToModel(DAL.Common.Models.SubCategoryTDbo dbo) {
+        if (dbo.Equals(null)) return (false, new SubCategoryTModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Common.Models.SubCategoryTDbo, SubCategoryTypeModel>()
+            cfg.CreateMap<DAL.Common.Models.SubCategoryTDbo, SubCategoryTModel>()
                .ForMember(memberOptions => memberOptions.Type
                         , options => options.MapFrom(source => Enum.GetName(typeof(SubCategoryType), source.Id)));
         });
         var maper = new Mapper(config);
-        var model = maper.Map<SubCategoryTypeModel>(dbo);
+        var model = maper.Map<SubCategoryTModel>(dbo);
         return (true, model);
     }
 
-    public (bool success, IReadOnlyCollection<SubCategoryTypeModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTDbo> listDbo) {
-        if (listDbo.Equals(null)) return (false, Array.Empty<SubCategoryTypeModel>());
+    public (bool success, IReadOnlyCollection<SubCategoryTModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTDbo> listDbo) {
+        if (listDbo.Equals(null)) return (false, Array.Empty<SubCategoryTModel>());
 
-        var listResult = new List<SubCategoryTypeModel>();
+        var listResult = new List<SubCategoryTModel>();
         foreach (var result in listDbo.Select(this.ToModel)) {
-            if (!result.success) return (false, Array.Empty<SubCategoryTypeModel>());
+            if (!result.success) return (false, Array.Empty<SubCategoryTModel>());
             listResult.Add(result.model);
         }
         return (true, listResult);
@@ -55,8 +55,8 @@ public class CommonMapperHelper {
         if (dbo.Equals(null)) return (false, new BindCategoryModel());
 
         var model = new BindCategoryModel {
-            CategoryTypeModel = EnumHelper.GetCategoryType(dbo.CategoryType)
-          , SubCategoryTypeModel = EnumHelper.GetSubCategoryType(dbo.SubCategoryType)
+            CategoryTModel = EnumHelper.GetCategoryType(dbo.CategoryType)
+          , SubCategoryTModel = EnumHelper.GetSubCategoryType(dbo.SubCategoryType)
         };
         return (true, model);
     }
