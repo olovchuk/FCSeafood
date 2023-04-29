@@ -3,6 +3,9 @@ import {AppSettings} from "@settings/app.settings";
 
 @Injectable({providedIn: 'root'})
 export class CommonDataSettings {
-  private _getGetCategoryTypeList: string = '/api/Common/GetCategoryTypeList';
-  geGetCategoryTypeList: string = AppSettings.webApiHostUrl + this._getGetCategoryTypeList;
+  private _getCategoryTList: string = '/api/Common/GetCategoryTList';
+  getCategoryTList: string = AppSettings.webApiHostUrl + this._getCategoryTList;
+
+  private _getSubCategoryByCategoryTList: string = '/api/Common/GetSubCategoryByCategoryTList';
+  getSubCategoryByCategoryTList: string = AppSettings.webApiHostUrl + this._getSubCategoryByCategoryTList;
 }

@@ -4,7 +4,7 @@ import {ProductTypeCardComponent} from "@modules/pages/home/product-type-card/pr
 import {MaterialModule} from "@modules/material/material.module";
 import {WhyUsCardComponent} from "@modules/pages/home/why-us-card/why-us-card.component";
 import {CommonData} from "@common-data/common/common.data";
-import {CategoryTypeModel} from "@common-data/common/models/common/category-type.model";
+import {CategoryTModel} from "@common-data/common/models/common/category-type.model";
 import {NgForOf} from "@angular/common";
 
 @Component({
@@ -13,7 +13,7 @@ import {NgForOf} from "@angular/common";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  categoryList: CategoryTypeModel[] = [];
+  categoryTListModel: CategoryTModel[] = [];
 
   constructor(private commonData: CommonData) {
 
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     let categoryTypeListResponse = await this.commonData.GetCategoryListAsync();
     if (categoryTypeListResponse.isSuccessful) {
-      this.categoryList = categoryTypeListResponse.categoryTypeModels;
+      this.categoryTListModel = categoryTypeListResponse.categoryTModels;
     }
   }
 }

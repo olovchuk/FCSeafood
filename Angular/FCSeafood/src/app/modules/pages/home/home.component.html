@@ -11,7 +11,7 @@
   <div class="h-full flex flex-column align-items-center">
     <h4 class="uppercase my-6 text-4xl">Products</h4>
     <div class="flex justify-content-center flex-wrap">
-      <app-product-type-card [category]="category" *ngFor="let category of categoryList"></app-product-type-card>
+      <app-product-type-card [categoryTModel]="categoryTModel" *ngFor="let categoryTModel of categoryTListModel"></app-product-type-card>
     </div>
     <button mat-raised-button class="text-lg p-4 my-3">See more</button>
   </div>

@@ -1,7 +1,7 @@
-import {CategoryTypeModel} from "@common-data/common/models/common/category-type.model";
+import {CategoryTModel} from "@common-data/common/models/common/category-type.model";
 
-export class GetCategoryTypeListResponse {
+export class CategoryTListResponse {
   isSuccessful: boolean = false;
   message: string = '';
-  categoryTypeModels: CategoryTypeModel[] = [];
+  categoryTModels: CategoryTModel[] = [];
 }
