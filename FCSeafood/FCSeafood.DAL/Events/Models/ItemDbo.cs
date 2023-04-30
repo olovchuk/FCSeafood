@@ -62,7 +62,7 @@ public class ItemDbo {
     public double TemperatureStorage { get; set; }
 
     [Column("FK_Temperature_Unit")]
-    public TemperatureUnit TemperatureUnit { get; set; }
+    public TemperatureUnitType TemperatureUnitType { get; set; }
 
     [Column("Description")]
     public string? Description { get; set; }

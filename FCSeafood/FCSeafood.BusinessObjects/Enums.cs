@@ -15,7 +15,7 @@ public enum RoleType {
 }
 
 // E_Temperature_Unit
-public enum TemperatureUnit {
+public enum TemperatureUnitType {
     Celsius = 1
   , Fahrenheit = 2
 }

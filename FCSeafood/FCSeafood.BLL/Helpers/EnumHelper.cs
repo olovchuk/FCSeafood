@@ -59,4 +59,24 @@ public static class EnumHelper {
         };
         return result;
     }
+
+    public static TemperatureUnitTModel GetTemperatureUnitType(TemperatureUnitType temperatureUnitType) {
+        var result = new TemperatureUnitTModel { Type = temperatureUnitType };
+        switch (temperatureUnitType) {
+            case TemperatureUnitType.Celsius:
+                result.Name = "Celsius";
+                result.Sign = "C";
+                break;
+            case TemperatureUnitType.Fahrenheit:
+                result.Name = "Fahrenheit";
+                result.Sign = "F";
+                break;
+            default:
+                result.Name = string.Empty;
+                result.Sign = string.Empty;
+                break;
+        }
+
+        return result;
+    }
 }
