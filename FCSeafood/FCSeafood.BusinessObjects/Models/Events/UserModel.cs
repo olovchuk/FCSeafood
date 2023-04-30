@@ -6,7 +6,7 @@ public class UserModel {
     public string LastName { get; set; } = "";
     public string Email { get; set; } = "";
     public RoleType RoleType { get; set; } = RoleType.User;
-    public GenderType GenderType { get; set; } = GenderType.None;
+    public GenderType GenderType { get; set; }
     public bool IsActive { get; set; } = true;
     public bool IsVerified { get; set; }
     public string? Phone { get; set; }

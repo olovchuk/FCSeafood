@@ -17,7 +17,7 @@ public class UserDbo {
     public RoleType RoleType { get; set; } = RoleType.User;
 
     [Column("FK_Gender_Type")]
-    public GenderType GenderType { get; set; } = GenderType.None;
+    public GenderType GenderType { get; set; }
 
     [Column("IsActive")]
     public bool IsActive { get; set; } = true;

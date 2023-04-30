@@ -23,7 +23,7 @@ public enum TemperatureUnitType {
 
 // E_Gender_Type
 public enum GenderType {
-    None = 0
+    Unknown = 0
   , Male = 1
   , Female = 2
   , Other = 3
@@ -67,7 +67,8 @@ public enum SubCategoryType {
 
 // E_Currency_Code_Type
 public enum CurrencyCodeType {
-    UAH = 1
+    Unknown = 0
+  , UAH = 1
   , USD = 2
 }
 
