@@ -5,7 +5,8 @@ public static class EnumHelper {
         var result = new CategoryTModel {
             Type = categoryType
           , Name = categoryType switch {
-                CategoryType.Fish          => "Fish"
+                CategoryType.Unknown       => "N/A"
+              , CategoryType.Fish          => "Fish"
               , CategoryType.Caviar        => "Caviar"
               , CategoryType.Seafood       => "Seafood"
               , CategoryType.CrabsСrayfish => "Crabs/Сrayfish"
@@ -19,8 +20,10 @@ public static class EnumHelper {
         var result = new SubCategoryTModel {
             Type = subCategoryType
           , Name = subCategoryType switch {
+                SubCategoryType.Unknown => "N/A"
+
                 // Fish
-                SubCategoryType.SeaFish   => "Fish"
+              , SubCategoryType.SeaFish   => "Fish"
               , SubCategoryType.RiverFish => "Caviar"
               , SubCategoryType.LakeFish  => "Seafood"
 
@@ -50,7 +53,7 @@ public static class EnumHelper {
         var result = new ItemStatusTModel {
             Type = itemStatusType
           , Name = itemStatusType switch {
-                ItemStatusType.Unknown   => "Unknown"
+                ItemStatusType.Unknown   => "N/A"
               , ItemStatusType.Available => "Available"
               , ItemStatusType.Ended     => "Ended"
               , ItemStatusType.Deleted   => "Deleted"
@@ -63,6 +66,10 @@ public static class EnumHelper {
     public static TemperatureUnitTModel GetTemperatureUnitType(TemperatureUnitType temperatureUnitType) {
         var result = new TemperatureUnitTModel { Type = temperatureUnitType };
         switch (temperatureUnitType) {
+            case TemperatureUnitType.Unknown:
+                result.Name = "N/A";
+                result.Sign = "";
+                break;
             case TemperatureUnitType.Celsius:
                 result.Name = "Celsius";
                 result.Sign = "C";

@@ -16,7 +16,8 @@ public enum RoleType {
 
 // E_Temperature_Unit
 public enum TemperatureUnitType {
-    Celsius = 1
+    Unknown = 0
+  , Celsius = 1
   , Fahrenheit = 2
 }
 
