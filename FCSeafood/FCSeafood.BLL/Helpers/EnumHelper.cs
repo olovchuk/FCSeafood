@@ -45,4 +45,18 @@ public static class EnumHelper {
         };
         return result;
     }
+
+    public static ItemStatusTModel GetItemStatusType(ItemStatusType itemStatusType) {
+        var result = new ItemStatusTModel {
+            Type = itemStatusType
+          , Name = itemStatusType switch {
+                ItemStatusType.Unknown   => "Unknown"
+              , ItemStatusType.Available => "Available"
+              , ItemStatusType.Ended     => "Ended"
+              , ItemStatusType.Deleted   => "Deleted"
+              , _                        => string.Empty
+            }
+        };
+        return result;
+    }
 }
