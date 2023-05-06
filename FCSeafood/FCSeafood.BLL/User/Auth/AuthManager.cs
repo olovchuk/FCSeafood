@@ -53,8 +53,8 @@ public class AuthManager {
             var credential = await _userService.GetCredentialByUserIdAsync(user.Id);
             if (credential is null) return errorResponse;
 
-            var accessToken = _authJwtHelper.GenerateJwt(user.Id, credential.Email, user.RoleType);
-            var refreshToken = _authRefreshJwtHelper.GenerateJwt(user.Id, credential.Email, user.RoleType);
+            var accessToken = _authJwtHelper.GenerateJwt(user.Id, credential.Email, user.Role.Type);
+            var refreshToken = _authRefreshJwtHelper.GenerateJwt(user.Id, credential.Email, user.Role.Type);
 
             return new SignInRefreshResponse(true, "", new JwtAuthModel(accessToken, refreshToken));
         } catch (Exception ex) {
@@ -69,10 +69,10 @@ public class AuthManager {
 
             await _userService.SetLastLoginDateAsync(userParams.User.Id);
 
-            var accessToken = _authJwtHelper.GenerateJwt(userParams.User.Id, userParams.Email, userParams.User.RoleType);
-            var refreshToken = _authRefreshJwtHelper.GenerateJwt(userParams.User.Id, userParams.Email, userParams.User.RoleType);
+            var accessToken = _authJwtHelper.GenerateJwt(userParams.User.Id, userParams.Email, userParams.User.Role.Type);
+            var refreshToken = _authRefreshJwtHelper.GenerateJwt(userParams.User.Id, userParams.Email, userParams.User.Role.Type);
 
-            return new RefreshUserResponse(true, "", userParams.User.RoleType, new JwtAuthModel(accessToken, refreshToken));
+            return new RefreshUserResponse(true, "", userParams.User.Role.Type, new JwtAuthModel(accessToken, refreshToken));
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new RefreshUserResponse(false, ErrorMessage.Authentication.AuthenticationFailed, RoleType.Unknown, null);

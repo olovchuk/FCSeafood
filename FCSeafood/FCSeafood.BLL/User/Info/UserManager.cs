@@ -26,7 +26,7 @@ public class UserManager {
             var user = await _userService.GetUserAsync(getUserInformationParams.Id);
             if (user is null) return new GetUserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
 
-            return new GetUserInformationResponse(true, "", new UserInformationModel(user.FirstName, user.LastName, user.Email, user.RoleType));
+            return new GetUserInformationResponse(true, "", new UserInformationModel(user.FirstName, user.LastName, user.Email, user.Role.Type));
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new GetUserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
