@@ -31,7 +31,6 @@
               "src/web.config"
             ],
             "styles": [
-              "src/css/FCSeafood-theme.scss",
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css",
               "node_modules/primeflex/themes/saga-blue.css"
@@ -98,7 +97,6 @@
               "src/web.config"
             ],
             "styles": [
-              "src/css/FCSeafood-theme.scss",
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css",
               "node_modules/primeflex/themes/saga-blue.css"
