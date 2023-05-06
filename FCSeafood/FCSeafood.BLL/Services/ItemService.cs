@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using FCSeafood.DAL.Events.Models;
 using FCSeafood.DAL.Events.Repository;
 
 namespace FCSeafood.BLL.Services;
@@ -28,7 +30,7 @@ public class ItemService {
 
     public async Task<IReadOnlyCollection<ItemModel>> GetItemListAsync(ItemFilterModel filterModel) {
         try {
-            var itemListDbo = await _itemRepository.FindByConditionListAsync(x => x.Name == "");
+            var itemListDbo = await _itemRepository.FindByConditionListAsync(x => x.CategoryType == filterModel.CategoryType && x.SubCategoryType == filterModel.SubCategoryType);
             if (itemListDbo.Count == 0) return Array.Empty<ItemModel>();
 
             var result = _itemMapperHelper.ToModel(itemListDbo);
