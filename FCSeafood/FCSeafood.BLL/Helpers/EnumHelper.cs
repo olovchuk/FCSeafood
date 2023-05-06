@@ -86,4 +86,18 @@ public static class EnumHelper {
 
         return result;
     }
+
+    public static CurrencyCodeTModel GetCurrencyCodeType(CurrencyCodeType currencyCodeType) {
+        var result = new CurrencyCodeTModel {
+            Type = currencyCodeType
+          , Name = currencyCodeType switch {
+                CurrencyCodeType.Unknown => "N/A"
+              , CurrencyCodeType.UAH     => "UAH"
+              , CurrencyCodeType.USD     => "USD"
+              , _                        => string.Empty
+            }
+        };
+
+        return result;
+    }
 }

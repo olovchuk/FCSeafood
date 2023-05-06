@@ -7,7 +7,7 @@ public class ItemModel {
 
     public string Code { get; set; } = "";
 
-    public List<PriceModel> Prices { get; set; } = new();
+    public PriceModel Price { get; set; } = new();
 
     public CategoryTModel Category { get; set; } = new();
 

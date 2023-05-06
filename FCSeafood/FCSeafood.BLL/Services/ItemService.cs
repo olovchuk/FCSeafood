@@ -20,7 +20,7 @@ public class ItemService {
             var itemDbo = await _itemRepository.FindByConditionAsync(x => x.Id == id);
             if (itemDbo is null) return null;
 
-            var result = _itemMapperHelper.ToModel(itemDbo);
+            var result = await _itemMapperHelper.ToModel(itemDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
@@ -33,7 +33,7 @@ public class ItemService {
             var itemListDbo = await _itemRepository.FindByConditionListAsync(x => x.CategoryType == filterModel.CategoryType && x.SubCategoryType == filterModel.SubCategoryType);
             if (itemListDbo.Count == 0) return Array.Empty<ItemModel>();
 
-            var result = _itemMapperHelper.ToModel(itemListDbo);
+            var result = await _itemMapperHelper.ToModel(itemListDbo);
             return result.success ? result.models : Array.Empty<ItemModel>();
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");

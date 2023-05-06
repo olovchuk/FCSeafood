@@ -7,4 +7,5 @@ public class EventFCSeafoodContext : DbContext {
     public DbSet<UserDbo> Users { get; set; }
     public DbSet<UserCredentialDbo> UserCredentials { get; set; }
     public DbSet<ItemDbo> Items { get; set; }
+    public DbSet<PriceDbo> Prices { get; set; }
 }
