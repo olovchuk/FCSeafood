@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FCSeafood.BLL\FCSeafood.BLL.csproj" />
       <ProjectReference Include="..\FCSeafood.DAL\FCSeafood.DAL.csproj" />
     </ItemGroup>
 
