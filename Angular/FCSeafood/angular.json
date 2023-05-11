@@ -33,8 +33,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css",
-              "node_modules/primeflex/themes/saga-blue.css",
-              "@angular/material/prebuilt-themes/indigo-pink.css"
+              "node_modules/primeflex/themes/saga-blue.css"
             ],
             "scripts": []
           },
@@ -100,8 +99,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/primeflex/primeflex.css",
-              "node_modules/primeflex/themes/saga-blue.css",
-              "@angular/material/prebuilt-themes/indigo-pink.css"
+              "node_modules/primeflex/themes/saga-blue.css"
             ],
             "scripts": []
           }

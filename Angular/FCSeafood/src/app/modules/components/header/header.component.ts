@@ -3,8 +3,6 @@ import {AuthStateService} from "@common-services/auth-sate/auth-state.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "@common-services/auth/auth.service";
 import {LoginPopupComponent} from "../popups/login-popup/login-popup.component";
-import {UserInformationState} from "@common-states/user-information.state";
-import {RoleType} from "../../../common/enums/role.type";
 
 @Component({
   selector: 'app-header',
@@ -14,17 +12,20 @@ import {RoleType} from "../../../common/enums/role.type";
 export class HeaderComponent {
   constructor(private dialog: MatDialog,
               public authStateService: AuthStateService,
-              private authService: AuthService,
-              public userInformationState: UserInformationState) {
+              private authService: AuthService) {
   }
 
-  openLoginPopup() {
-    const loginPopup = this.dialog.open(LoginPopupComponent, {maxWidth: '95 vw'});
+  openSignInPopup() {
+    const loginPopup = this.dialog.open(LoginPopupComponent, {
+      panelClass: ['animate__animated', 'animate__slideInRight', 'custom-container'],
+      position: {right: '0%'},
+      minHeight: '100vh',
+      width: '550px',
+      maxWidth: '100vw'
+    });
   }
 
-  async OnSignOutClick(): Promise<void> {
+  async signOut(): Promise<void> {
     this.authService.SignOut();
   }
-
-  protected readonly RoleType = RoleType;
 }

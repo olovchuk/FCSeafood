@@ -21,21 +21,17 @@ export class LoginPopupComponent implements OnInit {
   });
 
   showPassword: boolean = false;
-  PreventClose: boolean = false;
 
   constructor(public dialog: DialogRef<LoginPopupComponent>,
               private router: Router,
               private authService: AuthService,
               private matSnackBar: MatSnackBar) {
-    if (this.dialog.config && this.dialog.config.data && this.dialog.config.data.preventClose) {
-      this.PreventClose = this.dialog.config.data.preventClose;
-    }
   }
 
   ngOnInit(): void {
   }
 
-  async OnSignIn(): Promise<void> {
+  async signIn(): Promise<void> {
     if (this.authorization.status !== 'VALID')
       return;
 
@@ -51,13 +47,16 @@ export class LoginPopupComponent implements OnInit {
     }
   }
 
-  async OnClose() {
-    if (this.PreventClose) {
-      await this.router.navigate(['/home'])
-      this.dialog.close()
-    } else {
-      this.dialog.close()
-    }
+  async signInViaFacebook(): Promise<void> {
+
+  }
+
+  async signInViaGoogle(): Promise<void> {
+
+  }
+
+  async openSignUpPopup(): Promise<void> {
+
   }
 }
 

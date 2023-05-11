@@ -1,12 +1,17 @@
 <div class="login-popup">
-  Login popup
+  <button mat-icon-button matTooltip="Close" class="absolute top-0 right-0" [mat-dialog-close]="true">
+    <mat-icon color="primary">close</mat-icon>
+  </button>
 
-  <mat-dialog-content>
-    <form (ngSubmit)="OnSignIn()" [formGroup]="authorization">
-      <mat-form-field class="example-full-width">
+  <h2 mat-dialog-title class="title">Sign in</h2>
+
+  <hr class="w-full">
+
+  <mat-dialog-content class="w-full">
+    <form (ngSubmit)="signIn()" [formGroup]="authorization">
+      <mat-form-field class="w-full">
         <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
-               placeholder="Ex. pat@example.com">
+        <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">
         <mat-error
           *ngIf="authorization.controls['email'].hasError('email') && !authorization.controls['email'].hasError('required')">
           Please enter a valid email address
@@ -15,14 +20,20 @@
           Email is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-      <br>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="w-full mt-2">
         <mat-label>Password</mat-label>
         <input [type]="showPassword ? 'text' : 'password'" matInput formControlName="password">
         <mat-icon title="Show/Hide Password" (click)="showPassword = !showPassword"
-                  matSuffix>{{showPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  matSuffix>{{showPassword ? 'visibility_off' : 'visibility'}}
+        </mat-icon>
       </mat-form-field>
-      <button #btn class="hidden" type="submit"></button>
+
+      <div class="flex justify-content-between">
+        <span class="text-small">Or continue with...</span>
+        <a href="#" class="text-small text-bright-grey">Don`t forget password?</a>
+      </div>
+
+      <button #submitButton class="hidden" type="submit"></button>
     </form>
 
     <mat-error *ngIf="authorization.errors">
@@ -30,8 +41,17 @@
     </mat-error>
   </mat-dialog-content>
 
-  <mat-dialog-actions>
-    <button (click)="OnClose()" mat-raised-button color="primary" title="Sign In">Close</button>
-    <button (click)="btn.click()" mat-raised-button color="primary" title="Sign In">Sign In</button>
+  <section class="flex flex-column align-items-center w-full mt-3">
+    <div class="flex justify-content-center">
+      <img (click)="signInViaFacebook()" ngSrc="assets/icons/social/facebook-dark.svg" alt="" height="46" width="46" class="additional-entry-icon" matTooltip="Sign in via Facebook">
+      <img (click)="signInViaGoogle()" ngSrc="assets/icons/social/google-dark.svg" alt="" height="46" width="46" class="additional-entry-icon" matTooltip="Sign in via Google">
+    </div>
+
+    <span class="text-small font-bold text-center mt-3 max-w-15rem">By logging/signing in with my social login, I agree to connect my account in accordance with the Privacy Policy</span>
+  </section>
+
+  <mat-dialog-actions class="grid w-full">
+    <button (click)="submitButton.click()" mat-raised-button color="primary" title="Sign In" class="col uppercase">Sign In</button>
+    <button (click)="openSignUpPopup()" mat-stroked-button color="primary" title="Sign In" class="col uppercase">Sign Up</button>
   </mat-dialog-actions>
 </div>
