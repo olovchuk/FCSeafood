@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {RouteHelper} from "@common-helpers/route.helper";
 
 @Component({
   selector: 'home-main-section',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.section.component.scss']
 })
 export class MainSectionComponent {
-
+  constructor(public routeHelper: RouteHelper) {
+  }
 }
