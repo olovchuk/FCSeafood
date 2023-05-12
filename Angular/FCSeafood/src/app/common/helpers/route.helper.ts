@@ -7,16 +7,21 @@ export class RouteHelper {
 
   constructor(private router: Router) {
     this.paths = {
-      home: "/home",
+      home: '/home',
       shop: {
-        category: "/shop/category",
-        subcategory: "/shop/subcategory"
+        main: '/shop',
+        category: '/shop/category',
+        subcategory: '/shop/subcategory'
       }
     };
   }
 
   async goToHome() {
-    await this.router.navigate([this.paths.shop]);
+    await this.router.navigate([this.paths.home]);
+  }
+
+  async goToShop() {
+    await this.router.navigate([this.paths.shop.main]);
   }
 
   async goToCategory() {

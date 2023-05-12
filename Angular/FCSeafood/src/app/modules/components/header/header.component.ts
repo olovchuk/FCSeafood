@@ -3,6 +3,7 @@ import {AuthStateService} from "@common-services/auth-sate/auth-state.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "@common-services/auth/auth.service";
 import {LoginPopupComponent} from "../popups/login-popup/login-popup.component";
+import {RouteHelper} from "@common-helpers/route.helper";
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ import {LoginPopupComponent} from "../popups/login-popup/login-popup.component";
 export class HeaderComponent {
   constructor(private dialog: MatDialog,
               public authStateService: AuthStateService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              public routeHelper: RouteHelper) {
   }
 
   openSignInPopup() {
