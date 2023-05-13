@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {CategoryTModel} from "@common-data/common/models/common/category-type.model";
+import {RouteHelper} from "@common-helpers/route.helper";
 
 @Component({
   selector: 'home-category-type-card',
@@ -8,4 +9,7 @@ import {CategoryTModel} from "@common-data/common/models/common/category-type.mo
 })
 export class CategoryTypeCardComponent {
   @Input('categoryTModel') categoryTModel!: CategoryTModel;
+
+  constructor(public routeHelper: RouteHelper) {
+  }
 }
