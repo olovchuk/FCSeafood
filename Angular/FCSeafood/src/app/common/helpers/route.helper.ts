@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
+import {CategoryType, CategoryTypeValues} from "@common-enums/category.type";
 
 @Injectable({providedIn: 'root'})
 export class RouteHelper {
@@ -10,8 +11,7 @@ export class RouteHelper {
       home: '/home',
       shop: {
         main: '/shop',
-        category: '/shop/category',
-        subcategory: '/shop/subcategory'
+        category: '/shop/category'
       }
     };
   }
@@ -28,7 +28,9 @@ export class RouteHelper {
     await this.router.navigate([this.paths.shop.category]);
   }
 
-  async goToSubCategory() {
-    await this.router.navigate([this.paths.shop.subcategory]);
+  async goToSubCategory(categoryType: CategoryType) {
+    let categoryTypeValue = CategoryTypeValues.find(x => x.id == categoryType);
+    if (categoryTypeValue)
+      await this.router.navigate([this.paths.shop.category + '/' + categoryTypeValue.value]);
   }
 }
