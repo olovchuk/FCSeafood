@@ -23,9 +23,9 @@ public static class EnumHelper {
                 SubCategoryType.Unknown => "N/A"
 
                 // Fish
-              , SubCategoryType.SeaFish   => "Fish"
-              , SubCategoryType.RiverFish => "Caviar"
-              , SubCategoryType.LakeFish  => "Seafood"
+              , SubCategoryType.SeaFish   => "Sea fish"
+              , SubCategoryType.RiverFish => "River fish"
+              , SubCategoryType.LakeFish  => "Lake fish"
 
                 // Cavier
               , SubCategoryType.RedCaviar           => "Red caviar"
