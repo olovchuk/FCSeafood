@@ -24,7 +24,11 @@ public class ItemBenchmark {
         var dbEventOptions = new DbContextOptionsBuilder<EventFCSeafoodContext>();
         dbEventOptions.UseSqlServer(ConnectionString);
         var eventFcSeafoodContext = new EventFCSeafoodContext(dbEventOptions.Options);
-        var itemMapperHelper = new ItemMapperHelper();
+
+        var priceRepository = new PriceRepository(eventFcSeafoodContext);
+        var priceMapperHelper = new PriceMapperHelper();
+        var priceService = new PriceService(priceMapperHelper, priceRepository);
+        var itemMapperHelper = new ItemMapperHelper(priceService);
         var itemRepository = new ItemRepository(eventFcSeafoodContext);
         var itemService = new ItemService(itemMapperHelper, itemRepository);
         _itemManager = new ItemManager(itemService);
