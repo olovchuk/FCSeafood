@@ -35,9 +35,8 @@ export class LoginPopupComponent implements OnInit {
     if (this.authorization.status !== 'VALID')
       return;
 
-    let signInResponse: SignInResponse;
     try {
-      signInResponse = await this.authService.SignInAsync(this.authorization.value.email, this.authorization.value.password);
+      let signInResponse = await this.authService.SignInAsync(this.authorization.value.email, this.authorization.value.password);
       if (signInResponse.isSuccessful) {
         this.dialog.close();
         this.matSnackBar.open("Authorization was successful");
