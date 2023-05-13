@@ -9,13 +9,13 @@ public class CommonService {
     private readonly CommonMapperHelper _commonMapperHelper;
     private readonly BindCategoryRepository _bindCategoryRepository;
     private readonly CategoryTRepository _categoryTRepository;
-    private readonly SubCategoryTRepository _subCategoryTRepository;
+    private readonly SubcategoryTRepository _subcategoryTRepository;
 
-    public CommonService(CommonMapperHelper commonMapperHelper, BindCategoryRepository bindCategoryRepository, CategoryTRepository categoryTRepository, SubCategoryTRepository subCategoryTRepository) {
+    public CommonService(CommonMapperHelper commonMapperHelper, BindCategoryRepository bindCategoryRepository, CategoryTRepository categoryTRepository, SubcategoryTRepository subcategoryTRepository) {
         _commonMapperHelper = commonMapperHelper;
         _bindCategoryRepository = bindCategoryRepository;
         _categoryTRepository = categoryTRepository;
-        _subCategoryTRepository = subCategoryTRepository;
+        _subcategoryTRepository = subcategoryTRepository;
     }
 
 #region CategoryType
@@ -34,17 +34,17 @@ public class CommonService {
 
 #endregion
 
-#region SubCategoryType
+#region SubcategoryType
 
-    public async Task<IReadOnlyCollection<SubCategoryTModel>> GetSubCategoryTypeListAsync() {
+    public async Task<IReadOnlyCollection<SubcategoryTModel>> GetSubcategoryTypeListAsync() {
         try {
-            var subCategoryTListDbo = await _subCategoryTRepository.GetAllAsync();
+            var subcategoryTListDbo = await _subcategoryTRepository.GetAllAsync();
 
-            var result = _commonMapperHelper.ToModel(subCategoryTListDbo);
-            return result.success ? result.models : Array.Empty<SubCategoryTModel>();
+            var result = _commonMapperHelper.ToModel(subcategoryTListDbo);
+            return result.success ? result.models : Array.Empty<SubcategoryTModel>();
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
-            return Array.Empty<SubCategoryTModel>();
+            return Array.Empty<SubcategoryTModel>();
         }
     }
 

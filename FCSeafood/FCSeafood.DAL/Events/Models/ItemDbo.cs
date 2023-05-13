@@ -19,8 +19,8 @@ public class ItemDbo {
     [Column("FK_Category_Type")]
     public CategoryType CategoryType { get; set; }
 
-    [Column("FK_Sub_Category_Type")]
-    public SubCategoryType SubCategoryType { get; set; }
+    [Column("FK_Subcategory_Type")]
+    public SubcategoryType SubcategoryType { get; set; }
 
     [Column("FK_Item_Status_Type")]
     public ItemStatusType ItemStatusType { get; set; }

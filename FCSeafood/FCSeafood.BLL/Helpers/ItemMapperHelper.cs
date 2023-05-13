@@ -27,7 +27,7 @@ public class ItemMapperHelper {
         }
 
         model.Category = EnumHelper.GetCategoryType(dbo.CategoryType);
-        model.SubCategory = EnumHelper.GetSubCategoryType(dbo.SubCategoryType);
+        model.Subcategory = EnumHelper.GetSubcategoryType(dbo.SubcategoryType);
         model.ItemStatus = EnumHelper.GetItemStatusType(dbo.ItemStatusType);
         model.TemperatureUnit = EnumHelper.GetTemperatureUnitType(dbo.TemperatureUnitType);
 

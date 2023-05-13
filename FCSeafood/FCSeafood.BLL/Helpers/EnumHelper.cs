@@ -16,33 +16,33 @@ public static class EnumHelper {
         return result;
     }
 
-    public static SubCategoryTModel GetSubCategoryType(SubCategoryType subCategoryType) {
-        var result = new SubCategoryTModel {
-            Type = subCategoryType
-          , Name = subCategoryType switch {
-                SubCategoryType.Unknown => "N/A"
+    public static SubcategoryTModel GetSubcategoryType(SubcategoryType subcategoryType) {
+        var result = new SubcategoryTModel {
+            Type = subcategoryType
+          , Name = subcategoryType switch {
+                SubcategoryType.Unknown => "N/A"
 
                 // Fish
-              , SubCategoryType.SeaFish   => "Sea fish"
-              , SubCategoryType.RiverFish => "River fish"
-              , SubCategoryType.LakeFish  => "Lake fish"
+              , SubcategoryType.SeaFish   => "Sea fish"
+              , SubcategoryType.RiverFish => "River fish"
+              , SubcategoryType.LakeFish  => "Lake fish"
 
                 // Cavier
-              , SubCategoryType.RedCaviar           => "Red caviar"
-              , SubCategoryType.BlackSturgeonCaviar => "Black sturgeon caviar"
-              , SubCategoryType.CodCaviar           => "Cod caviar"
-              , SubCategoryType.PikeCaviar          => "Pike caviar"
+              , SubcategoryType.RedCaviar           => "Red caviar"
+              , SubcategoryType.BlackSturgeonCaviar => "Black sturgeon caviar"
+              , SubcategoryType.CodCaviar           => "Cod caviar"
+              , SubcategoryType.PikeCaviar          => "Pike caviar"
 
                 // Seafood
-              , SubCategoryType.Mussels         => "Mussels"
-              , SubCategoryType.Squid           => "Squid"
-              , SubCategoryType.Octopus         => "Octopus"
-              , SubCategoryType.Rapani          => "Rapani"
-              , SubCategoryType.SeafoodCocktail => "Seafood cocktail"
-              , SubCategoryType.Shrimp          => "Shrimp"
-              , SubCategoryType.LiveOyster      => "Live oyster"
-              , SubCategoryType.CrabAndLobster  => "Crab and lobster"
-              , SubCategoryType.Pectinida       => "Pectinida"
+              , SubcategoryType.Mussels         => "Mussels"
+              , SubcategoryType.Squid           => "Squid"
+              , SubcategoryType.Octopus         => "Octopus"
+              , SubcategoryType.Rapani          => "Rapani"
+              , SubcategoryType.SeafoodCocktail => "Seafood cocktail"
+              , SubcategoryType.Shrimp          => "Shrimp"
+              , SubcategoryType.LiveOyster      => "Live oyster"
+              , SubcategoryType.CrabAndLobster  => "Crab and lobster"
+              , SubcategoryType.Pectinida       => "Pectinida"
               , _                               => string.Empty
             }
         };

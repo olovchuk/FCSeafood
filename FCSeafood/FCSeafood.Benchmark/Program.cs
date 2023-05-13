@@ -37,7 +37,7 @@ public class ItemBenchmark {
     [Benchmark]
     public async Task GetItemListAsync() {
         var tmp = await _itemManager.GetItemListAsync(new ItemByFilterParams(new ItemFilterModel {
-            CategoryType = CategoryType.Fish, SubCategoryType = SubCategoryType.RiverFish
+            CategoryType = CategoryType.Fish, SubcategoryType = SubcategoryType.RiverFish
         }));
     }
 }

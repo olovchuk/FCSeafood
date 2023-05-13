@@ -30,7 +30,7 @@ public class ItemService {
 
     public async Task<IReadOnlyCollection<ItemModel>> GetItemListAsync(ItemFilterModel filterModel) {
         try {
-            var itemListDbo = await _itemRepository.FindByConditionListAsync(x => x.CategoryType == filterModel.CategoryType && x.SubCategoryType == filterModel.SubCategoryType);
+            var itemListDbo = await _itemRepository.FindByConditionListAsync(x => x.CategoryType == filterModel.CategoryType && x.SubcategoryType == filterModel.SubcategoryType);
             if (itemListDbo.Count == 0) return Array.Empty<ItemModel>();
 
             var result = await _itemMapperHelper.ToModel(itemListDbo);

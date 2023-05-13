@@ -27,25 +27,25 @@ public class CommonMapperHelper {
         return (true, listResult);
     }
 
-    public (bool success, SubCategoryTModel model) ToModel(DAL.Common.Models.SubCategoryTDbo dbo) {
-        if (dbo.Equals(null)) return (false, new SubCategoryTModel());
+    public (bool success, SubcategoryTModel model) ToModel(DAL.Common.Models.SubcategoryTDbo dbo) {
+        if (dbo.Equals(null)) return (false, new SubcategoryTModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Common.Models.SubCategoryTDbo, SubCategoryTModel>()
+            cfg.CreateMap<DAL.Common.Models.SubcategoryTDbo, SubcategoryTModel>()
                .ForMember(memberOptions => memberOptions.Type
-                        , options => options.MapFrom(source => Enum.GetName(typeof(SubCategoryType), source.Id)));
+                        , options => options.MapFrom(source => Enum.GetName(typeof(SubcategoryType), source.Id)));
         });
         var maper = new Mapper(config);
-        var model = maper.Map<SubCategoryTModel>(dbo);
+        var model = maper.Map<SubcategoryTModel>(dbo);
         return (true, model);
     }
 
-    public (bool success, IReadOnlyCollection<SubCategoryTModel> models) ToModel(IEnumerable<DAL.Common.Models.SubCategoryTDbo> listDbo) {
-        if (listDbo.Equals(null)) return (false, Array.Empty<SubCategoryTModel>());
+    public (bool success, IReadOnlyCollection<SubcategoryTModel> models) ToModel(IEnumerable<DAL.Common.Models.SubcategoryTDbo> listDbo) {
+        if (listDbo.Equals(null)) return (false, Array.Empty<SubcategoryTModel>());
 
-        var listResult = new List<SubCategoryTModel>();
+        var listResult = new List<SubcategoryTModel>();
         foreach (var result in listDbo.Select(this.ToModel)) {
-            if (!result.success) return (false, Array.Empty<SubCategoryTModel>());
+            if (!result.success) return (false, Array.Empty<SubcategoryTModel>());
             listResult.Add(result.model);
         }
         return (true, listResult);
@@ -56,7 +56,7 @@ public class CommonMapperHelper {
 
         var model = new BindCategoryModel {
             CategoryTModel = EnumHelper.GetCategoryType(dbo.CategoryType)
-          , SubCategoryTModel = EnumHelper.GetSubCategoryType(dbo.SubCategoryType)
+          , SubcategoryTModel = EnumHelper.GetSubcategoryType(dbo.SubcategoryType)
         };
         return (true, model);
     }

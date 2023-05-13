@@ -52,7 +52,7 @@ public static class Configuration {
         serviceCollection.AddTransient<ItemRepository>();
         serviceCollection.AddTransient<PriceRepository>();
         serviceCollection.AddTransient<CategoryTRepository>();
-        serviceCollection.AddTransient<SubCategoryTRepository>();
+        serviceCollection.AddTransient<SubcategoryTRepository>();
         serviceCollection.AddTransient<BindCategoryRepository>();
 
 #endregion

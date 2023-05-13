@@ -10,6 +10,6 @@ public class BindCategoryDbo {
     [Column("FK_Category_Type")]
     public CategoryType CategoryType { get; set; }
 
-    [Column("FK_Sub_Category_Type")]
-    public SubCategoryType SubCategoryType { get; set; }
+    [Column("FK_Subcategory_Type")]
+    public SubcategoryType SubcategoryType { get; set; }
 }

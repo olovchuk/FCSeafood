@@ -39,7 +39,7 @@ public enum CategoryType {
 }
 
 // E_Sub_Category_Type
-public enum SubCategoryType {
+public enum SubcategoryType {
     Unknown = 0
 
     // Fish

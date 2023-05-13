@@ -34,7 +34,7 @@ public class Tests {
 
     // Common
     private CategoryTRepository _categoryTRepository = null!;
-    private SubCategoryTRepository _subcategoryTRepository = null!;
+    private SubcategoryTRepository _subcategoryTRepository = null!;
     private BindCategoryRepository _bindCategoryRepository = null!;
     private CommonService _commonService = null!;
     private CommonMapperHelper _commonMapperHelper = null!;
@@ -62,7 +62,7 @@ public class Tests {
         _itemManager = new ItemManager(_itemService);
 
         _categoryTRepository = new CategoryTRepository(_commonFcSeafoodContext);
-        _subcategoryTRepository = new SubCategoryTRepository(_commonFcSeafoodContext);
+        _subcategoryTRepository = new SubcategoryTRepository(_commonFcSeafoodContext);
         _bindCategoryRepository = new BindCategoryRepository(_auxiliaryFcSeafoodContext);
         _commonMapperHelper = new CommonMapperHelper();
         _commonService = new CommonService(_commonMapperHelper, _bindCategoryRepository, _categoryTRepository, _subcategoryTRepository);
@@ -75,7 +75,7 @@ public class Tests {
             Assert.That(_itemManager, Is.Not.Null);
         });
 
-        var itemDbos = await _itemRepository.FindByConditionAsync(x => x.CategoryType == CategoryType.Fish && x.SubCategoryType == SubCategoryType.SeaFish);
+        var itemDbos = await _itemRepository.FindByConditionAsync(x => x.CategoryType == CategoryType.Fish && x.SubcategoryType == SubcategoryType.SeaFish);
         Assert.That(itemDbos, Is.Not.Null);
 
         var oprions = new JsonSerializerOptions {
@@ -92,7 +92,7 @@ public class Tests {
         });
 
         var itemListModel = await _itemManager.GetItemListAsync(new ItemByFilterParams(new ItemFilterModel {
-            CategoryType = CategoryType.Fish, SubCategoryType = SubCategoryType.SeaFish
+            CategoryType = CategoryType.Fish, SubcategoryType = SubcategoryType.SeaFish
         }));
 
         var oprions = new JsonSerializerOptions {

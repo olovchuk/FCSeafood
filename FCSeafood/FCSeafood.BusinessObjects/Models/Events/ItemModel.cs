@@ -11,7 +11,7 @@ public class ItemModel {
 
     public CategoryTModel Category { get; set; } = new();
 
-    public SubCategoryTModel SubCategory { get; set; } = new();
+    public SubcategoryTModel Subcategory { get; set; } = new();
 
     public ItemStatusTModel ItemStatus { get; set; } = new();
 

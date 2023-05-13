@@ -20,17 +20,17 @@ public class CommonController : ControllerBase {
         return Ok(result);
     }
 
-    [HttpGet("GetSubCategoryTList")]
-    public async Task<IActionResult> GetSubCategoryTListAsync() {
-        var result = await _commonManager.GetSubCategoryTListAsync();
+    [HttpGet("GetSubcategoryTList")]
+    public async Task<IActionResult> GetSubcategoryTListAsync() {
+        var result = await _commonManager.GetSubcategoryTListAsync();
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);
     }
 
-    [HttpGet("GetSubCategoryByCategoryTList")]
-    public async Task<IActionResult> GetSubCategoryTListAsync([FromQuery]CategoryTParams subCategoryTParams) {
-        var result = await _commonManager.GetSubCategoryTListAsync(subCategoryTParams);
+    [HttpGet("GetSubcategoryByCategoryTList")]
+    public async Task<IActionResult> GetSubcategoryTListAsync([FromQuery]CategoryTParams subcategoryTParams) {
+        var result = await _commonManager.GetSubcategoryTListAsync(subcategoryTParams);
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);
