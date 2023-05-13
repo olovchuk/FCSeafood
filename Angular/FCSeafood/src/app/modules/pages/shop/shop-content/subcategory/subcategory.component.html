@@ -1,0 +1,11 @@
+<section class="subcategory-section">
+
+  <article class="title">{{title}}</article>
+
+  <div class="flex justify-content-center flex-wrap w-15">
+    <shop-subcategory-type-card [subcategoryTModel]="subcategoryTModel"
+                                *ngFor="let subcategoryTModel of subcategoryTListModel">
+    </shop-subcategory-type-card>
+  </div>
+
+</section>
