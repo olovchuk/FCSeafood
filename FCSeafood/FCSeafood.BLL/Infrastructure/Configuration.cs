@@ -30,6 +30,7 @@ public static class Configuration {
         serviceCollection.AddTransient<UserService>();
         serviceCollection.AddTransient<CommonService>();
         serviceCollection.AddTransient<ItemService>();
+        serviceCollection.AddTransient<PriceService>();
 
         // Helpers
         serviceCollection.AddTransient<AuthJwtHelper>();
@@ -38,6 +39,7 @@ public static class Configuration {
         serviceCollection.AddTransient<UserMapperHelper>();
         serviceCollection.AddTransient<CommonMapperHelper>();
         serviceCollection.AddTransient<ItemMapperHelper>();
+        serviceCollection.AddTransient<PriceMapperHelper>();
 
 #endregion
 
@@ -48,6 +50,7 @@ public static class Configuration {
         serviceCollection.AddTransient<UserRepository>();
         serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<ItemRepository>();
+        serviceCollection.AddTransient<PriceRepository>();
         serviceCollection.AddTransient<CategoryTRepository>();
         serviceCollection.AddTransient<SubCategoryTRepository>();
         serviceCollection.AddTransient<BindCategoryRepository>();
