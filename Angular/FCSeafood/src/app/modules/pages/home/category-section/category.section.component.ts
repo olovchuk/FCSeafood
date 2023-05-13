@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonData} from "@common-data/common/common.data";
 import {CategoryTModel} from "@common-data/common/models/common/category-type.model";
+import {CommonDataStateService} from "@common-services/common-data-state/common-data-state.service";
 
 @Component({
   selector: 'home-category-section',
@@ -10,13 +10,10 @@ import {CategoryTModel} from "@common-data/common/models/common/category-type.mo
 export class CategorySectionComponent implements OnInit {
   categoryTListModel: CategoryTModel[] = [];
 
-  constructor(private commonData: CommonData) {
+  constructor(private commonDataStateService: CommonDataStateService) {
   }
 
   async ngOnInit(): Promise<void> {
-    let categoryTypeListResponse = await this.commonData.GetCategoryListAsync();
-    if (categoryTypeListResponse.isSuccessful) {
-      this.categoryTListModel = categoryTypeListResponse.categoryTModels;
-    }
+    this.categoryTListModel = this.commonDataStateService.state.categoryTListModel;
   }
 }

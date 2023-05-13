@@ -4,6 +4,7 @@ import {AuthService, GetToken} from "@common-services/auth/auth.service";
 import {UserInformationData} from "@common-data/user-information/user-information.data";
 import {UserInformationStateService} from "@common-services/user-information-sate/user-information-state.service";
 import {SignInResponse} from "@common-data/auth/models/response/sign-in.response";
+import {CommonDataStateService} from "@common-services/common-data-state/common-data-state.service";
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService,
               private userInformationData: UserInformationData,
-              private userInformationStateService: UserInformationStateService) {
+              private userInformationStateService: UserInformationStateService,
+              private commonDataStateService: CommonDataStateService) {
     this.signInSubscription = authService.signIn$.subscribe(next => this._onSignIn(next));
   }
 
@@ -25,8 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // TODO: Cookie popup
 
     await this.userInformationStateService.Init();
-
-    console.log(this.userInformationStateService.State.userInformation);
+    await this.commonDataStateService.init();
   }
 
   ngOnDestroy(): void {
