@@ -9,6 +9,6 @@ export class CommonDataSettings {
   private _getSubcategoryTList: string = '/api/Common/GetCategoryTList';
   getSubcategoryTList: string = AppSettings.webApiHostUrl + this._getSubcategoryTList;
 
-  private _getSubCategoryByCategoryTList: string = '/api/Common/GetSubCategoryByCategoryTList';
-  getSubCategoryByCategoryTList: string = AppSettings.webApiHostUrl + this._getSubCategoryByCategoryTList;
+  private _getSubcategoryByCategoryTList: string = '/api/Common/GetSubcategoryByCategoryTList';
+  getSubcategoryByCategoryTList: string = AppSettings.webApiHostUrl + this._getSubcategoryByCategoryTList;
 }
