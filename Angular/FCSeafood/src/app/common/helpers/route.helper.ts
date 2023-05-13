@@ -28,7 +28,7 @@ export class RouteHelper {
     await this.router.navigate([this.paths.shop.category]);
   }
 
-  async goToSubCategory(categoryType: CategoryType) {
+  async goToSubcategory(categoryType: CategoryType) {
     let categoryTypeValue = CategoryTypeValues.find(x => x.id == categoryType);
     if (categoryTypeValue)
       await this.router.navigate([this.paths.shop.category + '/' + categoryTypeValue.value]);

@@ -3,7 +3,7 @@ import {CommonDataState} from "@common-states/common-data.state";
 import {CommonData} from "@common-data/common/common.data";
 import {SubcategoryTypeRequest} from "@common-data/common/models/request/subcategory-type.request";
 import {CategoryType} from "@common-enums/category.type";
-import {SubCategoryTModel} from "@common-data/common/models/common/sub-category-type.model";
+import {SubcategoryTModel} from "@common-data/common/models/common/subcategory-type.model";
 
 @Injectable({providedIn: 'root'})
 export class CommonDataStateService {
@@ -20,15 +20,15 @@ export class CommonDataStateService {
     if (categoryTListResponse.isSuccessful)
       this.commonDataState.categoryTListModel = categoryTListResponse.categoryTListModel;
 
-    const subcategoryTypeListResponse = await this.commonData.GetSubCategoryListAsync();
+    const subcategoryTypeListResponse = await this.commonData.GetSubcategoryListAsync();
     if (subcategoryTypeListResponse.isSuccessful)
       this.commonDataState.subcategoryTListModel = subcategoryTypeListResponse.subcategoryTListModel;
   }
 
-  async getSubCategoryByCategoryListAsync(categoryType: CategoryType): Promise<SubCategoryTModel[]> {
+  async getSubcategoryByCategoryListAsync(categoryType: CategoryType): Promise<SubcategoryTModel[]> {
     let subcategoryTypeRequest = new SubcategoryTypeRequest();
     subcategoryTypeRequest.categoryType = categoryType;
-    const subcategoryTypeListResponse = await this.commonData.GetSubCategoryByCategoryListAsync(subcategoryTypeRequest);
+    const subcategoryTypeListResponse = await this.commonData.GetSubcategoryByCategoryListAsync(subcategoryTypeRequest);
     if (subcategoryTypeListResponse.isSuccessful)
       return subcategoryTypeListResponse.subcategoryTListModel;
     return [];

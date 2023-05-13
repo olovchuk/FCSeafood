@@ -1,4 +1,4 @@
-export enum SubCategoryType {
+export enum SubcategoryType {
   Unknown = 0,
 
   // Fish

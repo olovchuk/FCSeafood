@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {CommonDataStateService} from "@common-services/common-data-state/common-data-state.service";
-import {SubCategoryTModel} from "@common-data/common/models/common/sub-category-type.model";
 import {ActivatedRoute} from "@angular/router";
 import {CategoryType, CategoryTypeValues} from "@common-enums/category.type";
+import {SubcategoryTModel} from "@common-data/common/models/common/subcategory-type.model";
 
 @Component({
   selector: 'shop-subcategory',
@@ -11,7 +11,7 @@ import {CategoryType, CategoryTypeValues} from "@common-enums/category.type";
 })
 export class SubcategoryComponent {
   title: string = '';
-  subcategoryTListModel: SubCategoryTModel[] = [];
+  subcategoryTListModel: SubcategoryTModel[] = [];
 
   constructor(private commonDataStateService: CommonDataStateService,
               private route: ActivatedRoute) {
@@ -27,7 +27,7 @@ export class SubcategoryComponent {
     });
 
     this.title = 'Choose subcategory'
-    this.subcategoryTListModel = await this.commonDataStateService.getSubCategoryByCategoryListAsync(category);
+    this.subcategoryTListModel = await this.commonDataStateService.getSubcategoryByCategoryListAsync(category);
     console.log(this.subcategoryTListModel)
   }
 }

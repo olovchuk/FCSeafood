@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {SubCategoryTModel} from "@common-data/common/models/common/sub-category-type.model";
+import {SubcategoryTModel} from "@common-data/common/models/common/subcategory-type.model";
 
 @Component({
   selector: 'shop-subcategory-type-card',
@@ -7,5 +7,5 @@ import {SubCategoryTModel} from "@common-data/common/models/common/sub-category-
   styleUrls: ['./subcategory-type-card.component.scss']
 })
 export class SubcategoryTypeCardComponent {
-  @Input('subcategoryTModel') subcategoryTModel!: SubCategoryTModel;
+  @Input('subcategoryTModel') subcategoryTModel!: SubcategoryTModel;
 }
