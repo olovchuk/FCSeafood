@@ -5,6 +5,6 @@
       <home-category-type-card [categoryTModel]="categoryTModel"
                                *ngFor="let categoryTModel of categoryTListModel"></home-category-type-card>
     </div>
-    <button mat-raised-button class="text-lg p-4 my-3">See more</button>
+    <button (click)="routeHelper.goToCategory()" mat-raised-button class="text-lg p-4 my-3">See more</button>
   </div>
 </section>

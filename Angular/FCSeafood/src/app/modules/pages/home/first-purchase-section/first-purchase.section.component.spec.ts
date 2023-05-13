@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FirstPurchaseSectionComponent } from './first-purchase.section.component';
+import {FirstPurchaseSectionComponent} from './first-purchase.section.component';
 
 describe('FirstPurchaseSectionComponent', () => {
   let component: FirstPurchaseSectionComponent;
@@ -8,9 +8,8 @@ describe('FirstPurchaseSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FirstPurchaseSectionComponent ]
-    })
-    .compileComponents();
+      declarations: [FirstPurchaseSectionComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FirstPurchaseSectionComponent);
     component = fixture.componentInstance;

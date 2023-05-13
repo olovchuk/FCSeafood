@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SubcategoryTypeCardComponent } from './subcategory-type-card.component';
+import {SubcategoryTypeCardComponent} from './subcategory-type-card.component';
 
 describe('SubcategoryTypeCardComponent', () => {
   let component: SubcategoryTypeCardComponent;
@@ -8,9 +8,8 @@ describe('SubcategoryTypeCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SubcategoryTypeCardComponent ]
-    })
-    .compileComponents();
+      declarations: [SubcategoryTypeCardComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SubcategoryTypeCardComponent);
     component = fixture.componentInstance;

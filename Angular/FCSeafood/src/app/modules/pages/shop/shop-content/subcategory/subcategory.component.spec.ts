@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SubcategoryComponent } from './subcategory.component';
+import {SubcategoryComponent} from './subcategory.component';
 
 describe('SubcategoryComponent', () => {
   let component: SubcategoryComponent;
@@ -8,9 +8,8 @@ describe('SubcategoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SubcategoryComponent ]
-    })
-    .compileComponents();
+      declarations: [SubcategoryComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SubcategoryComponent);
     component = fixture.componentInstance;

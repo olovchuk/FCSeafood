@@ -8,8 +8,7 @@ describe('CategoryTypeCardShopComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CategoryTypeCardShopComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CategoryTypeCardShopComponent);
     component = fixture.componentInstance;

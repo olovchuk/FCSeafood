@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CategoryTypeCardComponent } from './category-type.card.component';
+import {CategoryTypeCardComponent} from './category-type.card.component';
 
 describe('CategoryTypeCardComponent', () => {
   let component: CategoryTypeCardComponent;
@@ -8,9 +8,8 @@ describe('CategoryTypeCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CategoryTypeCardComponent ]
-    })
-    .compileComponents();
+      declarations: [CategoryTypeCardComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CategoryTypeCardComponent);
     component = fixture.componentInstance;

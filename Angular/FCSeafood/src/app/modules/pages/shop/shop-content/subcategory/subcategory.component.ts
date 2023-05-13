@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonDataStateService} from "@common-services/common-data-state/common-data-state.service";
 import {ActivatedRoute} from "@angular/router";
 import {CategoryType, CategoryTypeValues} from "@common-enums/category.type";
@@ -9,7 +9,7 @@ import {SubcategoryTModel} from "@common-data/common/models/common/subcategory-t
   templateUrl: './subcategory.component.html',
   styleUrls: ['./subcategory.component.scss']
 })
-export class SubcategoryComponent {
+export class SubcategoryComponent implements OnInit {
   title: string = '';
   subcategoryTListModel: SubcategoryTModel[] = [];
 
