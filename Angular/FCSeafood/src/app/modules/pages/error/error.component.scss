@@ -1,0 +1,36 @@
+.error-page {
+  height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  article {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 60px;
+    color: var(--grafit-color);
+  }
+
+  .error-number {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    color: var(--grafit-color);
+
+    margin-top: 40px;
+  }
+
+  .back-button {
+    height: 70px;
+    width: 404px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+
+    margin-top: 40px;
+  }
+}
