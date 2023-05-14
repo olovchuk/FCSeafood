@@ -4,12 +4,14 @@ import {LoginPopupComponent} from "./login-popup/login-popup.component";
 import {MaterialModule} from "../../material/material.module";
 import {RouterModule} from "@angular/router";
 import {RegistrationPopupComponent} from './registration-popup/registration-popup.component';
+import {CategoryListPopupComponent} from './category-list-popup/category-list-popup.component';
 
 
 @NgModule({
   declarations: [
     LoginPopupComponent,
-    RegistrationPopupComponent
+    RegistrationPopupComponent,
+    CategoryListPopupComponent
   ],
   imports: [
     CommonModule,

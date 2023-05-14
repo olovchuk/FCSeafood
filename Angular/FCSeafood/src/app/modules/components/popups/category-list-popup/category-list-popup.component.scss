@@ -1,0 +1,32 @@
+.category-list-popup {
+  background-color: var(--primary-color);
+  padding: 1rem;
+
+
+  .category-list {
+    .category-text {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .category-text:hover {
+      cursor: pointer;
+      color: var(--primary-darker-color);
+    }
+
+    .subcategory-text {
+      margin-top: 0.2rem;
+      margin-left: 0.5rem;
+
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+    }
+
+    .subcategory-text:hover {
+      cursor: pointer;
+      color: var(--primary-darker-color);
+    }
+  }
+}

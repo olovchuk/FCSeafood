@@ -14,12 +14,16 @@ import {AppSettings} from "@settings/app.settings";
 import {RefreshTokenInterceptor} from "@interceptors/refresh-token.interceptor/refresh-token.interceptor";
 import {PopupsComponentsModule} from "@modules/components/popups/popups-components.module";
 import {NgOptimizedImage} from "@angular/common";
+import {MainMenuItemComponent} from '@modules/components/header/main-menu/main-menu-item/main-menu-item.component';
+import {MainMenuComponent} from '@modules/components/header/main-menu/main-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    MainMenuItemComponent,
+    MainMenuComponent
   ],
   imports: [
     BrowserModule,

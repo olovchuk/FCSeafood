@@ -1,14 +1,15 @@
-import {Injectable, OnInit} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {CommonDataState} from "@common-states/common-data.state";
 import {CommonData} from "@common-data/common/common.data";
-import {SubcategoryTypeRequest} from "@common-data/common/models/request/subcategory-type.request";
-import {CategoryType} from "@common-enums/category.type";
-import {SubcategoryTModel} from "@common-data/common/models/common/subcategory-type.model";
+import {MainSitemapState} from "@common-states/main-sitemap.state";
+import {MainMenuItemModel} from "@common-models/main-menu-item.model";
+import {CategoryListPopupComponent} from "@modules/components/popups/category-list-popup/category-list-popup.component";
 
 @Injectable({providedIn: 'root'})
 export class CommonDataStateService {
   constructor(private commonDataState: CommonDataState,
-              private commonData: CommonData) {
+              private commonData: CommonData,
+              private mainSitemapState: MainSitemapState) {
   }
 
   get state(): CommonDataState {
@@ -24,15 +25,21 @@ export class CommonDataStateService {
     if (subcategoryTypeListResponse.isSuccessful)
       this.commonDataState.subcategoryTListModel = subcategoryTypeListResponse.subcategoryTListModel;
 
+    const bindCategoryListResponse = await this.commonData.GetBindCategoryListAsync();
+    if (bindCategoryListResponse.isSuccessful)
+      this.commonDataState.bindCategoryListModel = bindCategoryListResponse.bindCategoryListModel;
+
     this.commonDataState.ResolveInit(null);
   }
 
-  async getSubcategoryByCategoryListAsync(categoryType: CategoryType): Promise<SubcategoryTModel[]> {
-    let subcategoryTypeRequest = new SubcategoryTypeRequest();
-    subcategoryTypeRequest.categoryType = categoryType;
-    const subcategoryTypeListResponse = await this.commonData.GetSubcategoryByCategoryListAsync(subcategoryTypeRequest);
-    if (subcategoryTypeListResponse.isSuccessful)
-      return subcategoryTypeListResponse.subcategoryTListModel;
-    return [];
+  initMainMenu(): void {
+    this.mainSitemapState.items = [this.product];
   }
+
+  product: MainMenuItemModel = new MainMenuItemModel(
+    1,
+    'Product',
+    '',
+    CategoryListPopupComponent
+  );
 }
