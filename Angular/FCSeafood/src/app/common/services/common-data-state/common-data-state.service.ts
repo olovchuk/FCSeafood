@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, OnInit} from "@angular/core";
 import {CommonDataState} from "@common-states/common-data.state";
 import {CommonData} from "@common-data/common/common.data";
 import {SubcategoryTypeRequest} from "@common-data/common/models/request/subcategory-type.request";
@@ -23,6 +23,8 @@ export class CommonDataStateService {
     const subcategoryTypeListResponse = await this.commonData.GetSubcategoryListAsync();
     if (subcategoryTypeListResponse.isSuccessful)
       this.commonDataState.subcategoryTListModel = subcategoryTypeListResponse.subcategoryTListModel;
+
+    this.commonDataState.ResolveInit(null);
   }
 
   async getSubcategoryByCategoryListAsync(categoryType: CategoryType): Promise<SubcategoryTModel[]> {
