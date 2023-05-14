@@ -38,4 +38,14 @@ public class CommonManager {
             return new SubcategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubcategoryTModel>());
         }
     }
+
+    public async Task<BindCategoryListResponse> GetBindCategoryListAsync() {
+        try {
+            var bindCategoryListModel = await _commonService.GetBindCategoryListAsync();
+            return new BindCategoryListResponse(true, "", bindCategoryListModel);
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new BindCategoryListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<BindCategoryModel>());
+        }
+    }
 }

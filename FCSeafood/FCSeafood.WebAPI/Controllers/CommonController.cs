@@ -29,8 +29,16 @@ public class CommonController : ControllerBase {
     }
 
     [HttpGet("GetSubcategoryByCategoryTList")]
-    public async Task<IActionResult> GetSubcategoryTListAsync([FromQuery]CategoryTParams subcategoryTParams) {
+    public async Task<IActionResult> GetSubcategoryTListAsync([FromQuery] CategoryTParams subcategoryTParams) {
         var result = await _commonManager.GetSubcategoryTListAsync(subcategoryTParams);
+        if (!result.IsSuccessful) return BadRequest(result);
+
+        return Ok(result);
+    }
+
+    [HttpGet("GetBindCategoryList")]
+    public async Task<IActionResult> GetBindCategoryListAsync() {
+        var result = await _commonManager.GetBindCategoryListAsync();
         if (!result.IsSuccessful) return BadRequest(result);
 
         return Ok(result);

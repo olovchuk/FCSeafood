@@ -52,6 +52,18 @@ public class CommonService {
 
 #region BindCategory
 
+    public async Task<IReadOnlyCollection<BindCategoryModel>> GetBindCategoryListAsync() {
+        try {
+            var bindCategoryListDbos = await _bindCategoryRepository.GetAllAsync();
+
+            var result = _commonMapperHelper.ToModel(bindCategoryListDbos);
+            return result.success ? result.models : Array.Empty<BindCategoryModel>();
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            return Array.Empty<BindCategoryModel>();
+        }
+    }
+
     public async Task<IReadOnlyCollection<BindCategoryModel>> GetBindCategoryListAsync(CategoryType categoryType) {
         try {
             var bindCategoryListDbos = await _bindCategoryRepository.GetByCategoryTypeAsync(categoryType);
