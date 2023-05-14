@@ -6,6 +6,9 @@ import {CategoryType, CategoryTypeValues} from "@common-enums/category.type";
 export class RouteHelper {
   paths: any;
 
+  previousUrl: string = '';
+  currentUrl: string = '';
+
   constructor(private router: Router) {
     this.paths = {
       home: '/home',
@@ -16,21 +19,35 @@ export class RouteHelper {
     };
   }
 
+  private async redirect() {
+    await this.router.navigate([this.currentUrl]);
+  }
+
   async goToHome() {
-    await this.router.navigate([this.paths.home]);
+    this.previousUrl = location.href;
+    this.currentUrl = this.paths.home;
+    await this.redirect();
   }
 
   async goToShop() {
-    await this.router.navigate([this.paths.shop.main]);
+    this.previousUrl = location.href;
+    this.currentUrl = this.paths.shop.main;
+    await this.redirect();
   }
 
   async goToCategory() {
-    await this.router.navigate([this.paths.shop.category]);
+    this.previousUrl = location.href;
+    this.currentUrl = this.paths.shop.category;
+    await this.redirect();
   }
 
   async goToSubcategory(categoryType: CategoryType) {
     let categoryTypeValue = CategoryTypeValues.find(x => x.id == categoryType);
-    if (categoryTypeValue)
-      await this.router.navigate([this.paths.shop.category + '/' + categoryTypeValue.value]);
+    if (!categoryTypeValue)
+      return;
+
+    this.previousUrl = location.href;
+    this.currentUrl = this.paths.shop.category + '/' + categoryTypeValue.value;
+    await this.redirect();
   }
 }
