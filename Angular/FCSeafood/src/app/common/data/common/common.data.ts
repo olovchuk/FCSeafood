@@ -6,6 +6,7 @@ import {SubcategoryTypeListResponse} from "@common-data/common/models/response/s
 import {firstValueFrom} from "rxjs";
 import {CategoryType} from "@common-enums/category.type";
 import {SubcategoryTypeRequest} from "@common-data/common/models/request/subcategory-type.request";
+import {BindCategoryListResponse} from "@common-data/common/models/response/bind-category-list.response";
 
 @Injectable({providedIn: 'root'})
 export class CommonData {
@@ -26,5 +27,9 @@ export class CommonData {
     params = params.append('CategoryType', subcategoryTypeRequest.categoryType);
 
     return await firstValueFrom(this.http.get<SubcategoryTypeListResponse>(this.settings.getSubcategoryByCategoryTList, {params: params}));
+  }
+
+  async GetBindCategoryListAsync(): Promise<BindCategoryListResponse> {
+    return await firstValueFrom(this.http.get<BindCategoryListResponse>(this.settings.getBindCategoryList));
   }
 }
