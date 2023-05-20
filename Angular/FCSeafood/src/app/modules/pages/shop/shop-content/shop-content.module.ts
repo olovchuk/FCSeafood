@@ -6,11 +6,13 @@ import {RouterModule, Routes} from "@angular/router";
 import {MaterialModule} from "@modules/material/material.module";
 import {CategoryTypeCardShopComponent} from './category/category-type-card/category-type-card.component';
 import {SubcategoryTypeCardComponent} from './subcategory/subcategory-type-card/subcategory-type-card.component';
+import {ItemListComponent} from './item-list/item-list.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'category', pathMatch: 'full'},
   {path: 'category', component: CategoryComponent},
-  {path: 'category/:categoryType', component: SubcategoryComponent}
+  {path: ':categoryType', component: SubcategoryComponent},
+  {path: ':categoryType/:subcategoryType', component: ItemListComponent}
 ];
 
 @NgModule({
@@ -18,7 +20,8 @@ const routes: Routes = [
     CategoryComponent,
     CategoryTypeCardShopComponent,
     SubcategoryComponent,
-    SubcategoryTypeCardComponent
+    SubcategoryTypeCardComponent,
+    ItemListComponent
   ],
   imports: [RouterModule.forChild(routes), MaterialModule, NgForOf, NgOptimizedImage],
   exports: [RouterModule]

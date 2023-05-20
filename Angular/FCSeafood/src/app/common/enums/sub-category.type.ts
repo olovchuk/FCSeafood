@@ -23,3 +23,24 @@ export enum SubcategoryType {
   CrabAndLobster = 15,
   Pectinida = 16
 }
+
+export const SubcategoryTypeValues = [
+  {id: SubcategoryType.SeaFish, value: "sea-fish"},
+  {id: SubcategoryType.RiverFish, value: "river-fish"},
+  {id: SubcategoryType.LakeFish, value: "lake-fish"},
+
+  {id: SubcategoryType.RedCaviar, value: "red-caviar"},
+  {id: SubcategoryType.BlackSturgeonCaviar, value: "black-sturgeon-caviar"},
+  {id: SubcategoryType.CodCaviar, value: "cod-caviar"},
+  {id: SubcategoryType.PikeCaviar, value: "pike-caviar"},
+
+  {id: SubcategoryType.Mussels, value: "mussels"},
+  {id: SubcategoryType.Squid, value: "squid"},
+  {id: SubcategoryType.Octopus, value: "octopus"},
+  {id: SubcategoryType.Rapani, value: "rapani"},
+  {id: SubcategoryType.SeafoodCocktail, value: "seafood-cocktail"},
+  {id: SubcategoryType.Shrimp, value: "shrimp"},
+  {id: SubcategoryType.LiveOyster, value: "live-oyster"},
+  {id: SubcategoryType.CrabAndLobster, value: "crab-and-lobster"},
+  {id: SubcategoryType.Pectinida, value: "pectinida"}
+]

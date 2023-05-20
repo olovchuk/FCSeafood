@@ -37,8 +37,6 @@ export class SubcategoryComponent implements OnInit, OnDestroy {
         resolve(null);
       });
     });
-
-
   }
 
   ngOnDestroy(): void {
