@@ -10,6 +10,8 @@ export const SHOP_FILTERS = 'shop_filters';
 
 @Injectable({providedIn: 'root'})
 export class ShopFiltersStateService {
+  isInit: boolean = false;
+
   constructor(private shopFiltersState: ShopFiltersState,
               private commonDataStateService: CommonDataStateService) {
   }
@@ -36,11 +38,15 @@ export class ShopFiltersStateService {
       this.shopFiltersState.selectedPriceSorted = SortDirectionType.Ascending;
     }
 
+    this.isInit = true;
     this.shopFiltersState.ResolveInit(null);
     return this.shopFiltersState;
   }
 
   async changeCategory(categoryType: CategoryType): Promise<void> {
+    if (!this.isInit)
+      await this.init();
+
     this.shopFiltersState.selectedCategoryType = categoryType;
     this.shopFiltersState.subcategoryTList = await this.commonDataStateService.getSubcategoryTListAsync(this.shopFiltersState.selectedCategoryType);
     this.shopFiltersState.selectedSubcategoryType = this.shopFiltersState.subcategoryTList[0]?.type;
@@ -48,11 +54,17 @@ export class ShopFiltersStateService {
   }
 
   async changeSubcategory(subcategoryType: SubcategoryType): Promise<void> {
+    if (!this.isInit)
+      await this.init();
+
     this.shopFiltersState.selectedSubcategoryType = subcategoryType;
     this.save();
   }
 
-  changePriceSorted(sortDirectionType: SortDirectionType) {
+  async changePriceSorted(sortDirectionType: SortDirectionType): Promise<void> {
+    if (!this.isInit)
+      await this.init();
+
     this.shopFiltersState.selectedPriceSorted = sortDirectionType;
     this.save();
   }

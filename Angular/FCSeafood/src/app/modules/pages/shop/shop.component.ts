@@ -14,7 +14,6 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     await this.shopFiltersStateService.init();
-    this.routeHelper.getCurrentUrl();
   }
 
   async ngOnDestroy(): Promise<void> {

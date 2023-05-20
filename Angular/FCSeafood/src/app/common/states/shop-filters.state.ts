@@ -15,7 +15,7 @@ export class ShopFiltersState {
   selectedPriceSorted: SortDirectionType = SortDirectionType.Descending;
 
   ResolveInit: Function = new Function;
-  Init = new Promise((resolve) => {
+  Init = new Promise((resolve, reject) => {
     this.ResolveInit = resolve;
   })
 }

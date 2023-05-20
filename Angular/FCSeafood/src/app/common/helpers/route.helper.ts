@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 import {CategoryType, CategoryTypeValues} from "@common-enums/category.type";
+import {ShopFiltersStateService} from "@common-services/shop-filters-state/shop-filters-state.service";
+import {SubcategoryType} from "@common-enums/sub-category.type";
 
 @Injectable({providedIn: 'root'})
 export class RouteHelper {
@@ -11,7 +13,8 @@ export class RouteHelper {
 
   separateSign: string = '/';
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private shopFiltersStateService: ShopFiltersStateService) {
     this.paths = {
       error: '/error',
       home: '/home',
@@ -57,10 +60,12 @@ export class RouteHelper {
     if (!categoryTypeValue)
       return;
 
+    await this.shopFiltersStateService.changeCategory(categoryType);
     await this.redirect(this.paths.shop.category + this.separateSign + categoryTypeValue.value);
   }
 
-  async goToItems() {
+  async goToItems(subcategoryType: SubcategoryType) {
+    await this.shopFiltersStateService.changeSubcategory(subcategoryType);
     await this.redirect(this.paths.shop.items);
   }
 }
