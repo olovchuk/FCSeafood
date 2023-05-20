@@ -70,16 +70,6 @@ public class UserService {
         }
     }
 
-    public async Task<bool> IsExistsCredentialAsync(Guid id, string email, string password) {
-        try {
-            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id && x.Email == email && x.Password == password);
-            return userCredentialDbo is not null;
-        } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
-            return false;
-        }
-    }
-
     public async Task SetLastLoginDateAsync(Guid id) {
         try {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);

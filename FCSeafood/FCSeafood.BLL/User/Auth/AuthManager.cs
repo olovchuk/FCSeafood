@@ -21,11 +21,10 @@ public class AuthManager {
             var userCredential = await _userService.GetCredentialByEmailAsync(singInParams.Email);
             if (userCredential is null) return errorResponse;
 
+            if (HashHelper.HashSha256(singInParams.Password) != userCredential.Password) return errorResponse;
+
             var user = await _userService.GetUserAsync(userCredential.Id);
             if (user is null) return errorResponse;
-
-            var valid = await _userService.IsExistsCredentialAsync(userCredential.Id, singInParams.Email, singInParams.Password);
-            if (!valid) return errorResponse;
 
             var refreshUserResult = await RefreshUserAsync(new RefreshUserParams(user, userCredential.Email));
             if (!refreshUserResult.IsSuccessful) return new SignInResponse(false, refreshUserResult.Message, RoleType.Unknown, null);
