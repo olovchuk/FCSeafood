@@ -37,6 +37,12 @@ public class JwtAuthCookieService {
         return result;
     }
 
+    public async Task<SignUpResponse> SignUpAsync(SignUpParams signUpParams) {
+        var result = await _authManager.SignUpAsync(signUpParams);
+
+        return result;
+    }
+
     public SignOutResponse SignOut(SignOutParams signOutParams) {
         _cookieHelper.RemoveCookie(Configuration.GetValue<string>("TokenKeys:Access")!);
         _cookieHelper.RemoveCookie(Configuration.GetValue<string>("TokenKeys:Refresh")!);

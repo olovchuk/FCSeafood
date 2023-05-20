@@ -42,4 +42,22 @@ public class UserDbo {
 
     [Column("Updated_Date")]
     public DateTime UpdatedDate { get; set; } = DateTime.Now;
+
+    public UserDbo() { }
+
+    public UserDbo(UserModel userModel) {
+        Id = userModel.Id;
+        FirstName = userModel.FirstName;
+        LastName = userModel.LastName;
+        RoleType = userModel.Role.Type;
+        GenderType = userModel.Gender.Type;
+        IsActive = userModel.IsActive;
+        IsVerified = userModel.IsVerified;
+        Phone = userModel.Phone;
+        ImagePath = userModel.ImagePath;
+        DateOfBirth = userModel.DateOfBirth;
+        AddressId = userModel.Address?.Id;
+        CreatedDate = userModel.CreatedDate;
+        UpdatedDate = userModel.UpdatedDate;
+    }
 }

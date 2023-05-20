@@ -23,7 +23,15 @@ public static class ErrorMessage {
 
     public static class Authentication {
         public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
+        public static string SignUpFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
         public static string EmailOrPasswordIncorrect => "Email or Password incorrect. Please try again.";
+        public static string EmailIsNotValidate => "Email is incorrect. Please try again.";
+        public static string PasswordIsNotValidate => "Password should have at least 8 characters.";
+        public static string FirstNameIsNotValidate => "First Name should have at least 2 characters.";
+        public static string LastNameIsNotValidate => "Last Name should have at least 2 characters.";
+        public static string InsertAddressFailed => "Something went wrong while adding address.";
+        public static string InsertUserFailed => "Something went wrong while adding user.";
+        public static string InsertCredentialFailed => "Something went wrong while adding credential.";
     }
 
     public static class Cookie {

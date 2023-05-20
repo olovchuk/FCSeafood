@@ -15,12 +15,14 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
 
     protected IQueryable<TEntity> NoTracking() => this.Entities.AsNoTracking();
 
-    public virtual async Task InsertAsync(TEntity data) {
+    public virtual async Task<TEntity?> InsertAsync(TEntity data) {
         try {
             await this.Entities.AddAsync(data).ConfigureAwait(false);
             await this.Context.SaveChangesAsync();
+            return data;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            return null;
         }
     }
 

@@ -13,6 +13,22 @@ public class AddressService {
         _addressRepository = addressRepository;
     }
 
+    public async Task<AddressModel?> InsertAddressAsync(AddressModel addressModel) {
+        try {
+            var result = _addressMapperHelper.ToDbo(addressModel);
+            if (!result.success) return null;
+
+            var dbo = await _addressRepository.InsertAsync(result.dbo);
+            if (dbo == null) return null;
+
+            addressModel.Id = dbo.Id;
+            return addressModel;
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            return null;
+        }
+    }
+
     public async Task<AddressModel?> GetAddressAsync(Guid id) {
         try {
             var addressDbo = await _addressRepository.FindByConditionAsync(x => x.Id == id);

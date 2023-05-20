@@ -6,13 +6,15 @@ public class AuthManager {
     private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(AuthManager));
 
     private readonly UserService _userService;
+    private readonly AddressService _addressService;
     private readonly AuthJwtHelper _authJwtHelper;
     private readonly AuthRefreshJwtHelper _authRefreshJwtHelper;
 
-    public AuthManager(AuthJwtHelper authJwtHelper, AuthRefreshJwtHelper authRefreshJwtHelper, UserService userService) {
+    public AuthManager(UserService userService, AddressService addressService, AuthJwtHelper authJwtHelper, AuthRefreshJwtHelper authRefreshJwtHelper) {
+        _userService = userService;
+        _addressService = addressService;
         _authJwtHelper = authJwtHelper;
         _authRefreshJwtHelper = authRefreshJwtHelper;
-        _userService = userService;
     }
 
     public async Task<SignInResponse> SignInAsync(SignInParams singInParams) {
@@ -59,6 +61,33 @@ public class AuthManager {
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new SignInRefreshResponse(false, ErrorMessage.Authentication.AuthenticationFailed, null);
+        }
+    }
+
+    public async Task<SignUpResponse> SignUpAsync(SignUpParams signUpParams) {
+        try {
+            var signUpResponse = _userService.IsValidateCredentialForSignUp(signUpParams);
+            if (!signUpResponse.IsSuccessful) return signUpResponse;
+
+            var userModel = new UserModel {
+                FirstName = signUpParams.FirstName,
+                LastName = signUpParams.LastName
+            };
+            userModel = await _userService.InsertUserAsync(userModel);
+            if (userModel is null) return new SignUpResponse(false, ErrorMessage.Authentication.InsertUserFailed);
+
+            var credentialModel = new UserCredentialModel {
+                Id = userModel.Id,
+                Email = signUpParams.Email,
+                Password = HashHelper.HashSha256(signUpParams.Password)
+            };
+            credentialModel = await _userService.InsertCredentialAsync(credentialModel);
+            if (credentialModel is null) return new SignUpResponse(false, ErrorMessage.Authentication.InsertCredentialFailed);
+
+            return new SignUpResponse(true, "");
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new SignUpResponse(false, ErrorMessage.Authentication.SignUpFailed);
         }
     }
 

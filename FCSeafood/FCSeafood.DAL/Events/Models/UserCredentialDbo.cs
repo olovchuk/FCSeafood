@@ -18,4 +18,14 @@ public class UserCredentialDbo {
 
     [Column("Last_Password_Changed_Date")]
     public DateTime? LastPasswordChangedDate { get; set; }
+
+    public UserCredentialDbo() { }
+
+    public UserCredentialDbo(UserCredentialModel credentialModel) {
+        Id = credentialModel.Id;
+        Email = credentialModel.Email;
+        Password = credentialModel.Password;
+        LastLoginDate = credentialModel.LastLoginDate;
+        LastPasswordChangedDate = credentialModel.LastPasswordChangedDate;
+    }
 }

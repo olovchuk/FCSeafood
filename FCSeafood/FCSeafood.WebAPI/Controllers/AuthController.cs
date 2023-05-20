@@ -29,6 +29,14 @@ public class AuthController : ControllerBase {
         return Ok(result);
     }
 
+    [HttpPost("SignUp")]
+    public async Task<IActionResult> SignUpAsync(SignUpParams signUpParams) {
+        var result = await _jwtCookieAuthService.SignUpAsync(signUpParams);
+        if (!result.IsSuccessful) return BadRequest(result);
+
+        return Ok(result);
+    }
+
     [HttpPost("SignOut"), Authorize]
     public IActionResult _SignOut() {
         var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);

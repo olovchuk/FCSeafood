@@ -30,4 +30,18 @@ public class AddressDbo {
 
     [Column("Zip_Code")]
     public string? ZipCode { get; set; }
+
+    public AddressDbo() { }
+
+    public AddressDbo(AddressModel addressModel) {
+        Id = addressModel.Id;
+        Country = addressModel.Country;
+        City = addressModel.City;
+        Street = addressModel.Street;
+        ApartmentNumber = addressModel.ApartmentNumber;
+        Entrance = addressModel.Entrance;
+        Floor = addressModel.Floor;
+        Intercom = addressModel.Intercom;
+        ZipCode = addressModel.ZipCode;
+    }
 }

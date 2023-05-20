@@ -1,4 +1,5 @@
 using AutoMapper;
+using FCSeafood.DAL.Events.Models;
 using FCSeafood.DAL.Events.Repository;
 
 namespace FCSeafood.BLL.Helpers;
@@ -10,11 +11,11 @@ public class UserMapperHelper {
         _addressService = addressService;
     }
 
-    public async ValueTask<(bool success, UserModel model)> ToModel(DAL.Events.Models.UserDbo dbo, UserService userService) {
+    public async ValueTask<(bool success, UserModel model)> ToModel(UserDbo dbo, UserService userService) {
         if (dbo.Equals(null)) return (false, new UserModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Events.Models.UserDbo, UserModel>();
+            cfg.CreateMap<UserDbo, UserModel>();
         });
         var maper = new Mapper(config);
         var model = maper.Map<UserModel>(dbo);
@@ -30,14 +31,26 @@ public class UserMapperHelper {
         return (true, model);
     }
 
-    public (bool success, UserCredentialModel model) ToModel(DAL.Events.Models.UserCredentialDbo dbo) {
+    public (bool success, UserCredentialModel model) ToModel(UserCredentialDbo dbo) {
         if (dbo.Equals(null)) return (false, new UserCredentialModel());
 
         var config = new MapperConfiguration(cfg => {
-            cfg.CreateMap<DAL.Events.Models.UserCredentialDbo, UserCredentialModel>();
+            cfg.CreateMap<UserCredentialDbo, UserCredentialModel>();
         });
         var maper = new Mapper(config);
         var model = maper.Map<UserCredentialModel>(dbo);
         return (true, model);
+    }
+
+    public (bool success, UserDbo dbo) ToDbo(UserModel model) {
+        if (model.Equals(null)) return (false, new UserDbo());
+
+        return (true, new UserDbo(model));
+    }
+
+    public (bool success, UserCredentialDbo dbo) ToDbo(UserCredentialModel model) {
+        if (model.Equals(null)) return (false, new UserCredentialDbo());
+
+        return (true, new UserCredentialDbo(model));
     }
 }
