@@ -6,6 +6,8 @@ import {SignInRefreshResponse} from "./models/response/sign-in-refresh.response"
 import {SignInRequest} from "./models/request/sign-in.request";
 import {SignInRefreshRequest} from "./models/request/sign-in-refresh.request";
 import {AuthDataSettings} from "./auth.data.settings";
+import {SignUpRequest} from "@common-data/auth/models/request/sign-up.request";
+import {SignUpResponse} from "@common-data/auth/models/response/sign-up.response";
 
 @Injectable({providedIn: 'root'})
 export class AuthData {
@@ -21,11 +23,15 @@ export class AuthData {
     return this.http.post<SignInRefreshResponse>(this.settings.signInRefreshEndpointUrl, signInRefreshRequest);
   }
 
-  async SignInRefreshAsync(SignInRefreshRequest: SignInRefreshRequest): Promise<SignInRefreshResponse> {
+  async SignInRefreshAsync(signInRefreshRequest: SignInRefreshRequest): Promise<SignInRefreshResponse> {
     try {
-      return await firstValueFrom(this.http.post<SignInRefreshResponse>(this.settings.signInRefreshEndpointUrl, SignInRefreshRequest));
+      return await firstValueFrom(this.http.post<SignInRefreshResponse>(this.settings.signInRefreshEndpointUrl, signInRefreshRequest));
     } catch (e) {
       return new SignInRefreshResponse();
     }
+  }
+
+  async SignUpAsync(signUpRequest: SignUpRequest): Promise<SignUpResponse> {
+    return await firstValueFrom(this.http.post<SignUpResponse>(this.settings.signUpEndpointUrl, signUpRequest));
   }
 }

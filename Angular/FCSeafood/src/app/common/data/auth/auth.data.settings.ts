@@ -8,4 +8,7 @@ export class AuthDataSettings {
 
   private _signInRefreshEndpoint: string = '/api/Auth/SignInRefresh';
   signInRefreshEndpointUrl: string = AppSettings.webApiHostUrl + this._signInRefreshEndpoint;
+
+  private _signUpEndpoint: string = '/api/Auth/SignUp';
+  signUpEndpointUrl: string = AppSettings.webApiHostUrl + this._signUpEndpoint;
 }

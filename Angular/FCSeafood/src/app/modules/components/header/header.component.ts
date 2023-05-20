@@ -18,7 +18,7 @@ export class HeaderComponent {
   }
 
   openSignInPopup() {
-    const loginPopup = this.dialog.open(LoginPopupComponent, {
+    this.dialog.open(LoginPopupComponent, {
       panelClass: ['animate__animated', 'animate__slideInRight', 'custom-container'],
       position: {right: '0%'},
       minHeight: '100vh',

@@ -19,7 +19,7 @@ export class MainMenuItemComponent {
     const posX = componentElement.offsetLeft + 'px';
     const posY = (componentElement.offsetTop + 25) + 'px';
 
-    const itemPopup = this.dialog.open(this.item.popup, {
+    this.dialog.open(this.item.popup, {
       position: {top: posY, left: posX},
       maxWidth: '300px',
       maxHeight: '560px'

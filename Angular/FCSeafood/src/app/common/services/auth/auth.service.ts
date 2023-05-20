@@ -7,6 +7,8 @@ import {AuthData} from "../../data/auth/auth.data";
 import {SignInRequest} from "../../data/auth/models/request/sign-in.request";
 import {UserInformationState} from "@common-states/user-information.state";
 import {UserInformationModel} from "@common-data/user-information/models/common/user-information.model";
+import {SignUpRequest} from "@common-data/auth/models/request/sign-up.request";
+import {SignUpResponse} from "@common-data/auth/models/response/sign-up.response";
 
 export const ACCESS_KEY = 'fcs_access_key';
 export const REFRESH_KEY = 'fcs_refresh_key';
@@ -39,13 +41,24 @@ export class AuthService {
 
   async SignInAsync(email: string, password: string): Promise<SignInResponse> {
     const signInRequest: SignInRequest = {
-      Email: email,
-      Password: password
+      email: email,
+      password: password
     };
     const signInResponse = await this.authData.SignInAsync(signInRequest);
     if (signInResponse.isSuccessful)
       MemoryTimeCacheHelper.Set<string>(ACCESS_KEY, signInResponse.jwtAuthModel.AccessToken, Date.now() + ONE_WEEK_IN_SECONDS);
     return signInResponse;
+  }
+
+  async SignUpAsync(email: string, password: string, firstName: string, lastName: string) : Promise<SignUpResponse> {
+    const signUpRequest: SignUpRequest = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName
+    }
+
+    return await this.authData.SignUpAsync(signUpRequest);
   }
 
   SignOut() {

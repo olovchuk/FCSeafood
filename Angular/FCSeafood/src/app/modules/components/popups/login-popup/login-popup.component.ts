@@ -3,10 +3,11 @@ import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@a
 import {Router} from "@angular/router";
 import {DialogRef} from "@angular/cdk/dialog";
 import {AuthService} from "@common-services/auth/auth.service";
-import {SignInResponse} from "@common-data/auth/models/response/sign-in.response";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ErrorStateMatcher} from "@angular/material/core";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {RegistrationPopupComponent} from "@modules/components/popups/registration-popup/registration-popup.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-login-popup',
@@ -22,7 +23,8 @@ export class LoginPopupComponent implements OnInit {
 
   showPassword: boolean = false;
 
-  constructor(public dialog: DialogRef<LoginPopupComponent>,
+  constructor(private dialog: MatDialog,
+              public dialogRef: DialogRef<LoginPopupComponent>,
               private router: Router,
               private authService: AuthService,
               private matSnackBar: MatSnackBar) {
@@ -38,7 +40,7 @@ export class LoginPopupComponent implements OnInit {
     try {
       let signInResponse = await this.authService.SignInAsync(this.authorization.value.email, this.authorization.value.password);
       if (signInResponse.isSuccessful) {
-        this.dialog.close();
+        this.dialogRef.close();
         this.matSnackBar.open("Authorization was successful");
       }
     } catch (e: HttpErrorResponse | any) {
@@ -55,7 +57,14 @@ export class LoginPopupComponent implements OnInit {
   }
 
   async openSignUpPopup(): Promise<void> {
-
+    this.dialogRef.close();
+    this.dialog.open(RegistrationPopupComponent, {
+      panelClass: ['animate__animated', 'animate__slideInRight', 'custom-container'],
+      position: {right: '0%'},
+      minHeight: '100vh',
+      width: '550px',
+      maxWidth: '100vw'
+    });
   }
 }
 
