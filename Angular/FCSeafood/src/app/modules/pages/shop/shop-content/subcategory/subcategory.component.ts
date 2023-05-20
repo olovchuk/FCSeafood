@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommonDataStateService} from "@common-services/common-data-state/common-data-state.service";
 import {SubcategoryTModel} from "@common-data/common/models/common/subcategory-type.model";
 import {RouteHelper} from "@common-helpers/route.helper";
-import {CategoryType, CategoryTypeValues} from "@common-enums/category.type";
+import {CategoryTypeValues} from "@common-enums/category.type";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 
@@ -22,7 +22,7 @@ export class SubcategoryComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       this.routeSubscription = this.route.params.subscribe(async (params) => {
         let categoryTypeValue = CategoryTypeValues.find(category => category.value === params['categoryType'].toLowerCase());
         if (!categoryTypeValue) {
