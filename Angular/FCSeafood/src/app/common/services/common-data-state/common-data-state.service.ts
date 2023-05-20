@@ -23,18 +23,6 @@ export class CommonDataStateService {
   }
 
   async init(): Promise<void> {
-    const categoryTListResponse = await this.commonData.GetCategoryListAsync();
-    if (categoryTListResponse.isSuccessful)
-      this.commonDataState.categoryTListModel = categoryTListResponse.categoryTListModel;
-
-    const subcategoryTypeListResponse = await this.commonData.GetSubcategoryListAsync();
-    if (subcategoryTypeListResponse.isSuccessful)
-      this.commonDataState.subcategoryTListModel = subcategoryTypeListResponse.subcategoryTListModel;
-
-    const bindCategoryListResponse = await this.commonData.GetBindCategoryListAsync();
-    if (bindCategoryListResponse.isSuccessful)
-      this.commonDataState.bindCategoryListModel = bindCategoryListResponse.bindCategoryListModel;
-
     this.commonDataState.ResolveInit(null);
   }
 

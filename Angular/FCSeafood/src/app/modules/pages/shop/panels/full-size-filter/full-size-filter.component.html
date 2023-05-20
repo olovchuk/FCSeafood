@@ -5,69 +5,32 @@
     <img ngSrc="assets/icons/filter.svg" height="22" width="21" alt="" class="ml-3">
   </div>
 
-  <div class="fields-block mt-5">
-    <label class="title">Price, USD</label>
-    <div class="fields">
-      <mat-form-field>
-        <mat-label>From</mat-label>
-        <input type="number" matInput placeholder="0">
-      </mat-form-field>
-      <span class="text-5xl mx-2">-</span>
-      <mat-form-field>
-        <mat-label>To</mat-label>
-        <input type="number" matInput placeholder="0">
-      </mat-form-field>
-    </div>
+  <div class="fields-block mt-5 text-center">
+    <mat-label class="title">Price</mat-label>
+    <mat-button-toggle-group class="mt-2"
+                             [value]="shopFiltersStateService.state.selectedPriceSorted"
+                             (valueChange)="priceSortDirectionChange($event)">
+      <mat-button-toggle *ngFor="let priceSortedType of shopFiltersStateService.state.sortDirectionTList" [value]="priceSortedType">{{SortDirectionType[priceSortedType]}}</mat-button-toggle>
+    </mat-button-toggle-group>
   </div>
 
-  <div class="fields-block">
-    <label class="title">Weight, kg</label>
-    <div class="fields">
-      <mat-form-field>
-        <mat-label>From</mat-label>
-        <input type="number" matInput placeholder="0">
-      </mat-form-field>
-      <span class="text-5xl mx-2">-</span>
-      <mat-form-field>
-        <mat-label>To</mat-label>
-        <input type="number" matInput placeholder="0">
-      </mat-form-field>
-    </div>
-  </div>
+  <mat-form-field class="fields-block mt-3">
+    <mat-label>Category</mat-label>
+    <mat-select class="ml-3" [value]="this.shopFiltersStateService.state.selectedCategoryType" (valueChange)="categoryTypeChange($event)">
+      <mat-option *ngFor="let categoryType of this.shopFiltersStateService.state.categoryTList" [value]="categoryType.type">
+        {{categoryType.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <div class="fields-block">
-    <label class="title">Expiry date, months</label>
-    <div class="fields">
-      <mat-form-field>
-        <mat-label>From</mat-label>
-        <input type="number" matInput placeholder="0">
-      </mat-form-field>
-      <span class="text-5xl mx-2">-</span>
-      <mat-form-field>
-        <mat-label>To</mat-label>
-        <input type="number" matInput placeholder="0">
-      </mat-form-field>
-    </div>
-  </div>
+  <mat-form-field class="fields-block">
+    <mat-label>Subcategory</mat-label>
+    <mat-select class="ml-3" [value]="this.shopFiltersStateService.state.selectedSubcategoryType" (valueChange)="subcategoryTypeChange($event)">
+      <mat-option *ngFor="let subcategory of this.shopFiltersStateService.state.subcategoryTList" [value]="subcategory.type">
+        {{subcategory.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <div class="fields-block">
-    <label class="title">Type</label>
-    <div class="fields">
-      <mat-radio-group class="flex flex-column" style="color: #ffffff;">
-        <mat-radio-button value="1">Fresh</mat-radio-button>
-        <mat-radio-button value="2">Frozen</mat-radio-button>
-      </mat-radio-group>
-    </div>
-  </div>
-
-  <div class="fields-block">
-    <label class="title">Producing country</label>
-    <div class="fields">
-      <mat-radio-group class="flex flex-column" style="color: #ffffff;">
-        <mat-radio-button value="1">Ukraine</mat-radio-button>
-        <mat-radio-button value="2">Norway</mat-radio-button>
-      </mat-radio-group>
-    </div>
-  </div>
-
+  <button (click)="applyFilters()" mat-raised-button class="fields-block">Apply</button>
 </section>

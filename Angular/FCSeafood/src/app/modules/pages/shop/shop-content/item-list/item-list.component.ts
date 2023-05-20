@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ShopFiltersStateService} from "@common-services/shop-filters-state/shop-filters-state.service";
 
 @Component({
   selector: 'app-item-list',
@@ -8,9 +9,11 @@ import {Component, OnInit} from '@angular/core';
 export class ItemListComponent implements OnInit {
   title: string = '';
 
-  constructor() {
+  constructor(private shopFiltersStateService: ShopFiltersStateService) {
   }
 
   async ngOnInit(): Promise<void> {
+    console.log(this.shopFiltersStateService.state.selectedCategoryType);
+    console.log(this.shopFiltersStateService.state.selectedSubcategoryType);
   }
 }

@@ -9,19 +9,16 @@
   }
 
   .fields-block {
+    width: 100%;
+
     .title {
-      font-size: 16px;
+      font-size: 20px;
     }
 
     .fields {
       margin-top: 8px;
     }
-
-    mat-form-field {
-      max-width: 95px;
-    }
   }
-
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -34,6 +31,7 @@
     -moz-appearance: textfield;
   }
 }
+
 ::ng-deep mat-radio-group mat-radio-button .radio_button {
   color: #556EE6;
 }

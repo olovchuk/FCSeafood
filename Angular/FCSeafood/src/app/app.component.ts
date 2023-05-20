@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
-import {AuthService, GetToken} from "@common-services/auth/auth.service";
+import {AuthService} from "@common-services/auth/auth.service";
 import {UserInformationData} from "@common-data/user-information/user-information.data";
 import {UserInformationStateService} from "@common-services/user-information-sate/user-information-state.service";
 import {SignInResponse} from "@common-data/auth/models/response/sign-in.response";
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     // TODO: Cookie popup
 
-    await this.userInformationStateService.Init();
+    await this.userInformationStateService.init();
     await this.commonDataStateService.init();
   }
 
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (res.isSuccessful) {
       const userInformation = await this.userInformationData.GetUserInformationAsync()
       if (userInformation.isSuccessful)
-        this.userInformationStateService.State.userInformation = userInformation.userInformationModel;
+        this.userInformationStateService.state.userInformation = userInformation.userInformationModel;
     }
   }
 }

@@ -7,7 +7,7 @@ export class RouteHelper {
   paths: any;
 
   previousUrl: string = '';
-  currentUrl: string = '';
+  private currentUrl: string = '';
 
   separateSign: string = '/';
 
@@ -27,6 +27,13 @@ export class RouteHelper {
     this.previousUrl = location.href;
     this.currentUrl = url;
     await this.router.navigate([this.currentUrl]);
+  }
+
+  getCurrentUrl() {
+    if (!this.currentUrl)
+      this.currentUrl = this.router.url;
+
+    return this.currentUrl;
   }
 
   async goToError() {

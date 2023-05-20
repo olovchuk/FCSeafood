@@ -11,11 +11,11 @@ export class UserInformationStateService {
               private authStateService: AuthStateService) {
   }
 
-  get State(): UserInformationState {
+  get state(): UserInformationState {
     return this.userInformationState;
   }
 
-  async Init(): Promise<UserInformationState> {
+  async init(): Promise<UserInformationState> {
     if (this.authStateService.IsAuthorized) {
       const result = await this.userInformationDate.GetUserInformationAsync();
       if (result.isSuccessful)

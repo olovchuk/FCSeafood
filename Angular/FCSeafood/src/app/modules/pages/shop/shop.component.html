@@ -1,6 +1,6 @@
 <div class="shop-page">
 
-  <div class="left-panel">
+  <div *ngIf="routeHelper.getCurrentUrl().includes('items')" class="left-panel">
     <shop-full-size-filter></shop-full-size-filter>
   </div>
 
