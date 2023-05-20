@@ -16,6 +16,6 @@ export class CategorySectionComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    this.categoryTListModel = this.commonDataStateService.state.categoryTListModel;
+    this.categoryTListModel = await this.commonDataStateService.getCategoryTListAsync();
   }
 }

@@ -9,10 +9,10 @@ import {SubcategoryTypeCardComponent} from './subcategory/subcategory-type-card/
 import {ItemListComponent} from './item-list/item-list.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'category', pathMatch: 'full'},
+  {path: '', redirectTo: 'items', pathMatch: 'full'},
+  {path: 'items', component: ItemListComponent},
   {path: 'category', component: CategoryComponent},
-  {path: ':categoryType', component: SubcategoryComponent},
-  {path: ':categoryType/:subcategoryType', component: ItemListComponent}
+  {path: 'category/:categoryType', component: SubcategoryComponent},
 ];
 
 @NgModule({

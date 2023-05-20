@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonDataStateService} from "@common-services/common-data-state/common-data-state.service";
 import {CategoryTModel} from "@common-data/common/models/common/category-type.model";
+import {CommonDataStateService} from "@common-services/common-data-state/common-data-state.service";
 
 @Component({
   selector: 'shop-category',
@@ -16,6 +16,6 @@ export class CategoryComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.title = 'Choose category'
-    this.categoryTListModel = this.commonDataStateService.state.categoryTListModel;
+    this.categoryTListModel = await this.commonDataStateService.getCategoryTListAsync();
   }
 }
