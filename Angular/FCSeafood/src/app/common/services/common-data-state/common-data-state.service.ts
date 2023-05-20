@@ -9,6 +9,7 @@ import {CategoryType} from "@common-enums/category.type";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CategoryTModel} from "@common-data/common/models/common/category-type.model";
 import {SubcategoryTModel} from "@common-data/common/models/common/subcategory-type.model";
+import {BindCategoryModel} from "@common-data/common/models/common/BindCategoryModel";
 
 @Injectable({providedIn: 'root'})
 export class CommonDataStateService {
@@ -47,6 +48,16 @@ export class CommonDataStateService {
     }
 
     return response.subcategoryTListModel;
+  }
+
+  async getBindCategoryListAsync(): Promise<BindCategoryModel[]> {
+    const response = await this.commonData.GetBindCategoryListAsync();
+    if (!response.isSuccessful) {
+      this.matSnackBar.open(response.message);
+      return [];
+    }
+
+    return response.bindCategoryListModel;
   }
 
   initMainMenu(): void {

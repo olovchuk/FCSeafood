@@ -57,6 +57,12 @@ export class ShopFiltersStateService {
     if (!this.isInit)
       await this.init();
 
+    let bindCategoryModels = await this.commonDataStateService.getBindCategoryListAsync();
+    let bindCategory = bindCategoryModels.filter(x => x.subcategoryTModel.type === subcategoryType);
+    if (bindCategory.length === 0)
+      return;
+
+    await this.changeCategory(bindCategory[0].categoryTModel.type);
     this.shopFiltersState.selectedSubcategoryType = subcategoryType;
     this.save();
   }
