@@ -9,9 +9,29 @@ public class CommonManager {
         _commonService = commonService;
     }
 
+    public async Task<CategoryTResponse> GetCategoryTypeAsync(CategoryTParams categoryTParams) {
+        try {
+            var categoryTModel = await _commonService.GetCategoryTypeAsync(categoryTParams.CategoryType);
+            return new CategoryTResponse(true, "", categoryTModel);
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new CategoryTResponse(false, "Something goes wrong when retrieving data", null);
+        }
+    }
+
+    public async Task<CategoryTResponse> GetCategoryTypeAsync(SubcategoryTParams subcategoryTParams) {
+        try {
+            var categoryTModel = await _commonService.GetCategoryTypeAsync(subcategoryTParams.SubcategoryType);
+            return new CategoryTResponse(true, "", categoryTModel);
+        } catch (Exception ex) {
+            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new CategoryTResponse(false, "Something goes wrong when retrieving data", null);
+        }
+    }
+
     public async Task<CategoryTListResponse> GetCategoryTListAsync() {
         try {
-            var categoryTListModel = await _commonService.GetCategoryTypeListAsync();
+            var categoryTListModel = await _commonService.GetCategoryTListAsync();
             return new CategoryTListResponse(true, "", categoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
@@ -21,7 +41,7 @@ public class CommonManager {
 
     public async Task<SubcategoryTListResponse> GetSubcategoryTListAsync() {
         try {
-            var subcategoryTListModel = await _commonService.GetSubcategoryTypeListAsync();
+            var subcategoryTListModel = await _commonService.GetSubcategoryTListAsync();
             return new SubcategoryTListResponse(true, "", subcategoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
@@ -31,7 +51,7 @@ public class CommonManager {
 
     public async Task<SubcategoryTListResponse> GetSubcategoryTListAsync(CategoryTParams categoryTParams) {
         try {
-            var subcategoryTListModel = await _commonService.GetSubcategoryTypeListAsync(categoryTParams.CategoryType);
+            var subcategoryTListModel = await _commonService.GetSubcategoryTListAsync(categoryTParams.CategoryType);
             return new SubcategoryTListResponse(true, "", subcategoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
