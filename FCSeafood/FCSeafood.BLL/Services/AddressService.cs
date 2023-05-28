@@ -5,17 +5,15 @@ namespace FCSeafood.BLL.Services;
 public class AddressService {
     private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(AddressService));
 
-    private readonly AddressMapperHelper _addressMapperHelper;
     private readonly AddressRepository _addressRepository;
 
-    public AddressService(AddressMapperHelper addressMapperHelper, AddressRepository addressRepository) {
-        _addressMapperHelper = addressMapperHelper;
+    public AddressService(AddressRepository addressRepository) {
         _addressRepository = addressRepository;
     }
 
     public async Task<AddressModel?> InsertAddressAsync(AddressModel addressModel) {
         try {
-            var result = _addressMapperHelper.ToDbo(addressModel);
+            var result = AddressRepository.ToDbo(addressModel);
             if (!result.success) return null;
 
             var dbo = await _addressRepository.InsertAsync(result.dbo);
@@ -34,7 +32,7 @@ public class AddressService {
             var addressDbo = await _addressRepository.FindByConditionAsync(x => x.Id == id);
             if (addressDbo is null) return null;
 
-            var result = _addressMapperHelper.ToModel(addressDbo);
+            var result = AddressRepository.ToModel(addressDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");

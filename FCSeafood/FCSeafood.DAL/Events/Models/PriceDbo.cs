@@ -9,7 +9,8 @@ public class PriceDbo {
 
     [Column("Price")]
     public double Price { get; set; }
-    
+
     [Column("FK_Currency_Code_Type")]
-    public CurrencyCodeType CurrencyCodeType { get; set; }
+    public int CurrencyCodeTDboId { get; set; }
+    public CurrencyCodeTDbo? CurrencyCodeTDbo { get; set; }
 }

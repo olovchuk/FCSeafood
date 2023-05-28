@@ -14,10 +14,12 @@ public class UserDbo {
     public string LastName { get; set; } = "";
 
     [Column("FK_Role_Type")]
-    public RoleType RoleType { get; set; } = RoleType.User;
+    public int RoleTDboId { get; set; }
+    public RoleTDbo? RoleTDbo { get; set; }
 
     [Column("FK_Gender_Type")]
-    public GenderType GenderType { get; set; }
+    public int GenderTDboId { get; set; }
+    public GenderTDbo? GenderTDbo { get; set; }
 
     [Column("IsActive")]
     public bool IsActive { get; set; } = true;
@@ -35,7 +37,8 @@ public class UserDbo {
     public DateTime? DateOfBirth { get; set; }
 
     [Column("FK_Address")]
-    public Guid? AddressId { get; set; }
+    public Guid? AddressDboId { get; set; }
+    public AddressDbo? AddressDbo { get; set; }
 
     [Column("Created_Date")]
     public DateTime CreatedDate { get; set; } = DateTime.Now;
@@ -49,14 +52,14 @@ public class UserDbo {
         Id = userModel.Id;
         FirstName = userModel.FirstName;
         LastName = userModel.LastName;
-        RoleType = userModel.Role.Type;
-        GenderType = userModel.Gender.Type;
+        RoleTDboId = (int)userModel.Role.Type;
+        GenderTDboId = (int)userModel.Gender.Type;
         IsActive = userModel.IsActive;
         IsVerified = userModel.IsVerified;
         Phone = userModel.Phone;
         ImagePath = userModel.ImagePath;
         DateOfBirth = userModel.DateOfBirth;
-        AddressId = userModel.Address?.Id;
+        AddressDboId = userModel.Address?.Id;
         CreatedDate = userModel.CreatedDate;
         UpdatedDate = userModel.UpdatedDate;
     }

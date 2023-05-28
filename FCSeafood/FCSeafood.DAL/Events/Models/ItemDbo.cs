@@ -14,16 +14,20 @@ public class ItemDbo {
     public string Code { get; set; } = "";
 
     [Column("FK_Price")]
-    public Guid PriceId { get; set; }
+    public Guid PriceDboId { get; set; }
+    public PriceDbo? PriceDbo { get; set; }
 
     [Column("FK_Category_Type")]
-    public CategoryType CategoryType { get; set; }
+    public int CategoryTDboId { get; set; }
+    public CategoryTDbo? CategoryTDbo { get; set; }
 
     [Column("FK_Subcategory_Type")]
-    public SubcategoryType SubcategoryType { get; set; }
+    public int SubcategoryTDboId { get; set; }
+    public SubcategoryTDbo? SubcategoryTDbo { get; set; }
 
     [Column("FK_Item_Status_Type")]
-    public ItemStatusType ItemStatusType { get; set; }
+    public int ItemStatusTDboId { get; set; }
+    public ItemStatusTDbo? ItemStatusTDbo { get; set; }
 
     [Column("Quantity_Per_Kg")]
     public double QuantityPerKg { get; set; }
@@ -62,7 +66,8 @@ public class ItemDbo {
     public double TemperatureStorage { get; set; }
 
     [Column("FK_Temperature_Unit")]
-    public TemperatureUnitType TemperatureUnitType { get; set; }
+    public int TemperatureUnitTDboId { get; set; }
+    public TemperatureUnitTDbo? TemperatureUnitTDbo { get; set; }
 
     [Column("Description")]
     public string? Description { get; set; }

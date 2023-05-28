@@ -1,7 +1,6 @@
 global using FCSeafood.BusinessObjects;
 global using FCSeafood.BusinessObjects.Error;
 global using FCSeafood.BusinessObjects.Interfaces;
-global using FCSeafood.BusinessObjects.Models.Auxiliary;
 global using FCSeafood.BusinessObjects.Models.Events;
 global using FCSeafood.BusinessObjects.Models.Common;
 global using Microsoft.Extensions.Logging;

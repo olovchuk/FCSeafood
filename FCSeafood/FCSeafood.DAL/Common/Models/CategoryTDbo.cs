@@ -12,4 +12,6 @@ public class CategoryTDbo {
 
     [Column("Image_Path")]
     public string ImagePath { get; set; } = "";
+
+    public List<SubcategoryTDbo> SubcategoryTDbos { get; set; } = new();
 }

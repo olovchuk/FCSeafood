@@ -5,11 +5,9 @@ namespace FCSeafood.BLL.Services;
 public class PriceService {
     private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(PriceService));
 
-    private readonly PriceMapperHelper _priceMapperHelper;
     private readonly PriceRepository _priceRepository;
 
-    public PriceService(PriceMapperHelper priceMapperHelper, PriceRepository priceRepository) {
-        _priceMapperHelper = priceMapperHelper;
+    public PriceService(PriceRepository priceRepository) {
         _priceRepository = priceRepository;
     }
 
@@ -18,7 +16,7 @@ public class PriceService {
             var priceDbo = await _priceRepository.FindByConditionAsync(x => x.Id == id);
             if (priceDbo is null) return null;
 
-            var result = _priceMapperHelper.ToModel(priceDbo);
+            var result = PriceRepository.ToModel(priceDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");

@@ -5,21 +5,19 @@ namespace FCSeafood.BLL.Services;
 public class UserService {
     private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(UserService));
 
-    private readonly UserMapperHelper _userMapperHelper;
     private readonly UserRepository _userRepository;
     private readonly UserCredentialRepository _credentialRepository;
 
-    public UserService(UserRepository userRepository, UserCredentialRepository credentialRepository, UserMapperHelper userMapperHelper) {
+    public UserService(UserRepository userRepository, UserCredentialRepository credentialRepository) {
         _userRepository = userRepository;
         _credentialRepository = credentialRepository;
-        _userMapperHelper = userMapperHelper;
     }
 
 #region User
 
     public async Task<UserModel?> InsertUserAsync(UserModel userModel) {
         try {
-            var result = _userMapperHelper.ToDbo(userModel);
+            var result = UserRepository.ToDbo(userModel);
             if (!result.success) return null;
 
             var dbo = await _userRepository.InsertAsync(result.dbo);
@@ -38,7 +36,7 @@ public class UserService {
             var userDbo = await _userRepository.FindByConditionAsync(x => x.Id == id);
             if (userDbo is null) return null;
 
-            var result = await _userMapperHelper.ToModel(userDbo, this);
+            var result = UserRepository.ToModel(userDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
@@ -52,7 +50,7 @@ public class UserService {
 
     public async Task<UserCredentialModel?> InsertCredentialAsync(UserCredentialModel credentialModel) {
         try {
-            var result = _userMapperHelper.ToDbo(credentialModel);
+            var result = UserCredentialRepository.ToDbo(credentialModel);
             if (!result.success) return null;
 
             var dbo = await _credentialRepository.InsertAsync(result.dbo);
@@ -81,7 +79,7 @@ public class UserService {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
             if (userCredentialDbo is null) return null;
 
-            var result = _userMapperHelper.ToModel(userCredentialDbo);
+            var result = UserCredentialRepository.ToModel(userCredentialDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
@@ -94,7 +92,7 @@ public class UserService {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
             if (userCredentialDbo is null) return null;
 
-            var result = _userMapperHelper.ToModel(userCredentialDbo);
+            var result = UserCredentialRepository.ToModel(userCredentialDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");

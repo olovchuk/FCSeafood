@@ -1,4 +1,3 @@
-using FCSeafood.DAL.Auxiliary.Repository;
 using FCSeafood.DAL.Context;
 using FCSeafood.DAL.Events.Repository;
 using FCSeafood.DAL.Common.Repository;
@@ -13,47 +12,48 @@ public static class Configuration {
 
         serviceCollection.AddDbContext<EventFCSeafoodContext>(options => options.UseSqlServer(connectionString));
         serviceCollection.AddDbContext<CommonFCSeafoodContext>(options => options.UseSqlServer(connectionString));
-        serviceCollection.AddDbContext<AuxiliaryFCSeafoodContext>(options => options.UseSqlServer(connectionString));
 
 #endregion
 
 #region BLL
 
-        // Managers
-        serviceCollection.AddTransient<AuthManager>();
-        serviceCollection.AddTransient<UserManager>();
-        serviceCollection.AddTransient<CommonManager>();
-        serviceCollection.AddTransient<ItemManager>();
-
         // Services
         serviceCollection.AddTransient<AddressService>();
-        serviceCollection.AddTransient<UserService>();
         serviceCollection.AddTransient<CommonService>();
         serviceCollection.AddTransient<ItemService>();
         serviceCollection.AddTransient<PriceService>();
+        serviceCollection.AddTransient<UserService>();
+
+        // Managers
+        serviceCollection.AddTransient<AuthManager>();
+        serviceCollection.AddTransient<CommonManager>();
+        serviceCollection.AddTransient<ItemManager>();
+        serviceCollection.AddTransient<UserManager>();
 
         // Helpers
         serviceCollection.AddTransient<AuthJwtHelper>();
         serviceCollection.AddTransient<AuthRefreshJwtHelper>();
-        serviceCollection.AddTransient<AddressMapperHelper>();
-        serviceCollection.AddTransient<UserMapperHelper>();
-        serviceCollection.AddTransient<CommonMapperHelper>();
-        serviceCollection.AddTransient<ItemMapperHelper>();
-        serviceCollection.AddTransient<PriceMapperHelper>();
 
 #endregion
 
 #region DAL
 
         // Repositories
+        // -- Common
+        serviceCollection.AddTransient<CategoryTRepository>();
+        serviceCollection.AddTransient<CurrencyCodeTRepository>();
+        serviceCollection.AddTransient<GenderTRepository>();
+        serviceCollection.AddTransient<ItemStatusTRepository>();
+        serviceCollection.AddTransient<RoleTRepository>();
+        serviceCollection.AddTransient<SubcategoryTRepository>();
+        serviceCollection.AddTransient<TemperatureUnitTRepository>();
+
+        // -- Event
         serviceCollection.AddTransient<AddressRepository>();
-        serviceCollection.AddTransient<UserRepository>();
-        serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<ItemRepository>();
         serviceCollection.AddTransient<PriceRepository>();
-        serviceCollection.AddTransient<CategoryTRepository>();
-        serviceCollection.AddTransient<SubcategoryTRepository>();
-        serviceCollection.AddTransient<BindCategoryRepository>();
+        serviceCollection.AddTransient<UserCredentialRepository>();
+        serviceCollection.AddTransient<UserRepository>();
 
 #endregion
     }

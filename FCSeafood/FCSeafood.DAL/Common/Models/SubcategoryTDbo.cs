@@ -12,4 +12,7 @@ public class SubcategoryTDbo {
 
     [Column("Image_Path")]
     public string ImagePath { get; set; } = "";
+
+    [Column("FK_Category_Type")]
+    public int CategoryTDboId { get; set; }
 }

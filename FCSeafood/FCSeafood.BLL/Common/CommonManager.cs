@@ -31,21 +31,11 @@ public class CommonManager {
 
     public async Task<SubcategoryTListResponse> GetSubcategoryTListAsync(CategoryTParams categoryTParams) {
         try {
-            var bindCategoryListModel = await _commonService.GetBindCategoryListAsync(categoryTParams.CategoryType);
-            return new SubcategoryTListResponse(true, "", bindCategoryListModel.Select(x => x.SubcategoryTModel));
+            var subcategoryTListModel = await _commonService.GetSubcategoryTypeListAsync(categoryTParams.CategoryType);
+            return new SubcategoryTListResponse(true, "", subcategoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new SubcategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubcategoryTModel>());
-        }
-    }
-
-    public async Task<BindCategoryListResponse> GetBindCategoryListAsync() {
-        try {
-            var bindCategoryListModel = await _commonService.GetBindCategoryListAsync();
-            return new BindCategoryListResponse(true, "", bindCategoryListModel);
-        } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new BindCategoryListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<BindCategoryModel>());
         }
     }
 }

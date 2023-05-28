@@ -61,8 +61,13 @@ public enum SubcategoryType {
   , SeafoodCocktail = 12
   , Shrimp = 13
   , LiveOyster = 14
-  , CrabAndLobster = 15
-  , Pectinida = 16
+  , Pectinida = 15
+
+    // Crabs crayfish
+  , Crabs = 16
+  , Crayfish = 17
+  , Lobster = 18
+  , Omar = 19
 }
 
 // E_Currency_Code_Type

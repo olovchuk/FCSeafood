@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace FCSeafood.DAL.Events.Repository.Base;
 
 public abstract class BaseRepository<TEntity> where TEntity : class {
@@ -13,7 +11,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
         Entities = this.Context.Set<TEntity>();
     }
 
-    protected IQueryable<TEntity> NoTracking() => this.Entities.AsNoTracking();
+    protected virtual IQueryable<TEntity> NoTracking() => this.Entities.AsNoTracking();
 
     public virtual async Task<TEntity?> InsertAsync(TEntity data) {
         try {
@@ -35,7 +33,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
         }
     }
 
-    public virtual async Task<TEntity?> FindByConditionAsync(Expression<Func<TEntity, bool>> predicate) {
+    public virtual async Task<TEntity?> FindByConditionAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate) {
         try {
             return await this.NoTracking().FirstOrDefaultAsync(predicate).ConfigureAwait(false);
         } catch (Exception ex) {
@@ -44,7 +42,7 @@ public abstract class BaseRepository<TEntity> where TEntity : class {
         }
     }
 
-    public virtual async Task<IReadOnlyCollection<TEntity>> FindByConditionListAsync(Expression<Func<TEntity, bool>> predicate) {
+    public virtual async Task<IReadOnlyCollection<TEntity>> FindByConditionListAsync(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate) {
         try {
             return await this.NoTracking().Where(predicate).ToListAsync().ConfigureAwait(false);
         } catch (Exception ex) {
