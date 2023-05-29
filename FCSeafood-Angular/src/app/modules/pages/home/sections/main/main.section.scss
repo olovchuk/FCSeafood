@@ -1,0 +1,31 @@
+.section {
+  background: url("/assets/images/home/home-bg-1.png") no-repeat center center;
+  background-size: cover;
+  padding: 20vh 0 !important;
+
+  .card {
+    max-width: 360px;
+    padding: 10px;
+    margin-left: 5vw;
+
+    background: rgba(7, 7, 7, 0.02);
+    backdrop-filter: blur(4px);
+    border-radius: 47px;
+
+    color: var(--primary-super-dark-color);
+    font-style: normal;
+
+    h1 {
+      margin: 1rem 0;
+
+      text-transform: uppercase;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    span {
+      font-weight: 400;
+      font-size: 28px;
+    }
+  }
+}

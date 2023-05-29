@@ -1,0 +1,46 @@
+<div class="popup">
+  <div class="header">
+    <i class="pi pi-times cursor-pointer" style="font-size: 1.5rem" [mat-dialog-close]="true"></i>
+  </div>
+
+  <div class="content">
+    <h3 class="title">Sign in</h3>
+
+    <p-divider></p-divider>
+
+    <form (ngSubmit)="signIn()" [formGroup]="signInFormGroup">
+      <div class="field p-fluid">
+        <input type="text" pInputText formControlName="email" placeholder="E-mail"/>
+        <small *ngIf="signInFormGroup.controls['email'].hasError('required') && isShowErrors" class="p-error">Email is <strong>required</strong></small>
+        <small *ngIf="signInFormGroup.controls['email'].hasError('email') && isShowErrors" class="p-error">Please enter a valid email address</small>
+      </div>
+
+      <div class="field p-fluid">
+        <p-password [toggleMask]="true" [feedback]="false" formControlName="password" placeholder="Password"></p-password>
+        <small *ngIf="signInFormGroup.controls['password'].hasError('required') && isShowErrors" class="p-error">Password is <strong>required</strong></small>
+      </div>
+
+      <button #submitButton class="hidden" type="submit"></button>
+    </form>
+
+    <div class="flex justify-content-between">
+      <span class="text-small">Or continue with...</span>
+      <a href="#" class="text-small text-bright-grey">Forgot your password?</a>
+    </div>
+
+    <section class="flex flex-column align-items-center w-full mt-5">
+      <div class="flex justify-content-center">
+        <i (click)="signInViaFacebook()" class="pi pi-facebook additional-entry-icon" pTooltip="Sign in via Facebook" tooltipPosition="bottom"></i>
+        <i (click)="signInViaGoogle()" class="pi pi-google additional-entry-icon" pTooltip="Sign in via Google" tooltipPosition="bottom"></i>
+      </div>
+
+      <span class="text-small font-bold text-center mt-3 max-w-15rem">By logging/signing in with my social login, I agree to connect my account in accordance with the Privacy Policy</span>
+    </section>
+
+    <section class="grid mt-3">
+      <p-button (click)="submitButton.click()" label="Sign In" class="col" styleClass="p-button-rounded w-full uppercase"></p-button>
+      <p-button (click)="openSignUpPopup()" label="Sign Up" class="col" styleClass="p-button-outlined p-button-rounded w-full uppercase"></p-button>
+    </section>
+  </div>
+</div>
+

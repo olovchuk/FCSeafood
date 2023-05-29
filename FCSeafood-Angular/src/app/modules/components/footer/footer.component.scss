@@ -1,0 +1,27 @@
+:host {
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+
+  footer {
+    padding: 35px 0;
+    background-color: #272727;
+  }
+
+  .social-group {
+    img {
+      cursor: pointer;
+      margin: 10px 20px;
+    }
+  }
+
+  .contact-text {
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  .links-text {
+    font-weight: 300;
+    font-size: 14px;
+  }
+}

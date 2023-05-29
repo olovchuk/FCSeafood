@@ -1,0 +1,16 @@
+header {
+  height: 120px;
+  background-color: var(--primary-dark-color);
+
+  .header-block {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+  }
+
+  i {
+    font-size: 1.5rem;
+    color: white;
+  }
+}
+

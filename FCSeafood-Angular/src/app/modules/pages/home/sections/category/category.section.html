@@ -1,0 +1,11 @@
+<div class="section">
+  <div class="content text-white">
+    <h3>Products</h3>
+    <div class="object flex-wrap">
+      <div *ngIf="categoryTListModel.length === 0" class="no-data">No data</div>
+      <home-category-type-card [categoryTModel]="categoryTModel"
+                               *ngFor="let categoryTModel of categoryTListModel"></home-category-type-card>
+    </div>
+    <p-button *ngIf="categoryTListModel.length > 0" label="See more" (click)="routeHelper.goToCategory()" styleClass="p-button-rounded p-button-secondary text-center w-15rem"></p-button>
+  </div>
+</div>

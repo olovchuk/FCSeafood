@@ -1,0 +1,27 @@
+.subcategory-type-card {
+  height: 450px;
+  width: 330px;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  background-color: transparent;
+  border: none;
+
+  span {
+    color: var(--grafit-color);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    height: 50px;
+  }
+
+  img {
+    margin-top: 10px;
+    max-height: 390px;
+    max-width: 300px;
+    border-radius: 10px;
+  }
+}

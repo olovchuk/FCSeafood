@@ -1,0 +1,23 @@
+.error-page {
+  height: 55vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--grafit-color);
+
+  h3 {
+    margin: 2rem 0;
+
+    font-weight: 900;
+    font-size: 3.5rem;
+  }
+
+  .error-number {
+    margin: 2rem 0;
+
+    font-weight: 700;
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,8 @@
+<div class="section">
+  <div class="content">
+    <h3>Why us?</h3>
+    <div class="flex flex-wrap justify-content-center max-3-block">
+      <home-about-us-card *ngFor="let info of aboutCardsInfo" [imgSrc]="info.imgSrc" [title]="info.title" [text]="info.text" class="m-2"></home-about-us-card>
+    </div>
+  </div>
+</div>
