@@ -2095,39 +2095,39 @@ p-selectbutton.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
 .p-togglebutton.p-button {
   background: #fff;
   border: 1px solid #d3dbe3;
-  color: #043d75;
+  color: var(--primary-color);
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 
   .p-button-icon-left, .p-button-icon-right {
-    color: #708da9;
+    color: var(--primary-color);
   }
 
   &:not(.p-disabled):not(.p-highlight):hover {
     background: #f6f9fc;
     border-color: #d3dbe3;
-    color: #043d75;
+    color: var(--primary-dark-color);
 
     .p-button-icon-left, .p-button-icon-right {
-      color: #708da9;
+      color: var(--primary-dark-color);
     }
   }
 
   &.p-highlight {
-    background: #538487;
-    border-color: #538487;
-    color: #fff;
+    background: #f6f9fc;
+    border-color: #d3dbe3;
+    color: var(--primary-color);
 
     .p-button-icon-left, .p-button-icon-right {
-      color: #fff;
+      color: var(--primary-color);
     }
 
     &:hover {
-      background: #4f7d80;
-      border-color: #4f7d80;
-      color: #fff;
+      background: #f6f9fc;
+      border-color: #d3dbe3;
+      color: var(--primary-dark-color);
 
       .p-button-icon-left, .p-button-icon-right {
-        color: #fff;
+        color: var(--primary-dark-color);
       }
     }
   }
