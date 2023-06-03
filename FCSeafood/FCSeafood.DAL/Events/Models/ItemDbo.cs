@@ -13,6 +13,9 @@ public class ItemDbo {
     [Column("Code")]
     public string Code { get; set; } = "";
 
+    [Column("Image_Path")]
+    public string ImagePath { get; set; } = "";
+
     [Column("FK_Price")]
     public Guid PriceDboId { get; set; }
     public PriceDbo? PriceDbo { get; set; }

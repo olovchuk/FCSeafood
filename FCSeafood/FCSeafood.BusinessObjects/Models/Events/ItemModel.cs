@@ -6,6 +6,7 @@ public class ItemModel {
     public string Name { get; set; } = "";
 
     public string Code { get; set; } = "";
+    public string ImagePath { get; set; } = "";
 
     public PriceModel Price { get; set; } = new();
 

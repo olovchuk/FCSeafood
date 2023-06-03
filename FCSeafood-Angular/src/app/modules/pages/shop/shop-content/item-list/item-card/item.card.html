@@ -1,15 +1,11 @@
 <div class="item-card">
 
-  <img class="image" src="assets/images/subcategory-type/shrimp.png" alt="">
+  <img class="image" [src]="itemModel.imagePath" alt="">
 
-  <span class="name">
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-    survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including
-    versions of Lorem Ipsum.
-  </span>
+  <span class="name">{{itemModel.name}}</span>
 
   <div class="payment-block">
-    <span>Price: 17.10 $/kg</span>
+    <span>Price: {{itemModel.price.price}} $/kg</span>
     <p-button pTooltip="Add to compare filled" styleClass="p-button-text">
       <img alt="" ngSrc="assets/icons/filled-compare.svg" height="20" width="24">
     </p-button>

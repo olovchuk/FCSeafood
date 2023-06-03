@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ItemModel } from "@common-models/item.model";
 
 @Component({
   selector: 'shop-item-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./item.card.scss']
 })
 export class ItemCard {
-
+  @Input('itemModel') itemModel!: ItemModel;
 }
