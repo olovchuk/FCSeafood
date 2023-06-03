@@ -8,14 +8,14 @@ namespace FCSeafood.BLL.Infrastructure;
 
 public static class Configuration {
     public static void ConfigurationService(IServiceCollection serviceCollection, string connectionString) {
-#region Context
+        #region Context
 
         serviceCollection.AddDbContext<EventFCSeafoodContext>(options => options.UseSqlServer(connectionString));
         serviceCollection.AddDbContext<CommonFCSeafoodContext>(options => options.UseSqlServer(connectionString));
 
-#endregion
+        #endregion
 
-#region BLL
+        #region BLL
 
         // Services
         serviceCollection.AddTransient<AddressService>();
@@ -34,9 +34,9 @@ public static class Configuration {
         serviceCollection.AddTransient<AuthJwtHelper>();
         serviceCollection.AddTransient<AuthRefreshJwtHelper>();
 
-#endregion
+        #endregion
 
-#region DAL
+        #region DAL
 
         // Repositories
         // -- Common
@@ -55,6 +55,6 @@ public static class Configuration {
         serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<UserRepository>();
 
-#endregion
+        #endregion
     }
 }

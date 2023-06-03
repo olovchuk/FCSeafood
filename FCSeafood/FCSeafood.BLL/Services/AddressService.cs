@@ -3,7 +3,8 @@ using FCSeafood.DAL.Events.Repository;
 namespace FCSeafood.BLL.Services;
 
 public class AddressService {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(AddressService));
+    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                     .CreateLogger(typeof(AddressService));
 
     private readonly AddressRepository _addressRepository;
 
@@ -14,10 +15,12 @@ public class AddressService {
     public async Task<AddressModel?> InsertAddressAsync(AddressModel addressModel) {
         try {
             var result = AddressRepository.ToDbo(addressModel);
-            if (!result.success) return null;
+            if (!result.success)
+                return null;
 
             var dbo = await _addressRepository.InsertAsync(result.dbo);
-            if (dbo == null) return null;
+            if (dbo == null)
+                return null;
 
             addressModel.Id = dbo.Id;
             return addressModel;
@@ -30,7 +33,8 @@ public class AddressService {
     public async Task<AddressModel?> GetAddressAsync(Guid id) {
         try {
             var addressDbo = await _addressRepository.FindByConditionAsync(x => x.Id == id);
-            if (addressDbo is null) return null;
+            if (addressDbo is null)
+                return null;
 
             var result = AddressRepository.ToModel(addressDbo);
             return result.success ? result.model : null;

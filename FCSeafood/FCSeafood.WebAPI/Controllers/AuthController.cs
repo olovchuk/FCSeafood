@@ -16,7 +16,8 @@ public class AuthController : ControllerBase {
     [HttpPost("SignIn")]
     public async Task<IActionResult> SignInAsync(SignInParams singInParams) {
         var result = await _jwtCookieAuthService.SignInAsync(singInParams);
-        if (!result.IsSuccessful) return BadRequest(result);
+        if (!result.IsSuccessful)
+            return BadRequest(result);
 
         return Ok(result);
     }
@@ -24,7 +25,8 @@ public class AuthController : ControllerBase {
     [HttpPost("SignInRefresh")]
     public async Task<IActionResult> SignInRefreshAsync(SignInRefreshParams signInRefreshParams) {
         var result = await _jwtCookieAuthService.SignInRefreshAsync(signInRefreshParams);
-        if (!result.IsSuccessful) return BadRequest(result);
+        if (!result.IsSuccessful)
+            return BadRequest(result);
 
         return Ok(result);
     }
@@ -32,7 +34,8 @@ public class AuthController : ControllerBase {
     [HttpPost("SignUp")]
     public async Task<IActionResult> SignUpAsync(SignUpParams signUpParams) {
         var result = await _jwtCookieAuthService.SignUpAsync(signUpParams);
-        if (!result.IsSuccessful) return BadRequest(result);
+        if (!result.IsSuccessful)
+            return BadRequest(result);
 
         return Ok(result);
     }
@@ -41,7 +44,8 @@ public class AuthController : ControllerBase {
     public IActionResult _SignOut() {
         var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
         var result = _jwtCookieAuthService.SignOut(new SignOutParams(claims.UserId));
-        if (!result.IsSuccessful) return BadRequest(result);
+        if (!result.IsSuccessful)
+            return BadRequest(result);
 
         return Ok(result);
     }

@@ -3,7 +3,8 @@ using FCSeafood.DAL.Events.Repository;
 namespace FCSeafood.BLL.Services;
 
 public class UserService {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(UserService));
+    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                     .CreateLogger(typeof(UserService));
 
     private readonly UserRepository _userRepository;
     private readonly UserCredentialRepository _credentialRepository;
@@ -13,15 +14,17 @@ public class UserService {
         _credentialRepository = credentialRepository;
     }
 
-#region User
+    #region User
 
     public async Task<UserModel?> InsertUserAsync(UserModel userModel) {
         try {
             var result = UserRepository.ToDbo(userModel);
-            if (!result.success) return null;
+            if (!result.success)
+                return null;
 
             var dbo = await _userRepository.InsertAsync(result.dbo);
-            if (dbo == null) return null;
+            if (dbo == null)
+                return null;
 
             userModel.Id = dbo.Id;
             return userModel;
@@ -34,7 +37,8 @@ public class UserService {
     public async Task<UserModel?> GetUserAsync(Guid id) {
         try {
             var userDbo = await _userRepository.FindByConditionAsync(x => x.Id == id);
-            if (userDbo is null) return null;
+            if (userDbo is null)
+                return null;
 
             var result = UserRepository.ToModel(userDbo);
             return result.success ? result.model : null;
@@ -44,17 +48,19 @@ public class UserService {
         }
     }
 
-#endregion
+    #endregion
 
-#region Credential
+    #region Credential
 
     public async Task<UserCredentialModel?> InsertCredentialAsync(UserCredentialModel credentialModel) {
         try {
             var result = UserCredentialRepository.ToDbo(credentialModel);
-            if (!result.success) return null;
+            if (!result.success)
+                return null;
 
             var dbo = await _credentialRepository.InsertAsync(result.dbo);
-            if (dbo == null) return null;
+            if (dbo == null)
+                return null;
 
             credentialModel.Id = dbo.Id;
             return credentialModel;
@@ -77,7 +83,8 @@ public class UserService {
     public async Task<UserCredentialModel?> GetCredentialByUserIdAsync(Guid id) {
         try {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
-            if (userCredentialDbo is null) return null;
+            if (userCredentialDbo is null)
+                return null;
 
             var result = UserCredentialRepository.ToModel(userCredentialDbo);
             return result.success ? result.model : null;
@@ -90,7 +97,8 @@ public class UserService {
     public async Task<UserCredentialModel?> GetCredentialByEmailAsync(string email) {
         try {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
-            if (userCredentialDbo is null) return null;
+            if (userCredentialDbo is null)
+                return null;
 
             var result = UserCredentialRepository.ToModel(userCredentialDbo);
             return result.success ? result.model : null;
@@ -103,7 +111,8 @@ public class UserService {
     public async Task SetLastLoginDateAsync(Guid id) {
         try {
             var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
-            if (userCredentialDbo is null) return;
+            if (userCredentialDbo is null)
+                return;
 
             userCredentialDbo.LastLoginDate = DateTime.Now;
             await _credentialRepository.UpdateAsync(userCredentialDbo);
@@ -113,16 +122,20 @@ public class UserService {
     }
 
     public SignUpResponse IsValidateCredentialForSignUp(SignUpParams signUpParams) {
-        if (!EmailHelper.IsValidateEmail(signUpParams.Email)) return new SignUpResponse(false, ErrorMessage.Authentication.EmailIsNotValidate);
+        if (!EmailHelper.IsValidateEmail(signUpParams.Email))
+            return new SignUpResponse(false, ErrorMessage.Authentication.EmailIsNotValidate);
 
-        if (string.IsNullOrWhiteSpace(signUpParams.Password) || signUpParams.Password.Length < 8) return new SignUpResponse(false, ErrorMessage.Authentication.PasswordIsNotValidate);
+        if (string.IsNullOrWhiteSpace(signUpParams.Password) || signUpParams.Password.Length < 8)
+            return new SignUpResponse(false, ErrorMessage.Authentication.PasswordIsNotValidate);
 
-        if (string.IsNullOrWhiteSpace(signUpParams.FirstName) || signUpParams.FirstName.Length < 2) return new SignUpResponse(false, ErrorMessage.Authentication.FirstNameIsNotValidate);
+        if (string.IsNullOrWhiteSpace(signUpParams.FirstName) || signUpParams.FirstName.Length < 2)
+            return new SignUpResponse(false, ErrorMessage.Authentication.FirstNameIsNotValidate);
 
-        if (string.IsNullOrWhiteSpace(signUpParams.LastName) || signUpParams.LastName.Length < 2) return new SignUpResponse(false, ErrorMessage.Authentication.LastNameIsNotValidate);
+        if (string.IsNullOrWhiteSpace(signUpParams.LastName) || signUpParams.LastName.Length < 2)
+            return new SignUpResponse(false, ErrorMessage.Authentication.LastNameIsNotValidate);
 
         return new SignUpResponse(true, "");
     }
 
-#endregion
+    #endregion
 }

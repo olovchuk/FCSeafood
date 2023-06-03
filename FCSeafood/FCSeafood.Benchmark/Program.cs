@@ -1,9 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using FCSeafood.BLL.Item;
-using FCSeafood.BLL.Item.Models.Common;
-using FCSeafood.BLL.Item.Models.Params;
-using FCSeafood.BusinessObjects;
 using FCSeafood.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 

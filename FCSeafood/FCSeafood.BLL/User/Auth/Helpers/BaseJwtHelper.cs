@@ -2,12 +2,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using FCSeafood.DAL.Events;
 
 namespace FCSeafood.BLL.User.Auth.Helpers;
 
 public abstract class BaseJwtHelper {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(BaseJwtHelper));
+    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                     .CreateLogger(typeof(BaseJwtHelper));
 
     private readonly IJWTSettings _jwtSettings;
 
@@ -22,7 +22,13 @@ public abstract class BaseJwtHelper {
           , new(JwtCustomClaims.RoleType, ((int)userRoleType).ToString())
         };
 
-        return TokenGenerator.GenerateJwtToken(_jwtSettings.Secret, _jwtSettings.Issuer, _jwtSettings.Audience, _jwtSettings.TokenLifeTime, claims);
+        return TokenGenerator.GenerateJwtToken(
+            _jwtSettings.Secret
+          , _jwtSettings.Issuer
+          , _jwtSettings.Audience
+          , _jwtSettings.TokenLifeTime
+          , claims
+        );
     }
 
     public JwtSecurityToken? Validate(string tokenValue) {

@@ -1,6 +1,5 @@
 using FCSeafood.BLL.Item;
 using FCSeafood.BLL.Item.Models.Params;
-using Microsoft.AspNetCore.Authorization;
 
 namespace FCSeafood.WebAPI.Controllers;
 
@@ -14,9 +13,10 @@ public class ItemController : ControllerBase {
     }
 
     [HttpGet("GetItemByFilterList")]
-    public async Task<IActionResult> GetItemListAsync([FromQuery]ItemByFilterParams itemByFilterParams) {
+    public async Task<IActionResult> GetItemListAsync([FromQuery] ItemFilterParams itemByFilterParams) {
         var result = await _itemManager.GetItemListAsync(itemByFilterParams);
-        if (!result.IsSuccessful) return BadRequest(result);
+        if (!result.IsSuccessful)
+            return BadRequest(result);
 
         return Ok(result);
     }

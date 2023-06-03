@@ -13,7 +13,8 @@ public class JwtAuthSettings : IJWTSettings {
 
     public string Issuer {
         get {
-            if (string.IsNullOrWhiteSpace(_issuer)) _issuer = Configuration.GetValue<string>("JWTAuthSetting:AuthIssuer");
+            if (string.IsNullOrWhiteSpace(_issuer))
+                _issuer = Configuration.GetValue<string>("JWTAuthSetting:AuthIssuer");
             return _issuer ?? "";
         }
     }
@@ -22,7 +23,8 @@ public class JwtAuthSettings : IJWTSettings {
 
     public string Audience {
         get {
-            if (string.IsNullOrWhiteSpace(_audience)) _audience = Configuration.GetValue<string>("JWTAuthSetting:AuthAudience");
+            if (string.IsNullOrWhiteSpace(_audience))
+                _audience = Configuration.GetValue<string>("JWTAuthSetting:AuthAudience");
             return _audience ?? "";
         }
     }
@@ -31,7 +33,8 @@ public class JwtAuthSettings : IJWTSettings {
 
     public string Secret {
         get {
-            if (string.IsNullOrWhiteSpace(_secret)) _secret = Configuration.GetValue<string>("JWTAuthSetting:AuthSecret");
+            if (string.IsNullOrWhiteSpace(_secret))
+                _secret = Configuration.GetValue<string>("JWTAuthSetting:AuthSecret");
             return _secret ?? "";
         }
     }

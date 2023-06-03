@@ -1,7 +1,6 @@
 using System.Text.Json;
 using FCSeafood.BLL.Common;
 using FCSeafood.BLL.Item;
-using FCSeafood.BLL.Item.Models.Common;
 using FCSeafood.BLL.Item.Models.Params;
 using FCSeafood.BLL.Services;
 using FCSeafood.BusinessObjects;
@@ -13,7 +12,8 @@ using Microsoft.EntityFrameworkCore;
 namespace FCSeafood.Test;
 
 public class Tests {
-    private const string ConnectionString = "Data Source=localhost;Initial Catalog=Test;User ID=FCS_User;Password=s1c@r8;TrustServerCertificate=True";
+    private const string ConnectionString =
+        "Data Source=localhost;Initial Catalog=Test;User ID=FCS_User;Password=s1c@r8;TrustServerCertificate=True";
 
     // Context
     private CommonFCSeafoodContext _commonFcSeafoodContext = null!;
@@ -83,9 +83,7 @@ public class Tests {
 
     [Test]
     public async Task GetItemDbo() {
-        Assert.Multiple(() => {
-            Assert.That(_itemManager, Is.Not.Null);
-        });
+        Assert.Multiple(() => { Assert.That(_itemManager, Is.Not.Null); });
 
         var itemDbos = await _itemRepository.FindByConditionAsync(x => x.Name == "Bread");
         Assert.That(itemDbos, Is.Not.Null);
@@ -99,13 +97,16 @@ public class Tests {
 
     [Test]
     public async Task GetItemModel() {
-        Assert.Multiple(() => {
-            Assert.That(_itemManager, Is.Not.Null);
-        });
+        Assert.Multiple(() => { Assert.That(_itemManager, Is.Not.Null); });
 
-        var itemListModel = await _itemManager.GetItemListAsync(new ItemByFilterParams(new ItemFilterModel {
-            CategoryType = CategoryType.Fish, SubcategoryType = SubcategoryType.SeaFish
-        }));
+        var itemListModel = await _itemManager.GetItemListAsync(
+            new ItemFilterParams(
+                CategoryType.Fish
+              , SubcategoryType.SeaFish
+              , 1
+              , 100
+            )
+        );
 
         var oprions = new JsonSerializerOptions {
             WriteIndented = true
@@ -116,11 +117,13 @@ public class Tests {
 
     [Test]
     public async Task GetCategoryTList() {
-        Assert.Multiple(() => {
-            Assert.That(_categoryTRepository, Is.Not.Null);
-            Assert.That(_commonService, Is.Not.Null);
-            Assert.That(_commonManager, Is.Not.Null);
-        });
+        Assert.Multiple(
+            () => {
+                Assert.That(_categoryTRepository, Is.Not.Null);
+                Assert.That(_commonService, Is.Not.Null);
+                Assert.That(_commonManager, Is.Not.Null);
+            }
+        );
 
         var categoryTListResponse = await _commonManager.GetCategoryTListAsync();
 
@@ -143,6 +146,7 @@ public class Tests {
             Assert.That(dbo, Is.Not.Null);
             return;
         }
+
         var model = CategoryTRepository.ToModel(dbo);
         Assert.That(model.success, Is.Not.False);
         var json = JsonSerializer.Serialize(model.model, oprions);
@@ -154,6 +158,7 @@ public class Tests {
             Assert.That(dbo2, Is.Not.Null);
             return;
         }
+
         var model2 = CurrencyCodeTRepository.ToModel(dbo2);
         Assert.That(model2.success, Is.Not.False);
         json = JsonSerializer.Serialize(model2.model, oprions);
@@ -165,6 +170,7 @@ public class Tests {
             Assert.That(dbo3, Is.Not.Null);
             return;
         }
+
         var model3 = GenderTRepository.ToModel(dbo3);
         Assert.That(model3.success, Is.Not.False);
         json = JsonSerializer.Serialize(model3.model, oprions);
@@ -176,6 +182,7 @@ public class Tests {
             Assert.That(dbo4, Is.Not.Null);
             return;
         }
+
         var model4 = ItemStatusTRepository.ToModel(dbo4);
         Assert.That(model4.success, Is.Not.False);
         json = JsonSerializer.Serialize(model4.model, oprions);
@@ -187,6 +194,7 @@ public class Tests {
             Assert.That(dbo5, Is.Not.Null);
             return;
         }
+
         var model5 = RoleTRepository.ToModel(dbo5);
         Assert.That(model5.success, Is.Not.False);
         json = JsonSerializer.Serialize(model5.model, oprions);
@@ -198,6 +206,7 @@ public class Tests {
             Assert.That(dbo6, Is.Not.Null);
             return;
         }
+
         var model6 = SubcategoryTRepository.ToModel(dbo6);
         Assert.That(model6.success, Is.Not.False);
         json = JsonSerializer.Serialize(model6.model, oprions);
@@ -209,6 +218,7 @@ public class Tests {
             Assert.That(dbo7, Is.Not.Null);
             return;
         }
+
         var model7 = TemperatureUnitTRepository.ToModel(dbo7);
         Assert.That(model7.success, Is.Not.False);
         json = JsonSerializer.Serialize(model7.model, oprions);
@@ -227,6 +237,7 @@ public class Tests {
             Assert.That(dbo, Is.Not.Null);
             return;
         }
+
         var model = AddressRepository.ToModel(dbo);
         Assert.That(model.success, Is.Not.False);
         var json = JsonSerializer.Serialize(model.model, oprions);
@@ -238,6 +249,7 @@ public class Tests {
             Assert.That(dbo2, Is.Not.Null);
             return;
         }
+
         var model2 = ItemRepository.ToModel(dbo2);
         Assert.That(model2.success, Is.Not.False);
         json = JsonSerializer.Serialize(model2.model, oprions);
@@ -249,6 +261,7 @@ public class Tests {
             Assert.That(dbo3, Is.Not.Null);
             return;
         }
+
         var model3 = PriceRepository.ToModel(dbo3);
         Assert.That(model3.success, Is.Not.False);
         json = JsonSerializer.Serialize(model3.model, oprions);
@@ -260,6 +273,7 @@ public class Tests {
             Assert.That(dbo4, Is.Not.Null);
             return;
         }
+
         var model4 = UserCredentialRepository.ToModel(dbo4);
         Assert.That(model4.success, Is.Not.False);
         json = JsonSerializer.Serialize(model4.model, oprions);
@@ -271,6 +285,7 @@ public class Tests {
             Assert.That(dbo5, Is.Not.Null);
             return;
         }
+
         var model5 = UserRepository.ToModel(dbo5);
         Assert.That(model5.success, Is.Not.False);
         json = JsonSerializer.Serialize(model5.model, oprions);

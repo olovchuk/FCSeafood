@@ -3,7 +3,8 @@ using FCSeafood.DAL.Common.Repository;
 namespace FCSeafood.BLL.Services;
 
 public class CommonService {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(CommonService));
+    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                     .CreateLogger(typeof(CommonService));
 
     private readonly CategoryTRepository _categoryTRepository;
     private readonly SubcategoryTRepository _subcategoryTRepository;
@@ -13,12 +14,13 @@ public class CommonService {
         _subcategoryTRepository = subcategoryTRepository;
     }
 
-#region CategoryType
+    #region CategoryType
 
     public async Task<CategoryTModel?> GetCategoryTypeAsync(CategoryType categoryType) {
         try {
             var categoryTDbo = await _categoryTRepository.FindByConditionAsync(x => x.Id == (int)categoryType);
-            if (categoryTDbo is null) return null;
+            if (categoryTDbo is null)
+                return null;
 
             var result = CategoryTRepository.ToModel(categoryTDbo);
             return result.success ? result.model : null;
@@ -33,7 +35,10 @@ public class CommonService {
             var categoryTListDbo = await _categoryTRepository.GetAllAsync();
 
             var result = CategoryTRepository.ToModel(categoryTListDbo);
-            return !result.success ? null : result.models.FirstOrDefault(c => c.SubcategoryTModelList.Any(s => s.Type == subcategoryType));
+            if (result.success)
+                return result.models.FirstOrDefault(c => c.SubcategoryTModelList.Any(s => s.Type == subcategoryType));
+
+            return null;
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
@@ -52,9 +57,9 @@ public class CommonService {
         }
     }
 
-#endregion
+    #endregion
 
-#region SubcategoryType
+    #region SubcategoryType
 
     public async Task<IReadOnlyCollection<SubcategoryTModel>> GetSubcategoryTListAsync() {
         try {
@@ -70,7 +75,8 @@ public class CommonService {
 
     public async Task<IReadOnlyCollection<SubcategoryTModel>> GetSubcategoryTListAsync(CategoryType categoryType) {
         try {
-            var subcategoryTListDbo = await _subcategoryTRepository.FindByConditionListAsync(x => x.CategoryTDboId == (int)categoryType);
+            var subcategoryTListDbo =
+                await _subcategoryTRepository.FindByConditionListAsync(x => x.CategoryTDboId == (int)categoryType);
 
             var result = SubcategoryTRepository.ToModel(subcategoryTListDbo);
             return result.success ? result.models : Array.Empty<SubcategoryTModel>();
@@ -80,5 +86,5 @@ public class CommonService {
         }
     }
 
-#endregion
+    #endregion
 }

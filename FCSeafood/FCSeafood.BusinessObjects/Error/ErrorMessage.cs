@@ -21,6 +21,10 @@ public static class ErrorMessage {
         public static string IsNotDefined => "The item(s) is not defined.";
     }
 
+    public static class Common {
+        public static string ErrorRetrievingData => "Something goes wrong when retrieving data";
+    }
+
     public static class Authentication {
         public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
         public static string SignUpFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";

@@ -1,7 +1,8 @@
 namespace FCSeafood.BLL.Common;
 
 public class CommonManager {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(CommonManager));
+    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                     .CreateLogger(typeof(CommonManager));
 
     private readonly CommonService _commonService;
 
@@ -15,7 +16,7 @@ public class CommonManager {
             return new CategoryTResponse(true, "", categoryTModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new CategoryTResponse(false, "Something goes wrong when retrieving data", null);
+            return new CategoryTResponse(false, ErrorMessage.Common.ErrorRetrievingData, null);
         }
     }
 
@@ -25,7 +26,7 @@ public class CommonManager {
             return new CategoryTResponse(true, "", categoryTModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new CategoryTResponse(false, "Something goes wrong when retrieving data", null);
+            return new CategoryTResponse(false, ErrorMessage.Common.ErrorRetrievingData, null);
         }
     }
 
@@ -35,7 +36,8 @@ public class CommonManager {
             return new CategoryTListResponse(true, "", categoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new CategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<CategoryTModel>());
+            return new CategoryTListResponse(false, ErrorMessage.Common.ErrorRetrievingData
+                                           , Enumerable.Empty<CategoryTModel>());
         }
     }
 
@@ -45,7 +47,8 @@ public class CommonManager {
             return new SubcategoryTListResponse(true, "", subcategoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new SubcategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubcategoryTModel>());
+            return new SubcategoryTListResponse(false, ErrorMessage.Common.ErrorRetrievingData
+                                              , Enumerable.Empty<SubcategoryTModel>());
         }
     }
 
@@ -55,7 +58,8 @@ public class CommonManager {
             return new SubcategoryTListResponse(true, "", subcategoryTListModel);
         } catch (Exception ex) {
             _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new SubcategoryTListResponse(false, "Something goes wrong when retrieving data", Enumerable.Empty<SubcategoryTModel>());
+            return new SubcategoryTListResponse(false, ErrorMessage.Common.ErrorRetrievingData
+                                              , Enumerable.Empty<SubcategoryTModel>());
         }
     }
 }
