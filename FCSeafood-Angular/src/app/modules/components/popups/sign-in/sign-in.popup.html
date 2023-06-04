@@ -28,19 +28,19 @@
       <a href="#" class="text-small text-bright-grey">Forgot your password?</a>
     </div>
 
-    <section class="flex flex-column align-items-center w-full mt-5">
+    <div class="flex flex-column align-items-center w-full mt-5">
       <div class="flex justify-content-center">
         <i (click)="signInViaFacebook()" class="pi pi-facebook additional-entry-icon" pTooltip="Sign in via Facebook" tooltipPosition="bottom"></i>
         <i (click)="signInViaGoogle()" class="pi pi-google additional-entry-icon" pTooltip="Sign in via Google" tooltipPosition="bottom"></i>
       </div>
 
       <span class="text-small font-bold text-center mt-3 max-w-15rem">By logging/signing in with my social login, I agree to connect my account in accordance with the Privacy Policy</span>
-    </section>
+    </div>
 
-    <section class="grid mt-3">
+    <div class="grid mt-3">
       <p-button (click)="submitButton.click()" label="Sign In" class="col" styleClass="p-button-rounded w-full uppercase"></p-button>
       <p-button (click)="openSignUpPopup()" label="Sign Up" class="col" styleClass="p-button-outlined p-button-rounded w-full uppercase"></p-button>
-    </section>
+    </div>
   </div>
 </div>
 
