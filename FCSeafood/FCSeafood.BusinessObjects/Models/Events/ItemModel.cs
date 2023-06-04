@@ -8,7 +8,7 @@ public class ItemModel {
     public string Code { get; set; } = "";
     public string ImagePath { get; set; } = "";
 
-    public PriceModel Price { get; set; } = new();
+    public double Price { get; set; } = new();
 
     public CategoryTModel Category { get; set; } = new();
 

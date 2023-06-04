@@ -21,7 +21,6 @@ public static class Configuration {
         serviceCollection.AddTransient<AddressService>();
         serviceCollection.AddTransient<CommonService>();
         serviceCollection.AddTransient<ItemService>();
-        serviceCollection.AddTransient<PriceService>();
         serviceCollection.AddTransient<UserService>();
 
         // Managers
@@ -51,7 +50,6 @@ public static class Configuration {
         // -- Event
         serviceCollection.AddTransient<AddressRepository>();
         serviceCollection.AddTransient<ItemRepository>();
-        serviceCollection.AddTransient<PriceRepository>();
         serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<UserRepository>();
 

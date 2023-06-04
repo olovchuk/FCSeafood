@@ -34,8 +34,8 @@ public class ItemService {
             Expression<Func<ItemDbo, bool>> predicate = x =>
                 x.CategoryTDboId == (int)filter.CategoryType
              && x.SubcategoryTDboId == (int)filter.SubcategoryType
-             && (filter.PriceFrom < 0 || x.PriceDbo != null && x.PriceDbo.Price >= filter.PriceFrom)
-             && (filter.PriceTo < 0 || x.PriceDbo != null && x.PriceDbo.Price <= filter.PriceTo);
+             && (filter.PriceFrom < 0 || x.Price >= filter.PriceFrom)
+             && (filter.PriceTo < 0 || x.Price <= filter.PriceTo);
 
             if (filter.SortDirectionType == SortDirectionType.NoSort)
                 itemListDbo = await _itemRepository.FindByConditionListAsync(predicate);

@@ -6,8 +6,7 @@ public class ItemRepository : Base.BaseRepository<ItemDbo> {
     public ItemRepository(EventFCSeafoodContext context) : base(context) { }
 
     protected override IQueryable<ItemDbo> NoTracking() =>
-        this.Entities.Include(x => x.PriceDbo)
-            .ThenInclude(x => x!.CurrencyCodeTDbo)
+        this.Entities
             .Include(x => x.CategoryTDbo)
             .Include(x => x.SubcategoryTDbo)
             .Include(x => x.ItemStatusTDbo)
@@ -21,13 +20,13 @@ public class ItemRepository : Base.BaseRepository<ItemDbo> {
         if (isAscending)
             return await NoTracking()
                         .Where(predicate)
-                        .OrderBy(x => x.PriceDbo!.Price)
+                        .OrderBy(x => x.Price)
                         .ToListAsync()
                         .ConfigureAwait(false);
 
         return await NoTracking()
                     .Where(predicate)
-                    .OrderByDescending(x => x.PriceDbo!.Price)
+                    .OrderByDescending(x => x.Price)
                     .ToListAsync()
                     .ConfigureAwait(false);
     }
@@ -37,12 +36,6 @@ public class ItemRepository : Base.BaseRepository<ItemDbo> {
             return (false, new ItemModel());
 
         var model = new Mapper(MapperConfig.ConfigureEvent).Map<ItemModel>(dbo);
-
-        if (dbo.PriceDbo != null) {
-            var result = PriceRepository.ToModel(dbo.PriceDbo);
-            if (result.success)
-                model.Price = result.model;
-        }
 
         if (dbo.CategoryTDbo != null) {
             var result = CategoryTRepository.ToModel(dbo.CategoryTDbo);

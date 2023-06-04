@@ -22,7 +22,6 @@ public class Tests {
     // Event Repository
     private AddressRepository _addressRepository = null!;
     private ItemRepository _itemRepository = null!;
-    private PriceRepository _priceRepository = null!;
     private UserCredentialRepository _userCredentialRepository = null!;
     private UserRepository _userRepository = null!;
 
@@ -38,7 +37,6 @@ public class Tests {
     // Service
     private CommonService _commonService = null!;
     private ItemService _itemService = null!;
-    private PriceService _priceService = null!;
 
     // Manger
     private CommonManager _commonManager = null!;
@@ -58,7 +56,6 @@ public class Tests {
         // Event Repository
         _addressRepository = new AddressRepository(_eventFcSeafoodContext);
         _itemRepository = new ItemRepository(_eventFcSeafoodContext);
-        _priceRepository = new PriceRepository(_eventFcSeafoodContext);
         _userCredentialRepository = new UserCredentialRepository(_eventFcSeafoodContext);
         _userRepository = new UserRepository(_eventFcSeafoodContext);
 
@@ -74,7 +71,6 @@ public class Tests {
         // Service
         _commonService = new CommonService(_categoryTRepository, _subcategoryTRepository);
         _itemService = new ItemService(_itemRepository);
-        _priceService = new PriceService(_priceRepository);
 
         // Manager
         _commonManager = new CommonManager(_commonService);
@@ -255,18 +251,6 @@ public class Tests {
         Assert.That(model2.success, Is.Not.False);
         json = JsonSerializer.Serialize(model2.model, oprions);
         Console.WriteLine(typeof(ItemRepository) + json + "\n");
-
-        var dbo3 = await _priceRepository.FindByConditionAsync(x => x.Price == 100);
-        if (dbo3 is null) {
-            Console.WriteLine(typeof(PriceRepository) + " NULL");
-            Assert.That(dbo3, Is.Not.Null);
-            return;
-        }
-
-        var model3 = PriceRepository.ToModel(dbo3);
-        Assert.That(model3.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model3.model, oprions);
-        Console.WriteLine(typeof(PriceRepository) + json + "\n");
 
         var dbo4 = await _userCredentialRepository.FindByConditionAsync(x => x.Email == "tom_rider@fcsfood.com");
         if (dbo4 is null) {

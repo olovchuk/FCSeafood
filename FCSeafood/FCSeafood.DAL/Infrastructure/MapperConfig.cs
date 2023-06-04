@@ -14,7 +14,6 @@ public static class MapperConfig {
     public static MapperConfiguration ConfigureEvent => new(cfg => {
         cfg.CreateMap<AddressDbo, AddressModel>();
         cfg.CreateMap<ItemDbo, ItemModel>();
-        cfg.CreateMap<PriceDbo, PriceModel>();
         cfg.CreateMap<UserCredentialDbo, UserCredentialModel>();
         cfg.CreateMap<UserDbo, UserModel>();
     });
