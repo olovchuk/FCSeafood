@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { SignInPopup } from "@modules-components/popups/sign-in/sign-in.popup";
 import { MenuItem } from "primeng/api";
 import { CommonService } from "@common-services/common.service";
+import { CartPopup } from "@modules-components/popups/cart/cart.popup";
 
 @Component({
   selector: 'app-header',
@@ -37,7 +38,13 @@ export class HeaderComponent implements OnInit {
   }
 
   showCartPopup() {
-
+    this.dialog.open(CartPopup, {
+      panelClass: ['animate__animated', 'animate__slideInRight', 'custom-container', 'border-primary-left'],
+      position: {right: '0%'},
+      minHeight: '100vh',
+      width: '550px',
+      maxWidth: '100vw'
+    });
   }
 
   async signOut(): Promise<void> {

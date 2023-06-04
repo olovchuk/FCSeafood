@@ -6,15 +6,18 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../../material/material.module";
 import { SignUpPopup } from "@modules-components/popups/sign-up/sign-up.popup";
 import { PrimengModule } from "@modules/primeng/primeng.module";
+import { CartPopup } from './cart/cart.popup';
 
 @NgModule({
   declarations: [
     SignInPopup,
-    SignUpPopup
+    SignUpPopup,
+    CartPopup
   ],
   exports: [
     SignInPopup,
-    SignUpPopup
+    SignUpPopup,
+    CartPopup
   ],
   imports: [
     RouterModule,
