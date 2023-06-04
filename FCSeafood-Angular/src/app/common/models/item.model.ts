@@ -1,4 +1,3 @@
-import { PriceModel } from "@common-models/price.model";
 import { CategoryTModel } from "@common-models/category-type.model";
 import { SubcategoryTModel } from "@common-models/subcategory-type.model";
 import { ItemStatusTModel } from "@common-models/item-status-type.model";
@@ -9,7 +8,7 @@ export class ItemModel {
   name: string = '';
   code: string = '';
   imagePath: string = '';
-  price: PriceModel = new PriceModel();
+  price: number = 0.0;
   category: CategoryTModel = new CategoryTModel();
   subcategory: SubcategoryTModel = new SubcategoryTModel();
   itemStatus: ItemStatusTModel = new ItemStatusTModel();
