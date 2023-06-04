@@ -1,6 +1,9 @@
 namespace FCSeafood.BLL.Item.Models.Params;
 
-public record ItemFilterParams(CategoryType CategoryType
-                             , SubcategoryType SubcategoryType
-                             , double PriceFrom
-                             , double PriceTo);
+public record ItemFilterParams(
+    CategoryType CategoryType
+  , SubcategoryType SubcategoryType
+  , SortDirectionType SortDirectionType
+  , double PriceFrom
+  , double PriceTo
+);

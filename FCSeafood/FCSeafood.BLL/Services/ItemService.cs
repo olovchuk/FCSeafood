@@ -30,13 +30,22 @@ public class ItemService {
 
     public async Task<IReadOnlyCollection<ItemModel>> GetItemListAsync(ItemFilterParams filter) {
         try {
-            var itemListDbo = await _itemRepository.FindByConditionListAsync(
-                x =>
-                    x.CategoryTDboId == (int)filter.CategoryType
-                 && x.SubcategoryTDboId == (int)filter.SubcategoryType
-                 && (filter.PriceFrom < 0 || x.PriceDbo != null && x.PriceDbo.Price >= filter.PriceFrom)
-                 && (filter.PriceTo < 0 || x.PriceDbo != null && x.PriceDbo.Price <= filter.PriceTo)
-            );
+            IReadOnlyCollection<ItemDbo> itemListDbo = new List<ItemDbo>();
+            Expression<Func<ItemDbo, bool>> predicate = x =>
+                x.CategoryTDboId == (int)filter.CategoryType
+             && x.SubcategoryTDboId == (int)filter.SubcategoryType
+             && (filter.PriceFrom < 0 || x.PriceDbo != null && x.PriceDbo.Price >= filter.PriceFrom)
+             && (filter.PriceTo < 0 || x.PriceDbo != null && x.PriceDbo.Price <= filter.PriceTo);
+
+            if (filter.SortDirectionType == SortDirectionType.NoSort)
+                itemListDbo = await _itemRepository.FindByConditionListAsync(predicate);
+            else {
+                itemListDbo = await _itemRepository.FindByConditionListSortPriceAsync(
+                    predicate
+                  , filter.SortDirectionType == SortDirectionType.Ascending
+                );
+            }
+
             if (itemListDbo.Count == 0)
                 return Array.Empty<ItemModel>();
 

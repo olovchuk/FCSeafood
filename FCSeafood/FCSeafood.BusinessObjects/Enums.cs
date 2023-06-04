@@ -85,12 +85,13 @@ public enum ItemStatusType {
   , Deleted = 3
 }
 
-#endregion
-
-public enum SortDirection {
-    Ascending = 0
-  , Descending = 1
+public enum SortDirectionType {
+    NoSort = 0
+  , Ascending = 1
+  , Descending = 2
 }
+
+#endregion
 
 public enum DeliveryStatus {
     Error = 0

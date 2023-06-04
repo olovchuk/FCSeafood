@@ -17,6 +17,7 @@ export class ItemData {
     let params = new HttpParams();
     params = params.append('CategoryType', itemFilterRequest.categoryType);
     params = params.append('SubcategoryType', itemFilterRequest.subcategoryType);
+    params = params.append('SortDirectionType', itemFilterRequest.sortDirectionType);
     params = params.append('PriceFrom', itemFilterRequest.priceFrom);
     params = params.append('PriceTo', itemFilterRequest.priceTo);
 

@@ -13,7 +13,9 @@ export class ShopFiltersState {
   subcategoryTList: SubcategoryTModel[] = [];
   selectedSubcategoryType: SubcategoryType = SubcategoryType.Unknown;
   sortDirectionTList: SortDirectionTModel[] = [];
-  selectedPriceSortDirectionType: SortDirectionType = SortDirectionType.Ascending;
+  selectedPriceSortDirectionType: SortDirectionType = SortDirectionType.NoSort;
+  priceFrom: number = 0.0;
+  priceTo: number = 0.0;
 
   ResolveInit: Function = new Function;
   Init = new Promise((resolve, reject) => {

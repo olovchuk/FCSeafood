@@ -29,22 +29,31 @@ export class ShopFiltersStateService {
       this.shopFiltersState.selectedSubcategoryType = shopFiltersLS.selectedSubcategoryType;
       this.shopFiltersState.sortDirectionTList = shopFiltersLS.sortDirectionTList;
       this.shopFiltersState.selectedPriceSortDirectionType = shopFiltersLS.selectedPriceSortDirectionType;
+      this.shopFiltersState.priceFrom = shopFiltersLS.priceFrom;
+      this.shopFiltersState.priceTo = shopFiltersLS.priceTo;
     }
     else {
       this.shopFiltersState.categoryTList = await this.commonService.getCategoryTListAsync();
       this.shopFiltersState.selectedCategoryType = this.shopFiltersState.categoryTList[0]?.type;
-      this.shopFiltersState.subcategoryTList = this.shopFiltersState.categoryTList[this.shopFiltersState.selectedCategoryType].subcategoryTModelList;
+      this.shopFiltersState.subcategoryTList = this.shopFiltersState.categoryTList[0].subcategoryTModelList;
       this.shopFiltersState.selectedSubcategoryType = this.shopFiltersState.subcategoryTList[0]?.type;
       this.shopFiltersState.sortDirectionTList = [
         {type: SortDirectionType.Ascending, name: SortDirectionType[SortDirectionType.Ascending]},
         {type: SortDirectionType.Descending, name: SortDirectionType[SortDirectionType.Descending]}
       ]
       this.shopFiltersState.selectedPriceSortDirectionType = SortDirectionType.Ascending;
+      this.shopFiltersState.priceFrom = -1;
+      this.shopFiltersState.priceTo = -1;
     }
 
     this.isInit = true;
     this.shopFiltersState.ResolveInit(null);
     return this.shopFiltersState;
+  }
+
+  async refresh(): Promise<void> {
+    LocalStorageHelper.Remove(SHOP_FILTERS);
+    await this.init();
   }
 
   async changeCategory(categoryType: CategoryType): Promise<void> {
@@ -70,6 +79,22 @@ export class ShopFiltersStateService {
       await this.init();
 
     this.shopFiltersState.selectedPriceSortDirectionType = sortDirectionType;
+    this.save();
+  }
+
+  async changePriceFrom(price: number): Promise<void> {
+    if (!this.isInit)
+      await this.init();
+
+    this.shopFiltersState.priceFrom = price;
+    this.save();
+  }
+
+  async changePriceTo(price: number): Promise<void> {
+    if (!this.isInit)
+      await this.init();
+
+    this.shopFiltersState.priceTo = price;
     this.save();
   }
 

@@ -8,6 +8,7 @@ import { SubcategoryComponent } from './subcategory/subcategory.component';
 import { SubcategoryTypeCard } from "@modules-pages/shop/shop-content/subcategory/subcategory-type-card/subcategory-type.card";
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemCard } from './item-list/item-card/item.card';
+import { FilterComponent } from "@modules-pages/shop/panels/filter/filter.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'items', pathMatch: 'full'},
@@ -23,7 +24,8 @@ const routes: Routes = [
     SubcategoryComponent,
     SubcategoryTypeCard,
     ItemListComponent,
-    ItemCard
+    ItemCard,
+    FilterComponent
   ],
   imports: [RouterModule.forChild(routes), PrimengModule, NgForOf, NgOptimizedImage],
   exports: [RouterModule]

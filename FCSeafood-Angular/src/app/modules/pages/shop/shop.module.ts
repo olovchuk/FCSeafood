@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf, NgOptimizedImage } from '@angular/common';
 import { RouterModule, Routes } from "@angular/router";
 import { ShopComponent } from "@modules-pages/shop/shop.component";
 import { ShopContentComponent } from './shop-content/shop-content.component';
+import { PrimengModule } from "@modules/primeng/primeng.module";
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
     ShopContentComponent,
     ShopContentComponent
   ],
-  imports: [RouterModule.forChild(routes), NgForOf, NgIf],
+  imports: [RouterModule.forChild(routes), PrimengModule, NgForOf, NgIf, NgOptimizedImage],
   exports: [RouterModule]
 })
 export class ShopModule {

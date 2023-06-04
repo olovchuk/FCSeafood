@@ -103,6 +103,7 @@ public class Tests {
             new ItemFilterParams(
                 CategoryType.Fish
               , SubcategoryType.SeaFish
+              , SortDirectionType.NoSort
               , 1
               , 100
             )
