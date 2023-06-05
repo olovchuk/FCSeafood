@@ -20,13 +20,13 @@
   <div class="text-white text-lg font-bold mt-4">Price:</div>
   <div class="p-inputgroup mt-1">
     <span class="p-inputgroup-addon">$</span>
-    <p-inputNumber (onInput)="priceFromChange($event)"
+    <p-inputNumber (onInput)="priceFromChange($event)" [(ngModel)]="priceFrom"
                    inputId="integeronly" placeholder="Price from:">
     </p-inputNumber>
   </div>
   <div class="p-inputgroup mt-1">
     <span class="p-inputgroup-addon">$</span>
-    <p-inputNumber (onInput)="priceToChange($event)"
+    <p-inputNumber (onInput)="priceToChange($event)" [(ngModel)]="priceTo"
                    inputId="integeronly" placeholder="Price to:">
     </p-inputNumber>
   </div>

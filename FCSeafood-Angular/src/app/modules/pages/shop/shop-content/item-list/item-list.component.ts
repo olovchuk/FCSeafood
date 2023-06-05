@@ -41,6 +41,5 @@ export class ItemListComponent implements OnInit {
     };
 
     this.itemModels = await this.itemService.getItemByFilterList(itemFilterRequest);
-    console.log(this.itemModels)
   }
 }

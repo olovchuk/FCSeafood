@@ -12,6 +12,9 @@ import { CategoryType } from "@common-enums/category.type";
 export class FilterComponent {
   @Output('applyEvent') applyEvent = new EventEmitter<number>();
 
+  priceFrom: number | null = null;
+  priceTo: number | null = null;
+
   protected readonly SortDirectionType = SortDirectionType;
   protected readonly CategoryType = CategoryType;
 
@@ -33,11 +36,17 @@ export class FilterComponent {
   }
 
   async priceFromChange(event: any): Promise<void> {
-    await this.shopFiltersStateService.changePriceFrom(event.value);
+    let price = -1.0;
+    if (event.value != null)
+      price = event.value;
+    await this.shopFiltersStateService.changePriceFrom(price);
   }
 
   async priceToChange(event: any): Promise<void> {
-    await this.shopFiltersStateService.changePriceTo(event.value);
+    let price = -1.0;
+    if (event.value != null)
+      price = event.value;
+    await this.shopFiltersStateService.changePriceTo(price);
   }
 
   applyFilters() {
@@ -45,6 +54,9 @@ export class FilterComponent {
   }
 
   async refreshFilters() {
+    this.priceFrom = null;
+    this.priceTo = null;
     await this.shopFiltersStateService.refresh();
+    this.applyEvent.emit();
   }
 }
