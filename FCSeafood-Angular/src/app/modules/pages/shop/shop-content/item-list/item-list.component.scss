@@ -2,3 +2,7 @@
   width: 350px;
   margin: 25px;
 }
+
+.max-3-block {
+  max-width: calc(330px * 3 + (1.5rem * 6))
+}
