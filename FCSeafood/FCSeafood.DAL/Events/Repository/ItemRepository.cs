@@ -2,7 +2,10 @@ using System.Linq.Expressions;
 
 namespace FCSeafood.DAL.Events.Repository;
 
-public class ItemRepository : Base.BaseRepository<ItemDbo> {
+public class ItemRepository : Base.BaseRepository<ItemDbo, ItemModel> {
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(ItemRepository));
+
     public ItemRepository(EventFCSeafoodContext context) : base(context) { }
 
     protected override IQueryable<ItemDbo> NoTracking() =>
@@ -13,69 +16,56 @@ public class ItemRepository : Base.BaseRepository<ItemDbo> {
             .Include(x => x.TemperatureUnitTDbo)
             .AsNoTracking();
 
-    public async Task<IReadOnlyCollection<ItemDbo>> FindByConditionListSortPriceAsync(
+    protected override void AddExtensionToModel(ref ItemModel itemModel, ItemDbo entity) {
+        if (entity.CategoryTDbo != null) {
+            var (isSuccessful, model) = CategoryTRepository.ToModel(entity.CategoryTDbo);
+            if (isSuccessful)
+                itemModel.Category = model;
+        }
+
+        if (entity.SubcategoryTDbo != null) {
+            var (isSuccessful, model) = SubcategoryTRepository.ToModel(entity.SubcategoryTDbo);
+            if (isSuccessful)
+                itemModel.Subcategory = model;
+        }
+
+        if (entity.ItemStatusTDbo != null) {
+            var (isSuccessful, model) = ItemStatusTRepository.ToModel(entity.ItemStatusTDbo);
+            if (isSuccessful)
+                itemModel.ItemStatus = model;
+        }
+
+        if (entity.TemperatureUnitTDbo != null) {
+            var (isSuccessful, model) = TemperatureUnitTRepository.ToModel(entity.TemperatureUnitTDbo);
+            if (isSuccessful)
+                itemModel.TemperatureUnit = model;
+        }
+    }
+
+    public async Task<(bool isSuccessful, IReadOnlyCollection<ItemModel> models)> FindByConditionListSortPriceAsync(
         Expression<Func<ItemDbo, bool>> predicate
       , bool isAscending = true
     ) {
-        if (isAscending)
-            return await NoTracking()
-                        .Where(predicate)
-                        .OrderBy(x => x.Price)
-                        .ToListAsync()
-                        .ConfigureAwait(false);
+        try {
+            if (isAscending)
+                return ToModel(
+                    await NoTracking()
+                         .Where(predicate)
+                         .OrderBy(x => x.Price)
+                         .ToListAsync()
+                         .ConfigureAwait(false)
+                );
 
-        return await NoTracking()
-                    .Where(predicate)
-                    .OrderByDescending(x => x.Price)
-                    .ToListAsync()
-                    .ConfigureAwait(false);
-    }
-
-    public static (bool success, ItemModel model) ToModel(ItemDbo dbo) {
-        if (dbo.Equals(null))
-            return (false, new ItemModel());
-
-        var model = new Mapper(MapperConfig.ConfigureEvent).Map<ItemModel>(dbo);
-
-        if (dbo.CategoryTDbo != null) {
-            var result = CategoryTRepository.ToModel(dbo.CategoryTDbo);
-            if (result.success)
-                model.Category = result.model;
-        }
-
-        if (dbo.SubcategoryTDbo != null) {
-            var result = SubcategoryTRepository.ToModel(dbo.SubcategoryTDbo);
-            if (result.success)
-                model.Subcategory = result.model;
-        }
-
-        if (dbo.ItemStatusTDbo != null) {
-            var result = ItemStatusTRepository.ToModel(dbo.ItemStatusTDbo);
-            if (result.success)
-                model.ItemStatus = result.model;
-        }
-
-        if (dbo.TemperatureUnitTDbo != null) {
-            var result = TemperatureUnitTRepository.ToModel(dbo.TemperatureUnitTDbo);
-            if (result.success)
-                model.TemperatureUnit = result.model;
-        }
-
-        return (true, model);
-    }
-
-    public static (bool success, IReadOnlyCollection<ItemModel> models) ToModel(IEnumerable<ItemDbo> listDbo) {
-        if (listDbo.Equals(null))
+            return ToModel(
+                await NoTracking()
+                     .Where(predicate)
+                     .OrderByDescending(x => x.Price)
+                     .ToListAsync()
+                     .ConfigureAwait(false)
+            );
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
             return (false, Array.Empty<ItemModel>());
-
-        var listResult = new List<ItemModel>();
-        foreach (var dbo in listDbo) {
-            var result = ToModel(dbo);
-            if (!result.success)
-                return (false, Array.Empty<ItemModel>());
-            listResult.Add(result.model);
         }
-
-        return (true, listResult);
     }
 }

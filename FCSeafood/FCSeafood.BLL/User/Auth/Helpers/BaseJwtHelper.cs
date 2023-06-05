@@ -6,12 +6,12 @@ using System.IdentityModel.Tokens.Jwt;
 namespace FCSeafood.BLL.User.Auth.Helpers;
 
 public abstract class BaseJwtHelper {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
-                                                     .CreateLogger(typeof(BaseJwtHelper));
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(BaseJwtHelper));
 
     private readonly IJWTSettings _jwtSettings;
 
-    public BaseJwtHelper(IJWTSettings jwtSettings) {
+    protected BaseJwtHelper(IJWTSettings jwtSettings) {
         _jwtSettings = jwtSettings;
     }
 
@@ -46,7 +46,7 @@ public abstract class BaseJwtHelper {
             jwtSecurityTokenHandler.ValidateToken(tokenValue, tokenValidationParameters, out var validatedToken);
             return jwtSecurityTokenHandler.ReadJwtToken(tokenValue);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Jwt.ValidateFailed}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Jwt.ValidateFailed}\r\nError: [{ex.Message}]");
             return null;
         }
     }

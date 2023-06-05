@@ -73,4 +73,30 @@ public class ItemDbo {
 
     [Column("Description")]
     public string? Description { get; set; }
+
+    public ItemDbo() { }
+
+    public ItemDbo(ItemModel model) {
+        Id = model.Id;
+        Name = model.Name;
+        Code = model.Code;
+        ImagePath = model.ImagePath;
+        Price = model.Price;
+        CategoryTDboId = (int)model.Category.Type;
+        SubcategoryTDboId = (int)model.Subcategory.Type;
+        ItemStatusTDboId = (int)model.ItemStatus.Type;
+        QuantityPerKg = model.QuantityPerKg;
+        Brand = model.Brand;
+        Type = model.Type;
+        Finishing = model.Finishing;
+        IsPackaging = model.IsPackaging;
+        FatsPer100Gram = model.FatsPer100Gram;
+        CarbohydratesPer100Gram = model.CarbohydratesPer100Gram;
+        ProteinsPer100Gram = model.ProteinsPer100Gram;
+        KcalPer100Gram = model.KcalPer100Gram;
+        HumidityPerPercent = model.HumidityPerPercent;
+        ExpirationDate = model.ExpirationDate;
+        TemperatureStorage = model.TemperatureStorage;
+        Description = model.Description;
+    }
 }

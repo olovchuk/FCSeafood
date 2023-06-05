@@ -1,8 +1,8 @@
 namespace FCSeafood.BLL.Common;
 
 public class CommonManager {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
-                                                     .CreateLogger(typeof(CommonManager));
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(CommonManager));
 
     private readonly CommonService _commonService;
 
@@ -15,7 +15,7 @@ public class CommonManager {
             var categoryTModel = await _commonService.GetCategoryTypeAsync(categoryTParams.CategoryType);
             return new CategoryTResponse(true, "", categoryTModel);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new CategoryTResponse(false, ErrorMessage.Common.ErrorRetrievingData, null);
         }
     }
@@ -25,7 +25,7 @@ public class CommonManager {
             var categoryTModel = await _commonService.GetCategoryTypeAsync(subcategoryTParams.SubcategoryType);
             return new CategoryTResponse(true, "", categoryTModel);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new CategoryTResponse(false, ErrorMessage.Common.ErrorRetrievingData, null);
         }
     }
@@ -35,9 +35,12 @@ public class CommonManager {
             var categoryTListModel = await _commonService.GetCategoryTListAsync();
             return new CategoryTListResponse(true, "", categoryTListModel);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new CategoryTListResponse(false, ErrorMessage.Common.ErrorRetrievingData
-                                           , Enumerable.Empty<CategoryTModel>());
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new CategoryTListResponse(
+                false
+              , ErrorMessage.Common.ErrorRetrievingData
+              , Enumerable.Empty<CategoryTModel>()
+            );
         }
     }
 
@@ -46,9 +49,12 @@ public class CommonManager {
             var subcategoryTListModel = await _commonService.GetSubcategoryTListAsync();
             return new SubcategoryTListResponse(true, "", subcategoryTListModel);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new SubcategoryTListResponse(false, ErrorMessage.Common.ErrorRetrievingData
-                                              , Enumerable.Empty<SubcategoryTModel>());
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new SubcategoryTListResponse(
+                false
+              , ErrorMessage.Common.ErrorRetrievingData
+              , Enumerable.Empty<SubcategoryTModel>()
+            );
         }
     }
 
@@ -57,9 +63,12 @@ public class CommonManager {
             var subcategoryTListModel = await _commonService.GetSubcategoryTListAsync(categoryTParams.CategoryType);
             return new SubcategoryTListResponse(true, "", subcategoryTListModel);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new SubcategoryTListResponse(false, ErrorMessage.Common.ErrorRetrievingData
-                                              , Enumerable.Empty<SubcategoryTModel>());
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new SubcategoryTListResponse(
+                false
+              , ErrorMessage.Common.ErrorRetrievingData
+              , Enumerable.Empty<SubcategoryTModel>()
+            );
         }
     }
 }

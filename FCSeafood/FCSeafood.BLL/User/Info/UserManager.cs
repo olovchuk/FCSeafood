@@ -1,8 +1,8 @@
 namespace FCSeafood.BLL.User.Info;
 
 public class UserManager {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
-                                                     .CreateLogger(typeof(UserManager));
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(UserManager));
 
     private readonly UserService _userService;
 
@@ -18,7 +18,7 @@ public class UserManager {
 
             return new GetUserResponse(true, "", user);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new GetUserResponse(false, ErrorMessage.User.IsNotDefined, null);
         }
     }
@@ -42,7 +42,7 @@ public class UserManager {
                 )
             );
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new GetUserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
         }
     }

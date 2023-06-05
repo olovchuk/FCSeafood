@@ -3,8 +3,8 @@ using FCSeafood.DAL.Events.Repository;
 namespace FCSeafood.BLL.Services;
 
 public class UserService {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
-                                                     .CreateLogger(typeof(UserService));
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(UserService));
 
     private readonly UserRepository _userRepository;
     private readonly UserCredentialRepository _credentialRepository;
@@ -18,32 +18,20 @@ public class UserService {
 
     public async Task<UserModel?> InsertUserAsync(UserModel userModel) {
         try {
-            var result = UserRepository.ToDbo(userModel);
-            if (!result.success)
-                return null;
-
-            var dbo = await _userRepository.InsertAsync(result.dbo);
-            if (dbo == null)
-                return null;
-
-            userModel.Id = dbo.Id;
-            return userModel;
+            var (_, model) = await _userRepository.InsertAsync(userModel);
+            return model;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
 
     public async Task<UserModel?> GetUserAsync(Guid id) {
         try {
-            var userDbo = await _userRepository.FindByConditionAsync(x => x.Id == id);
-            if (userDbo is null)
-                return null;
-
-            var result = UserRepository.ToModel(userDbo);
-            return result.success ? result.model : null;
+            var (_, model) = await _userRepository.FindByConditionAsync(x => x.Id == id);
+            return model;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
@@ -54,70 +42,54 @@ public class UserService {
 
     public async Task<UserCredentialModel?> InsertCredentialAsync(UserCredentialModel credentialModel) {
         try {
-            var result = UserCredentialRepository.ToDbo(credentialModel);
-            if (!result.success)
-                return null;
-
-            var dbo = await _credentialRepository.InsertAsync(result.dbo);
-            if (dbo == null)
-                return null;
-
-            credentialModel.Id = dbo.Id;
-            return credentialModel;
+            var (_, model) = await _credentialRepository.InsertAsync(credentialModel);
+            return model;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
 
     public async Task<string> GetUserEmailAsync(Guid id) {
         try {
-            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
-            return userCredentialDbo is null ? string.Empty : userCredentialDbo.Email;
+            var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
+            return isSuccessful ? model!.Email : string.Empty;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return string.Empty;
         }
     }
 
     public async Task<UserCredentialModel?> GetCredentialByUserIdAsync(Guid id) {
         try {
-            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
-            if (userCredentialDbo is null)
-                return null;
-
-            var result = UserCredentialRepository.ToModel(userCredentialDbo);
-            return result.success ? result.model : null;
+            var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
+            return model;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
 
     public async Task<UserCredentialModel?> GetCredentialByEmailAsync(string email) {
         try {
-            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
-            if (userCredentialDbo is null)
-                return null;
-
-            var result = UserCredentialRepository.ToModel(userCredentialDbo);
-            return result.success ? result.model : null;
+            var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
+            return model;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
 
     public async Task SetLastLoginDateAsync(Guid id) {
         try {
-            var userCredentialDbo = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
-            if (userCredentialDbo is null)
+            var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
+            if (!isSuccessful)
                 return;
 
-            userCredentialDbo.LastLoginDate = DateTime.Now;
-            await _credentialRepository.UpdateAsync(userCredentialDbo);
+            model!.LastLoginDate = DateTime.Now;
+            await _credentialRepository.UpdateAsync(model);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
         }
     }
 

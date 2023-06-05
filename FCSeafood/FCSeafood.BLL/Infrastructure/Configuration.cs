@@ -3,6 +3,7 @@ using FCSeafood.DAL.Events.Repository;
 using FCSeafood.DAL.Common.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using FCSeafood.BLL.Order;
 
 namespace FCSeafood.BLL.Infrastructure;
 
@@ -21,12 +22,14 @@ public static class Configuration {
         serviceCollection.AddTransient<AddressService>();
         serviceCollection.AddTransient<CommonService>();
         serviceCollection.AddTransient<ItemService>();
+        serviceCollection.AddTransient<OrderService>();
         serviceCollection.AddTransient<UserService>();
 
         // Managers
         serviceCollection.AddTransient<AuthManager>();
         serviceCollection.AddTransient<CommonManager>();
         serviceCollection.AddTransient<ItemManager>();
+        serviceCollection.AddTransient<OrderManager>();
         serviceCollection.AddTransient<UserManager>();
 
         // Helpers
@@ -51,6 +54,8 @@ public static class Configuration {
         serviceCollection.AddTransient<AddressRepository>();
         serviceCollection.AddTransient<ItemRepository>();
         serviceCollection.AddTransient<UserCredentialRepository>();
+        serviceCollection.AddTransient<OrderEntityRepository>();
+        serviceCollection.AddTransient<OrderRepository>();
         serviceCollection.AddTransient<UserRepository>();
 
         #endregion

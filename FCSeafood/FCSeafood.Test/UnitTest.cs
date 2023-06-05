@@ -8,6 +8,7 @@ using FCSeafood.DAL.Common.Repository;
 using FCSeafood.DAL.Context;
 using FCSeafood.DAL.Events.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FCSeafood.Test;
 
@@ -15,14 +16,12 @@ public class Tests {
     private const string ConnectionString =
         "Data Source=localhost;Initial Catalog=Test;User ID=FCS_User;Password=s1c@r8;TrustServerCertificate=True";
 
-    // Context
-    private CommonFCSeafoodContext _commonFcSeafoodContext = null!;
-    private EventFCSeafoodContext _eventFcSeafoodContext = null!;
-
     // Event Repository
     private AddressRepository _addressRepository = null!;
     private ItemRepository _itemRepository = null!;
     private UserCredentialRepository _userCredentialRepository = null!;
+    private OrderEntityRepository _orderEntityRepository = null!;
+    private OrderRepository _orderRepository = null!;
     private UserRepository _userRepository = null!;
 
     // Common Repository
@@ -44,55 +43,107 @@ public class Tests {
 
     [SetUp]
     public void Setup() {
-        var dbCommonOptions = new DbContextOptionsBuilder<CommonFCSeafoodContext>();
-        var dbEventOptions = new DbContextOptionsBuilder<EventFCSeafoodContext>();
-        dbCommonOptions.UseSqlServer(ConnectionString);
-        dbEventOptions.UseSqlServer(ConnectionString);
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddDbContext<EventFCSeafoodContext>(options => options.UseSqlServer(ConnectionString));
+        serviceCollection.AddDbContext<CommonFCSeafoodContext>(options => options.UseSqlServer(ConnectionString));
 
-        // Context
-        _commonFcSeafoodContext = new CommonFCSeafoodContext(dbCommonOptions.Options);
-        _eventFcSeafoodContext = new EventFCSeafoodContext(dbEventOptions.Options);
+        // Services
+        serviceCollection.AddTransient<AddressService>();
+        serviceCollection.AddTransient<CommonService>();
+        serviceCollection.AddTransient<ItemService>();
+        serviceCollection.AddTransient<OrderService>();
+        serviceCollection.AddTransient<UserService>();
+
+        // Managers
+        serviceCollection.AddTransient<CommonManager>();
+        serviceCollection.AddTransient<ItemManager>();
+
+
+        // Repositories
+        // -- Common
+        serviceCollection.AddTransient<CategoryTRepository>();
+        serviceCollection.AddTransient<CurrencyCodeTRepository>();
+        serviceCollection.AddTransient<GenderTRepository>();
+        serviceCollection.AddTransient<ItemStatusTRepository>();
+        serviceCollection.AddTransient<RoleTRepository>();
+        serviceCollection.AddTransient<SubcategoryTRepository>();
+        serviceCollection.AddTransient<TemperatureUnitTRepository>();
+
+        // -- Event
+        serviceCollection.AddTransient<AddressRepository>();
+        serviceCollection.AddTransient<ItemRepository>();
+        serviceCollection.AddTransient<UserCredentialRepository>();
+        serviceCollection.AddTransient<OrderEntityRepository>();
+        serviceCollection.AddTransient<OrderRepository>();
+        serviceCollection.AddTransient<UserRepository>();
+        var serviceProvider = serviceCollection.BuildServiceProvider();
 
         // Event Repository
-        _addressRepository = new AddressRepository(_eventFcSeafoodContext);
-        _itemRepository = new ItemRepository(_eventFcSeafoodContext);
-        _userCredentialRepository = new UserCredentialRepository(_eventFcSeafoodContext);
-        _userRepository = new UserRepository(_eventFcSeafoodContext);
+        _addressRepository = serviceProvider.GetService<AddressRepository>()!;
+        _itemRepository = serviceProvider.GetService<ItemRepository>()!;
+        _userCredentialRepository = serviceProvider.GetService<UserCredentialRepository>()!;
+        _orderEntityRepository = serviceProvider.GetService<OrderEntityRepository>()!;
+        _orderRepository = serviceProvider.GetService<OrderRepository>()!;
+        _userRepository = serviceProvider.GetService<UserRepository>()!;
 
         // Common Repository
-        _categoryTRepository = new CategoryTRepository(_commonFcSeafoodContext);
-        _currencyCodeTRepository = new CurrencyCodeTRepository(_commonFcSeafoodContext);
-        _itemStatusTRepository = new ItemStatusTRepository(_commonFcSeafoodContext);
-        _genderTRepository = new GenderTRepository(_commonFcSeafoodContext);
-        _roleTRepository = new RoleTRepository(_commonFcSeafoodContext);
-        _subcategoryTRepository = new SubcategoryTRepository(_commonFcSeafoodContext);
-        _temperatureUnitTRepository = new TemperatureUnitTRepository(_commonFcSeafoodContext);
+        _categoryTRepository = serviceProvider.GetService<CategoryTRepository>()!;
+        _currencyCodeTRepository = serviceProvider.GetService<CurrencyCodeTRepository>()!;
+        _itemStatusTRepository = serviceProvider.GetService<ItemStatusTRepository>()!;
+        _genderTRepository = serviceProvider.GetService<GenderTRepository>()!;
+        _roleTRepository = serviceProvider.GetService<RoleTRepository>()!;
+        _subcategoryTRepository = serviceProvider.GetService<SubcategoryTRepository>()!;
+        _temperatureUnitTRepository = serviceProvider.GetService<TemperatureUnitTRepository>()!;
 
         // Service
-        _commonService = new CommonService(_categoryTRepository, _subcategoryTRepository);
-        _itemService = new ItemService(_itemRepository);
+        _commonService = serviceProvider.GetService<CommonService>()!;
+        _itemService = serviceProvider.GetService<ItemService>()!;
 
         // Manager
-        _commonManager = new CommonManager(_commonService);
-        _itemManager = new ItemManager(_itemService);
+        _commonManager = serviceProvider.GetService<CommonManager>()!;
+        _itemManager = serviceProvider.GetService<ItemManager>()!;
     }
 
     [Test]
-    public async Task GetItemDbo() {
-        Assert.Multiple(() => { Assert.That(_itemManager, Is.Not.Null); });
+    public async Task GetOrder() {
+        var (isSuccessful, models) = await _orderRepository.GetAllAsync();
+        Assert.That(isSuccessful, Is.Not.False);
 
-        var itemDbos = await _itemRepository.FindByConditionAsync(x => x.Name == "Bread");
-        Assert.That(itemDbos, Is.Not.Null);
-
-        var oprions = new JsonSerializerOptions {
+        var options = new JsonSerializerOptions {
             WriteIndented = true
         };
-        var json = JsonSerializer.Serialize(itemDbos, oprions);
+        var json = JsonSerializer.Serialize(models, options);
+        Console.WriteLine(json);
+    }
+
+    [Test]
+    public async Task GetOrderEntity() {
+        var (isSuccessful, models) = await _orderEntityRepository.GetAllAsync();
+        Assert.That(isSuccessful, Is.Not.False);
+
+        var options = new JsonSerializerOptions {
+            WriteIndented = true
+        };
+        var json = JsonSerializer.Serialize(models, options);
         Console.WriteLine(json);
     }
 
     [Test]
     public async Task GetItemModel() {
+        Assert.Multiple(() => { Assert.That(_itemManager, Is.Not.Null); });
+
+        var (isSuccessful, model) = await _itemRepository.FindByConditionAsync(x => x.Name == "Bread");
+        Assert.That(model, Is.Not.Null);
+
+        var options = new JsonSerializerOptions {
+            WriteIndented = true
+        };
+        var json = JsonSerializer.Serialize(model, options);
+        Console.WriteLine(json);
+    }
+
+    [Test]
+    public async Task GetItemModelSort() {
         Assert.Multiple(() => { Assert.That(_itemManager, Is.Not.Null); });
 
         var itemListModel = await _itemManager.GetItemListAsync(
@@ -105,10 +156,10 @@ public class Tests {
             )
         );
 
-        var oprions = new JsonSerializerOptions {
+        var options = new JsonSerializerOptions {
             WriteIndented = true
         };
-        var json = JsonSerializer.Serialize(itemListModel.ItemModels, oprions);
+        var json = JsonSerializer.Serialize(itemListModel.ItemModels, options);
         Console.WriteLine(json);
     }
 
@@ -124,16 +175,16 @@ public class Tests {
 
         var categoryTListResponse = await _commonManager.GetCategoryTListAsync();
 
-        var oprions = new JsonSerializerOptions {
+        var options = new JsonSerializerOptions {
             WriteIndented = true
         };
-        var json = JsonSerializer.Serialize(categoryTListResponse, oprions);
+        var json = JsonSerializer.Serialize(categoryTListResponse, options);
         Console.WriteLine(json);
     }
 
     [Test]
     public async Task TestCommonMappingToModel() {
-        var oprions = new JsonSerializerOptions {
+        var options = new JsonSerializerOptions {
             WriteIndented = true
         };
 
@@ -146,7 +197,7 @@ public class Tests {
 
         var model = CategoryTRepository.ToModel(dbo);
         Assert.That(model.success, Is.Not.False);
-        var json = JsonSerializer.Serialize(model.model, oprions);
+        var json = JsonSerializer.Serialize(model.model, options);
         Console.WriteLine(typeof(CategoryTRepository) + json + "\n");
 
         var dbo2 = await _currencyCodeTRepository.FindByConditionAsync(x => x.Id == 1);
@@ -158,7 +209,7 @@ public class Tests {
 
         var model2 = CurrencyCodeTRepository.ToModel(dbo2);
         Assert.That(model2.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model2.model, oprions);
+        json = JsonSerializer.Serialize(model2.model, options);
         Console.WriteLine(typeof(CurrencyCodeTRepository) + json + "\n");
 
         var dbo3 = await _genderTRepository.FindByConditionAsync(x => x.Id == 1);
@@ -170,7 +221,7 @@ public class Tests {
 
         var model3 = GenderTRepository.ToModel(dbo3);
         Assert.That(model3.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model3.model, oprions);
+        json = JsonSerializer.Serialize(model3.model, options);
         Console.WriteLine(typeof(GenderTRepository) + json + "\n");
 
         var dbo4 = await _itemStatusTRepository.FindByConditionAsync(x => x.Id == 1);
@@ -182,7 +233,7 @@ public class Tests {
 
         var model4 = ItemStatusTRepository.ToModel(dbo4);
         Assert.That(model4.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model4.model, oprions);
+        json = JsonSerializer.Serialize(model4.model, options);
         Console.WriteLine(typeof(ItemStatusTRepository) + json + "\n");
 
         var dbo5 = await _roleTRepository.FindByConditionAsync(x => x.Id == 1);
@@ -194,7 +245,7 @@ public class Tests {
 
         var model5 = RoleTRepository.ToModel(dbo5);
         Assert.That(model5.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model5.model, oprions);
+        json = JsonSerializer.Serialize(model5.model, options);
         Console.WriteLine(typeof(RoleTRepository) + json + "\n");
 
         var dbo6 = await _subcategoryTRepository.FindByConditionAsync(x => x.Id == 1);
@@ -206,7 +257,7 @@ public class Tests {
 
         var model6 = SubcategoryTRepository.ToModel(dbo6);
         Assert.That(model6.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model6.model, oprions);
+        json = JsonSerializer.Serialize(model6.model, options);
         Console.WriteLine(typeof(SubcategoryTRepository) + json + "\n");
 
         var dbo7 = await _temperatureUnitTRepository.FindByConditionAsync(x => x.Id == 1);
@@ -218,62 +269,55 @@ public class Tests {
 
         var model7 = TemperatureUnitTRepository.ToModel(dbo7);
         Assert.That(model7.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model7.model, oprions);
+        json = JsonSerializer.Serialize(model7.model, options);
         Console.WriteLine(typeof(TemperatureUnitTRepository) + json + "\n");
     }
 
     [Test]
     public async Task TestEventMappingToModel() {
-        var oprions = new JsonSerializerOptions {
+        var options = new JsonSerializerOptions {
             WriteIndented = true
         };
 
-        var dbo = await _addressRepository.FindByConditionAsync(x => x.ZipCode == "432853147");
-        if (dbo is null) {
+        var (isSuccessful, model) = await _addressRepository.FindByConditionAsync(x => x.ZipCode == "432853147");
+        if (!isSuccessful) {
             Console.WriteLine(typeof(AddressRepository) + " NULL");
-            Assert.That(dbo, Is.Not.Null);
+            Assert.That(model, Is.Not.Null);
             return;
         }
 
-        var model = AddressRepository.ToModel(dbo);
-        Assert.That(model.success, Is.Not.False);
-        var json = JsonSerializer.Serialize(model.model, oprions);
+        var json = JsonSerializer.Serialize(model, options);
         Console.WriteLine(typeof(AddressRepository) + json + "\n");
 
-        var dbo2 = await _itemRepository.FindByConditionAsync(x => x.Name == "Bread");
-        if (dbo2 is null) {
+        (isSuccessful, var model1) = await _itemRepository.FindByConditionAsync(x => x.Name == "Bread");
+        if (!isSuccessful) {
             Console.WriteLine(typeof(ItemRepository) + " NULL");
-            Assert.That(dbo2, Is.Not.Null);
+            Assert.That(model1, Is.Not.Null);
             return;
         }
 
-        var model2 = ItemRepository.ToModel(dbo2);
-        Assert.That(model2.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model2.model, oprions);
+        json = JsonSerializer.Serialize(model1, options);
         Console.WriteLine(typeof(ItemRepository) + json + "\n");
 
-        var dbo4 = await _userCredentialRepository.FindByConditionAsync(x => x.Email == "tom_rider@fcsfood.com");
-        if (dbo4 is null) {
+        (isSuccessful, var model2) =
+            await _userCredentialRepository.FindByConditionAsync(x => x.Email == "tom_rider@fcsfood.com");
+        if (!isSuccessful) {
             Console.WriteLine(typeof(UserCredentialRepository) + " NULL");
-            Assert.That(dbo4, Is.Not.Null);
+            Assert.That(model2, Is.Not.Null);
             return;
         }
 
-        var model4 = UserCredentialRepository.ToModel(dbo4);
-        Assert.That(model4.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model4.model, oprions);
+        json = JsonSerializer.Serialize(model2, options);
         Console.WriteLine(typeof(UserCredentialRepository) + json + "\n");
 
-        var dbo5 = await _userRepository.FindByConditionAsync(x => x.FirstName == "Tom");
-        if (dbo5 is null) {
+        (isSuccessful, var model3) = await _userRepository.FindByConditionAsync(x => x.FirstName == "Tom");
+        if (!isSuccessful) {
             Console.WriteLine(typeof(UserRepository) + " NULL");
-            Assert.That(dbo5, Is.Not.Null);
+            Assert.That(model3, Is.Not.Null);
             return;
         }
 
-        var model5 = UserRepository.ToModel(dbo5);
-        Assert.That(model5.success, Is.Not.False);
-        json = JsonSerializer.Serialize(model5.model, oprions);
+        json = JsonSerializer.Serialize(model3, options);
         Console.WriteLine(typeof(UserRepository) + json + "\n");
     }
 }

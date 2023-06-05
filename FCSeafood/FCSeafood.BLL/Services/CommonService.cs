@@ -3,8 +3,8 @@ using FCSeafood.DAL.Common.Repository;
 namespace FCSeafood.BLL.Services;
 
 public class CommonService {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
-                                                     .CreateLogger(typeof(CommonService));
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(CommonService));
 
     private readonly CategoryTRepository _categoryTRepository;
     private readonly SubcategoryTRepository _subcategoryTRepository;
@@ -25,7 +25,7 @@ public class CommonService {
             var result = CategoryTRepository.ToModel(categoryTDbo);
             return result.success ? result.model : null;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
@@ -40,7 +40,7 @@ public class CommonService {
 
             return null;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
     }
@@ -52,7 +52,7 @@ public class CommonService {
             var result = CategoryTRepository.ToModel(categoryTListDbo);
             return result.success ? result.models : Array.Empty<CategoryTModel>();
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<CategoryTModel>();
         }
     }
@@ -68,7 +68,7 @@ public class CommonService {
             var result = SubcategoryTRepository.ToModel(subcategoryTListDbo);
             return result.success ? result.models : Array.Empty<SubcategoryTModel>();
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<SubcategoryTModel>();
         }
     }
@@ -81,7 +81,7 @@ public class CommonService {
             var result = SubcategoryTRepository.ToModel(subcategoryTListDbo);
             return result.success ? result.models : Array.Empty<SubcategoryTModel>();
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return Array.Empty<SubcategoryTModel>();
         }
     }

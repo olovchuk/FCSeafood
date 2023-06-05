@@ -1,8 +1,8 @@
 namespace FCSeafood.BLL.User.Auth;
 
 public class AuthManager {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
-                                                     .CreateLogger(typeof(AuthManager));
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(AuthManager));
 
     private readonly UserService _userService;
     private readonly AuthJwtHelper _authJwtHelper;
@@ -57,7 +57,7 @@ public class AuthManager {
               , jwtAuthModel
             );
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new SignInResponse(
                 false
               , ErrorMessage.Authentication.AuthenticationFailed
@@ -91,7 +91,7 @@ public class AuthManager {
 
             return new SignInRefreshResponse(true, "", new JwtAuthModel(accessToken, refreshToken));
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new SignInRefreshResponse(false, ErrorMessage.Authentication.AuthenticationFailed, null);
         }
     }
@@ -121,7 +121,7 @@ public class AuthManager {
 
             return new SignUpResponse(true, "");
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new SignUpResponse(false, ErrorMessage.Authentication.SignUpFailed);
         }
     }
@@ -156,7 +156,7 @@ public class AuthManager {
               , new JwtAuthModel(accessToken, refreshToken)
             );
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new RefreshUserResponse(
                 false
               , ErrorMessage.Authentication.AuthenticationFailed

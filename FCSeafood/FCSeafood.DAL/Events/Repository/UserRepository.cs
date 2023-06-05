@@ -1,33 +1,46 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace FCSeafood.DAL.Events.Repository;
 
-public class UserRepository : Base.BaseRepository<UserDbo> {
-    public UserRepository(EventFCSeafoodContext context) : base(context) { }
-    protected override IQueryable<UserDbo> NoTracking() => this.Entities.Include(x => x.RoleTDbo).Include(x => x.GenderTDbo).Include(x => x.AddressDbo).AsNoTracking();
+public class UserRepository : Base.BaseRepository<UserDbo, UserModel> {
+    private readonly AddressRepository _addressRepository;
+    private readonly UserCredentialRepository _userCredentialRepository;
 
-    public static (bool success, UserModel model) ToModel(UserDbo dbo) {
-        if (dbo.Equals(null)) return (false, new UserModel());
-
-        var model = new Mapper(MapperConfig.ConfigureEvent).Map<UserModel>(dbo);
-
-        if (dbo.RoleTDbo != null) {
-            var result = RoleTRepository.ToModel(dbo.RoleTDbo);
-            if (result.success) model.Role = result.model;
-        }
-
-        if (dbo.GenderTDbo != null) {
-            var result = GenderTRepository.ToModel(dbo.GenderTDbo);
-            if (result.success) model.Gender = result.model;
-        }
-
-        if (dbo.AddressDbo != null) {
-            var result = AddressRepository.ToModel(dbo.AddressDbo);
-            if (result.success) model.Address = result.model;
-        }
-
-        return (true, model);
+    public UserRepository(EventFCSeafoodContext context, IServiceProvider provider) : base(context) {
+        _addressRepository = provider.GetService<AddressRepository>()!;
+        _userCredentialRepository = provider.GetService<UserCredentialRepository>()!;
     }
 
-    public static (bool success, UserDbo dbo) ToDbo(UserModel model) {
-        return model.Equals(null) ? (false, new UserDbo()) : (true, new UserDbo(model));
+    protected override IQueryable<UserDbo> NoTracking() =>
+        this.Entities
+            .Include(x => x.RoleTDbo)
+            .Include(x => x.GenderTDbo)
+            .Include(x => x.AddressDbo)
+            .AsNoTracking();
+
+    protected override void AddExtensionToModel(ref UserModel userModel, UserDbo entity) {
+        if (entity.RoleTDbo != null) {
+            var (isSuccessful, model) = RoleTRepository.ToModel(entity.RoleTDbo);
+            if (isSuccessful)
+                userModel.Role = model;
+        }
+
+        if (entity.GenderTDbo != null) {
+            var (isSuccessful, model) = GenderTRepository.ToModel(entity.GenderTDbo);
+            if (isSuccessful)
+                userModel.Gender = model;
+        }
+
+        if (entity.AddressDbo != null) {
+            var (isSuccessful, model) = _addressRepository.ToModel(entity.AddressDbo);
+            if (isSuccessful)
+                userModel.Address = model;
+        }
+
+        if (entity.Id != Guid.Empty) {
+            var (isSuccessful, model) = _userCredentialRepository.FindByConditionAsync(x => x.Id == entity.Id).Result;
+            if (isSuccessful)
+                userModel.Email = model!.Email;
+        }
     }
 }

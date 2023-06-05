@@ -1,8 +1,8 @@
 namespace FCSeafood.BLL.Item;
 
 public class ItemManager {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
-                                                     .CreateLogger(typeof(ItemManager));
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
+                                                    .CreateLogger(typeof(ItemManager));
 
     private readonly ItemService _itemService;
 
@@ -15,7 +15,7 @@ public class ItemManager {
             var itemListModel = await _itemService.GetItemListAsync(itemByFilterParams);
             return new ItemListResponse(true, "", itemListModel);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
             return new ItemListResponse(false, ErrorMessage.Item.IsNotDefined, Enumerable.Empty<ItemModel>());
         }
     }
