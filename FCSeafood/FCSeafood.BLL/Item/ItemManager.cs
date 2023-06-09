@@ -10,6 +10,16 @@ public class ItemManager {
         _itemService = itemService;
     }
 
+    public async Task<ItemResponse> GetItem(ItemCodeParams itemCodeParams) {
+        try {
+            var itemModel = await _itemService.GetItemByCodeAsync(itemCodeParams.Code);
+            return new ItemResponse(true, "", itemModel);
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new ItemResponse(false, ErrorMessage.Item.IsNotDefined, null);
+        }
+    }
+
     public async Task<ItemListResponse> GetItemListAsync(ItemFilterParams itemByFilterParams) {
         try {
             var itemListModel = await _itemService.GetItemListAsync(itemByFilterParams);

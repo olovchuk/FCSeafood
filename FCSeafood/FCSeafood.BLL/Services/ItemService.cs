@@ -24,6 +24,16 @@ public class ItemService {
         }
     }
 
+    public async Task<ItemModel?> GetItemByCodeAsync(string code) {
+        try {
+            var (_, model) = await _itemRepository.FindByConditionAsync(x => x.Code == code);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            return null;
+        }
+    }
+
     public async Task<IReadOnlyCollection<ItemModel>> GetItemListAsync(ItemFilterParams filter) {
         try {
             Expression<Func<ItemDbo, bool>> predicate = x =>

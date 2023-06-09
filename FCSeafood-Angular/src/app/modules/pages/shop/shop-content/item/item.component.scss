@@ -1,0 +1,75 @@
+%item-styles {
+  color: var(--grafit-color);
+  line-height: 150%;
+}
+
+.reviews-text {
+  @extend %item-styles;
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.item-category {
+  @extend %item-styles;
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.item-name {
+  @extend %item-styles;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.item-description {
+  @extend %item-styles;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.item-price {
+  @extend %item-styles;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.show-wholesale-prices {
+  @extend %item-styles;
+  font-weight: 300;
+  font-size: 14px;
+  text-decoration-line: underline;
+}
+
+.select-button-container ::ng-deep .p-buttonset {
+  display: flex;
+  flex-direction: column;
+}
+
+.details {
+  @extend %item-styles;
+  font-weight: 400;
+  font-size: 28px;
+}
+
+.details-left-text {
+  @extend %item-styles;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.details-right-text {
+  color: var(--primary-super-dark-color);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+table {
+  border-collapse: collapse;
+
+  tr td {
+    padding: 0.3rem 0;
+    border-bottom: 2px solid var(--light-grey-color);
+  }
+}
+

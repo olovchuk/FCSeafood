@@ -7,12 +7,14 @@ import { MaterialModule } from "../../material/material.module";
 import { SignUpPopup } from "@modules-components/popups/sign-up/sign-up.popup";
 import { PrimengModule } from "@modules/primeng/primeng.module";
 import { CartPopup } from './cart/cart.popup';
+import { CartCardComponent } from './cart/cart.card/cart.card.component';
 
 @NgModule({
   declarations: [
     SignInPopup,
     SignUpPopup,
-    CartPopup
+    CartPopup,
+    CartCardComponent
   ],
   exports: [
     SignInPopup,
