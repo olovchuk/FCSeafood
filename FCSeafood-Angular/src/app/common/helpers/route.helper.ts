@@ -19,6 +19,7 @@ export class RouteHelper {
       error: '/error',
       home: '/home',
       shop: {
+        item: '/shop/item/',
         items: '/shop/items',
         category: '/shop/category'
       }
@@ -66,5 +67,9 @@ export class RouteHelper {
   async goToItems(subcategoryType: SubcategoryType) {
     await this.shopFiltersStateService.changeSubcategory(subcategoryType);
     await this.redirect(this.paths.shop.items);
+  }
+
+  async goToItem(code: string) {
+    await this.redirect(this.paths.shop.item + code);
   }
 }

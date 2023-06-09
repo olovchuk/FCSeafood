@@ -16,5 +16,8 @@
     <p-tag styleClass="bg-white border-2 border-primary text-gray-700 tag" value="Free delivery"></p-tag>
   </div>
 
-  <p-button styleClass="p-button-rounded w-full text-center" label="Add to cart"></p-button>
+  <div class="flex flex-wrap">
+    <p-button (click)="addToCart()" label="Add to cart" class="col" styleClass="p-button-rounded w-full uppercase"></p-button>
+    <p-button (click)="routeHelper.goToItem(itemModel.code)" label="Details" class="col" styleClass="p-button-outlined p-button-rounded w-full uppercase"></p-button>
+  </div>
 </div>

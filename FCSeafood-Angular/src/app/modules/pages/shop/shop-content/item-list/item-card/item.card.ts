@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ItemModel } from "@common-models/item.model";
+import { RouteHelper } from "@common-helpers/route.helper";
 
 @Component({
   selector: 'shop-item-card',
@@ -8,4 +9,11 @@ import { ItemModel } from "@common-models/item.model";
 })
 export class ItemCard {
   @Input('itemModel') itemModel!: ItemModel;
+
+  constructor(public routeHelper: RouteHelper) {
+  }
+
+  addToCart() {
+
+  }
 }
