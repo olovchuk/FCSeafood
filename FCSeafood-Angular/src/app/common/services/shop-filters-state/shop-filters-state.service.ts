@@ -5,12 +5,14 @@ import { CommonService } from "@common-services/common.service";
 import { CategoryType } from "@common-enums/category.type";
 import { SubcategoryType } from "@common-enums/subcategory.type";
 import { SortDirectionType } from "@common-enums/sort-direction.type";
+import { ItemFilterRequest } from "@common-data/item/http/request/item-filter.request";
 
 export const SHOP_FILTERS = 'shop_filters';
 
 @Injectable({providedIn: 'root'})
 export class ShopFiltersStateService {
   isInit: boolean = false;
+  isDefault: boolean = true;
 
   constructor(private shopFiltersState: ShopFiltersState,
               private commonService: CommonService) {
@@ -18,6 +20,19 @@ export class ShopFiltersStateService {
 
   get state(): ShopFiltersState {
     return this.shopFiltersState;
+  }
+
+  async getItemFilter(): Promise<ItemFilterRequest> {
+    if (!this.isInit)
+      await this.init();
+
+    return {
+      categoryType: this.state.selectedCategoryType,
+      subcategoryType: this.state.selectedSubcategoryType,
+      sortDirectionType: this.state.selectedPriceSortDirectionType,
+      priceFrom: this.state.priceFrom,
+      priceTo: this.state.priceTo
+    };
   }
 
   async init(): Promise<ShopFiltersState> {
@@ -31,6 +46,7 @@ export class ShopFiltersStateService {
       this.shopFiltersState.selectedPriceSortDirectionType = shopFiltersLS.selectedPriceSortDirectionType;
       this.shopFiltersState.priceFrom = shopFiltersLS.priceFrom;
       this.shopFiltersState.priceTo = shopFiltersLS.priceTo;
+      this.isDefault = false;
     }
     else {
       this.shopFiltersState.categoryTList = await this.commonService.getCategoryTListAsync();
@@ -44,6 +60,7 @@ export class ShopFiltersStateService {
       this.shopFiltersState.selectedPriceSortDirectionType = SortDirectionType.Ascending;
       this.shopFiltersState.priceFrom = -1;
       this.shopFiltersState.priceTo = -1;
+      this.isDefault = true;
     }
 
     this.isInit = true;
@@ -100,5 +117,6 @@ export class ShopFiltersStateService {
 
   save() {
     LocalStorageHelper.Set<ShopFiltersState>(SHOP_FILTERS, this.shopFiltersState);
+    this.isDefault = false;
   }
 }
