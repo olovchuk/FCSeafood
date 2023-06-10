@@ -9,9 +9,10 @@ namespace FCSeafood.BusinessObjects;
 // E_Role_Type
 public enum RoleType {
     Unknown = 0
-  , User = 1
-  , Moderator = 2
-  , Administrator = 3
+  , Guest = 1
+  , User = 2
+  , Moderator = 3
+  , Administrator = 4
 }
 
 // E_Temperature_Unit

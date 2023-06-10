@@ -43,6 +43,20 @@ public class JwtAuthCookieService {
         return result;
     }
 
+    public async Task<SignInResponse> SignInGuestAsync() {
+        var result = await _authManager.SignInGuestAsync();
+        if (!result.IsSuccessful)
+            return result;
+
+        _cookieHelper.SetCookie(
+            Configuration.GetValue<string>("TokenKeys:AccessGuest")!
+          , result.JwtAuthModel!.AccessToken
+          , TimeSpan.FromSeconds(_jwtAuthSettings.TokenLifeTime)
+          , false
+        );
+        return result;
+    }
+
     public async Task<SignInRefreshResponse> SignInRefreshAsync(SignInRefreshParams signInRefreshParams) {
         var result = await _authManager.SignInRefreshAsync(signInRefreshParams);
 

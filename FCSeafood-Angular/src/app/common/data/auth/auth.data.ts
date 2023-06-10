@@ -25,6 +25,14 @@ export class AuthData {
     return response;
   }
 
+  async signInGuest(): Promise<SignInResponse> {
+    const response = await firstValueFrom(this.http.post<SignInResponse>(this.settings.signInGuestEndpoint, {}));
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
+
+    return response;
+  }
+
   signInRefresh$(signInRefreshRequest: {
     RefreshToken: string
   }): Observable<SignInRefreshResponse> {

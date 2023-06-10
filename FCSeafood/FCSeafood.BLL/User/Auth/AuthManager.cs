@@ -67,6 +67,48 @@ public class AuthManager {
         }
     }
 
+    public async Task<SignInResponse> SignInGuestAsync() {
+        var errorResponse = new SignInResponse(
+            false
+          , ErrorMessage.Authentication.AuthenticationGuestFailed
+          , RoleType.Unknown
+          , null
+        );
+        try {
+            var userGuestModel = await _userService.InsertGuestAsync();
+            if (userGuestModel is null)
+                return errorResponse;
+
+            var refreshGuestResult = RefreshGuest(new RefreshGuestParams(userGuestModel));
+            if (!refreshGuestResult.IsSuccessful)
+                return new SignInResponse(
+                    false
+                  , refreshGuestResult.Message
+                  , RoleType.Unknown
+                  , null
+                );
+
+            var jwtAuthModel = new JwtAuthModel(
+                refreshGuestResult.JwtAuthModel?.AccessToken!
+              , refreshGuestResult.JwtAuthModel?.RefreshToken!
+            );
+            return new SignInResponse(
+                true
+              , ""
+              , refreshGuestResult.RoleType
+              , jwtAuthModel
+            );
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new SignInResponse(
+                false
+              , ErrorMessage.Authentication.AuthenticationGuestFailed
+              , RoleType.Unknown
+              , null
+            );
+        }
+    }
+
     public async Task<SignInRefreshResponse> SignInRefreshAsync(SignInRefreshParams signInRefreshParams) {
         var errorResponse = new SignInRefreshResponse(false, ErrorMessage.Authentication.AuthenticationFailed, null);
         try {
@@ -160,6 +202,39 @@ public class AuthManager {
             return new RefreshUserResponse(
                 false
               , ErrorMessage.Authentication.AuthenticationFailed
+              , RoleType.Unknown
+              , null
+            );
+        }
+    }
+
+    private RefreshGuestResponse RefreshGuest(RefreshGuestParams guestParams) {
+        try {
+            if (guestParams.User.Equals(null) || guestParams.User.Id.Equals(Guid.Empty))
+                return new RefreshGuestResponse(
+                    false
+                  , ErrorMessage.User.IsNotDefined
+                  , RoleType.Unknown
+                  , null
+                );
+
+            var accessToken = _authJwtHelper.GenerateJwt(
+                guestParams.User.Id
+              , string.Empty
+              , guestParams.User.Role.Type
+            );
+
+            return new RefreshGuestResponse(
+                true
+              , ""
+              , guestParams.User.Role.Type
+              , new JwtAuthModel(accessToken, string.Empty)
+            );
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            return new RefreshGuestResponse(
+                false
+              , ErrorMessage.Authentication.AuthenticationGuestFailed
               , RoleType.Unknown
               , null
             );

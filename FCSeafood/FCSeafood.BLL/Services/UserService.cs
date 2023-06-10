@@ -1,3 +1,4 @@
+using FCSeafood.DAL.Events.Models;
 using FCSeafood.DAL.Events.Repository;
 
 namespace FCSeafood.BLL.Services;
@@ -19,6 +20,24 @@ public class UserService {
     public async Task<UserModel?> InsertUserAsync(UserModel userModel) {
         try {
             var (_, model) = await _userRepository.InsertAsync(userModel);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            return null;
+        }
+    }
+
+    public async Task<UserModel?> InsertGuestAsync() {
+        try {
+            var userDbo = new UserDbo {
+                FirstName = "Guest"
+              , RoleTDboId = (int)RoleType.Guest
+            };
+            var (isSuccessful, model) = await _userRepository.InsertAsync(userDbo);
+            if (isSuccessful) {
+                (_, model) = await _userRepository.FindByConditionAsync(x => x.Id == model!.Id);
+            }
+
             return model;
         } catch (Exception ex) {
             _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");

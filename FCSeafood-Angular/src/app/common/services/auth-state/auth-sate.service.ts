@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ACCESS_KEY, ONE_WEEK_IN_SECONDS, REFRESH_KEY, refreshToken, token } from "@common-services/auth.service";
+import { ACCESS_KEY, ONE_WEEK_IN_SECONDS, REFRESH_KEY, refreshToken, token, tokenGuest } from "@common-services/auth.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { CookieHelper } from "@common-helpers/cookie.helper";
 import { MemoryTimeCacheHelper } from "@common-helpers/memory-time-cache.helper";
@@ -51,7 +51,6 @@ export class AuthStateService {
         CookieHelper.deleteCookie(REFRESH_KEY);
       }
       else {
-
         MemoryTimeCacheHelper.Set<string>(ACCESS_KEY, d.jwtAuthModel.accessToken, Date.now() + ONE_WEEK_IN_SECONDS);
       }
       this.IsPendingRefreshToken = false;
@@ -71,16 +70,12 @@ export class AuthStateService {
   }
 
   get token(): TokenModel {
-    if (this.IsAuthorized) {
-      const _token = token();
-      if (_token) {
-        const token = this.jwtHelper.decodeToken(_token);
-        this.authState.token.UserId = token.UserId;
-        this.authState.token.Email = token.Email;
-        this.authState.token.RoleType = parseInt(token.RoleType);
-      }
-      else
-        this.authState.token = new TokenModel();
+    let _token = this.IsAuthorized ? token() : tokenGuest();
+    if (_token) {
+      const token = this.jwtHelper.decodeToken(_token);
+      this.authState.token.UserId = token.UserId;
+      this.authState.token.Email = token.Email;
+      this.authState.token.RoleType = parseInt(token.RoleType);
     }
     else
       this.authState.token = new TokenModel();

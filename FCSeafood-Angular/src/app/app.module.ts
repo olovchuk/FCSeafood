@@ -14,6 +14,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { token } from "@common-services/auth.service";
 import { AppSettings } from "@settings/app.settings";
 import { RefreshTokenInterceptor } from "@interceptors/refresh-token/refresh-token.interceptor";
+import { RefreshTokenGuestInterceptors } from "@interceptors/refresh-token-guest/refresh-token-guest.interceptors";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,11 @@ import { RefreshTokenInterceptor } from "@interceptors/refresh-token/refresh-tok
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RefreshTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenGuestInterceptors,
       multi: true
     }
   ],

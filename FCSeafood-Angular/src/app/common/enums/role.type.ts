@@ -1,6 +1,7 @@
 export enum RoleType {
-  Unregistered = 0,
-  User = 1,
-  Moderator = 2,
-  Administrator = 3,
+  Unknown = 0,
+  Guest = 1,
+  User = 2,
+  Moderator = 3,
+  Administrator = 4
 }

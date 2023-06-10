@@ -1,6 +1,7 @@
 using FCSeafood.BLL.User.Auth.Helpers;
 using FCSeafood.BLL.User.Auth.Models.Params;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http.Headers;
 
 namespace FCSeafood.WebAPI.Controllers;
 
@@ -16,6 +17,15 @@ public class AuthController : ControllerBase {
     [HttpPost("SignIn")]
     public async Task<IActionResult> SignInAsync(SignInParams singInParams) {
         var result = await _jwtCookieAuthService.SignInAsync(singInParams);
+        if (!result.IsSuccessful)
+            return BadRequest(result);
+
+        return Ok(result);
+    }
+
+    [HttpPost("SignInGuest")]
+    public async Task<IActionResult> SignInGuestAsync() {
+        var result = await _jwtCookieAuthService.SignInGuestAsync();
         if (!result.IsSuccessful)
             return BadRequest(result);
 
