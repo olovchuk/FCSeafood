@@ -34,7 +34,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             if (!isSuccessful)
                 return (false, null);
 
-            await this.Entities.AddAsync(entity).ConfigureAwait(false);
+            await this.Entities.AddAsync(entity!).ConfigureAwait(false);
             await this.Context.SaveChangesAsync();
             return ToModel(entity);
         } catch (Exception ex) {
@@ -88,29 +88,29 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             if (!isSuccessful)
                 return;
 
-            this.Entities.Update(entity);
+            this.Entities.Update(entity!);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
             _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
         }
     }
 
-    public (bool isSuccessful, TEntity entity) ToDbo(TModel? model) {
+    public (bool isSuccessful, TEntity? entity) ToDbo(TModel? model) {
         if (model is null)
-            return (false, new TEntity());
+            return (false, null);
 
         try {
             return Activator.CreateInstance(typeof(TEntity), model) is not TEntity entity ?
                 (false, new TEntity()) : (true, entity);
         } catch (Exception ex) {
             _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
-            return (false, new TEntity());
+            return (false, null);
         }
     }
 
-    public (bool isSuccessful, TModel model) ToModel(TEntity? entity) {
+    public (bool isSuccessful, TModel? model) ToModel(TEntity? entity) {
         if (entity is null)
-            return (false, new TModel());
+            return (false, null);
 
         var model = new Mapper(MapperConfig.ConfigureEvent).Map<TModel>(entity);
         AddExtensionToModel(ref model, entity);
@@ -126,7 +126,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             var (isSuccessful, model) = ToModel(dbo);
             if (!isSuccessful)
                 return (false, Array.Empty<TModel>());
-            listResult.Add(model);
+            listResult.Add(model!);
         }
 
         return (true, listResult);
