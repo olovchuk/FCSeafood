@@ -49,7 +49,8 @@ export class AuthStateService {
     }).then((d) => {
       if (!d.isSuccessful) {
         CookieHelper.deleteCookie(REFRESH_KEY);
-      } else {
+      }
+      else {
 
         MemoryTimeCacheHelper.Set<string>(ACCESS_KEY, d.jwtAuthModel.accessToken, Date.now() + ONE_WEEK_IN_SECONDS);
       }
@@ -74,13 +75,14 @@ export class AuthStateService {
       const _token = token();
       if (_token) {
         const token = this.jwtHelper.decodeToken(_token);
-
-        this.authState.token.userId = token.userId;
-        this.authState.token.email = token.email;
-        this.authState.token.roleType = parseInt(token.roleType);
-      } else
+        this.authState.token.UserId = token.UserId;
+        this.authState.token.Email = token.Email;
+        this.authState.token.RoleType = parseInt(token.RoleType);
+      }
+      else
         this.authState.token = new TokenModel();
-    } else
+    }
+    else
       this.authState.token = new TokenModel();
 
     return this.authState.token;
