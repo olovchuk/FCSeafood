@@ -12,6 +12,9 @@ public class OrderDbo {
 
     public UserDbo? UserDbo { get; set; }
 
+    [Column("Total_Price")]
+    public double TotalPrice { get; set; }
+
     [Column("Created_Date")]
     public DateTime CreatedDate { get; set; } = DateTime.Now;
 
@@ -23,5 +26,6 @@ public class OrderDbo {
         Id = model.Id;
         UserDboId = model.User.Id;
         CreatedDate = model.CreatedDate;
+        TotalPrice = model.TotalPrice;
     }
 }

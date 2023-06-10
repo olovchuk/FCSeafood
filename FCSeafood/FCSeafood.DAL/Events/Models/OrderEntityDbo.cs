@@ -18,8 +18,8 @@ public class OrderEntityDbo {
     [Column("Quantity_Per_Kg")]
     public double QuantityPerKg { get; set; }
 
-    [Column("Total_Price")]
-    public double TotalPrice { get; set; }
+    [Column("Price")]
+    public double Price { get; set; }
 
     public OrderEntityDbo() { }
 
@@ -27,6 +27,6 @@ public class OrderEntityDbo {
         Id = model.Id;
         ItemDboId = model.Item.Id;
         QuantityPerKg = model.QuantityPerKg;
-        TotalPrice = model.TotalPrice;
+        Price = model.Price;
     }
 }

@@ -9,6 +9,12 @@
 
   .footer {
     flex: 0 0 auto;
+
+    .text-total-price {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 150%;
+    }
   }
 
   ::ng-deep .p-divider-horizontal:before {

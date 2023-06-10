@@ -1,1 +1,11 @@
-<p>cart.card works!</p>
+<div class="flex">
+  <img [src]="cartInformation.imagePath" style="width: 140px; height: 130px" alt="">
+
+  <div class="flex flex-column ml-3 mt-2">
+    <div class="text">{{cartInformation.name}}</div>
+    <div class="text mt-1">Weight: {{cartInformation.quantityPerKg}} kg</div>
+    <div class="text mt-1">Price: {{UiHelper.FormatCurrency(cartInformation.price)}}</div>
+  </div>
+
+</div>
+<p-divider styleClass="border-white bg-white"></p-divider>

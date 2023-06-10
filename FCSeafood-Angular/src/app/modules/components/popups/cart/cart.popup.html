@@ -11,10 +11,24 @@
 
     <p-divider styleClass="border-white bg-white"></p-divider>
 
+    <div class="flex justify-content-center text-4xl mt-5" *ngIf="cartInformationList.length == 0">
+      No orders
+    </div>
+    <div *ngIf="cartInformationList.length > 0" class="flex flex-column">
+      <cart-card *ngFor="let cartInformation of cartInformationList" [cartInformation]="cartInformation"></cart-card>
+    </div>
   </div>
 
   <div class="footer">
-    <p-button label="Continue shopping" styleClass="bg-primary-800  w-full uppercase"></p-button>
-    <p-button label="Buy" styleClass="p-button-outlined p-button-secondary w-full uppercase mt-2"></p-button>
+    <p-button *ngIf="cartInformationList.length == 0" (click)="continueShopping()" label="Go to shop" styleClass="bg-primary-800 w-full uppercase mt-2"></p-button>
+
+    <div *ngIf="cartInformationList.length > 0">
+      <div class="flex justify-content-between text-total-price">
+        <span class="">Total</span>
+        <span>{{UiHelper.FormatCurrency(order.totalPrice)}}</span>
+      </div>
+      <p-button (click)="continueShopping()" label="Continue shopping" styleClass="bg-primary-800 w-full uppercase mt-2"></p-button>
+      <p-button label="Buy" styleClass="p-button-outlined p-button-secondary w-full uppercase mt-2"></p-button>
+    </div>
   </div>
 </div>

@@ -1,11 +1,11 @@
 <div class="item-card">
 
-  <img class="image" [src]="itemModel.imagePath" alt="">
+  <img class="image" [src]="item.imagePath" alt="">
 
-  <span class="name">{{itemModel.name}}</span>
+  <span class="name">{{item.name}}</span>
 
   <div class="payment-block">
-    <span>Price: {{itemModel.price}} $/kg</span>
+    <span>Price: {{item.price}} $/kg</span>
     <p-button pTooltip="Add to compare filled" styleClass="p-button-text">
       <img alt="" ngSrc="assets/icons/filled-compare.svg" height="20" width="24">
     </p-button>
@@ -18,6 +18,6 @@
 
   <div class="flex flex-wrap">
     <p-button (click)="addToCart()" label="Add to cart" class="col" styleClass="p-button-rounded w-full uppercase"></p-button>
-    <p-button (click)="routeHelper.goToItem(itemModel.code)" label="Details" class="col" styleClass="p-button-outlined p-button-rounded w-full uppercase"></p-button>
+    <p-button (click)="routeHelper.goToItem(item.code)" label="Details" class="col" styleClass="p-button-outlined p-button-rounded w-full uppercase"></p-button>
   </div>
 </div>

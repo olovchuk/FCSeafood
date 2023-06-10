@@ -10,16 +10,16 @@ public class OrderManager {
         _orderService = orderService;
     }
 
-    public async Task<OrderListResponse> GetOrderByUserAsync(OrderParams orderParams) {
+    public async Task<OrderResponse> GetOrderByUserAsync(OrderUserParams orderParams) {
         try {
             var orderModel = await _orderService.GetOrderByUserAsync(orderParams.UserId);
             if (orderModel is null)
-                return new OrderListResponse(false, ErrorMessage.Item.IsNotDefined, null);
+                return new OrderResponse(false, ErrorMessage.Item.IsNotDefined, null);
 
-            return new OrderListResponse(true, "", orderModel);
+            return new OrderResponse(true, "", orderModel);
         } catch (Exception ex) {
             _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
-            return new OrderListResponse(false, ErrorMessage.Item.IsNotDefined, null);
+            return new OrderResponse(false, ErrorMessage.Item.IsNotDefined, null);
         }
     }
 }

@@ -8,7 +8,7 @@ import { RouteHelper } from "@common-helpers/route.helper";
   styleUrls: ['./item.card.scss']
 })
 export class ItemCard {
-  @Input('itemModel') itemModel!: ItemModel;
+  @Input('item') item!: ItemModel;
 
   constructor(public routeHelper: RouteHelper) {
   }

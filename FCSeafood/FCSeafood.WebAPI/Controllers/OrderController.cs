@@ -12,8 +12,8 @@ public class OrderController : ControllerBase {
         _orderManager = orderManager;
     }
 
-    [HttpGet("GetOrderByUserAsync")]
-    public async Task<IActionResult> GetOrderByUserAsync([FromQuery] OrderParams orderParams) {
+    [HttpGet("GetOrderByUser")]
+    public async Task<IActionResult> GetOrderByUserAsync([FromQuery] OrderUserParams orderParams) {
         var result = await _orderManager.GetOrderByUserAsync(orderParams);
         if (!result.IsSuccessful)
             return BadRequest(result);
