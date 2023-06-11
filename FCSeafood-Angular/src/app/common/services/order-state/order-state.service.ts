@@ -23,6 +23,7 @@ export class OrderStateService {
   async init(): Promise<void> {
     if (!this.authStateService.token.UserId) {
       this.isInit = false;
+      this.orderState = new OrderState();
       return;
     }
 
