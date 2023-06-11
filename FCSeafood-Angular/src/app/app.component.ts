@@ -59,12 +59,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
       MemoryTimeCacheHelper.Delete(ACCESS_GUEST_KEY);
       CookieHelper.deleteCookie(ACCESS_GUEST_KEY);
+
+      await this.orderStateService.init();
     }
   }
 
   private async _onSignOut(signUpResponse: SignUpResponse): Promise<void> {
     if (signUpResponse.isSuccessful) {
       await this.authService.signInGuest();
+      await this.orderStateService.init();
     }
   }
 }

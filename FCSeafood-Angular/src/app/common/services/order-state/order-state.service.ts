@@ -21,8 +21,10 @@ export class OrderStateService {
   }
 
   async init(): Promise<void> {
-    if (!this.authStateService.token.UserId)
+    if (!this.authStateService.token.UserId) {
+      this.isInit = false;
       return;
+    }
 
     await this.updateInformation();
 
@@ -31,8 +33,11 @@ export class OrderStateService {
 
   private async updateInformation(): Promise<void> {
     let order = await this.orderService.getOrderByUser({id: this.authStateService.token.UserId});
-    if (!order)
+    if (!order) {
+      this.isInit = false;
+      this.orderState = new OrderState();
       return;
+    }
 
     this.orderState.order = order;
     this.loadOrderEntities();
