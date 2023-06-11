@@ -1,9 +1,10 @@
 .error-page {
-  height: 55vh;
+  height: 68vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
   align-items: center;
   color: var(--grafit-color);
 
@@ -12,6 +13,7 @@
 
     font-weight: 900;
     font-size: 3.5rem;
+    line-height: 150%;
   }
 
   .error-number {
