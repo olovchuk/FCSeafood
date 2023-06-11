@@ -7,6 +7,7 @@ import { SignInPopup } from "@modules-components/popups/sign-in/sign-in.popup";
 import { MenuItem } from "primeng/api";
 import { CommonService } from "@common-services/common.service";
 import { CartPopup } from "@modules-components/popups/cart/cart.popup";
+import { OrderStateService } from "@common-services/order-state/order-state.service";
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit {
               public authStateService: AuthStateService,
               private authService: AuthService,
               public routeHelper: RouteHelper,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              public orderStateService: OrderStateService) {
   }
 
   async ngOnInit(): Promise<void> {

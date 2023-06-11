@@ -49,6 +49,16 @@ public class OrderManager {
         }
     }
 
+    public async Task<CountResponse> GetOrderCountByUser(UserIdParams idParams) {
+        try {
+            var orderCount = await _orderService.GetOrderCountByUser(idParams.UserId);
+            return new CountResponse(true, "", orderCount);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new CountResponse(false, ErrorMessage.Order.IsNotDefined, null);
+        }
+    }
+
     public async Task RemoveOrderEntityAsync(OrderOrderEntityIdsParams orderOrderEntityIdsParams) {
         try {
             await _orderService.RemoveOrderEntityAsync(

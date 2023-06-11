@@ -28,6 +28,14 @@ export class OrderService {
     return response.order;
   }
 
+  async getOrderCountByUser(orderIdRequest: OrderUserRequest): Promise<number> {
+    const response = await this.orderData.getOrderCountByUser(orderIdRequest);
+    if (!response.isSuccessful)
+      return 0;
+
+    return response.count;
+  }
+
   async removeOrderEntity(orderOrderEntityIdsRequest: OrderOrderEntityIdsRequest): Promise<void> {
     await this.orderData.removeOrderEntity(orderOrderEntityIdsRequest);
   }

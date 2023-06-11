@@ -8,6 +8,7 @@ import { AuthStateService } from "@common-services/auth-state/auth-sate.service"
 import { MemoryTimeCacheHelper } from "@common-helpers/memory-time-cache.helper";
 import { CookieHelper } from "@common-helpers/cookie.helper";
 import { SignUpResponse } from "@common-data/auth/http/response/sign-up.response";
+import { OrderStateService } from "@common-services/order-state/order-state.service";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService,
               private authStateService: AuthStateService,
               private userInformationData: UserInformationData,
-              private userInformationStateService: UserInformationStateService) {
+              private userInformationStateService: UserInformationStateService,
+              private orderStateService: OrderStateService) {
     this.signInSubscription = authService.signIn$.subscribe(next => this._onSignIn(next));
     this.signOutSubscription = authService.signOut$.subscribe(next => this._onSignOut(next));
   }
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
       await this.authService.signInGuest();
     }
 
+    await this.orderStateService.init();
     await this.userInformationStateService.init();
   }
 

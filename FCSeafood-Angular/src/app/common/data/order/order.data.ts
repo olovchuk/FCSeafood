@@ -10,6 +10,7 @@ import { OrderEntityRequest } from "@common-data/order/http/request/order-entity
 import { ExistsResponse } from "@common-data/order/http/response/exists.response";
 import { UserItemIdsRequest } from "@common-data/order/http/request/user-item-ids.request";
 import { OrderOrderEntityIdsRequest } from "@common-data/order/http/request/order-order-entity-ids.request";
+import { CountResponse } from "@common-data/order/http/response/count.response";
 
 @Injectable({providedIn: 'root'})
 export class OrderData {
@@ -36,11 +37,18 @@ export class OrderData {
     return response;
   }
 
-  async getOrderByUser(orderIdRequest: OrderUserRequest): Promise<OrderResponse> {
+  async getOrderByUser(orderUserRequest: OrderUserRequest): Promise<OrderResponse> {
     let params = new HttpParams();
-    params = params.append('UserId', orderIdRequest.id);
+    params = params.append('UserId', orderUserRequest.id);
 
-    const response = await firstValueFrom(this.http.get<OrderResponse>(this.settings.getOrderByUserEndpoint, {params: params}))
+    return await firstValueFrom(this.http.get<OrderResponse>(this.settings.getOrderByUserEndpoint, {params: params}));
+  }
+
+  async getOrderCountByUser(orderUserRequest: OrderUserRequest): Promise<CountResponse> {
+    let params = new HttpParams();
+    params = params.append('UserId', orderUserRequest.id);
+
+    const response = await firstValueFrom(this.http.get<CountResponse>(this.settings.getOrderCountByUserEndpoint, {params: params}));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 

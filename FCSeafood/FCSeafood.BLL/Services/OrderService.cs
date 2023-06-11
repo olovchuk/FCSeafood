@@ -34,11 +34,11 @@ public class OrderService {
     }
 
     public async Task<bool> IsExistsItemInOrderAsync(Guid userId, Guid itemId) {
-        var (isSuccessful, orderModel) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
+        var (isSuccessful, model) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
         if (!isSuccessful)
             return false;
 
-        return orderModel!.Orders.FirstOrDefault(x => x.Item.Id == itemId) is not null;
+        return model!.Orders.FirstOrDefault(x => x.Item.Id == itemId) is not null;
     }
 
     public async Task<OrderModel?> GetOrderByUserAsync(Guid userId) {
@@ -48,6 +48,16 @@ public class OrderService {
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
+        }
+    }
+
+    public async Task<int> GetOrderCountByUser(Guid userId) {
+        try {
+            var (isSuccessful, model) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
+            return isSuccessful ? 0 : model!.Orders.Count;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return 0;
         }
     }
 

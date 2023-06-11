@@ -28,6 +28,11 @@ public class OrderController : ControllerBase {
         return Ok(await _orderManager.GetOrderByUserAsync(userIdParams));
     }
 
+    [HttpGet("GetOrderCountByUser")]
+    public async Task<IActionResult> GetOrderCountByUser([FromQuery] UserIdParams userIdParams) {
+        return Ok(await _orderManager.GetOrderCountByUser(userIdParams));
+    }
+
     [HttpPost("RemoveOrderEntity")]
     public async Task<IActionResult> RemoveOrderEntityAsync(OrderOrderEntityIdsParams orderOrderEntityIdsParams) {
         await _orderManager.RemoveOrderEntityAsync(orderOrderEntityIdsParams);
