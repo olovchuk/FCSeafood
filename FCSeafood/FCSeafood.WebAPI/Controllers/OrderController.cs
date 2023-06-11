@@ -1,5 +1,6 @@
 ﻿using FCSeafood.BLL.Order;
 using FCSeafood.BLL.Order.Models.Params;
+using FCSeafood.BLL.User.Info.Models.Params;
 
 namespace FCSeafood.WebAPI.Controllers;
 
@@ -12,12 +13,28 @@ public class OrderController : ControllerBase {
         _orderManager = orderManager;
     }
 
+    [HttpPost("InsertOrderEntity")]
+    public async Task<IActionResult> InsertOrderEntityAsync(OrderEntityParams orderEntityParams) {
+        return Ok(await _orderManager.InsertOrderEntityAsync(orderEntityParams));
+    }
+
+    [HttpPost("IsExistsItemInOrder")]
+    public async Task<IActionResult> IsExistsItemInOrder(UserItemIdsParams userItemIdsParams) {
+        return Ok(await _orderManager.IsExistsItemInOrder(userItemIdsParams));
+    }
+
     [HttpGet("GetOrderByUser")]
-    public async Task<IActionResult> GetOrderByUserAsync([FromQuery] OrderUserParams orderParams) {
-        var result = await _orderManager.GetOrderByUserAsync(orderParams);
+    public async Task<IActionResult> GetOrderByUserAsync([FromQuery] UserIdParams userIdParams) {
+        var result = await _orderManager.GetOrderByUserAsync(userIdParams);
         if (!result.IsSuccessful)
             return BadRequest(result);
 
         return Ok(result);
+    }
+
+    [HttpPost("RemoveOrderEntity")]
+    public async Task<IActionResult> RemoveOrderEntityAsync(OrderOrderEntityIdsParams orderOrderEntityIdsParams) {
+        await _orderManager.RemoveOrderEntityAsync(orderOrderEntityIdsParams);
+        return Ok();
     }
 }

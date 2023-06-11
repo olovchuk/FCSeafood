@@ -14,8 +14,11 @@
     <div class="flex justify-content-center text-4xl mt-5" *ngIf="cartInformationList.length == 0">
       No orders
     </div>
-    <div *ngIf="cartInformationList.length > 0" class="flex flex-column">
-      <cart-card *ngFor="let cartInformation of cartInformationList" [cartInformation]="cartInformation"></cart-card>
+    <div *ngIf="cartInformationList.length > 0" class="flex flex-column overflow-auto" style="max-height: 66vh">
+      <cart-card *ngFor="let cartInformation of cartInformationList"
+                 [cartInformation]="cartInformation"
+                 (removeEntityEvent)="removeEntityFromOrder(cartInformation.orderEntityId)">
+      </cart-card>
     </div>
   </div>
 

@@ -81,7 +81,7 @@ public class UserService {
 
     public async Task<UserCredentialModel?> GetCredentialByUserIdAsync(Guid id) {
         try {
-            var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
+            var (_, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
             return model;
         } catch (Exception ex) {
             _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
@@ -91,7 +91,7 @@ public class UserService {
 
     public async Task<UserCredentialModel?> GetCredentialByEmailAsync(string email) {
         try {
-            var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
+            var (_, model) = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
             return model;
         } catch (Exception ex) {
             _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");

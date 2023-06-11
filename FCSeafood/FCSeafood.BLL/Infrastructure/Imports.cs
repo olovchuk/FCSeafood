@@ -26,3 +26,4 @@ global using FCSeafood.BLL.Item.Models.Params;
 global using FCSeafood.BLL.Item.Models.Response;
 global using FCSeafood.BLL.Order.Models.Params;
 global using FCSeafood.BLL.Order.Models.Response;
+global using FCSeafood.BLL.http.Response;

@@ -15,19 +15,19 @@ export class MessageHelper {
   }
 
   info(message: string, summary: string = 'Info') {
-    this.messageService.add({key: 'rb', severity: 'info', summary: summary, detail: message});
+    this.messageService.add({severity: 'info', summary: summary, detail: message});
   }
 
   infoSticky(message: string, summary: string = 'Info') {
-    this.messageService.add({key: 'rb', severity: 'info', summary: summary, detail: message, sticky: true});
+    this.messageService.add({severity: 'info', summary: summary, detail: message, sticky: true});
   }
 
-  warn(message: string, summary: string = 'Warn') {
-    this.messageService.add({key: 'rb', severity: 'warn', summary: summary, detail: message});
+  warning(message: string, summary: string = 'Warning') {
+    this.messageService.add({severity: 'warn', summary: summary, detail: message});
   }
 
-  warnSticky(message: string, summary: string = 'Warn') {
-    this.messageService.add({key: 'rb', severity: 'warn', summary: summary, detail: message, sticky: true});
+  warningSticky(message: string, summary: string = 'Warning') {
+    this.messageService.add({severity: 'warn', summary: summary, detail: message, sticky: true});
   }
 
   error(message: string, summary: string = 'Error') {

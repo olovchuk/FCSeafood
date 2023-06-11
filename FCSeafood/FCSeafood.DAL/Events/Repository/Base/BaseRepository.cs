@@ -52,8 +52,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
         }
     }
 
-    public virtual async Task<(bool isSuccessful, TModel? model)>
-        FindByConditionAsync(Expression<Func<TEntity, bool>> predicate) {
+    public virtual async Task<(bool isSuccessful, TModel? model)> FindByConditionAsync(Expression<Func<TEntity, bool>> predicate) {
         try {
             return ToModel(await this.NoTracking().FirstOrDefaultAsync(predicate).ConfigureAwait(false));
         } catch (Exception ex) {
@@ -89,6 +88,28 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
                 return;
 
             this.Entities.Update(entity!);
+            await this.Context.SaveChangesAsync();
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+        }
+    }
+
+    public virtual async Task RemoveAsync(TEntity entity) {
+        try {
+            this.Entities.Remove(entity);
+            await this.Context.SaveChangesAsync();
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+        }
+    }
+
+    public virtual async Task RemoveAsync(TModel model) {
+        try {
+            var (isSuccessful, entity) = ToDbo(model);
+            if (!isSuccessful)
+                return;
+
+            this.Entities.Remove(entity!);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
             _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");

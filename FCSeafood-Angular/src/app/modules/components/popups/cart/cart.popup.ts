@@ -29,29 +29,32 @@ export class CartPopup implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    if (this.authStateService.IsAuthorized && this.authStateService.token.UserId) {
-      let order = await this.orderService.getOrderByUser({id: this.authStateService.token.UserId});
-      if (!order) {
-        return;
-      }
+    if (!this.authStateService.token.UserId)
+      return;
 
-      this.order = order;
+    let order = await this.orderService.getOrderByUser({id: this.authStateService.token.UserId});
+    if (!order)
+      return;
 
-      if (this.order.orders.length > 0) {
-        for (let i = 0; i < this.order.orders.length; i++) {
-          let cartInformation: CartCardInformation = {
-            imagePath: this.order.orders[i].item.imagePath,
-            name: this.order.orders[i].item.name,
-            quantityPerKg: this.order.orders[i].quantityPerKg,
-            price: this.order.orders[i].price
-          };
+    this.order = order;
+    this.loadOrders();
+  }
 
-          this.cartInformationList.push(cartInformation);
-        }
-      }
-    }
-    else {
+  loadOrders() {
+    this.cartInformationList = [];
+    if (this.order.orders.length === 0)
+      return;
 
+    for (let i = 0; i < this.order.orders.length; i++) {
+      let cartInformation: CartCardInformation = {
+        orderEntityId: this.order.orders[i].id,
+        imagePath: this.order.orders[i].item.imagePath,
+        name: this.order.orders[i].item.name,
+        quantityPerKg: this.order.orders[i].quantityPerKg,
+        price: this.order.orders[i].price
+      };
+
+      this.cartInformationList.push(cartInformation);
     }
   }
 
@@ -59,5 +62,14 @@ export class CartPopup implements OnInit {
     await this.shopFiltersStateService.refresh();
     await this.routeHelper.goToShop();
     this.dialogRef.close();
+  }
+
+  async removeEntityFromOrder(orderEntityId: string): Promise<void> {
+    if (!orderEntityId)
+      return;
+
+    await this.orderService.removeOrderEntity({orderId: this.order.id, orderEntityId: orderEntityId});
+    this.order.orders = this.order.orders.filter(x => x.id !== orderEntityId);
+    this.loadOrders();
   }
 }

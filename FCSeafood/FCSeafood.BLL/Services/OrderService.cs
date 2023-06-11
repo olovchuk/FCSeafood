@@ -8,9 +8,64 @@ public class OrderService {
                                                     .CreateLogger(typeof(OrderService));
 
     private readonly OrderRepository _orderRepository;
+    private readonly OrderEntityRepository _orderEntityRepository;
 
-    public OrderService(OrderRepository orderRepository) {
+    public OrderService(OrderRepository orderRepository, OrderEntityRepository orderEntityRepository) {
         _orderRepository = orderRepository;
+        _orderEntityRepository = orderEntityRepository;
+    }
+
+    public async Task<OrderModel?> InsertOrderAsync(Guid userId) {
+        try {
+            var orderDbo = new OrderDbo {
+                UserDboId = userId
+              , TotalPrice = 0
+              , CreatedDate = DateTime.Now
+            };
+
+            var (_, model) = await _orderRepository.InsertAsync(orderDbo);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            return null;
+        }
+    }
+
+    public async Task<OrderEntityModel?> InsertOrderEntityAsync(Guid userId, OrderEntityModel orderEntityModel) {
+        try {
+            if (userId == Guid.Empty)
+                return null;
+
+            var (isSuccessful, orderModel) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
+            if (!isSuccessful) {
+                orderModel = await InsertOrderAsync(userId);
+                if (orderModel is null)
+                    return null;
+            }
+
+            var isExistsItemInOrder = await IsExistsItemInOrder(orderModel!.Id, orderEntityModel.Item.Id);
+            if (isExistsItemInOrder)
+                return null;
+
+            (isSuccessful, var entityDbo) = _orderEntityRepository.ToDbo(orderEntityModel);
+            if (!isSuccessful)
+                return null;
+
+            entityDbo!.OrderDboId = orderModel.Id;
+            var (_, model) = await _orderEntityRepository.InsertAsync(entityDbo);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            return null;
+        }
+    }
+
+    public async Task<bool> IsExistsItemInOrder(Guid userId, Guid itemId) {
+        var (isSuccessful, orderModel) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
+        if (!isSuccessful)
+            return false;
+
+        return orderModel!.Orders.FirstOrDefault(x => x.Item.Id == itemId) is not null;
     }
 
     public async Task<OrderModel?> GetOrderByUserAsync(Guid userId) {
@@ -21,5 +76,20 @@ public class OrderService {
             _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
             return null;
         }
+    }
+
+    public async Task RemoveOrderEntityAsync(Guid orderId, Guid orderEntityId) {
+        if (orderId == Guid.Empty || orderEntityId == Guid.Empty)
+            return;
+
+        var (isSuccessful, model) = await _orderRepository.FindByConditionAsync(x => x.Id == orderId);
+        if (!isSuccessful)
+            return;
+
+        var orderEntityModel = model!.Orders.FirstOrDefault(x => x.Id == orderEntityId);
+        if (orderEntityModel == null)
+            return;
+
+        await _orderEntityRepository.RemoveAsync(orderEntityModel);
     }
 }

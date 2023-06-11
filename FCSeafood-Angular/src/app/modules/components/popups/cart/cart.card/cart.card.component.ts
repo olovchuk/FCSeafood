@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UiHelper } from "@common-helpers/ui.helper";
 
 @Component({
@@ -10,9 +10,11 @@ export class CartCardComponent {
   protected readonly UiHelper = UiHelper;
 
   @Input('cartInformation') cartInformation!: CartCardInformation;
+  @Output('removeEntityEvent') removeEntityEvent = new EventEmitter<string>();
 }
 
 export class CartCardInformation {
+  orderEntityId: string = '';
   imagePath: string = '';
   name: string = '';
   quantityPerKg: number = 0.0;

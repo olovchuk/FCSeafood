@@ -20,6 +20,11 @@ public static class ErrorMessage {
     public static class Item {
         public static string IsNotDefined => "The item(s) is not defined.";
     }
+    public static class Order
+    {
+        public static string IsNotDefined => "The order(s) is not defined.";
+        public static string EntityInsertError => "Something went wrong while insert data.";
+    }
 
     public static class Common {
         public static string ErrorRetrievingData => "Something goes wrong when retrieving data";
