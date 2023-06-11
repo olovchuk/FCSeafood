@@ -16,20 +16,12 @@ public class UserController : ControllerBase {
 
     [HttpGet("GetUser")]
     public async Task<IActionResult> GetUserAsync([FromQuery] GetUserParams getUserParams) {
-        var result = await _userManager.GetUser(getUserParams);
-        if (!result.IsSuccessful)
-            return BadRequest(result);
-
-        return Ok(result);
+        return Ok(await _userManager.GetUser(getUserParams));
     }
 
     [HttpGet("GetUserInformation"), Authorize]
     public async Task<IActionResult> GetUserInformation() {
         var claimsValues = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
-        var result = await _userManager.GetUserInformationAsync(new GetUserInformationParams(claimsValues.UserId));
-        if (!result.IsSuccessful)
-            return BadRequest(result);
-
-        return Ok(result);
+        return Ok(await _userManager.GetUserInformationAsync(new GetUserInformationParams(claimsValues.UserId)));
     }
 }

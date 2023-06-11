@@ -14,19 +14,11 @@ public class ItemController : ControllerBase {
 
     [HttpGet("GetItemByCode")]
     public async Task<IActionResult> GetItemAsync([FromQuery] ItemCodeParams itemCodeParams) {
-        var result = await _itemManager.GetItem(itemCodeParams);
-        if (!result.IsSuccessful)
-            return BadRequest(result);
-
-        return Ok(result);
+        return Ok(await _itemManager.GetItemAsync(itemCodeParams));
     }
 
-    [HttpGet("GetItemListByFilter")]
+    [HttpGet("GetItemByFilterList")]
     public async Task<IActionResult> GetItemListAsync([FromQuery] ItemFilterParams itemByFilterParams) {
-        var result = await _itemManager.GetItemListAsync(itemByFilterParams);
-        if (!result.IsSuccessful)
-            return BadRequest(result);
-
-        return Ok(result);
+        return Ok(await _itemManager.GetItemListAsync(itemByFilterParams));
     }
 }

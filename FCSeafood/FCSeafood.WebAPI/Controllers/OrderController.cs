@@ -19,17 +19,13 @@ public class OrderController : ControllerBase {
     }
 
     [HttpPost("IsExistsItemInOrder")]
-    public async Task<IActionResult> IsExistsItemInOrder(UserItemIdsParams userItemIdsParams) {
-        return Ok(await _orderManager.IsExistsItemInOrder(userItemIdsParams));
+    public async Task<IActionResult> IsExistsItemInOrderAsync(UserItemIdsParams userItemIdsParams) {
+        return Ok(await _orderManager.IsExistsItemInOrderAsync(userItemIdsParams));
     }
 
     [HttpGet("GetOrderByUser")]
     public async Task<IActionResult> GetOrderByUserAsync([FromQuery] UserIdParams userIdParams) {
-        var result = await _orderManager.GetOrderByUserAsync(userIdParams);
-        if (!result.IsSuccessful)
-            return BadRequest(result);
-
-        return Ok(result);
+        return Ok(await _orderManager.GetOrderByUserAsync(userIdParams));
     }
 
     [HttpPost("RemoveOrderEntity")]
