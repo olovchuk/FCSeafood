@@ -3,18 +3,18 @@ import { AppSettings } from "@settings/app.settings";
 
 @Injectable({providedIn: 'root'})
 export class CommonDataSettings {
-  private _getCategoryType: string = '/api/Common/GetCategoryType';
-  getCategoryType: string = AppSettings.webApiHostUrl + this._getCategoryType;
+  private _getCategoryTEndpoint: string = '/api/Common/GetCategoryType';
+  getCategoryTEndpoint: string = AppSettings.webApiHostUrl + this._getCategoryTEndpoint;
 
-  private _getCategoryBySubcategoryType: string = '/api/Common/GetCategoryBySubcategoryType';
-  getCategoryBySubcategoryType: string = AppSettings.webApiHostUrl + this._getCategoryBySubcategoryType;
+  private _getCategoryBySubcategoryTEndpoint: string = '/api/Common/GetCategoryBySubcategoryType';
+  getCategoryBySubcategoryTEndpoint: string = AppSettings.webApiHostUrl + this._getCategoryBySubcategoryTEndpoint;
 
-  private _getCategoryTList: string = '/api/Common/GetCategoryTList';
-  getCategoryTList: string = AppSettings.webApiHostUrl + this._getCategoryTList;
+  private _getCategoryTListEndpoint: string = '/api/Common/GetCategoryTList';
+  getCategoryTListEndpoint: string = AppSettings.webApiHostUrl + this._getCategoryTListEndpoint;
 
-  private _getSubcategoryTList: string = '/api/Common/GetCategoryTList';
-  getSubcategoryTList: string = AppSettings.webApiHostUrl + this._getSubcategoryTList;
+  private _getSubcategoryTListEndpoint: string = '/api/Common/GetCategoryTList';
+  getSubcategoryTListEndpoint: string = AppSettings.webApiHostUrl + this._getSubcategoryTListEndpoint;
 
-  private _getSubcategoryByCategoryTList: string = '/api/Common/GetSubcategoryByCategoryTList';
-  getSubcategoryByCategoryTList: string = AppSettings.webApiHostUrl + this._getSubcategoryByCategoryTList;
+  private _getSubcategoryByCategoryTListEndpoint: string = '/api/Common/GetSubcategoryByCategoryTList';
+  getSubcategoryByCategoryTListEndpoint: string = AppSettings.webApiHostUrl + this._getSubcategoryByCategoryTListEndpoint;
 }

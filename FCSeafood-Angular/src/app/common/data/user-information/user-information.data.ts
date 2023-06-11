@@ -13,7 +13,7 @@ export class UserInformationData {
   }
 
   async getUserInformation(): Promise<UserInformationResponse> {
-    const response = await firstValueFrom(this.http.get<UserInformationResponse>(this.settings.getUserInformationEndpointUrl));
+    const response = await firstValueFrom(this.http.get<UserInformationResponse>(this.settings.getUserInformationEndpoint));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 

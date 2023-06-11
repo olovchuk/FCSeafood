@@ -19,7 +19,7 @@ export class ItemData {
     let params = new HttpParams();
     params = params.append('Code', itemCodeRequest.code);
 
-    const response = await firstValueFrom(this.http.get<ItemResponse>(this.settings.getItemByCode, {params: params}))
+    const response = await firstValueFrom(this.http.get<ItemResponse>(this.settings.getItemByCodeEndpoint, {params: params}))
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 
@@ -34,7 +34,7 @@ export class ItemData {
     params = params.append('PriceFrom', itemFilterRequest.priceFrom);
     params = params.append('PriceTo', itemFilterRequest.priceTo);
 
-    const response = await firstValueFrom(this.http.get<ItemListResponse>(this.settings.getItemListByFilter, {params: params}))
+    const response = await firstValueFrom(this.http.get<ItemListResponse>(this.settings.getItemByFilterListEndpoint, {params: params}))
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 

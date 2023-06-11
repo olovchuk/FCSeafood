@@ -19,7 +19,7 @@ export class CommonData {
     let params = new HttpParams();
     params = params.append('CategoryType', categoryTypeRequest.categoryType);
 
-    const response = await firstValueFrom(this.http.get<CategoryTListResponse>(this.settings.getCategoryType, {params: params}));
+    const response = await firstValueFrom(this.http.get<CategoryTListResponse>(this.settings.getCategoryTEndpoint, {params: params}));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 
@@ -30,7 +30,7 @@ export class CommonData {
     let params = new HttpParams();
     params = params.append('SubcategoryType', subcategoryTRequest.subcategoryType);
 
-    const response = await firstValueFrom(this.http.get<CategoryTListResponse>(this.settings.getCategoryBySubcategoryType, {params: params}));
+    const response = await firstValueFrom(this.http.get<CategoryTListResponse>(this.settings.getCategoryBySubcategoryTEndpoint, {params: params}));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 
@@ -38,7 +38,7 @@ export class CommonData {
   }
 
   async getCategoryTList(): Promise<CategoryTListResponse> {
-    const response = await firstValueFrom(this.http.get<CategoryTListResponse>(this.settings.getCategoryTList));
+    const response = await firstValueFrom(this.http.get<CategoryTListResponse>(this.settings.getCategoryTListEndpoint));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 
@@ -46,7 +46,7 @@ export class CommonData {
   }
 
   async getSubcategoryTList(): Promise<SubcategoryTListResponse> {
-    const response = await firstValueFrom(this.http.get<SubcategoryTListResponse>(this.settings.getSubcategoryTList));
+    const response = await firstValueFrom(this.http.get<SubcategoryTListResponse>(this.settings.getSubcategoryTListEndpoint));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 
@@ -57,7 +57,7 @@ export class CommonData {
     let params = new HttpParams();
     params = params.append('CategoryType', categoryTypeRequest.categoryType);
 
-    const response = await firstValueFrom(this.http.get<SubcategoryTListResponse>(this.settings.getSubcategoryByCategoryTList, {params: params}));
+    const response = await firstValueFrom(this.http.get<SubcategoryTListResponse>(this.settings.getSubcategoryByCategoryTListEndpoint, {params: params}));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 

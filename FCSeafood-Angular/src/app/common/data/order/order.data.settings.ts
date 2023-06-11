@@ -3,15 +3,15 @@ import { AppSettings } from "@settings/app.settings";
 
 @Injectable({providedIn: 'root'})
 export class OrderDataSettings {
-  private _getOrderByUser: string = '/api/Order/GetOrderByUser';
-  getOrderByUser: string = AppSettings.webApiHostUrl + this._getOrderByUser;
+  private _insertOrderEntityEndpoint: string = '/api/Order/InsertOrderEntity';
+  insertOrderEntityEndpoint: string = AppSettings.webApiHostUrl + this._insertOrderEntityEndpoint;
 
-  private _isExistsItemInOrder: string = '/api/Order/IsExistsItemInOrder';
-  isExistsItemInOrder: string = AppSettings.webApiHostUrl + this._isExistsItemInOrder;
+  private _isExistsItemInOrderEndpoint: string = '/api/Order/IsExistsItemInOrder';
+  isExistsItemInOrderEndpoint: string = AppSettings.webApiHostUrl + this._isExistsItemInOrderEndpoint;
 
-  private _insertOrderEntity: string = '/api/Order/InsertOrderEntity';
-  insertOrderEntity: string = AppSettings.webApiHostUrl + this._insertOrderEntity;
+  private _getOrderByUserEndpoint: string = '/api/Order/GetOrderByUser';
+  getOrderByUserEndpoint: string = AppSettings.webApiHostUrl + this._getOrderByUserEndpoint;
 
-  private _removeOrderEntity: string = '/api/Order/RemoveOrderEntity';
-  removeOrderEntity: string = AppSettings.webApiHostUrl + this._removeOrderEntity;
+  private _removeOrderEntityEndpoint: string = '/api/Order/RemoveOrderEntity';
+  removeOrderEntityEndpoint: string = AppSettings.webApiHostUrl + this._removeOrderEntityEndpoint;
 }

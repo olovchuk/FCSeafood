@@ -3,9 +3,9 @@ import { AppSettings } from "@settings/app.settings";
 
 @Injectable({providedIn: 'root'})
 export class ItemDataSettings {
-  private _getItemByCode: string = '/api/Item/GetItemByCode';
-  getItemByCode: string = AppSettings.webApiHostUrl + this._getItemByCode;
+  private _getItemByCodeEndpoint: string = '/api/Item/GetItemByCode';
+  getItemByCodeEndpoint: string = AppSettings.webApiHostUrl + this._getItemByCodeEndpoint;
 
-  private _getItemListByFilter: string = '/api/Item/GetItemListByFilter';
-  getItemListByFilter: string = AppSettings.webApiHostUrl + this._getItemListByFilter;
+  private _getItemByFilterListEndpoint: string = '/api/Item/GetItemByFilterList';
+  getItemByFilterListEndpoint: string = AppSettings.webApiHostUrl + this._getItemByFilterListEndpoint;
 }
