@@ -1,7 +1,7 @@
 namespace FCSeafood.WebAPI.Helpers;
 
 public class CookieHelper {
-    private readonly ILogger _loggger = LoggerFactory.Create(b => { b.AddConsole(); })
+    private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
                                                      .CreateLogger(typeof(CookieHelper));
 
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -24,7 +24,7 @@ public class CookieHelper {
         try {
             _httpContextAccessor.HttpContext?.Response.Cookies.Append(key, value, options);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Cookie.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Cookie.Global, ex.Message);
         }
     }
 
@@ -35,7 +35,7 @@ public class CookieHelper {
 
             return string.Empty;
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Cookie.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Cookie.Global, ex.Message);
             return string.Empty;
         }
     }
@@ -44,7 +44,7 @@ public class CookieHelper {
         try {
             _httpContextAccessor.HttpContext?.Response.Cookies.Delete(key);
         } catch (Exception ex) {
-            _loggger.LogError($"{ErrorMessage.Cookie.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Cookie.Global, ex.Message);
         }
     }
 }
