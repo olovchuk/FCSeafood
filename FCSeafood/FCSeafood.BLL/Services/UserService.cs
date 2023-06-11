@@ -22,7 +22,7 @@ public class UserService {
             var (_, model) = await _userRepository.InsertAsync(userModel);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -40,7 +40,7 @@ public class UserService {
 
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -50,7 +50,7 @@ public class UserService {
             var (_, model) = await _userRepository.FindByConditionAsync(x => x.Id == id);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -64,7 +64,7 @@ public class UserService {
             var (_, model) = await _credentialRepository.InsertAsync(credentialModel);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -74,7 +74,7 @@ public class UserService {
             var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
             return isSuccessful ? model!.Email : string.Empty;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return string.Empty;
         }
     }
@@ -84,7 +84,7 @@ public class UserService {
             var (_, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == id);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -94,7 +94,7 @@ public class UserService {
             var (_, model) = await _credentialRepository.FindByConditionAsync(x => x.Email == email);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class UserService {
             model!.LastLoginDate = DateTime.Now;
             await _credentialRepository.UpdateAsync(model);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
         }
     }
 

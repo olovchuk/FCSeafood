@@ -22,10 +22,10 @@ public class CommonService {
             if (categoryTDbo is null)
                 return null;
 
-            var result = CategoryTRepository.ToModel(categoryTDbo);
-            return result.success ? result.model : null;
+            var (_, model) = CategoryTRepository.ToModel(categoryTDbo);
+            return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -34,13 +34,13 @@ public class CommonService {
         try {
             var categoryTListDbo = await _categoryTRepository.GetAllAsync();
 
-            var result = CategoryTRepository.ToModel(categoryTListDbo);
-            if (result.success)
-                return result.models.FirstOrDefault(c => c.SubcategoryTModelList.Any(s => s.Type == subcategoryType));
+            var (isSuccessful, model) = CategoryTRepository.ToModel(categoryTListDbo);
+            if (!isSuccessful)
+                return null;
 
-            return null;
+            return model.FirstOrDefault(c => c.SubcategoryTModelList.Any(s => s.Type == subcategoryType));
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -49,10 +49,10 @@ public class CommonService {
         try {
             var categoryTListDbo = await _categoryTRepository.GetAllAsync();
 
-            var result = CategoryTRepository.ToModel(categoryTListDbo);
-            return result.success ? result.models : Array.Empty<CategoryTModel>();
+            var (_, model) = CategoryTRepository.ToModel(categoryTListDbo);
+            return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return Array.Empty<CategoryTModel>();
         }
     }
@@ -65,23 +65,24 @@ public class CommonService {
         try {
             var subcategoryTListDbo = await _subcategoryTRepository.GetAllAsync();
 
-            var result = SubcategoryTRepository.ToModel(subcategoryTListDbo);
-            return result.success ? result.models : Array.Empty<SubcategoryTModel>();
+            var (_, model) = SubcategoryTRepository.ToModel(subcategoryTListDbo);
+            return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return Array.Empty<SubcategoryTModel>();
         }
     }
 
     public async Task<IReadOnlyCollection<SubcategoryTModel>> GetSubcategoryTListAsync(CategoryType categoryType) {
         try {
-            var subcategoryTListDbo =
-                await _subcategoryTRepository.FindByConditionListAsync(x => x.CategoryTDboId == (int)categoryType);
+            var subcategoryTListDbo = await _subcategoryTRepository.FindByConditionListAsync(
+                x => x.CategoryTDboId == (int)categoryType
+            );
 
-            var result = SubcategoryTRepository.ToModel(subcategoryTListDbo);
-            return result.success ? result.models : Array.Empty<SubcategoryTModel>();
+            var (_, model) = SubcategoryTRepository.ToModel(subcategoryTListDbo);
+            return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return Array.Empty<SubcategoryTModel>();
         }
     }

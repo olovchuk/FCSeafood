@@ -19,7 +19,7 @@ public class ItemService {
             var (_, model) = await _itemRepository.FindByConditionAsync(x => x.Id == id);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -29,7 +29,7 @@ public class ItemService {
             var (_, model) = await _itemRepository.FindByConditionAsync(x => x.Code == code);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -54,7 +54,7 @@ public class ItemService {
 
             return models;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return Array.Empty<ItemModel>();
         }
     }

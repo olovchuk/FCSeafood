@@ -17,7 +17,7 @@ public class AddressService {
             var (_, model) = await _addressRepository.InsertAsync(addressModel);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
@@ -27,7 +27,7 @@ public class AddressService {
             var (_, model) = await _addressRepository.FindByConditionAsync(x => x.Id == id);
             return model;
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Service.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
         }
     }
