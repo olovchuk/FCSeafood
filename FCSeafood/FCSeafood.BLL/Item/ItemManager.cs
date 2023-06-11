@@ -10,12 +10,12 @@ public class ItemManager {
         _itemService = itemService;
     }
 
-    public async Task<ItemResponse> GetItem(ItemCodeParams itemCodeParams) {
+    public async Task<ItemResponse> GetItemAsync(ItemCodeParams itemCodeParams) {
         try {
             var itemModel = await _itemService.GetItemByCodeAsync(itemCodeParams.Code);
             return new ItemResponse(true, "", itemModel);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new ItemResponse(false, ErrorMessage.Item.IsNotDefined, null);
         }
     }
@@ -25,7 +25,7 @@ public class ItemManager {
             var itemListModel = await _itemService.GetItemListAsync(itemByFilterParams);
             return new ItemListResponse(true, "", itemListModel);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new ItemListResponse(false, ErrorMessage.Item.IsNotDefined, Enumerable.Empty<ItemModel>());
         }
     }

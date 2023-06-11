@@ -21,17 +21,17 @@ public class OrderManager {
 
             return new EmptyResponse(true, string.Empty);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new EmptyResponse(false, ErrorMessage.Order.EntityInsertError);
         }
     }
 
-    public async Task<ExistsResponse> IsExistsItemInOrder(UserItemIdsParams userItemIdsParams) {
+    public async Task<ExistsResponse> IsExistsItemInOrderAsync(UserItemIdsParams userItemIdsParams) {
         try {
-            var isExists = await _orderService.IsExistsItemInOrder(userItemIdsParams.UserId, userItemIdsParams.ItemId);
+            var isExists = await _orderService.IsExistsItemInOrderAsync(userItemIdsParams.UserId, userItemIdsParams.ItemId);
             return new ExistsResponse(true, string.Empty, isExists);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new ExistsResponse(false, string.Empty, null);
         }
     }
@@ -44,7 +44,7 @@ public class OrderManager {
 
             return new OrderResponse(true, "", orderModel);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new OrderResponse(false, ErrorMessage.Order.IsNotDefined, null);
         }
     }
@@ -56,7 +56,7 @@ public class OrderManager {
               , orderOrderEntityIdsParams.OrderEntityId
             );
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
         }
     }
 }

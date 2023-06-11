@@ -18,7 +18,7 @@ public class UserManager {
 
             return new GetUserResponse(true, "", user);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new GetUserResponse(false, ErrorMessage.User.IsNotDefined, null);
         }
     }
@@ -42,7 +42,7 @@ public class UserManager {
                 )
             );
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Manager.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new GetUserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
         }
     }
