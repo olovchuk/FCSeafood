@@ -8,4 +8,7 @@ export class ItemDataSettings {
 
   private _getItemByFilterListEndpoint: string = '/api/Item/GetItemByFilterList';
   getItemByFilterListEndpoint: string = AppSettings.webApiHostUrl + this._getItemByFilterListEndpoint;
+
+  private _getRatingByUserEndpoint: string = '/api/Item/GetRatingByUser';
+  getRatingByUserEndpoint: string = AppSettings.webApiHostUrl + this._getRatingByUserEndpoint;
 }

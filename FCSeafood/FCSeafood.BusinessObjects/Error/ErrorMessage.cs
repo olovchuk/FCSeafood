@@ -24,10 +24,11 @@ public static class ErrorMessage {
     public static class Order {
         public static string IsNotDefined => "The order(s) is not defined.";
         public static string EntityInsertError => "Something went wrong while insert data.";
+        public static string FindRatingFailed => "Something went wrong while retrieving rating data";
     }
 
     public static class Common {
-        public static string ErrorRetrievingData => "Something goes wrong when retrieving data";
+        public static string ErrorRetrievingData => "Something went wrong while retrieving data";
     }
 
     public static class Authentication {

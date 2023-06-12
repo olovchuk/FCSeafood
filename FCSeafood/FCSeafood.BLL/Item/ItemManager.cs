@@ -29,4 +29,14 @@ public class ItemManager {
             return new ItemListResponse(false, ErrorMessage.Item.IsNotDefined, Enumerable.Empty<ItemModel>());
         }
     }
+
+    public async Task<RatingResponse> GetRatingByUser(UserIdParams userIdParams) {
+        try {
+            var ratingType = await _itemService.GetItemRatingByUser(userIdParams.UserId);
+            return new RatingResponse(true, "", ratingType);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new RatingResponse(false, ErrorMessage.Order.FindRatingFailed, null);
+        }
+    }
 }

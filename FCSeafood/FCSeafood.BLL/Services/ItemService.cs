@@ -9,9 +9,11 @@ public class ItemService {
                                                     .CreateLogger(typeof(ItemService));
 
     private readonly ItemRepository _itemRepository;
+    private readonly RatingLRepository _ratingLRepository;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, RatingLRepository ratingLRepository) {
         _itemRepository = itemRepository;
+        _ratingLRepository = ratingLRepository;
     }
 
     public async Task<ItemModel?> GetItemAsync(Guid id) {
@@ -56,6 +58,16 @@ public class ItemService {
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return Array.Empty<ItemModel>();
+        }
+    }
+
+    public async Task<RatingType> GetItemRatingByUser(Guid userId) {
+        try {
+            var (isSuccessful, model) = await _ratingLRepository.FindByConditionAsync(x => x.UserDboId == userId);
+            return isSuccessful ? model!.Rating : RatingType.Unknown;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return RatingType.Unknown;
         }
     }
 }
