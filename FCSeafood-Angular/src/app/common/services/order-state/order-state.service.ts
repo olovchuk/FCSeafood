@@ -80,6 +80,6 @@ export class OrderStateService {
 
     await this.orderService.removeOrderEntity({orderId: this.orderState.order.id, orderEntityId: orderEntityId});
     this.orderState.order.orders = this.orderState.order.orders.filter(x => x.id !== orderEntityId);
-    this.loadOrderEntities();
+    await this.updateInformation();
   }
 }

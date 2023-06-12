@@ -25,7 +25,7 @@ public class OrderDbo {
     public OrderDbo(OrderModel model) {
         Id = model.Id;
         UserDboId = model.User.Id;
-        CreatedDate = model.CreatedDate;
         TotalPrice = model.TotalPrice;
+        CreatedDate = model.CreatedDate;
     }
 }

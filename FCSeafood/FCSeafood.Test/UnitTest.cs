@@ -308,7 +308,7 @@ public class Tests {
         var json = JsonSerializer.Serialize(model, options);
         Console.WriteLine(typeof(AddressRepository) + json + "\n");
 
-        (isSuccessful, var model1) = await _itemRepository.FindByConditionAsync(x => x.Name == "Bread");
+        (isSuccessful, var model1) = await _itemRepository.FindByConditionAsync(x => x.Name.Contains("a"));
         if (!isSuccessful) {
             Console.WriteLine(typeof(ItemRepository) + " NULL");
             Assert.That(model1, Is.Not.Null);

@@ -17,22 +17,6 @@ public class OrderService {
 
     #region Order
 
-    public async Task<OrderModel?> InsertOrderAsync(Guid userId) {
-        try {
-            var orderDbo = new OrderDbo {
-                UserDboId = userId
-              , TotalPrice = 0
-              , CreatedDate = DateTime.Now
-            };
-
-            var (_, model) = await _orderRepository.InsertAsync(orderDbo);
-            return model;
-        } catch (Exception ex) {
-            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
-            return null;
-        }
-    }
-
     public async Task<bool> IsExistsItemInOrderAsync(Guid userId, Guid itemId) {
         var (isSuccessful, model) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
         if (!isSuccessful)
@@ -70,10 +54,18 @@ public class OrderService {
             if (userId == Guid.Empty)
                 return null;
 
+            var isChangePrice = true;
             var (isSuccessful, orderModel) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
             if (!isSuccessful) {
-                orderModel = await InsertOrderAsync(userId);
-                if (orderModel is null)
+                isChangePrice = false;
+                var orderDbo = new OrderDbo {
+                    UserDboId = userId
+                  , TotalPrice = orderEntityModel.Price
+                  , CreatedDate = DateTime.Now
+                };
+
+                (isSuccessful, orderModel) = await _orderRepository.InsertAsync(orderDbo);
+                if (!isSuccessful)
                     return null;
             }
 
@@ -90,8 +82,10 @@ public class OrderService {
             if (!isSuccessful)
                 return null;
 
-            orderModel.TotalPrice += entityDbo.Price;
-            await _orderRepository.UpdateAsync(orderModel);
+            if (isChangePrice) {
+                orderModel.TotalPrice += entityDbo.Price;
+                await _orderRepository.UpdateAsync(orderModel);
+            }
 
             return model;
         } catch (Exception ex) {
@@ -104,15 +98,18 @@ public class OrderService {
         if (orderId == Guid.Empty || orderEntityId == Guid.Empty)
             return;
 
-        var (isSuccessful, model) = await _orderRepository.FindByConditionAsync(x => x.Id == orderId);
+        var (isSuccessful, orderModel) = await _orderRepository.FindByConditionAsync(x => x.Id == orderId);
         if (!isSuccessful)
             return;
 
-        var orderEntityModel = model!.Orders.FirstOrDefault(x => x.Id == orderEntityId);
-        if (orderEntityModel == null)
+        var entityModel = orderModel!.Orders.FirstOrDefault(x => x.Id == orderEntityId);
+        if (entityModel == null)
             return;
 
-        await _orderEntityRepository.RemoveAsync(orderEntityModel);
+        orderModel.TotalPrice -= entityModel.Price;
+        await _orderRepository.UpdateAsync(orderModel);
+
+        await _orderEntityRepository.RemoveAsync(entityModel);
     }
 
     #endregion
