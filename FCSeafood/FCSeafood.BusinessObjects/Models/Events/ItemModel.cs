@@ -8,7 +8,7 @@ public class ItemModel {
     public string Code { get; set; } = "";
     public string ImagePath { get; set; } = "";
 
-    public double Price { get; set; } = new();
+    public double Price { get; set; }
 
     public CategoryTModel Category { get; set; } = new();
 
@@ -17,6 +17,10 @@ public class ItemModel {
     public ItemStatusTModel ItemStatus { get; set; } = new();
 
     public double QuantityPerKg { get; set; }
+
+    public int LikeCount { get; set; }
+
+    public int DislikeCount { get; set; }
 
     public string? Brand { get; set; }
 

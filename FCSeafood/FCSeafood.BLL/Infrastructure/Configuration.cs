@@ -46,6 +46,7 @@ public static class Configuration {
         serviceCollection.AddTransient<CurrencyCodeTRepository>();
         serviceCollection.AddTransient<GenderTRepository>();
         serviceCollection.AddTransient<ItemStatusTRepository>();
+        serviceCollection.AddTransient<RatingTRepository>();
         serviceCollection.AddTransient<RoleTRepository>();
         serviceCollection.AddTransient<SubcategoryTRepository>();
         serviceCollection.AddTransient<TemperatureUnitTRepository>();
@@ -53,9 +54,10 @@ public static class Configuration {
         // -- Event
         serviceCollection.AddTransient<AddressRepository>();
         serviceCollection.AddTransient<ItemRepository>();
-        serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<OrderEntityRepository>();
         serviceCollection.AddTransient<OrderRepository>();
+        serviceCollection.AddTransient<RatingLRepository>();
+        serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<UserRepository>();
 
         #endregion

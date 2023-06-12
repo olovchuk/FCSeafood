@@ -22,7 +22,7 @@ public class OrderEntityRepository : Base.BaseRepository<OrderEntityDbo, OrderEn
         if (entity.ItemDbo != null) {
             var (isSuccessful, model) = _itemRepository.ToModel(entity.ItemDbo);
             if (isSuccessful)
-                orderEntityModel.Item = model;
+                orderEntityModel.Item = model!;
         }
     }
 }

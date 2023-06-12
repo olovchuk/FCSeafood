@@ -24,6 +24,11 @@ public static class MapperConfig {
                         memberOptions => memberOptions.Type
                       , options => options.MapFrom(source => Enum.GetName(typeof(ItemStatusType), source.Id))
                     );
+                cfg.CreateMap<RatingTDbo, RatingTModel>()
+                   .ForMember(
+                        memberOptions => memberOptions.Type
+                      , options => options.MapFrom(source => Enum.GetName(typeof(RatingType), source.Id))
+                    );
                 cfg.CreateMap<RoleTDbo, RoleTModel>()
                    .ForMember(
                         memberOptions => memberOptions.Type
@@ -49,6 +54,11 @@ public static class MapperConfig {
                 cfg.CreateMap<ItemDbo, ItemModel>();
                 cfg.CreateMap<OrderEntityDbo, OrderEntityModel>();
                 cfg.CreateMap<OrderDbo, OrderModel>();
+                cfg.CreateMap<RatingLDbo, RatingLModel>()
+                   .ForMember(
+                        memberOptions => memberOptions.Rating
+                      , options => options.MapFrom(source => Enum.GetName(typeof(RatingType), source.RatingTDboId))
+                    );
                 cfg.CreateMap<UserCredentialDbo, UserCredentialModel>();
                 cfg.CreateMap<UserDbo, UserModel>();
             }

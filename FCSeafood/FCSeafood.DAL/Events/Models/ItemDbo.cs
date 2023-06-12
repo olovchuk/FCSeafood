@@ -34,6 +34,12 @@ public class ItemDbo {
     [Column("Quantity_Per_Kg")]
     public double QuantityPerKg { get; set; }
 
+    [Column("LikeCount")]
+    public int LikeCount { get; set; }
+
+    [Column("DislikeCount")]
+    public int DislikeCount { get; set; }
+
     [Column("Brand")]
     public string? Brand { get; set; }
 
@@ -86,6 +92,8 @@ public class ItemDbo {
         SubcategoryTDboId = (int)model.Subcategory.Type;
         ItemStatusTDboId = (int)model.ItemStatus.Type;
         QuantityPerKg = model.QuantityPerKg;
+        LikeCount = model.LikeCount;
+        DislikeCount = model.DislikeCount;
         Brand = model.Brand;
         Type = model.Type;
         Finishing = model.Finishing;

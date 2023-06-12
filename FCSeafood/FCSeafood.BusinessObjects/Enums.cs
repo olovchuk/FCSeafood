@@ -92,6 +92,13 @@ public enum SortDirectionType {
   , Descending = 2
 }
 
+// E_Rating_Type
+public enum RatingType {
+    Unknown = 0
+  , Like = 1
+  , Dislike = 2
+}
+
 #endregion
 
 public enum DeliveryStatus {

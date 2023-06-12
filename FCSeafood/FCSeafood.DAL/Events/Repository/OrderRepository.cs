@@ -23,7 +23,7 @@ public class OrderRepository : Base.BaseRepository<OrderDbo, OrderModel> {
         if (entity.UserDbo != null) {
             var (isSuccessful, model) = _userRepository.ToModel(entity.UserDbo);
             if (isSuccessful)
-                orderModel.User = model;
+                orderModel.User = model!;
         }
 
         if (entity.Id != Guid.Empty) {
