@@ -86,7 +86,13 @@ public class OrderService {
                 return null;
 
             entityDbo!.OrderDboId = orderModel.Id;
-            var (_, model) = await _orderEntityRepository.InsertAsync(entityDbo);
+            (isSuccessful, var model) = await _orderEntityRepository.InsertAsync(entityDbo);
+            if (!isSuccessful)
+                return null;
+
+            orderModel.TotalPrice += entityDbo.Price;
+            await _orderRepository.UpdateAsync(orderModel);
+
             return model;
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
