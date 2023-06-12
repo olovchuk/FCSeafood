@@ -6,6 +6,7 @@ using FCSeafood.BLL.Services;
 using FCSeafood.BusinessObjects;
 using FCSeafood.DAL.Common.Repository;
 using FCSeafood.DAL.Context;
+using FCSeafood.DAL.Events.Models;
 using FCSeafood.DAL.Events.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +21,9 @@ public class Tests {
     private AddressRepository _addressRepository = null!;
     private ItemRepository _itemRepository = null!;
     private UserCredentialRepository _userCredentialRepository = null!;
-    private OrderEntityRepository _orderEntityRepository = null!;
     private OrderRepository _orderRepository = null!;
+    private RatingLRepository _ratingLRepository = null!;
+    private OrderEntityRepository _orderEntityRepository = null!;
     private UserRepository _userRepository = null!;
 
     // Common Repository
@@ -29,6 +31,7 @@ public class Tests {
     private CurrencyCodeTRepository _currencyCodeTRepository = null!;
     private GenderTRepository _genderTRepository = null!;
     private ItemStatusTRepository _itemStatusTRepository = null!;
+    private RatingTRepository _ratingTRepository = null!;
     private RoleTRepository _roleTRepository = null!;
     private SubcategoryTRepository _subcategoryTRepository = null!;
     private TemperatureUnitTRepository _temperatureUnitTRepository = null!;
@@ -65,6 +68,7 @@ public class Tests {
         serviceCollection.AddTransient<CurrencyCodeTRepository>();
         serviceCollection.AddTransient<GenderTRepository>();
         serviceCollection.AddTransient<ItemStatusTRepository>();
+        serviceCollection.AddTransient<RatingTRepository>();
         serviceCollection.AddTransient<RoleTRepository>();
         serviceCollection.AddTransient<SubcategoryTRepository>();
         serviceCollection.AddTransient<TemperatureUnitTRepository>();
@@ -72,24 +76,27 @@ public class Tests {
         // -- Event
         serviceCollection.AddTransient<AddressRepository>();
         serviceCollection.AddTransient<ItemRepository>();
-        serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<OrderEntityRepository>();
         serviceCollection.AddTransient<OrderRepository>();
+        serviceCollection.AddTransient<RatingLRepository>();
+        serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<UserRepository>();
         var serviceProvider = serviceCollection.BuildServiceProvider();
 
         // Event Repository
         _addressRepository = serviceProvider.GetService<AddressRepository>()!;
         _itemRepository = serviceProvider.GetService<ItemRepository>()!;
-        _userCredentialRepository = serviceProvider.GetService<UserCredentialRepository>()!;
         _orderEntityRepository = serviceProvider.GetService<OrderEntityRepository>()!;
         _orderRepository = serviceProvider.GetService<OrderRepository>()!;
+        _ratingLRepository = serviceProvider.GetService<RatingLRepository>()!;
+        _userCredentialRepository = serviceProvider.GetService<UserCredentialRepository>()!;
         _userRepository = serviceProvider.GetService<UserRepository>()!;
 
         // Common Repository
         _categoryTRepository = serviceProvider.GetService<CategoryTRepository>()!;
         _currencyCodeTRepository = serviceProvider.GetService<CurrencyCodeTRepository>()!;
         _itemStatusTRepository = serviceProvider.GetService<ItemStatusTRepository>()!;
+        _ratingTRepository = serviceProvider.GetService<RatingTRepository>()!;
         _genderTRepository = serviceProvider.GetService<GenderTRepository>()!;
         _roleTRepository = serviceProvider.GetService<RoleTRepository>()!;
         _subcategoryTRepository = serviceProvider.GetService<SubcategoryTRepository>()!;
@@ -132,7 +139,7 @@ public class Tests {
     public async Task GetItemModel() {
         Assert.Multiple(() => { Assert.That(_itemManager, Is.Not.Null); });
 
-        var (isSuccessful, model) = await _itemRepository.FindByConditionAsync(x => x.Name == "Bread");
+        var (isSuccessful, model) = await _itemRepository.FindByConditionAsync(x => x.Name.Contains("a"));
         Assert.That(model, Is.Not.Null);
 
         var options = new JsonSerializerOptions {
@@ -271,6 +278,18 @@ public class Tests {
         Assert.That(model7.success, Is.Not.False);
         json = JsonSerializer.Serialize(model7.model, options);
         Console.WriteLine(typeof(TemperatureUnitTRepository) + json + "\n");
+
+        var dbo8 = await _ratingTRepository.FindByConditionAsync(x => x.Id == 1);
+        if (dbo8 is null) {
+            Console.WriteLine(typeof(RatingTRepository) + " NULL");
+            Assert.That(dbo8, Is.Not.Null);
+            return;
+        }
+
+        var model8 = RatingTRepository.ToModel(dbo8);
+        Assert.That(model8.success, Is.Not.False);
+        json = JsonSerializer.Serialize(model8.model, options);
+        Console.WriteLine(typeof(RatingTRepository) + json + "\n");
     }
 
     [Test]
@@ -319,5 +338,31 @@ public class Tests {
 
         json = JsonSerializer.Serialize(model3, options);
         Console.WriteLine(typeof(UserRepository) + json + "\n");
+    }
+
+    [Test]
+    public async Task AddGetRating() {
+        var (_, itemModel) = await _itemRepository.FindByConditionAsync(x => x.Name.Contains("a"));
+        Assert.That(itemModel, Is.Not.Null);
+
+        var (_, userModel) = await _userRepository.FindByConditionAsync(x => x.FirstName.Contains("t"));
+        Assert.That(userModel, Is.Not.Null);
+
+        var itemId = itemModel!.Id;
+        var userId = userModel!.Id;
+
+        var rating = await _ratingLRepository.InsertAsync(
+            new RatingLDbo {
+                ItemDboId = itemId
+              , UserDboId = userId
+              , RatingTDboId = (int)RatingType.Like
+            }
+        );
+
+        var options = new JsonSerializerOptions {
+            WriteIndented = true
+        };
+        var json = JsonSerializer.Serialize(rating.model, options);
+        Console.WriteLine(json);
     }
 }

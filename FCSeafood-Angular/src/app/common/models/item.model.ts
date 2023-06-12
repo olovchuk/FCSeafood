@@ -13,6 +13,8 @@ export class ItemModel {
   subcategory: SubcategoryTModel = new SubcategoryTModel();
   itemStatus: ItemStatusTModel = new ItemStatusTModel();
   quantityPerKg: number = 0.0;
+  likeCount: number = 0.0;
+  dislikeCount: number = 0.0;
   brand: string = '';
   type: string = '';
   finishing: string = '';

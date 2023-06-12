@@ -24,6 +24,8 @@ export class ItemComponent implements OnInit, OnDestroy {
   itemDetails: { name: string, value: string }[] = [];
 
   isKgQuantity: boolean = true;
+  likeCount: number = 0.0;
+  dislikeCount: number = 0.0;
 
   constructor(private routeHelper: RouteHelper,
               private route: ActivatedRoute,
@@ -46,6 +48,8 @@ export class ItemComponent implements OnInit, OnDestroy {
         }
 
         this.item = item;
+        this.likeCount = this.item.likeCount;
+        this.dislikeCount = this.item.dislikeCount;
         this.itemDetails.push({name: 'Brand', value: this.item.brand});
         this.itemDetails.push({name: 'Type', value: this.item.type});
         this.itemDetails.push({name: 'Fats /100g', value: this.item.fatsPer100Gram.toString()});

@@ -9,6 +9,14 @@
   font-size: 28px;
 }
 
+.item-rating {
+  @extend %item-styles;
+  font-weight: 600;
+  font-size: 16px;
+
+  margin-left: 0.5rem;
+}
+
 .item-category {
   @extend %item-styles;
   font-weight: 700;

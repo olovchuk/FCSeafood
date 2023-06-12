@@ -23,7 +23,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             await this.Context.SaveChangesAsync();
             return ToModel(entity);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
             return (false, null);
         }
     }
@@ -38,7 +38,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             await this.Context.SaveChangesAsync();
             return ToModel(entity);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
             return (false, null);
         }
     }
@@ -47,7 +47,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
         try {
             return ToModel(await this.NoTracking().ToListAsync().ConfigureAwait(false));
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
             return (false, Array.Empty<TModel>());
         }
     }
@@ -56,7 +56,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
         try {
             return ToModel(await this.NoTracking().FirstOrDefaultAsync(predicate).ConfigureAwait(false));
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
             return (false, null);
         }
     }
@@ -67,7 +67,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
         try {
             return ToModel(await this.NoTracking().Where(predicate).ToListAsync().ConfigureAwait(false));
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
             return (false, Array.Empty<TModel>());
         }
     }
@@ -77,7 +77,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             this.Entities.Update(entity);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
         }
     }
 
@@ -90,7 +90,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             this.Entities.Update(entity!);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
         }
     }
 
@@ -99,7 +99,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             this.Entities.Remove(entity);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
         }
     }
 
@@ -112,7 +112,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             this.Entities.Remove(entity!);
             await this.Context.SaveChangesAsync();
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
         }
     }
 
@@ -124,7 +124,7 @@ public abstract class BaseRepository<TEntity, TModel> where TEntity : class, new
             return Activator.CreateInstance(typeof(TEntity), model) is not TEntity entity ?
                 (false, new TEntity()) : (true, entity);
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
             return (false, null);
         }
     }
