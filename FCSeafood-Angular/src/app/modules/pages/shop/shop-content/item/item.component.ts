@@ -1,10 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouteHelper } from "@common-helpers/route.helper";
 import { ActivatedRoute } from "@angular/router";
 import { ItemService } from "@common-services/item.service";
+import { OrderStateService } from "@common-services/order-state/order-state.service";
+import { OrderEntityModel } from "@common-models/order-entity.model";
 import { ItemModel } from "@common-models/item.model";
 import { UiHelper } from "@common-helpers/ui.helper";
 import { Subscription } from "rxjs";
+import { InputNumber } from "primeng/inputnumber";
 
 @Component({
   selector: 'shop-item',
@@ -12,6 +15,8 @@ import { Subscription } from "rxjs";
   styleUrls: ['./item.component.scss']
 })
 export class ItemComponent implements OnInit, OnDestroy {
+  @ViewChild("quantityValue") quantityValue!: InputNumber;
+
   protected readonly UiHelper = UiHelper;
   routeSubscription!: Subscription;
 
@@ -20,10 +25,10 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   isKgQuantity: boolean = true;
 
-
   constructor(private routeHelper: RouteHelper,
               private route: ActivatedRoute,
-              private itemService: ItemService) {
+              private itemService: ItemService,
+              private orderStateService: OrderStateService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -57,5 +62,28 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routeSubscription.unsubscribe();
+  }
+
+  async addToCart(): Promise<void> {
+    if (!this.item)
+      return;
+
+    let price = 0.0;
+    let quantityPerKg = 0.0;
+    if (this.quantityValue.value && this.quantityValue.value > 0) {
+      quantityPerKg = this.quantityValue.value;
+      if (!this.isKgQuantity)
+        quantityPerKg = (quantityPerKg / 1000);
+
+      price = this.item.price * quantityPerKg;
+    }
+
+    let orderEntity: OrderEntityModel = {
+      id: UiHelper.GUID_EMPTY,
+      item: this.item,
+      quantityPerKg: quantityPerKg,
+      price: price
+    };
+    await this.orderStateService.insertOrderEntity(orderEntity);
   }
 }
