@@ -8,6 +8,8 @@ import { ItemModel } from "@common-models/item.model";
 import { UiHelper } from "@common-helpers/ui.helper";
 import { Subscription } from "rxjs";
 import { InputNumber } from "primeng/inputnumber";
+import { RatingType } from "@common-enums/rating.type";
+import { AuthStateService } from "@common-services/auth-state/auth-sate.service";
 
 @Component({
   selector: 'shop-item',
@@ -18,11 +20,13 @@ export class ItemComponent implements OnInit, OnDestroy {
   @ViewChild("quantityValue") quantityValue!: InputNumber;
 
   protected readonly UiHelper = UiHelper;
+  protected readonly RatingType = RatingType;
   routeSubscription!: Subscription;
 
   item: ItemModel = new ItemModel();
   itemDetails: { name: string, value: string }[] = [];
 
+  userRating: RatingType | null = null;
   isKgQuantity: boolean = true;
   likeCount: number = 0.0;
   dislikeCount: number = 0.0;
@@ -30,7 +34,8 @@ export class ItemComponent implements OnInit, OnDestroy {
   constructor(private routeHelper: RouteHelper,
               private route: ActivatedRoute,
               private itemService: ItemService,
-              private orderStateService: OrderStateService) {
+              private orderStateService: OrderStateService,
+              private authStateService: AuthStateService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -59,6 +64,9 @@ export class ItemComponent implements OnInit, OnDestroy {
         this.itemDetails.push({name: 'Humidity /%', value: this.item.humidityPerPercent.toString()});
         this.itemDetails.push({name: 'Expiration date', value: this.item.expirationDate.toString()});
         this.itemDetails.push({name: 'Temperature storage', value: this.item.temperatureStorage.toString() + ' ' + this.item.temperatureUnit.sign});
+
+        if (this.authStateService.token.UserId)
+          this.userRating = await this.itemService.getRatingByUser({userId: this.authStateService.token.UserId});
         resolve(null);
       });
     });
@@ -89,5 +97,9 @@ export class ItemComponent implements OnInit, OnDestroy {
       price: price
     };
     await this.orderStateService.insertOrderEntity(orderEntity);
+  }
+
+  async setRating(ratingType: RatingType) {
+    this.userRating = ratingType;
   }
 }

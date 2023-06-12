@@ -8,10 +8,14 @@
     <div class="flex justify-content-between align-items-center mt-2">
       <span class="reviews-text">Reviews</span>
       <div class="flex align-items-center">
-        <i class="pi pi-thumbs-down"></i>
+        <i (click)="setRating(RatingType.Dislike)"
+           [class]="userRating && userRating == RatingType.Dislike ? 'pi-thumbs-down-fill' : 'pi-thumbs-down'"
+           class="pi cursor-pointer"></i>
         <span class="item-rating">{{dislikeCount}}</span>
 
-        <i class="pi pi-thumbs-up ml-2"></i>
+        <i (click)="setRating(RatingType.Like)"
+           [class]="userRating && userRating == RatingType.Like ? 'pi-thumbs-up-fill' : 'pi-thumbs-up'"
+           class="pi cursor-pointer ml-2"></i>
         <span class="item-rating">{{likeCount}}</span>
       </div>
     </div>
