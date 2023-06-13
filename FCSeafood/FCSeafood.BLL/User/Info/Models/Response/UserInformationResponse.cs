@@ -1,6 +1,6 @@
 namespace FCSeafood.BLL.User.Info.Models.Response;
 
-public record GetUserInformationResponse(
+public record UserInformationResponse(
     bool IsSuccessful
   , string Message
   , UserInformationModel? UserInformationModel

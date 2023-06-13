@@ -30,13 +30,13 @@ public class ItemManager {
         }
     }
 
-    public async Task<RatingResponse> GetRatingByUser(UserIdParams userIdParams) {
+    public async Task<RatingTResponse> GetRatingByUser(UserIdParams userIdParams) {
         try {
             var ratingType = await _itemService.GetItemRatingByUser(userIdParams.UserId);
-            return new RatingResponse(true, "", ratingType);
+            return new RatingTResponse(true, "", ratingType);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
-            return new RatingResponse(false, ErrorMessage.Order.FindRatingFailed, null);
+            return new RatingTResponse(false, ErrorMessage.Order.FindRatingFailed, null);
         }
     }
 }

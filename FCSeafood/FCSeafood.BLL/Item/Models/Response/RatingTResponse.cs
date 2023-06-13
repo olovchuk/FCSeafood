@@ -1,6 +1,6 @@
 namespace FCSeafood.BLL.Item.Models.Response;
 
-public record RatingResponse(
+public record RatingTResponse(
     bool IsSuccessful
   , string Message
   , RatingType? Type

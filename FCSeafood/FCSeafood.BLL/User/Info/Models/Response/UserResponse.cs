@@ -1,6 +1,6 @@
 namespace FCSeafood.BLL.User.Info.Models.Response;
 
-public record GetUserResponse(
+public record UserResponse(
     bool IsSuccessful
   , string Message
   , UserModel? UserModel

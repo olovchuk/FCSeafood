@@ -10,28 +10,26 @@ public class UserManager {
         _userService = userService;
     }
 
-    public async Task<GetUserResponse> GetUser(GetUserParams getUserParams) {
+    public async Task<UserResponse> GetUser(UserIdParams userIdParams) {
         try {
-            var user = await _userService.GetUserAsync(getUserParams.Id);
+            var user = await _userService.GetUserAsync(userIdParams.UserId);
             if (user is null)
-                return new GetUserResponse(false, ErrorMessage.User.IsNotDefined, null);
+                return new UserResponse(false, ErrorMessage.User.IsNotDefined, null);
 
-            return new GetUserResponse(true, "", user);
+            return new UserResponse(true, "", user);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
-            return new GetUserResponse(false, ErrorMessage.User.IsNotDefined, null);
+            return new UserResponse(false, ErrorMessage.User.IsNotDefined, null);
         }
     }
 
-    public async Task<GetUserInformationResponse> GetUserInformationAsync(
-        GetUserInformationParams getUserInformationParams
-    ) {
+    public async Task<UserInformationResponse> GetUserInformationAsync(UserIdParams userIdParams) {
         try {
-            var user = await _userService.GetUserAsync(getUserInformationParams.Id);
+            var user = await _userService.GetUserAsync(userIdParams.UserId);
             if (user is null)
-                return new GetUserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
+                return new UserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
 
-            return new GetUserInformationResponse(
+            return new UserInformationResponse(
                 true
               , ""
               , new UserInformationModel(
@@ -43,7 +41,7 @@ public class UserManager {
             );
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
-            return new GetUserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
+            return new UserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
         }
     }
 }
