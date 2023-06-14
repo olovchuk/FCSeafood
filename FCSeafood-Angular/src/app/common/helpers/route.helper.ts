@@ -22,7 +22,8 @@ export class RouteHelper {
         item: '/shop/item/',
         items: '/shop/items',
         category: '/shop/category'
-      }
+      },
+      payment: '/payment'
     };
   }
 
@@ -71,5 +72,9 @@ export class RouteHelper {
 
   async goToItem(code: string) {
     await this.redirect(this.paths.shop.item + code);
+  }
+
+  async goToPayment() {
+    await this.redirect(this.paths.payment);
   }
 }

@@ -1,0 +1,129 @@
+<div *ngIf="orderStateService.state.orderEntityCount === 0" class="order-entity-empty">
+  <h3 class="uppercase">No order</h3>
+  <img src="assets/icons/sad-bag.svg" alt="">
+  <p-button (click)="routeHelper.goToShop()" styleClass="mt-5">Go to shop</p-button>
+</div>
+
+<div *ngIf="orderStateService.state.orderEntityCount > 0" class="flex flex-wrap justify-content-center my-5">
+
+  <form [formGroup]="orderFormGroup" class="orderForm">
+    <span class="title">Making an order</span>
+
+    <span class="chapter">Personal data</span>
+    <div class="flex-wrapper">
+      <div>
+        <input pInputText formControlName="name" placeholder="Name *"/>
+        <small *ngIf="orderFormGroup.controls['name'].hasError('required') && isShowErrors" class="p-error">Name is <strong>required</strong></small>
+        <small *ngIf="orderFormGroup.controls['name'].hasError('minlength') && isShowErrors" class="p-error">Name should have at least 2 characters</small>
+      </div>
+
+      <div>
+        <input pInputText formControlName="surname" placeholder="Surname *"/>
+        <small *ngIf="orderFormGroup.controls['surname'].hasError('required') && isShowErrors" class="p-error">Surname is <strong>required</strong></small>
+        <small *ngIf="orderFormGroup.controls['surname'].hasError('minlength') && isShowErrors" class="p-error">Surname should have at least 2 characters</small>
+      </div>
+    </div>
+
+    <div class="p-fluid">
+      <input pInputText formControlName="phone" placeholder="Phone *"/>
+      <small *ngIf="orderFormGroup.controls['phone'].hasError('required') && isShowErrors" class="p-error">Phone is <strong>required</strong></small>
+    </div>
+
+    <div class="p-fluid">
+      <input pInputText formControlName="email" placeholder="E-mail *"/>
+      <small *ngIf="orderFormGroup.controls['email'].hasError('required') && isShowErrors" class="p-error">E-mail is <strong>required</strong></small>
+      <small *ngIf="orderFormGroup.controls['email'].hasError('email') && isShowErrors" class="p-error">Please enter a valid email address</small>
+    </div>
+
+    <span class="chapter">Delivery</span>
+    <div class="p-fluid">
+      <input pInputText formControlName="country" placeholder="Country *"/>
+      <small *ngIf="orderFormGroup.controls['country'].hasError('required') && isShowErrors" class="p-error">Country is <strong>required</strong></small>
+    </div>
+
+    <div class="p-fluid">
+      <input pInputText formControlName="city" placeholder="City *"/>
+      <small *ngIf="orderFormGroup.controls['city'].hasError('required') && isShowErrors" class="p-error">City is <strong>required</strong></small>
+    </div>
+
+    <div class="p-fluid">
+      <input pInputText formControlName="street" placeholder="Street *"/>
+      <small *ngIf="orderFormGroup.controls['street'].hasError('required') && isShowErrors" class="p-error">Street is <strong>required</strong></small>
+    </div>
+
+    <div class="flex-wrapper">
+      <div>
+        <input pInputText pKeyFilter="int" formControlName="apartmentNumber" placeholder="Apartment number *"/>
+        <small *ngIf="orderFormGroup.controls['apartmentNumber'].hasError('required') && isShowErrors" class="p-error">Number is <strong>required</strong></small>
+      </div>
+
+      <div>
+        <input pInputText pKeyFilter="int" formControlName="floor" placeholder="Floor"/>
+      </div>
+    </div>
+
+    <div class="flex-wrapper">
+      <input pInputText pKeyFilter="int" formControlName="entrance" placeholder="Entrance"/>
+      <input pInputText pKeyFilter="int" formControlName="intercom" placeholder="Intercom" class="ml-3"/>
+    </div>
+
+    <div class="p-fluid">
+      <input pInputText formControlName="zipCode" placeholder="Zip code *"/>
+      <small *ngIf="orderFormGroup.controls['zipCode'].hasError('required') && isShowErrors" class="p-error">Zip code is <strong>required</strong></small>
+    </div>
+
+    <span class="chapter">Payment method</span>
+    <p-dropdown [options]="paymentSystem"
+                (onChange)="orderFormGroup.controls['selectedPaymentType'].setValue($event?.value)"
+                optionLabel="value"
+                optionValue="id"
+                styleClass="w-full text-left">
+    </p-dropdown>
+
+    <div class="payment-system-block" *ngIf="orderFormGroup.controls['selectedPaymentType'].value === PaymentType.Card">
+      <div class="p-fluid">
+        <p-inputMask [required]="orderFormGroup.controls['selectedPaymentType'].value === PaymentType.Card"
+                     formControlName="numberCard" placeholder="Number of card" mask="9999-9999-9999-9999" styleClass="w-full mt-3"></p-inputMask>
+        <small *ngIf="orderFormGroup.controls['numberCard'].hasError('invalid') && isShowErrors" class="p-error">The card in not valid</small>
+      </div>
+      <div class="flex-wrapper">
+        <div>
+          <p-inputMask [required]="orderFormGroup.controls['selectedPaymentType'].value === PaymentType.Card"
+                       formControlName="monthYear" placeholder="mm/yy" mask="99/99" styleClass="text-center"></p-inputMask>
+          <small *ngIf="orderFormGroup.controls['monthYear'].hasError('invalid') && isShowErrors" class="p-error">The month or year in not valid</small>
+        </div>
+        <div>
+          <p-inputMask [required]="orderFormGroup.controls['selectedPaymentType'].value === PaymentType.Card"
+                       formControlName="cvv" placeholder="CVV" mask="999" styleClass="text-center"></p-inputMask>
+          <small *ngIf="orderFormGroup.controls['cvv'].hasError('invalid') && isShowErrors" class="p-error">The cvv in not valid</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-system-block" *ngIf="orderFormGroup.controls['selectedPaymentType'].value === PaymentType.PayPal">
+
+    </div>
+
+    <p-button (click)="confirm()" type="submit" label="Confirm" styleClass="w-full mt-3"></p-button>
+  </form>
+
+  <p-divider layout="vertical" class="divider-vertical-flex"></p-divider>
+
+  <div class="m-3" style="width: 730px">
+    <p-divider class="divider-horizontal-flex"></p-divider>
+
+    <div class="flex flex-column overflow-auto" style="max-height: 95vh">
+      <payment-order-item-card *ngFor="let cartInformation of orderStateService.state.orderEntityInformation"
+                               [cardInformation]="cartInformation"
+                               (removeEntityEvent)="orderStateService.removeOrderEntity(cartInformation.orderEntityId)">
+      </payment-order-item-card>
+    </div>
+
+    <p-divider></p-divider>
+    <div class="flex justify-content-between total-price-text">
+      <span>Total</span>
+      <span>{{UiHelper.FormatCurrency(orderStateService.state.order.totalPrice)}}</span>
+    </div>
+  </div>
+
+</div>

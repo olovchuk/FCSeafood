@@ -30,8 +30,8 @@
         <span class="">Total</span>
         <span>{{UiHelper.FormatCurrency(orderStateService.state.order.totalPrice)}}</span>
       </div>
-      <p-button (click)="continueShopping()" label="Continue shopping" styleClass="bg-primary-800 w-full uppercase mt-2"></p-button>
-      <p-button label="Buy" styleClass="p-button-outlined p-button-secondary w-full uppercase mt-2"></p-button>
+      <p-button (click)="continueShopping()" [mat-dialog-close]="true" label="Continue shopping" styleClass="bg-primary-800 w-full uppercase mt-2"></p-button>
+      <p-button (click)="routeHelper.goToPayment()" [mat-dialog-close]="true" label="Buy" styleClass="p-button-outlined p-button-secondary w-full uppercase mt-2"></p-button>
     </div>
   </div>
 </div>

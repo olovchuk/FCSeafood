@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogRef } from "@angular/cdk/dialog";
 import { RouteHelper } from "@common-helpers/route.helper";
 import { AuthStateService } from "@common-services/auth-state/auth-sate.service";
 import { UserInformationStateService } from "@common-services/user-information-state/user-information-state";
@@ -15,8 +14,7 @@ import { OrderStateService } from "@common-services/order-state/order-state.serv
 export class CartPopup implements OnInit {
   protected readonly UiHelper = UiHelper;
 
-  constructor(private dialogRef: DialogRef<CartPopup>,
-              public routeHelper: RouteHelper,
+  constructor(public routeHelper: RouteHelper,
               private authStateService: AuthStateService,
               private userInformationStateService: UserInformationStateService,
               private shopFiltersStateService: ShopFiltersStateService,
@@ -31,6 +29,5 @@ export class CartPopup implements OnInit {
   async continueShopping(): Promise<void> {
     await this.shopFiltersStateService.refresh();
     await this.routeHelper.goToShop();
-    this.dialogRef.close();
   }
 }

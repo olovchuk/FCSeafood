@@ -57,6 +57,11 @@ img, svg, video {
   }
 }
 
+.text-great-wrap {
+  word-break: break-all;
+  white-space: pre-line;
+}
+
 :root {
   --blue-50: #f6fbfe;
   --blue-100: #d6ecfc;
@@ -5044,7 +5049,7 @@ p-treeselect.p-treeselect-clearable {
     padding: 1.25rem 0;
 
     &:before {
-      border-left: 1px #dfe7ef;
+      border-left: 3px #538487;
     }
 
     .p-divider-content {

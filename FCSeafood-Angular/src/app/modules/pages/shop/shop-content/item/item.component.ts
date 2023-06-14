@@ -99,7 +99,12 @@ export class ItemComponent implements OnInit, OnDestroy {
     await this.orderStateService.insertOrderEntity(orderEntity);
   }
 
-  async setRating(ratingType: RatingType) {
+  async setRating(ratingType: RatingType): Promise<void> {
     this.userRating = ratingType;
+  }
+
+  async shopNow(): Promise<void> {
+    await this.addToCart();
+    await this.routeHelper.goToPayment();
   }
 }
