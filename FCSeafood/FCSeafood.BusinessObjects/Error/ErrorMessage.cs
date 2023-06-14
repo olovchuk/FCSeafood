@@ -31,6 +31,10 @@ public static class ErrorMessage {
         public static string ErrorRetrievingData => "Something went wrong while retrieving data";
     }
 
+    public static class Delivery {
+        public static string EntityInsertError => "Something went wrong while insert data.";
+    }
+
     public static class Authentication {
         public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
         public static string AuthenticationGuestFailed => "Something went wrong with initialization Guest. Please please contact us via freshcatch@gmail.com.";
