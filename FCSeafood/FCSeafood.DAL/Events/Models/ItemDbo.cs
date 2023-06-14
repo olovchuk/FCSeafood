@@ -34,10 +34,10 @@ public class ItemDbo {
     [Column("Quantity_Per_Kg")]
     public double QuantityPerKg { get; set; }
 
-    [Column("LikeCount")]
+    [Column("Like_Count")]
     public int LikeCount { get; set; }
 
-    [Column("DislikeCount")]
+    [Column("Dislike_Count")]
     public int DislikeCount { get; set; }
 
     [Column("Brand")]
