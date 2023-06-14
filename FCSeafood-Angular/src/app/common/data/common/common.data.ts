@@ -7,6 +7,7 @@ import { CategoryTListResponse } from "@common-data/common/http/response/categor
 import { SubcategoryTRequest } from "@common-data/common/http/request/subcategory-type.request";
 import { SubcategoryTListResponse } from "@common-data/common/http/response/subcategory-type-list.response";
 import { CategoryTypeRequest } from "@common-data/common/http/request/category-type.request";
+import { PaymentMethodTListResponse } from "@common-data/common/http/response/payment-method-type-list.response";
 
 @Injectable({providedIn: 'root'})
 export class CommonData {
@@ -58,6 +59,14 @@ export class CommonData {
     params = params.append('CategoryType', categoryTypeRequest.categoryType);
 
     const response = await firstValueFrom(this.http.get<SubcategoryTListResponse>(this.settings.getSubcategoryByCategoryTListEndpoint, {params: params}));
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
+
+    return response;
+  }
+
+  async getPaymentMethodTList(): Promise<PaymentMethodTListResponse> {
+    const response = await firstValueFrom(this.http.get<PaymentMethodTListResponse>(this.settings.getPaymentMethodTListEndpoint));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 

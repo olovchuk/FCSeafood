@@ -77,4 +77,18 @@ public class CommonManager {
             );
         }
     }
+
+    public async Task<PaymentMethodTListResponse> GetPaymentMethodTListAsync() {
+        try {
+            var paymentMethodTListModel = await _commonService.GetPaymentMethodTListAsync();
+            return new PaymentMethodTListResponse(true, "", paymentMethodTListModel);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new PaymentMethodTListResponse(
+                false
+              , ErrorMessage.Common.ErrorRetrievingData
+              , Enumerable.Empty<PaymentMethodTModel>()
+            );
+        }
+    }
 }

@@ -36,4 +36,9 @@ public class CommonController : ControllerBase {
     public async Task<IActionResult> GetSubcategoryTListAsync([FromQuery] CategoryTParams subcategoryTParams) {
         return Ok(await _commonManager.GetSubcategoryTListAsync(subcategoryTParams));
     }
+
+    [HttpGet("GetPaymentMethodTList")]
+    public async Task<IActionResult> GetPaymentMethodTListAsync() {
+        return Ok(await _commonManager.GetPaymentMethodTListAsync());
+    }
 }

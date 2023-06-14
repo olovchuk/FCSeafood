@@ -17,4 +17,7 @@ export class CommonDataSettings {
 
   private _getSubcategoryByCategoryTListEndpoint: string = '/api/Common/GetSubcategoryByCategoryTList';
   getSubcategoryByCategoryTListEndpoint: string = AppSettings.webApiHostUrl + this._getSubcategoryByCategoryTListEndpoint;
+
+  private _getPaymentMethodTListEndpoint: string = '/api/Common/GetPaymentMethodTList';
+  getPaymentMethodTListEndpoint: string = AppSettings.webApiHostUrl + this._getPaymentMethodTListEndpoint;
 }

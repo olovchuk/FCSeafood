@@ -8,10 +8,16 @@ public class CommonService {
 
     private readonly CategoryTRepository _categoryTRepository;
     private readonly SubcategoryTRepository _subcategoryTRepository;
+    private readonly PaymentMethodTRepository _paymentMethodTRepository;
 
-    public CommonService(CategoryTRepository categoryTRepository, SubcategoryTRepository subcategoryTRepository) {
+    public CommonService(
+        CategoryTRepository categoryTRepository
+      , SubcategoryTRepository subcategoryTRepository
+      , PaymentMethodTRepository paymentMethodTRepository
+    ) {
         _categoryTRepository = categoryTRepository;
         _subcategoryTRepository = subcategoryTRepository;
+        _paymentMethodTRepository = paymentMethodTRepository;
     }
 
     #region CategoryType
@@ -84,6 +90,22 @@ public class CommonService {
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return Array.Empty<SubcategoryTModel>();
+        }
+    }
+
+    #endregion
+
+    #region PaymentType
+
+    public async Task<IReadOnlyCollection<PaymentMethodTModel>> GetPaymentMethodTListAsync() {
+        try {
+            var paymentMethodTListDbo = await _paymentMethodTRepository.GetAllAsync();
+
+            var (_, model) = PaymentMethodTRepository.ToModel(paymentMethodTListDbo);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return Array.Empty<PaymentMethodTModel>();
         }
     }
 

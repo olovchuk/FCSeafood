@@ -24,7 +24,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   routeSubscription!: Subscription;
 
   item: ItemModel = new ItemModel();
-  itemDetails: { name: string, value: string }[] = [];
+  itemDetails: { name: string, value: string | null | undefined }[] = [];
 
   userRating: RatingType | null = null;
   isKgQuantity: boolean = true;
@@ -57,11 +57,11 @@ export class ItemComponent implements OnInit, OnDestroy {
         this.dislikeCount = this.item.dislikeCount;
         this.itemDetails.push({name: 'Brand', value: this.item.brand});
         this.itemDetails.push({name: 'Type', value: this.item.type});
-        this.itemDetails.push({name: 'Fats /100g', value: this.item.fatsPer100Gram.toString()});
-        this.itemDetails.push({name: 'Carbohydrates /100g', value: this.item.carbohydratesPer100Gram.toString()});
-        this.itemDetails.push({name: 'Proteins /100g', value: this.item.proteinsPer100Gram.toString()});
-        this.itemDetails.push({name: 'Kcal /100g', value: this.item.kcalPer100Gram.toString()});
-        this.itemDetails.push({name: 'Humidity /%', value: this.item.humidityPerPercent.toString()});
+        this.itemDetails.push({name: 'Fats /100g', value: this.item.fatsPer100Gram?.toString()});
+        this.itemDetails.push({name: 'Carbohydrates /100g', value: this.item.carbohydratesPer100Gram?.toString()});
+        this.itemDetails.push({name: 'Proteins /100g', value: this.item.proteinsPer100Gram?.toString()});
+        this.itemDetails.push({name: 'Kcal /100g', value: this.item.kcalPer100Gram?.toString()});
+        this.itemDetails.push({name: 'Humidity /%', value: this.item.humidityPerPercent?.toString()});
         this.itemDetails.push({name: 'Expiration date', value: this.item.expirationDate.toString()});
         this.itemDetails.push({name: 'Temperature storage', value: this.item.temperatureStorage.toString() + ' ' + this.item.temperatureUnit.sign});
 

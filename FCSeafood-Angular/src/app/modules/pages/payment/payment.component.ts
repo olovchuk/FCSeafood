@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { OrderStateService } from "@common-services/order-state/order-state.service";
 import { UiHelper } from "@common-helpers/ui.helper";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from "@angular/forms";
-import { PaymentType, PaymentTypeValues } from "@common-enums/payment-type";
 import { RouteHelper } from "@common-helpers/route.helper";
+import { CommonService } from "@common-services/common.service";
+import { PaymentMethodType } from "@common-enums/payment-method.type";
+import { PaymentMethodTModel } from "@common-models/payment-method-type.model";
 
 @Component({
   selector: 'app-payment',
@@ -12,9 +14,9 @@ import { RouteHelper } from "@common-helpers/route.helper";
 })
 export class PaymentComponent implements OnInit {
   protected readonly UiHelper = UiHelper;
-  protected readonly PaymentType = PaymentType;
+  protected readonly PaymentMethodType = PaymentMethodType;
 
-  paymentSystem: { id: PaymentType, value: string }[] = PaymentTypeValues;
+  paymentMethodTList: PaymentMethodTModel[] = [];
   isShowErrors: boolean = false;
 
   orderFormGroup: FormGroup = new FormGroup({
@@ -30,18 +32,19 @@ export class PaymentComponent implements OnInit {
     entrance: new FormControl(''),
     intercom: new FormControl(''),
     zipCode: new FormControl('', [Validators.required]),
-    selectedPaymentType: new FormControl(this.paymentSystem[0].id),
+    paymentMethodType: new FormControl(''),
     numberCard: new FormControl(''),
     monthYear: new FormControl(''),
     cvv: new FormControl('')
   }, {validators: this.cardInformationValidator});
 
   constructor(public routeHelper: RouteHelper,
-              public orderStateService: OrderStateService) {
+              public orderStateService: OrderStateService,
+              private commonService: CommonService) {
   }
 
-  ngOnInit(): void {
-
+  async ngOnInit(): Promise<void> {
+    this.paymentMethodTList = await this.commonService.getPaymentMethodTList();
   }
 
   confirm() {
@@ -52,12 +55,12 @@ export class PaymentComponent implements OnInit {
   }
 
   cardInformationValidator(control: AbstractControl): ValidationErrors | null {
-    const selectedPaymentType = control.get('selectedPaymentType')?.value;
+    const paymentMethodType = control.get('paymentMethodType')?.value;
     const numberCard = control.get('numberCard')?.value;
     const monthYear = control.get('monthYear')?.value;
     const cvv = control.get('cvv')?.value;
 
-    if (selectedPaymentType === PaymentType.Card) {
+    if (paymentMethodType === PaymentMethodType.Card) {
       let cardPattern = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
       let monthYearPattern = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
       let cvvPattern = /^\d{3}$/; // Припустимий формат: 999

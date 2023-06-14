@@ -63,9 +63,11 @@
       <p-divider></p-divider>
 
       <table class="border-0">
-        <tr *ngFor="let detail of itemDetails let i = index" [class]="i % 2 === 1 ? 'surface-hover': ''">
-          <td class="details-left-text">{{detail.name}}</td>
-          <td class="details-right-text">{{detail.value}}</td>
+        <tr *ngFor="let detail of itemDetails let i = index">
+          <ng-container *ngIf="detail" [class]="i % 2 === 1 ? 'surface-hover': ''">
+            <td class="details-left-text">{{detail.name}}</td>
+            <td class="details-right-text">{{detail.value}}</td>
+          </ng-container>
         </tr>
       </table>
     </div>
