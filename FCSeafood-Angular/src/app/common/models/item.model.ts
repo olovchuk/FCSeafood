@@ -15,17 +15,17 @@ export class ItemModel {
   quantityPerKg: number = 0.0;
   likeCount: number = 0.0;
   dislikeCount: number = 0.0;
-  brand: string = '';
-  type: string = '';
-  finishing: string = '';
+  brand: string | null = null;
+  type: string | null = null;
+  finishing: string | null = null;
   isPackaging: boolean = true;
-  fatsPer100Gram: number = 0.0;
-  carbohydratesPer100Gram: number = 0.0;
-  proteinsPer100Gram: number = 0.0;
-  kcalPer100Gram: number = 0.0;
-  humidityPerPercent: number = 0.0;
+  fatsPer100Gram: number | null = null;
+  carbohydratesPer100Gram: number | null = null;
+  proteinsPer100Gram: number | null = null;
+  kcalPer100Gram: number | null = null;
+  humidityPerPercent: number | null = null;
   expirationDate: Date = new Date();
   temperatureStorage: number = 0.0;
   temperatureUnit: TemperatureUnitTModel = new TemperatureUnitTModel();
-  description: string = '';
+  description: string | null = null;
 }
