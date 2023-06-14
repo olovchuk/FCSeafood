@@ -29,8 +29,10 @@ public class Tests {
     // Common Repository
     private CategoryTRepository _categoryTRepository = null!;
     private CurrencyCodeTRepository _currencyCodeTRepository = null!;
+    private DeliveryStatusTRepository _deliveryStatusTRepository = null!;
     private GenderTRepository _genderTRepository = null!;
     private ItemStatusTRepository _itemStatusTRepository = null!;
+    private PaymentMethodTRepository _paymentMethodTRepository = null!;
     private RatingTRepository _ratingTRepository = null!;
     private RoleTRepository _roleTRepository = null!;
     private SubcategoryTRepository _subcategoryTRepository = null!;
@@ -66,8 +68,10 @@ public class Tests {
         // -- Common
         serviceCollection.AddTransient<CategoryTRepository>();
         serviceCollection.AddTransient<CurrencyCodeTRepository>();
+        serviceCollection.AddTransient<DeliveryStatusTRepository>();
         serviceCollection.AddTransient<GenderTRepository>();
         serviceCollection.AddTransient<ItemStatusTRepository>();
+        serviceCollection.AddTransient<PaymentMethodTRepository>();
         serviceCollection.AddTransient<RatingTRepository>();
         serviceCollection.AddTransient<RoleTRepository>();
         serviceCollection.AddTransient<SubcategoryTRepository>();
@@ -95,7 +99,9 @@ public class Tests {
         // Common Repository
         _categoryTRepository = serviceProvider.GetService<CategoryTRepository>()!;
         _currencyCodeTRepository = serviceProvider.GetService<CurrencyCodeTRepository>()!;
+        _deliveryStatusTRepository = serviceProvider.GetService<DeliveryStatusTRepository>()!;
         _itemStatusTRepository = serviceProvider.GetService<ItemStatusTRepository>()!;
+        _paymentMethodTRepository = serviceProvider.GetService<PaymentMethodTRepository>()!;
         _ratingTRepository = serviceProvider.GetService<RatingTRepository>()!;
         _genderTRepository = serviceProvider.GetService<GenderTRepository>()!;
         _roleTRepository = serviceProvider.GetService<RoleTRepository>()!;
@@ -290,6 +296,30 @@ public class Tests {
         Assert.That(model8.success, Is.Not.False);
         json = JsonSerializer.Serialize(model8.model, options);
         Console.WriteLine(typeof(RatingTRepository) + json + "\n");
+
+        var dbo9 = await _deliveryStatusTRepository.FindByConditionAsync(x => x.Id == 1);
+        if (dbo9 is null) {
+            Console.WriteLine(typeof(DeliveryStatusTRepository) + " NULL");
+            Assert.That(dbo9, Is.Not.Null);
+            return;
+        }
+
+        var model9 = DeliveryStatusTRepository.ToModel(dbo9);
+        Assert.That(model9.success, Is.Not.False);
+        json = JsonSerializer.Serialize(model9.model, options);
+        Console.WriteLine(typeof(DeliveryStatusTRepository) + json + "\n");
+
+        var dbo10 = await _paymentMethodTRepository.FindByConditionAsync(x => x.Id == 1);
+        if (dbo10 is null) {
+            Console.WriteLine(typeof(PaymentMethodTRepository) + " NULL");
+            Assert.That(dbo10, Is.Not.Null);
+            return;
+        }
+
+        var model10 = PaymentMethodTRepository.ToModel(dbo10);
+        Assert.That(model10.success, Is.Not.False);
+        json = JsonSerializer.Serialize(model10.model, options);
+        Console.WriteLine(typeof(PaymentMethodTRepository) + json + "\n");
     }
 
     [Test]

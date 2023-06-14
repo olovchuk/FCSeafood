@@ -44,8 +44,10 @@ public static class Configuration {
         // -- Common
         serviceCollection.AddTransient<CategoryTRepository>();
         serviceCollection.AddTransient<CurrencyCodeTRepository>();
+        serviceCollection.AddTransient<DeliveryStatusTRepository>();
         serviceCollection.AddTransient<GenderTRepository>();
         serviceCollection.AddTransient<ItemStatusTRepository>();
+        serviceCollection.AddTransient<PaymentMethodTRepository>();
         serviceCollection.AddTransient<RatingTRepository>();
         serviceCollection.AddTransient<RoleTRepository>();
         serviceCollection.AddTransient<SubcategoryTRepository>();

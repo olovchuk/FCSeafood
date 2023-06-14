@@ -64,7 +64,7 @@ public class ItemRepository : Base.BaseRepository<ItemDbo, ItemModel> {
                      .ConfigureAwait(false)
             );
         } catch (Exception ex) {
-            _logger.LogError($"{ErrorMessage.Repository.Global}\r\nError: [{ex.Message}]");
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Repository.Global, ex.Message);
             return (false, Array.Empty<ItemModel>());
         }
     }

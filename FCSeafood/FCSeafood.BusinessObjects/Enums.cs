@@ -11,8 +11,9 @@ public enum RoleType {
     Unknown = 0
   , Guest = 1
   , User = 2
-  , Moderator = 3
-  , Administrator = 4
+  , Courier = 3
+  , Moderator = 4
+  , Administrator = 5
 }
 
 // E_Temperature_Unit
@@ -99,12 +100,25 @@ public enum RatingType {
   , Dislike = 2
 }
 
-#endregion
-
-public enum DeliveryStatus {
-    Error = 0
-  , Pending
-  , InProcess
-  , OnRoad
-  , Delivered
+// E_Delivery_Status_Type
+public enum DeliveryStatusType {
+    Unknown = 0
+  , Pending = 1
+  , InProcess = 2
+  , Delivered = 3
+  , Undelivered = 4
+  , Rejected = 5
+  , Return = 6
+  , Delayed = 7
+  , Cancelled = 8
 }
+
+// E_Payment_Method_Type
+public enum PaymentMethodType {
+    Unknown = 0
+  , Cash = 1
+  , Card = 2
+  , PayPal = 3
+}
+
+#endregion

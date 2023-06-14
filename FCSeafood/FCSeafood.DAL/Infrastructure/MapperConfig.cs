@@ -14,6 +14,11 @@ public static class MapperConfig {
                         memberOptions => memberOptions.Type
                       , options => options.MapFrom(source => Enum.GetName(typeof(CurrencyCodeType), source.Id))
                     );
+                cfg.CreateMap<DeliveryStatusTDbo, DeliveryStatusTModel>()
+                   .ForMember(
+                        memberOptions => memberOptions.Type
+                      , options => options.MapFrom(source => Enum.GetName(typeof(DeliveryStatusType), source.Id))
+                    );
                 cfg.CreateMap<GenderTDbo, GenderTModel>()
                    .ForMember(
                         memberOptions => memberOptions.Type
@@ -23,6 +28,11 @@ public static class MapperConfig {
                    .ForMember(
                         memberOptions => memberOptions.Type
                       , options => options.MapFrom(source => Enum.GetName(typeof(ItemStatusType), source.Id))
+                    );
+                cfg.CreateMap<PaymentMethodTDbo, PaymentMethodTModel>()
+                   .ForMember(
+                        memberOptions => memberOptions.Type
+                      , options => options.MapFrom(source => Enum.GetName(typeof(PaymentMethodType), source.Id))
                     );
                 cfg.CreateMap<RatingTDbo, RatingTModel>()
                    .ForMember(
