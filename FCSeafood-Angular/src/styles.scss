@@ -23,6 +23,10 @@ img, svg, video {
   border-left: 3px solid var(--primary-color);
 }
 
+.border-primary {
+  border: 3px solid var(--primary-color);
+}
+
 .mat-mdc-dialog-container .mdc-dialog__surface {
   border-radius: 0 !important;
 }
@@ -46,6 +50,7 @@ img, svg, video {
       font-style: normal;
       font-weight: 700;
       font-size: 36px;
+      line-height: 150%;
       text-transform: uppercase;
     }
 

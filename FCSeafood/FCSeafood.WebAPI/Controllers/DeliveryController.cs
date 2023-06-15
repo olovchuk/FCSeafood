@@ -13,7 +13,7 @@ public class DeliveryController : ControllerBase {
     }
 
     [HttpPost("InsertDelivery")]
-    public async Task<IActionResult> InsertDeliveryAsync(DeliveryParams deliveryParams) {
-        return Ok(await _deliveryManager.InsertDeliveryAsync(deliveryParams));
+    public async Task<IActionResult> InsertDeliveryAsync(InsertDeliveryParams insertDeliveryParams) {
+        return Ok(await _deliveryManager.InsertDeliveryAsync(insertDeliveryParams));
     }
 }

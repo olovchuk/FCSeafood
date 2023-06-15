@@ -24,4 +24,10 @@ public class UserController : ControllerBase {
         var claimsValues = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
         return Ok(await _userManager.GetUserInformationAsync(new UserIdParams(claimsValues.UserId)));
     }
+
+    [HttpPost("UpdateUserAddress")]
+    public async Task<IActionResult> UpdateUserAddressAsync(UpdateUserAddressParams updateUserAddressParams) {
+        await _userManager.UpdateUserAddressAsync(updateUserAddressParams);
+        return Ok();
+    }
 }

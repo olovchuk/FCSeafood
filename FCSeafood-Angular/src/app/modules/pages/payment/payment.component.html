@@ -12,63 +12,79 @@
     <span class="chapter">Personal data</span>
     <div class="flex-wrapper">
       <div>
-        <input pInputText formControlName="name" placeholder="Name *"/>
+        <label>Name <span class="text-red-600">*</span></label>
+        <input pInputText formControlName="name"/>
         <small *ngIf="orderFormGroup.controls['name'].hasError('required') && isShowErrors" class="p-error">Name is <strong>required</strong></small>
         <small *ngIf="orderFormGroup.controls['name'].hasError('minlength') && isShowErrors" class="p-error">Name should have at least 2 characters</small>
       </div>
 
       <div>
-        <input pInputText formControlName="surname" placeholder="Surname *"/>
+        <label>Surname <span class="text-red-600">*</span></label>
+        <input pInputText formControlName="surname"/>
         <small *ngIf="orderFormGroup.controls['surname'].hasError('required') && isShowErrors" class="p-error">Surname is <strong>required</strong></small>
         <small *ngIf="orderFormGroup.controls['surname'].hasError('minlength') && isShowErrors" class="p-error">Surname should have at least 2 characters</small>
       </div>
     </div>
 
     <div class="p-fluid">
-      <input pInputText formControlName="phone" placeholder="Phone *"/>
+      <label>Phone <span class="text-red-600">*</span></label>
+      <input pInputText formControlName="phone"/>
       <small *ngIf="orderFormGroup.controls['phone'].hasError('required') && isShowErrors" class="p-error">Phone is <strong>required</strong></small>
     </div>
 
     <div class="p-fluid">
-      <input pInputText formControlName="email" placeholder="E-mail *"/>
+      <label>E-mail <span class="text-red-600">*</span></label>
+      <input pInputText formControlName="email"/>
       <small *ngIf="orderFormGroup.controls['email'].hasError('required') && isShowErrors" class="p-error">E-mail is <strong>required</strong></small>
       <small *ngIf="orderFormGroup.controls['email'].hasError('email') && isShowErrors" class="p-error">Please enter a valid email address</small>
     </div>
 
     <span class="chapter">Delivery</span>
     <div class="p-fluid">
-      <input pInputText formControlName="country" placeholder="Country *"/>
+      <label>Country <span class="text-red-600">*</span></label>
+      <input pInputText formControlName="country"/>
       <small *ngIf="orderFormGroup.controls['country'].hasError('required') && isShowErrors" class="p-error">Country is <strong>required</strong></small>
     </div>
 
     <div class="p-fluid">
-      <input pInputText formControlName="city" placeholder="City *"/>
+      <label>City <span class="text-red-600">*</span></label>
+      <input pInputText formControlName="city"/>
       <small *ngIf="orderFormGroup.controls['city'].hasError('required') && isShowErrors" class="p-error">City is <strong>required</strong></small>
     </div>
 
     <div class="p-fluid">
-      <input pInputText formControlName="street" placeholder="Street *"/>
+      <label>Street <span class="text-red-600">*</span></label>
+      <input pInputText formControlName="street"/>
       <small *ngIf="orderFormGroup.controls['street'].hasError('required') && isShowErrors" class="p-error">Street is <strong>required</strong></small>
     </div>
 
     <div class="flex-wrapper">
       <div>
-        <input pInputText pKeyFilter="int" formControlName="apartmentNumber" placeholder="Apartment number *"/>
+        <label>Apartment number <span class="text-red-600">*</span></label>
+        <input pInputText pKeyFilter="int" formControlName="apartmentNumber"/>
         <small *ngIf="orderFormGroup.controls['apartmentNumber'].hasError('required') && isShowErrors" class="p-error">Number is <strong>required</strong></small>
       </div>
 
       <div>
-        <input pInputText pKeyFilter="int" formControlName="floor" placeholder="Floor"/>
+        <label>Floor</label>
+        <input pInputText pKeyFilter="int" formControlName="floor"/>
       </div>
     </div>
 
     <div class="flex-wrapper">
-      <input pInputText pKeyFilter="int" formControlName="entrance" placeholder="Entrance"/>
-      <input pInputText pKeyFilter="int" formControlName="intercom" placeholder="Intercom" class="ml-3"/>
+      <div>
+        <label>Entrance</label>
+        <input pInputText pKeyFilter="int" formControlName="entrance"/>
+      </div>
+      <div>
+        <label>Intercom</label>
+        <input pInputText pKeyFilter="int" formControlName="intercom"/>
+      </div>
     </div>
 
     <div class="p-fluid">
-      <input pInputText formControlName="zipCode" placeholder="Zip code *"/>
+      <label>Zip code <span class="text-red-600">*</span></label>
+      <input pInputText formControlName="zipCode"/>
       <small *ngIf="orderFormGroup.controls['zipCode'].hasError('required') && isShowErrors" class="p-error">Zip code is <strong>required</strong></small>
     </div>
 
@@ -82,8 +98,9 @@
 
     <div class="payment-system-block" *ngIf="orderFormGroup.controls['paymentMethodType'].value === PaymentMethodType.Card">
       <div class="p-fluid">
+        <label>Number of card <span class="text-red-600">*</span></label>
         <p-inputMask [required]="orderFormGroup.controls['paymentMethodType'].value === PaymentMethodType.Card"
-                     formControlName="numberCard" placeholder="Number of card" mask="9999-9999-9999-9999" styleClass="w-full mt-3"></p-inputMask>
+                     formControlName="numberCard" placeholder="____-____-____-____" mask="9999-9999-9999-9999" styleClass="w-full"></p-inputMask>
         <small *ngIf="orderFormGroup.controls['numberCard'].hasError('invalid') && isShowErrors" class="p-error">The card in not valid</small>
       </div>
       <div class="flex-wrapper">
@@ -104,7 +121,8 @@
 
     </div>
 
-    <p-button (click)="confirm()" type="submit" label="Confirm" styleClass="w-full mt-3"></p-button>
+    <p-button (click)="addNote()" label="Add Note" styleClass="p-button-outlined w-full mt-3"></p-button>
+    <p-button (click)="confirm()" type="submit" label="Confirm" styleClass="w-full mt-2"></p-button>
   </form>
 
   <p-divider layout="vertical" class="divider-vertical-flex"></p-divider>

@@ -45,7 +45,7 @@
 
       <div class="flex align-items-center">
         <span class="p-float-label">
-          <p-inputNumber #quantityValue label="test" inputId="integeronly"></p-inputNumber>
+          <p-inputNumber #quantityValue inputId="integeronly"></p-inputNumber>
           <label [innerText]="isKgQuantity ? 'Quantity of kg' : 'Quantity of g'"></label>
         </span>
         <p-toggleButton [(ngModel)]="isKgQuantity" onLabel="Kg" offLabel="g"></p-toggleButton>

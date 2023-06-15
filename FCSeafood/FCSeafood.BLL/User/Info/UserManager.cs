@@ -44,4 +44,12 @@ public class UserManager {
             return new UserInformationResponse(false, ErrorMessage.User.IsNotDefined, null);
         }
     }
+
+    public async Task UpdateUserAddressAsync(UpdateUserAddressParams updateUserAddressParams) {
+        try {
+            await _userService.UpdateUserAddressAsync(updateUserAddressParams.UserId, updateUserAddressParams.AddressModel);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+        }
+    }
 }

@@ -7,7 +7,7 @@ export class DeliveryModel {
   id: string = ''; // guid
   trackingNumber: string = '';
   user: UserModel = new UserModel();
-  courier: UserModel = new UserModel();
+  courier: UserModel | null = null;
   order: OrderModel = new OrderModel();
   deliveryStatus: DeliveryStatusTModel = new DeliveryStatusTModel();
   paymentMethod: PaymentMethodTModel = new PaymentMethodTModel();

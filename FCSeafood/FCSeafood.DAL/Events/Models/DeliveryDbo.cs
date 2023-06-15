@@ -15,7 +15,7 @@ public class DeliveryDbo {
     public UserDbo? UserDbo { get; set; }
 
     [Column("FK_Courier")]
-    public Guid CourierDboId { get; set; }
+    public Guid? CourierDboId { get; set; }
     public UserDbo? CourierDbo { get; set; }
 
     [Column("FK_Order")]
@@ -30,12 +30,23 @@ public class DeliveryDbo {
     public int PaymentMethodTDboId { get; set; }
     public PaymentMethodTDbo? PaymentMethodTDbo { get; set; }
 
-    [Column("Delivery_Fee")]
-    public double DeliveryFee { get; set; }
-
     [Column("Notes")]
     public string? Notes { get; set; }
 
     [Column("Created_Date")]
     public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+    public DeliveryDbo() { }
+
+    public DeliveryDbo(DeliveryModel model) {
+        Id = model.Id;
+        TrackingNumber = model.TrackingNumber;
+        UserDboId = model.User.Id;
+        CourierDboId = model.Courier?.Id;
+        OrderDboId = model.Order.Id;
+        DeliveryStatusTDboId = (int)model.DeliveryStatus.Type;
+        PaymentMethodTDboId = (int)model.PaymentMethod.Type;
+        Notes = model.Notes;
+        CreatedDate = model.CreatedDate;
+    }
 }

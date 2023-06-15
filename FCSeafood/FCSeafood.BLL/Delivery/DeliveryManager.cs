@@ -10,13 +10,21 @@ public class DeliveryManager {
         _deliveryService = deliveryService;
     }
 
-    public async Task<DeliveryResponse> InsertDeliveryAsync(DeliveryParams deliveryParams) {
+    public async Task<TrackingNumberResponse> InsertDeliveryAsync(InsertDeliveryParams insertDeliveryParams) {
         try {
-            var deliveryModel = await _deliveryService.InsertDeliveryAsync(deliveryParams.DeliveryModel);
-            return new DeliveryResponse(true, "", deliveryModel);
+            var deliveryModel = await _deliveryService.InsertDeliveryAsync(
+                insertDeliveryParams.UserId
+              , insertDeliveryParams.UserId
+              , insertDeliveryParams.PaymentMethodType
+              , insertDeliveryParams.Notes
+            );
+            if (deliveryModel is null)
+                return new TrackingNumberResponse(false, ErrorMessage.Delivery.EntityInsertError, null);
+
+            return new TrackingNumberResponse(true, "", deliveryModel.TrackingNumber);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
-            return new DeliveryResponse(false, ErrorMessage.Delivery.EntityInsertError, null);
+            return new TrackingNumberResponse(false, ErrorMessage.Delivery.EntityInsertError, null);
         }
     }
 }

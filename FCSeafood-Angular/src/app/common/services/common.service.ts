@@ -4,6 +4,7 @@ import { CategoryType } from "@common-enums/category.type";
 import { CategoryTModel } from "@common-models/category-type.model";
 import { SubcategoryTModel } from "@common-models/subcategory-type.model";
 import { CategoryTypeRequest } from "@common-data/common/http/request/category-type.request";
+import { PaymentMethodTModel } from "@common-models/payment-method-type.model";
 
 
 @Injectable({providedIn: 'root'})
@@ -29,5 +30,13 @@ export class CommonService {
       return [];
 
     return response.subcategoryTListModel;
+  }
+
+  async getPaymentMethodTList(): Promise<PaymentMethodTModel[]> {
+    const response = await this.commonData.getPaymentMethodTList();
+    if (!response.isSuccessful)
+      return [];
+
+    return response.paymentMethodTListModel;
   }
 }

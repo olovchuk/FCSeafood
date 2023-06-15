@@ -55,6 +55,19 @@ public class UserService {
         }
     }
 
+    public async Task UpdateUserAddressAsync(Guid userId, AddressModel addressModel) {
+        try {
+            var (isSuccessful, model) = await _userRepository.FindByConditionAsync(x => x.Id == userId);
+            if (!isSuccessful)
+                return;
+
+            model!.Address = addressModel;
+            await _userRepository.UpdateAsync(model);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+        }
+    }
+
     #endregion
 
     #region Credential

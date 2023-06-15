@@ -37,7 +37,19 @@
     font-size: 16px;
   }
 
-  .chapter, .flex-wrapper, > .p-fluid input, p-dropdown {
+  .p-fluid {
+    margin-top: 0.5rem;
+
+    label {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .flex-wrapper div label {
+    margin-left: 0.5rem;
+  }
+
+  .chapter, .flex-wrapper, p-dropdown {
     margin-top: 1rem;
   }
 
@@ -52,10 +64,7 @@
   .payment-system-block {
     display: flex;
     flex-direction: column;
-
-    > p-inputMask {
-      margin-top: 1rem;
-    }
+    margin-top: 0.5rem;
   }
 }
 

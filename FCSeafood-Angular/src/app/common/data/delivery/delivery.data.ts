@@ -3,8 +3,8 @@ import { firstValueFrom } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { DeliveryDataSettings } from "@common-data/delivery/delivery.data.settings";
 import { MessageHelper } from "@common-helpers/message.helper";
-import { DeliveryRequest } from "@common-data/delivery/http/request/delivery.request";
-import { DeliveryResponse } from "@common-data/delivery/http/response/delivery.response";
+import { InsertDeliveryRequest } from "@common-data/delivery/http/request/insert-delivery.request";
+import { TrackingNumberResponse } from "@common-data/delivery/http/response/tracking-number.response";
 
 @Injectable({providedIn: 'root'})
 export class DeliveryData {
@@ -13,8 +13,8 @@ export class DeliveryData {
               private messageHelper: MessageHelper) {
   }
 
-  async insertDelivery(deliveryRequest: DeliveryRequest): Promise<DeliveryResponse | null> {
-    let response = await firstValueFrom(this.http.post<DeliveryResponse>(this.settings.insertDeliveryEndpoint, deliveryRequest));
+  async insertDelivery(deliveryRequest: InsertDeliveryRequest): Promise<TrackingNumberResponse> {
+    let response = await firstValueFrom(this.http.post<TrackingNumberResponse>(this.settings.insertDeliveryEndpoint, deliveryRequest));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 
