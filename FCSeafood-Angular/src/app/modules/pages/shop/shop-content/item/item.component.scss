@@ -48,11 +48,6 @@
   text-decoration-line: underline;
 }
 
-.select-button-container ::ng-deep .p-buttonset {
-  display: flex;
-  flex-direction: column;
-}
-
 .details {
   @extend %item-styles;
   font-weight: 400;
