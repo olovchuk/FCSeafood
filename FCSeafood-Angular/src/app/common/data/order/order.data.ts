@@ -29,14 +29,6 @@ export class OrderData {
     return response;
   }
 
-  async isExistsItemInOrder(userItemIdsRequest: UserItemIdsRequest): Promise<ExistsResponse> {
-    const response = await firstValueFrom(this.http.post<ExistsResponse>(this.settings.isExistsItemInOrderEndpoint, userItemIdsRequest));
-    if (!response.isSuccessful)
-      this.messageHelper.error(response.message);
-
-    return response;
-  }
-
   async getOrderByUser(orderUserRequest: OrderUserRequest): Promise<OrderResponse> {
     let params = new HttpParams();
     params = params.append('UserId', orderUserRequest.id);

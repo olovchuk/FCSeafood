@@ -15,11 +15,6 @@ export class OrderService {
     await this.orderData.insertOrderEntity(orderEntityRequest);
   }
 
-  async isExistsItemInOrder(userItemIdsRequest: UserItemIdsRequest): Promise<boolean> {
-    const response = await this.orderData.isExistsItemInOrder(userItemIdsRequest);
-    return response.isExists;
-  }
-
   async getOrderByUser(orderIdRequest: OrderUserRequest): Promise<OrderModel | null> {
     const response = await this.orderData.getOrderByUser(orderIdRequest);
     if (!response.isSuccessful)

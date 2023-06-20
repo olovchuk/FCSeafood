@@ -24,8 +24,8 @@ export class ItemCard {
     let orderEntity: OrderEntityModel = {
       id: UiHelper.GUID_EMPTY,
       item: this.item,
-      quantityPerKg: 0.0,
-      price: 0.0
+      quantityPerKg: 1,
+      price: this.item.price
     };
     await this.orderStateService.insertOrderEntity(orderEntity);
   }
