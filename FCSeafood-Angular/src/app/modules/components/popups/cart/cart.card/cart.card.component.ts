@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UiHelper } from "@common-helpers/ui.helper";
 
 @Component({
-  selector: 'cart-card',
+  selector: 'cart-card-popup',
   templateUrl: './cart.card.component.html',
   styleUrls: ['./cart.card.component.scss']
 })
