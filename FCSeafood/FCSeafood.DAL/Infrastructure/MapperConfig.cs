@@ -61,6 +61,7 @@ public static class MapperConfig {
         new(
             cfg => {
                 cfg.CreateMap<AddressDbo, AddressModel>();
+                cfg.CreateMap<DeliveryDbo, DeliveryModel>();
                 cfg.CreateMap<ItemDbo, ItemModel>();
                 cfg.CreateMap<OrderEntityDbo, OrderEntityModel>();
                 cfg.CreateMap<OrderDbo, OrderModel>();

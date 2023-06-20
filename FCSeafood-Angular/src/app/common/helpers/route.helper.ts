@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CategoryType, CategoryTypeValues } from "@common-enums/category.type";
 import { SubcategoryType } from "@common-enums/subcategory.type";
 import { ShopFiltersStateService } from "@common-services/shop-filters-state/shop-filters-state.service";
@@ -7,6 +7,7 @@ import { ShopFiltersStateService } from "@common-services/shop-filters-state/sho
 @Injectable({providedIn: 'root'})
 export class RouteHelper {
   paths: any;
+  query: any;
 
   previousUrl: string = '';
   private currentUrl: string = '';
@@ -14,6 +15,7 @@ export class RouteHelper {
   separateSign: string = '/';
 
   constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
               private shopFiltersStateService: ShopFiltersStateService) {
     this.paths = {
       error: '/error',
@@ -23,14 +25,19 @@ export class RouteHelper {
         items: '/shop/items',
         category: '/shop/category'
       },
-      payment: '/payment'
+      payment: '/payment',
+      completeOrder: '/complete-order'
     };
+
+    this.query = {
+      trackingNumber: 'tn'
+    }
   }
 
-  private async redirect(url: string) {
+  private async redirect(url: string, queryParams: {} = {}) {
     this.previousUrl = location.href;
     this.currentUrl = url;
-    await this.router.navigate([this.currentUrl]);
+    await this.router.navigate([this.currentUrl], {queryParams: queryParams});
   }
 
   getCurrentUrl() {
@@ -38,6 +45,11 @@ export class RouteHelper {
       this.currentUrl = this.router.url;
 
     return this.currentUrl;
+  }
+
+  getQueryParameter(query: string): string {
+    const param = this.activatedRoute.snapshot.queryParamMap.get(query);
+    return param ? param : '';
   }
 
   async goToError() {
@@ -76,5 +88,12 @@ export class RouteHelper {
 
   async goToPayment() {
     await this.redirect(this.paths.payment);
+  }
+
+  async goToOrderComplete(trackingNumber: string) {
+    let queryParams = {
+      [this.query.trackingNumber]: trackingNumber
+    }
+    await this.redirect(this.paths.completeOrder, queryParams);
   }
 }

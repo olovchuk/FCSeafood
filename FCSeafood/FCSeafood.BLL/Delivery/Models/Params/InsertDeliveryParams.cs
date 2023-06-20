@@ -4,5 +4,5 @@ public record InsertDeliveryParams(
     Guid UserId
   , Guid OrderId
   , PaymentMethodType PaymentMethodType
-  , string Notes
+  , string? Notes
 );

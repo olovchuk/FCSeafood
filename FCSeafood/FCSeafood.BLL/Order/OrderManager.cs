@@ -1,4 +1,6 @@
-﻿namespace FCSeafood.BLL.Order;
+﻿using FCSeafood.DAL.Events.Models;
+
+namespace FCSeafood.BLL.Order;
 
 public class OrderManager {
     private readonly ILogger _logger = LoggerFactory.Create(b => { b.AddConsole(); })
@@ -12,27 +14,59 @@ public class OrderManager {
 
     public async Task<EmptyResponse> InsertOrderEntityAsync(OrderEntityParams orderEntityParams) {
         try {
-            var orderEntity = await _orderService.InsertOrderEntityAsync(
-                orderEntityParams.UserId
-              , orderEntityParams.OrderEntity
+            if (orderEntityParams.UserId == Guid.Empty)
+                return new EmptyResponse(false, ErrorMessage.User.IsNotDefined);
+
+            var isChangePrice = true;
+            var orderModel = await _orderService.GetOrderByUserAsync(orderEntityParams.UserId);
+            if (orderModel is null) {
+                isChangePrice = false;
+                var orderDbo = new OrderDbo {
+                    UserDboId = orderEntityParams.UserId
+                  , TotalPrice = orderEntityParams.OrderEntity.Price
+                  , CreatedDate = DateTime.Now
+                };
+
+                orderModel = await _orderService.InsertOrderAsync(orderDbo);
+                if (orderModel is null)
+                    return new EmptyResponse(false, ErrorMessage.Order.EntityInsertError);
+            }
+
+            var orderEntityModel = await _orderService.GetOrderEntityAsync(
+                orderModel.Id
+              , orderEntityParams.OrderEntity.Item.Id
             );
-            if (orderEntity is null)
+            if (orderEntityModel is not null) {
+                orderEntityParams.OrderEntity.Id = orderEntityModel.Id;
+                if (isChangePrice) {
+                    orderModel.TotalPrice -= orderEntityModel.Price;
+                    orderModel.TotalPrice += orderEntityParams.OrderEntity.Price;
+                    await _orderService.UpdateOrderAsync(orderModel);
+                }
+
+                var orderEntityDbo = new OrderEntityDbo(orderEntityParams.OrderEntity) {
+                    OrderDboId = orderModel.Id
+                };
+                await _orderService.UpdateOrderEntityAsync(orderEntityDbo);
+                return new EmptyResponse(true, string.Empty);
+            }
+
+            var entityDbo = new OrderEntityDbo(orderEntityParams.OrderEntity) {
+                OrderDboId = orderModel.Id
+            };
+            orderEntityModel = await _orderService.InsertOrderEntityAsync(entityDbo);
+            if (orderEntityModel is null)
                 return new EmptyResponse(false, ErrorMessage.Order.EntityInsertError);
+
+            if (isChangePrice) {
+                orderModel.TotalPrice += entityDbo.Price;
+                await _orderService.UpdateOrderAsync(orderModel);
+            }
 
             return new EmptyResponse(true, string.Empty);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new EmptyResponse(false, ErrorMessage.Order.EntityInsertError);
-        }
-    }
-
-    public async Task<ExistsResponse> IsExistsItemInOrderAsync(UserItemIdsParams userItemIdsParams) {
-        try {
-            var isExists = await _orderService.IsExistsItemInOrderAsync(userItemIdsParams.UserId, userItemIdsParams.ItemId);
-            return new ExistsResponse(true, string.Empty, isExists);
-        } catch (Exception ex) {
-            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
-            return new ExistsResponse(false, string.Empty, null);
         }
     }
 

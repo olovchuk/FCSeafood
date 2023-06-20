@@ -17,7 +17,7 @@ public class DeliveryService {
         Guid userId
       , Guid orderId
       , PaymentMethodType paymentMethodType
-      , string notes
+      , string? notes
     ) {
         try {
             var deliveryDbo = new DeliveryDbo {

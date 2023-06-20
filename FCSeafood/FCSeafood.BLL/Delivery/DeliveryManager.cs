@@ -14,7 +14,7 @@ public class DeliveryManager {
         try {
             var deliveryModel = await _deliveryService.InsertDeliveryAsync(
                 insertDeliveryParams.UserId
-              , insertDeliveryParams.UserId
+              , insertDeliveryParams.OrderId
               , insertDeliveryParams.PaymentMethodType
               , insertDeliveryParams.Notes
             );

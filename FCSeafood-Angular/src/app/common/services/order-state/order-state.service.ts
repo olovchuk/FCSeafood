@@ -5,6 +5,7 @@ import { AuthStateService } from "@common-services/auth-state/auth-sate.service"
 import { CartCardInformation } from "@modules-components/popups/cart/cart.card/cart.card.component";
 import { OrderEntityModel } from "@common-models/order-entity.model";
 import { MessageHelper } from "@common-helpers/message.helper";
+import { OrderModel } from "@common-models/order.model";
 
 @Injectable({providedIn: 'root'})
 export class OrderStateService {
@@ -30,6 +31,12 @@ export class OrderStateService {
     await this.updateInformation();
 
     this.isInit = true;
+  }
+
+  Refresh() {
+    this.orderState.order = new OrderModel();
+    this.orderState.orderEntityCount = 0;
+    this.orderState.orderEntityInformation = [];
   }
 
   private async updateInformation(): Promise<void> {
@@ -63,12 +70,6 @@ export class OrderStateService {
   async insertOrderEntity(orderEntity: OrderEntityModel): Promise<void> {
     if (!this.authStateService.token.UserId)
       return;
-
-    let isExistsItemInOrder = await this.orderService.isExistsItemInOrder({userId: this.authStateService.token.UserId, itemId: orderEntity.item.id});
-    if (isExistsItemInOrder) {
-      this.messageHelper.warning("This item already in cart");
-      return;
-    }
 
     await this.orderService.insertOrderEntity({userId: this.authStateService.token.UserId, orderEntity: orderEntity});
     await this.updateInformation();

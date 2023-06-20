@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'payment',
     loadChildren: () => import('./modules/pages/payment/payment.module').then(m => m.PaymentModule),
   },
+  {
+    path: 'complete-order',
+    loadChildren: () => import('./modules/pages/complete-order/complete-order.module').then(m => m.CompleteOrderModule),
+  },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', redirectTo: 'error', pathMatch: 'full'}
 ];

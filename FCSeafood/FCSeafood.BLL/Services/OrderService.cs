@@ -17,12 +17,14 @@ public class OrderService {
 
     #region Order
 
-    public async Task<bool> IsExistsItemInOrderAsync(Guid userId, Guid itemId) {
-        var (isSuccessful, model) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
-        if (!isSuccessful)
-            return false;
-
-        return model!.Orders.FirstOrDefault(x => x.Item.Id == itemId) is not null;
+    public async Task<OrderModel?> InsertOrderAsync(OrderDbo orderDbo) {
+        try {
+            var (_, model) = await _orderRepository.InsertAsync(orderDbo);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return null;
+        }
     }
 
     public async Task<OrderModel?> GetOrderByUserAsync(Guid userId) {
@@ -45,52 +47,45 @@ public class OrderService {
         }
     }
 
+    public async Task UpdateOrderAsync(OrderModel orderModel) {
+        try {
+            await _orderRepository.UpdateAsync(orderModel);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+        }
+    }
+
     #endregion
 
     #region Order Entity
 
-    public async Task<OrderEntityModel?> InsertOrderEntityAsync(Guid userId, OrderEntityModel orderEntityModel) {
+    public async Task<OrderEntityModel?> InsertOrderEntityAsync(OrderEntityDbo orderEntityDbo) {
         try {
-            if (userId == Guid.Empty)
-                return null;
-
-            var isChangePrice = true;
-            var (isSuccessful, orderModel) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
-            if (!isSuccessful) {
-                isChangePrice = false;
-                var orderDbo = new OrderDbo {
-                    UserDboId = userId
-                  , TotalPrice = orderEntityModel.Price
-                  , CreatedDate = DateTime.Now
-                };
-
-                (isSuccessful, orderModel) = await _orderRepository.InsertAsync(orderDbo);
-                if (!isSuccessful)
-                    return null;
-            }
-
-            var isExistsItemInOrder = await IsExistsItemInOrderAsync(orderModel!.Id, orderEntityModel.Item.Id);
-            if (isExistsItemInOrder)
-                return null;
-
-            (isSuccessful, var entityDbo) = _orderEntityRepository.ToDbo(orderEntityModel);
-            if (!isSuccessful)
-                return null;
-
-            entityDbo!.OrderDboId = orderModel.Id;
-            (isSuccessful, var model) = await _orderEntityRepository.InsertAsync(entityDbo);
-            if (!isSuccessful)
-                return null;
-
-            if (isChangePrice) {
-                orderModel.TotalPrice += entityDbo.Price;
-                await _orderRepository.UpdateAsync(orderModel);
-            }
-
+            var (_, model) = await _orderEntityRepository.InsertAsync(orderEntityDbo);
             return model;
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
+        }
+    }
+
+    public async Task<OrderEntityModel?> GetOrderEntityAsync(Guid orderId, Guid itemId) {
+        try {
+            var (_, model) = await _orderEntityRepository.FindByConditionAsync(
+                x => x.OrderDboId == orderId && x.ItemDboId == itemId
+            );
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return null;
+        }
+    }
+
+    public async Task UpdateOrderEntityAsync(OrderEntityDbo orderEntityDbo) {
+        try {
+            await _orderEntityRepository.UpdateAsync(orderEntityDbo);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
         }
     }
 

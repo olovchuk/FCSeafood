@@ -18,11 +18,6 @@ public class OrderController : ControllerBase {
         return Ok(await _orderManager.InsertOrderEntityAsync(orderEntityParams));
     }
 
-    [HttpPost("IsExistsItemInOrder")]
-    public async Task<IActionResult> IsExistsItemInOrderAsync(UserItemIdsParams userItemIdsParams) {
-        return Ok(await _orderManager.IsExistsItemInOrderAsync(userItemIdsParams));
-    }
-
     [HttpGet("GetOrderByUser")]
     public async Task<IActionResult> GetOrderByUserAsync([FromQuery] UserIdParams userIdParams) {
         return Ok(await _orderManager.GetOrderByUserAsync(userIdParams));

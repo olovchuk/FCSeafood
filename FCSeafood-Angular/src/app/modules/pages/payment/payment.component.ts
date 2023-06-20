@@ -43,7 +43,7 @@ export class PaymentComponent implements OnInit {
     entrance: new FormControl(''),
     intercom: new FormControl(''),
     zipCode: new FormControl('', [Validators.required]),
-    paymentMethodType: new FormControl(''),
+    paymentMethodType: new FormControl(PaymentMethodType.Cash),
     numberCard: new FormControl(''),
     monthYear: new FormControl(''),
     cvv: new FormControl('')
@@ -141,16 +141,17 @@ export class PaymentComponent implements OnInit {
     }
 
     let insertDeliveryRequest: InsertDeliveryRequest = {
-      userModel: this.user.id,
-      orderModel: this.orderStateService.state.order.id,
+      userId: this.user.id,
+      orderId: this.orderStateService.state.order.id,
       paymentMethodType: this.orderFormGroup.get('paymentMethodType')?.value,
-      notes: this.note
+      notes: this.note ? this.note : null
     };
     const trackingNumber = await this.deliveryService.insertDelivery(insertDeliveryRequest);
     if (!trackingNumber)
       return;
 
-    //TODO: Redirect to thank u for order (with show trackingNumber)
+    this.orderStateService.Refresh();
+    await this.routeHelper.goToOrderComplete(trackingNumber);
   }
 
   cardInformationValidator(control: AbstractControl): ValidationErrors | null {

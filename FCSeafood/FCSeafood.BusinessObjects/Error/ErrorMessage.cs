@@ -25,6 +25,7 @@ public static class ErrorMessage {
         public static string IsNotDefined => "The order(s) is not defined.";
         public static string EntityInsertError => "Something went wrong while insert data.";
         public static string FindRatingFailed => "Something went wrong while retrieving rating data";
+        public static string ItemAlreadyExists => "Item already exists.";
     }
 
     public static class Common {

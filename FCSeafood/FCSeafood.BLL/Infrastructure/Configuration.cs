@@ -28,6 +28,7 @@ public static class Configuration {
         // Managers
         serviceCollection.AddTransient<AuthManager>();
         serviceCollection.AddTransient<CommonManager>();
+        serviceCollection.AddTransient<DeliveryManager>();
         serviceCollection.AddTransient<ItemManager>();
         serviceCollection.AddTransient<OrderManager>();
         serviceCollection.AddTransient<UserManager>();
