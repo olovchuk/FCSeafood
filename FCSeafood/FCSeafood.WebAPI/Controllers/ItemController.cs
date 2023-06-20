@@ -23,8 +23,14 @@ public class ItemController : ControllerBase {
         return Ok(await _itemManager.GetItemListAsync(itemByFilterParams));
     }
 
-    [HttpGet("GetRatingByUser")]
-    public async Task<IActionResult> GetRatingByUser([FromQuery] UserIdParams userIdParams) {
-        return Ok(await _itemManager.GetRatingByUser(userIdParams));
+    [HttpGet("GetItemRating")]
+    public async Task<IActionResult> GetItemRatingAsync([FromQuery] GetItemRatingParams getItemRatingParams) {
+        return Ok(await _itemManager.GetItemRatingAsync(getItemRatingParams));
+    }
+
+    [HttpGet("SetItemRating")]
+    public async Task<IActionResult> SetItemRatingAsync([FromQuery] SetItemRatingParams setItemRatingParams) {
+        await _itemManager.SetItemRatingAsync(setItemRatingParams);
+        return Ok();
     }
 }

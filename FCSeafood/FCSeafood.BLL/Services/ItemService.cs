@@ -61,13 +61,38 @@ public class ItemService {
         }
     }
 
-    public async Task<RatingType> GetItemRatingByUser(Guid userId) {
+    public async Task<RatingType> GetItemRatingAsync(Guid userId, Guid itemId) {
         try {
-            var (isSuccessful, model) = await _ratingLRepository.FindByConditionAsync(x => x.UserDboId == userId);
+            var (isSuccessful, model) = await _ratingLRepository.FindByConditionAsync(
+                x => x.UserDboId == userId && x.ItemDboId == itemId
+            );
             return isSuccessful ? model!.Rating : RatingType.Unknown;
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return RatingType.Unknown;
+        }
+    }
+
+    public async Task SetItemRatingAsync(Guid userId, Guid itemId, RatingType ratingType) {
+        try {
+            var (isSuccessful, model) = await _ratingLRepository.FindByConditionAsync(
+                x => x.UserDboId == userId && x.ItemDboId == itemId
+            );
+            if (isSuccessful) {
+                model!.Rating = ratingType;
+                await _ratingLRepository.UpdateAsync(model);
+                return;
+            }
+
+            await _ratingLRepository.InsertAsync(
+                new RatingLDbo {
+                    UserDboId = userId
+                  , ItemDboId = itemId
+                  , RatingTDboId = (int)ratingType
+                }
+            );
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
         }
     }
 }

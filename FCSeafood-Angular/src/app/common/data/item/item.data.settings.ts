@@ -9,6 +9,9 @@ export class ItemDataSettings {
   private _getItemByFilterListEndpoint: string = '/api/Item/GetItemByFilterList';
   getItemByFilterListEndpoint: string = AppSettings.webApiHostUrl + this._getItemByFilterListEndpoint;
 
-  private _getRatingByUserEndpoint: string = '/api/Item/GetRatingByUser';
-  getRatingByUserEndpoint: string = AppSettings.webApiHostUrl + this._getRatingByUserEndpoint;
+  private _getItemRatingEndpoint: string = '/api/Item/GetItemRating';
+  getItemRatingEndpoint: string = AppSettings.webApiHostUrl + this._getItemRatingEndpoint;
+
+  private _setItemRatingEndpoint: string = '/api/Item/SetItemRating';
+  setItemRatingEndpoint: string = AppSettings.webApiHostUrl + this._setItemRatingEndpoint;
 }

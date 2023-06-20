@@ -30,13 +30,25 @@ public class ItemManager {
         }
     }
 
-    public async Task<RatingTResponse> GetRatingByUser(UserIdParams userIdParams) {
+    public async Task<RatingTResponse> GetItemRatingAsync(GetItemRatingParams getItemRatingParams) {
         try {
-            var ratingType = await _itemService.GetItemRatingByUser(userIdParams.UserId);
+            var ratingType = await _itemService.GetItemRatingAsync(getItemRatingParams.UserId, getItemRatingParams.ItemId);
             return new RatingTResponse(true, "", ratingType);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new RatingTResponse(false, ErrorMessage.Order.FindRatingFailed, null);
+        }
+    }
+
+    public async Task SetItemRatingAsync(SetItemRatingParams setItemRatingParams) {
+        try {
+            await _itemService.SetItemRatingAsync(
+                setItemRatingParams.UserId
+              , setItemRatingParams.ItemId
+              , setItemRatingParams.RatingType
+            );
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
         }
     }
 }

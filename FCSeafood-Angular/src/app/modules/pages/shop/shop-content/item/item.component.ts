@@ -10,6 +10,8 @@ import { Subscription } from "rxjs";
 import { InputNumber } from "primeng/inputnumber";
 import { RatingType } from "@common-enums/rating.type";
 import { AuthStateService } from "@common-services/auth-state/auth-sate.service";
+import { tokenGuest } from "@common-services/auth.service";
+import { MessageHelper } from "@common-helpers/message.helper";
 
 @Component({
   selector: 'shop-item',
@@ -35,7 +37,8 @@ export class ItemComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private itemService: ItemService,
               private orderStateService: OrderStateService,
-              private authStateService: AuthStateService) {
+              private authStateService: AuthStateService,
+              private messageHelper: MessageHelper) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -63,10 +66,16 @@ export class ItemComponent implements OnInit, OnDestroy {
         this.itemDetails.push({name: 'Kcal /100g', value: this.item.kcalPer100Gram?.toString()});
         this.itemDetails.push({name: 'Humidity /%', value: this.item.humidityPerPercent?.toString()});
         this.itemDetails.push({name: 'Expiration date', value: this.UiHelper.FormatData(this.item.expirationDate)});
-        this.itemDetails.push({name: 'Temperature storage', value: this.item.temperatureStorage.toString() + ' ' + this.item.temperatureUnit.sign});
+        this.itemDetails.push({
+          name: 'Temperature storage',
+          value: this.item.temperatureStorage.toString() + ' ' + this.item.temperatureUnit.sign
+        });
 
         if (this.authStateService.token.UserId)
-          this.userRating = await this.itemService.getRatingByUser({userId: this.authStateService.token.UserId});
+          this.userRating = await this.itemService.getItemRating({
+            userId: this.authStateService.token.UserId,
+            itemId: this.item.id
+          });
         resolve(null);
       });
     });
@@ -100,6 +109,16 @@ export class ItemComponent implements OnInit, OnDestroy {
   }
 
   async setRating(ratingType: RatingType): Promise<void> {
+    if (tokenGuest()) {
+      this.messageHelper.warningSticky('Please register to like the product', 'No access');
+      return;
+    }
+
+    await this.itemService.setItemRating({
+      userId: this.authStateService.token.UserId,
+      itemId: this.item.id,
+      ratingType: ratingType
+    });
     this.userRating = ratingType;
   }
 

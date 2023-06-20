@@ -15,4 +15,13 @@ public class RatingLDbo {
 
     [Column("FK_Rating_Type")]
     public int RatingTDboId { get; set; }
+
+    public RatingLDbo() { }
+
+    public RatingLDbo(RatingLModel model) {
+        Id = model.Id;
+        UserDboId = model.UserDboId;
+        ItemDboId = model.ItemDboId;
+        RatingTDboId = (int)model.Rating;
+    }
 }

@@ -9,6 +9,8 @@ import { ItemListResponse } from "@common-data/item/http/response/item-list.resp
 import { ItemFilterRequest } from "@common-data/item/http/request/item-filter.request";
 import { UserIdRequest } from "@common-data/user-information/http/request/user-id.request";
 import { RatingTResponse } from "@common-data/item/http/response/rating-type.response";
+import { GetItemRatingRequest } from "@common-data/item/http/request/get-item-rating.request";
+import { SetItemRatingRequest } from "@common-data/item/http/request/set-item-rating.request";
 
 @Injectable({providedIn: 'root'})
 export class ItemData {
@@ -43,14 +45,24 @@ export class ItemData {
     return response;
   }
 
-  async getRatingByUser(userIdRequest: UserIdRequest): Promise<RatingTResponse> {
+  async getItemRating(getItemRatingRequest: GetItemRatingRequest): Promise<RatingTResponse> {
     let params = new HttpParams();
-    params = params.append('UserId', userIdRequest.userId);
+    params = params.append('UserId', getItemRatingRequest.userId);
+    params = params.append('ItemId', getItemRatingRequest.itemId);
 
-    const response = await firstValueFrom(this.http.get<RatingTResponse>(this.settings.getRatingByUserEndpoint, {params: params}))
+    const response = await firstValueFrom(this.http.get<RatingTResponse>(this.settings.getItemRatingEndpoint, {params: params}))
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 
     return response;
+  }
+
+  async setItemRating(setItemRatingRequest: SetItemRatingRequest): Promise<void> {
+    let params = new HttpParams();
+    params = params.append('UserId', setItemRatingRequest.userId);
+    params = params.append('ItemId', setItemRatingRequest.itemId);
+    params = params.append('RatingType', setItemRatingRequest.ratingType);
+
+    await firstValueFrom(this.http.get<RatingTResponse>(this.settings.setItemRatingEndpoint, {params: params}))
   }
 }
