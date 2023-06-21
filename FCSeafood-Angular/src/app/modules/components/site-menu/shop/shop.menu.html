@@ -1,0 +1,11 @@
+<div class="shop-menu">
+  <ng-container *ngFor="let menuItem of shopSiteMenuState.menuItems; let last = last">
+
+    <p-button [routerLink]="menuItem.href" styleClass="p-button-text" class="text">{{menuItem.text}}</p-button>
+
+    <ng-container *ngIf="!last">
+      <p-divider layout="vertical" styleClass="h-1rem"></p-divider>
+    </ng-container>
+
+  </ng-container>
+</div>

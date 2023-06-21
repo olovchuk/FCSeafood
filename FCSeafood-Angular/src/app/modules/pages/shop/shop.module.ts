@@ -4,6 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { ShopComponent } from "@modules-pages/shop/shop.component";
 import { ShopContentComponent } from './shop-content/shop-content.component';
 import { PrimengModule } from "@modules/primeng/primeng.module";
+import { SiteMenuModule } from "@modules-components/site-menu/site-menu.module";
 
 
 const routes: Routes = [
@@ -20,7 +21,14 @@ const routes: Routes = [
     ShopContentComponent,
     ShopContentComponent
   ],
-  imports: [RouterModule.forChild(routes), PrimengModule, NgForOf, NgIf, NgOptimizedImage],
+  imports: [
+    RouterModule.forChild(routes),
+    PrimengModule,
+    NgForOf,
+    NgIf,
+    NgOptimizedImage,
+    SiteMenuModule
+  ],
   exports: [RouterModule]
 })
 export class ShopModule {

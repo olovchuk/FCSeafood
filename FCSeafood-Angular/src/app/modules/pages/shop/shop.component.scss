@@ -1,5 +1,6 @@
 .shop-page {
   display: flex;
+  flex-direction: column;
 
   .left-panel {
     width: 350px;
@@ -8,6 +9,6 @@
 
   .content {
     width: 100%;
-    margin: 25px;
+    padding: 25px;
   }
 }
