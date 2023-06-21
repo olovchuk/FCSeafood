@@ -1,0 +1,24 @@
+.site-box {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .content {
+    flex: 1 0 auto;
+  }
+
+  .footer {
+    flex: 0 0 auto;
+
+    .text-total-price {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 150%;
+    }
+  }
+
+  ::ng-deep .p-divider-horizontal:before {
+    border-top: 4px solid white !important;
+  }
+}
+

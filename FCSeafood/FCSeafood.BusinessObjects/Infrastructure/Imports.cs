@@ -1,0 +1,1 @@
+global using FCSeafood.BusinessObjects.Models.Common;

@@ -1,0 +1,11 @@
+<div class="category-page">
+
+  <span class="title">{{title}}</span>
+
+  <div class="flex justify-content-center flex-wrap mt-6 w-15">
+    <shop-category-type-card [categoryTModel]="categoryTModel"
+                             *ngFor="let categoryTModel of categoryTListModel">
+    </shop-category-type-card>
+  </div>
+
+</div>

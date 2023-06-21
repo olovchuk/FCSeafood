@@ -1,32 +1,46 @@
-using FCSeafood.DAL.Events.Search;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FCSeafood.DAL.Events.Repository;
 
-public class UserRepository {
-    private readonly ILogger log = LoggerFactory.Create(b => { b.AddConsole(); }).CreateLogger(typeof(UserRepository));
+public class UserRepository : Base.BaseRepository<UserDbo, UserModel> {
+    private readonly AddressRepository _addressRepository;
+    private readonly UserCredentialRepository _userCredentialRepository;
 
-    private readonly EventFCSeafoodContext db;
-
-    public UserRepository(EventFCSeafoodContext db) {
-        this.db = db;
+    public UserRepository(EventFCSeafoodContext context, IServiceProvider provider) : base(context) {
+        _addressRepository = provider.GetService<AddressRepository>()!;
+        _userCredentialRepository = provider.GetService<UserCredentialRepository>()!;
     }
 
-    public async Task<User?> GetByIdAsync(Guid id) => await db.Users.Where(u => u.Id.Equals(id)).FirstOrDefaultAsync().ConfigureAwait(false);
+    protected override IQueryable<UserDbo> NoTracking() =>
+        this.Entities
+            .Include(x => x.RoleTDbo)
+            .Include(x => x.GenderTDbo)
+            .Include(x => x.AddressDbo)
+            .AsNoTracking();
 
-    public async Task<SearchResult<User>> GetAllAsync(int skipItems = 0, int pageSize = 20) {
-        var q = db.Users;
-        return new SearchResult<User>(await q.Skip(skipItems).Take(pageSize).ToListAsync().ConfigureAwait(false), q.Count());
-    }
-
-    public async Task SaveAsync(User user) {
-        if (!user.Equals(null)) {
-            try {
-                db.Users.Add(user);
-                await db.SaveChangesAsync();
-            } catch (Exception ex) { log.LogError($"Catch error during Add/SaveChanges to database;\r\nUser ID: [{user.Id}]\r\nError: [{ex.Message}]"); }
+    protected override void AddExtensionToModel(ref UserModel userModel, UserDbo entity) {
+        if (entity.RoleTDbo != null) {
+            var (isSuccessful, model) = RoleTRepository.ToModel(entity.RoleTDbo);
+            if (isSuccessful)
+                userModel.Role = model;
         }
-        else { log.LogError("Failed to save user;\r\nUser: [NULL]"); }
-    }
 
-    public async Task<bool> IsExistsAsync(Guid id) => await GetByIdAsync(id) is null ? false : true;
+        if (entity.GenderTDbo != null) {
+            var (isSuccessful, model) = GenderTRepository.ToModel(entity.GenderTDbo);
+            if (isSuccessful)
+                userModel.Gender = model;
+        }
+
+        if (entity.AddressDbo != null) {
+            var (isSuccessful, model) = _addressRepository.ToModel(entity.AddressDbo);
+            if (isSuccessful)
+                userModel.Address = model;
+        }
+
+        if (entity.Id != Guid.Empty) {
+            var (isSuccessful, model) = _userCredentialRepository.FindByConditionAsync(x => x.Id == entity.Id).Result;
+            if (isSuccessful)
+                userModel.Email = model!.Email;
+        }
+    }
 }

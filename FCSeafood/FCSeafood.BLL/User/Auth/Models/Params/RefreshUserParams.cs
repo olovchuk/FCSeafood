@@ -1,3 +1,3 @@
-namespace FCSeafood.BLL.User.Auth.Models.Params; 
+namespace FCSeafood.BLL.User.Auth.Models.Params;
 
-public record RefreshUserParams(DAL.Events.Models.User User, string Email);
+public record RefreshUserParams(UserModel User, string Email);

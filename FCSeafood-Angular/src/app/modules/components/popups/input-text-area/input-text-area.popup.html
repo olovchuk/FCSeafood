@@ -1,0 +1,12 @@
+<div class="popup">
+  <div class="content flex flex-column">
+    <span class="title">{{title}}</span>
+    <textarea #textarea [maxLength]="maxLength" rows="10" cols="100" pInputTextarea style="max-width: 60vw; max-height: 60vh"></textarea>
+    <span class="text-right">{{textarea.value.length}} / {{maxLength}}</span>
+
+    <div class="flex justify-content-center">
+      <p-button label="Cancel" styleClass="p-button-outlined uppercase mx-1" [mat-dialog-close]="true"></p-button>
+      <p-button (click)="ok(textarea.value)" label="Ok" styleClass="uppercase mx-1"></p-button>
+    </div>
+  </div>
+</div>

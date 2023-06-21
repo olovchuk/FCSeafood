@@ -1,6 +1,14 @@
+global using AutoMapper;
+global using FCSeafood.BusinessObjects;
+global using FCSeafood.BusinessObjects.Error;
+global using FCSeafood.BusinessObjects.Models.Events;
+global using FCSeafood.BusinessObjects.Models.Common;
 global using System.ComponentModel.DataAnnotations;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Logging;
 global using FCSeafood.DAL.Context;
 global using FCSeafood.DAL.Events.Models;
+global using FCSeafood.DAL.Common.Models;
+global using FCSeafood.DAL.Common.Repository;
+global using FCSeafood.DAL.Infrastructure;

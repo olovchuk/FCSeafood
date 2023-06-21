@@ -1,0 +1,56 @@
+<div class="filter-panel">
+
+  <div class="flex justify-content-between">
+    <div class="flex">
+      <label class="title">Filters</label>
+      <img ngSrc="assets/icons/filter.svg" height="22" width="21" alt="" class="ml-3">
+    </div>
+    <i (click)="refreshFilters()" class="pi pi-refresh refresh-button top-0 right-0" pTooltip="Refresh"></i>
+  </div>
+
+  <div class="flex flex-column align-items-center mt-3">
+    <span class="text-white text-lg font-bold">Price sort:</span>
+    <p-toggleButton [ngModel]="shopFiltersStateService.state.selectedPriceSortDirectionType"
+                    (onChange)="priceSortDirectionChange($event)"
+                    onLabel="{{SortDirectionType[SortDirectionType.Ascending]}}"
+                    offLabel="{{SortDirectionType[SortDirectionType.Descending]}}"
+                    onIcon="pi pi-chevron-up" offIcon="pi pi-chevron-down" styleClass="mt-2"></p-toggleButton>
+  </div>
+
+  <div class="text-white text-lg font-bold mt-4">Price:</div>
+  <div class="p-inputgroup mt-1">
+    <span class="p-inputgroup-addon">$</span>
+    <p-inputNumber (onInput)="priceFromChange($event)" [(ngModel)]="priceFrom"
+                   inputId="integeronly" placeholder="Price from:">
+    </p-inputNumber>
+  </div>
+  <div class="p-inputgroup mt-1">
+    <span class="p-inputgroup-addon">$</span>
+    <p-inputNumber (onInput)="priceToChange($event)" [(ngModel)]="priceTo"
+                   inputId="integeronly" placeholder="Price to:">
+    </p-inputNumber>
+  </div>
+
+  <div class="text-white text-lg font-bold mt-4">Category:</div>
+  <p-dropdown [options]="this.shopFiltersStateService.state.categoryTList"
+              [ngModel]="this.shopFiltersStateService.state.selectedCategoryType"
+              (onChange)="categoryTypeChange($event)"
+              optionLabel="name"
+              optionValue="type"
+              styleClass="w-full mt-1">
+  </p-dropdown>
+
+  <div class="text-white text-lg font-bold mt-2">Subcategory:</div>
+  <p-dropdown [options]="this.shopFiltersStateService.state.subcategoryTList"
+              [ngModel]="this.shopFiltersStateService.state.selectedSubcategoryType"
+              (onChange)="subcategoryTypeChange($event)"
+              optionLabel="name"
+              optionValue="type"
+              styleClass="w-full mt-1">
+  </p-dropdown>
+
+  <div class="text-center">
+    <p-button (click)="applyFilters()" styleClass="p-button-secondary w-full text-center mt-5" label="Apply"></p-button>
+  </div>
+
+</div>

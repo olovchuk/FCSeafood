@@ -1,0 +1,14 @@
+<div class="flex">
+
+  <div class="left-panel">
+    <shop-filter (applyEvent)="applyFilters()"></shop-filter>
+  </div>
+
+  <div class="flex justify-content-center w-full">
+    <div class="flex flex-wrap justify-content-center w-full max-3-block">
+      <shop-item-card *ngFor="let item of itemModels" [item]="item" class="m-3"></shop-item-card>
+    </div>
+  </div>
+
+</div>
+

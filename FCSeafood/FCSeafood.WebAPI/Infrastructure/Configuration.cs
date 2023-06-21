@@ -6,10 +6,10 @@ public static class Configuration {
     public static void ConfigurationService(IServiceCollection serviceCollection) {
         serviceCollection.AddTransient<CookieHelper>();
 
-        serviceCollection.AddSingleton<JWTAuthSettings>();
-        serviceCollection.AddScoped<IJWTSettings, JWTAuthSettings>();
+        serviceCollection.AddSingleton<JwtAuthSettings>();
+        serviceCollection.AddScoped<IJWTSettings, JwtAuthSettings>();
 
-        serviceCollection.AddTransient<JWTAuthCookieService>();
+        serviceCollection.AddTransient<JwtAuthCookieService>();
 
         serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     }

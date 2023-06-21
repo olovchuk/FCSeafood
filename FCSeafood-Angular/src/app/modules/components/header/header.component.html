@@ -1,0 +1,30 @@
+<header class="flex flex-row justify-content-around w-full">
+
+  <div class="header-block w-3 p-4">
+    <img (click)="this.routeHelper.goToHome()" class="cursor-pointer"
+         src="assets/FCSeafood_label_logo.svg" style="min-height: 61px; min-width: 200px" alt=""
+         pTooltip="Go home" tooltipPosition="bottom">
+  </div>
+
+  <div class="header-block w-5 p-4">
+    <header-menu></header-menu>
+  </div>
+
+  <div class="header-block w-2 p-4">
+    <p-button (onClick)="showCartPopup()" styleClass="p-button-text"
+              pTooltip="Cart" tooltipPosition="bottom">
+      <i class="pi pi-shopping-cart" pBadge [value]="this.orderStateService.state.orderEntityCount.toString()"></i>
+    </p-button>
+
+    <p-button (onClick)="showSignInPopup()" styleClass="p-button-text"
+              [pTooltip]="authStateService.IsAuthorized ? 'Account' : 'Sign In'" tooltipPosition="bottom">
+      <i class="pi pi-user"></i>
+    </p-button>
+
+    <p-button *ngIf="authStateService.IsAuthorized" (onClick)="signOut()" styleClass="p-button-text"
+              pTooltip="Sign out" tooltipPosition="bottom">
+      <i class="pi pi-sign-out"></i>
+    </p-button>
+  </div>
+
+</header>

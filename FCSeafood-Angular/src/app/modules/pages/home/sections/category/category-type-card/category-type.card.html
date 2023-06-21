@@ -1,0 +1,5 @@
+<button (click)="routeHelper.goToSubcategory(categoryTModel.type)" class="product-type-card border-transparent border-round-xl m-3"
+        style="background-size: cover;"
+        [style.background]="'url(' + categoryTModel.imagePath + ') no-repeat center center'">
+  <span class="uppercase type-text">{{categoryTModel.name}}</span>
+</button>

@@ -1,0 +1,93 @@
+.order-entity-empty {
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: var(--grafit-color);
+
+  h3 {
+    margin: 1rem 0;
+
+    font-weight: 900;
+    font-size: 3.5rem;
+    line-height: 150%;
+  }
+}
+
+.orderForm {
+  display: flex;
+  flex-direction: column;
+  width: 430px;
+  margin: 0 1rem;
+  line-height: 150%;
+
+  .title, .chapter {
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .chapter {
+    font-size: 16px;
+  }
+
+  .p-fluid {
+    margin-top: 0.5rem;
+
+    label {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .flex-wrapper div label {
+    margin-left: 0.5rem;
+  }
+
+  .chapter, .flex-wrapper, p-dropdown {
+    margin-top: 1rem;
+  }
+
+  .flex-wrapper {
+    display: flex;
+
+    > :not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+
+  .payment-system-block {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5rem;
+  }
+}
+
+.total-price-text {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 150%;
+}
+
+.divider-vertical-flex {
+  display: block;
+}
+
+.divider-horizontal-flex {
+  display: none;
+}
+
+@media screen and (max-width: 1240px) {
+  .divider-vertical-flex {
+    display: none;
+  }
+
+  .divider-horizontal-flex {
+    display: block;
+  }
+}

@@ -1,0 +1,12 @@
+.shop-menu {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 5rem;
+
+  .text {
+    color: var(--primary-super-dark-color);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+  }
+}

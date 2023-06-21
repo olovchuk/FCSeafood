@@ -1,0 +1,14 @@
+.shop-page {
+  display: flex;
+  flex-direction: column;
+
+  .left-panel {
+    width: 350px;
+    margin: 25px;
+  }
+
+  .content {
+    width: 100%;
+    padding: 25px;
+  }
+}

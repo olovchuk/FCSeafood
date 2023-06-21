@@ -1,0 +1,37 @@
+<div class="popup site-box bg-primary">
+  <div class="header">
+    <i class="pi pi-times cursor-pointer" style="font-size: 1.5rem" [mat-dialog-close]="true"></i>
+  </div>
+
+  <div class="content">
+    <div class="flex justify-content-between align-items-center">
+      <div class="title">Cart</div>
+      <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+    </div>
+
+    <p-divider styleClass="border-white bg-white"></p-divider>
+
+    <div class="flex justify-content-center text-4xl mt-5" *ngIf="orderStateService.state.orderEntityCount == 0">
+      No orders
+    </div>
+    <div *ngIf="orderStateService.state.orderEntityCount > 0" class="flex flex-column overflow-auto" style="max-height: 66vh">
+      <cart-card *ngFor="let cartInformation of orderStateService.state.orderEntityInformation"
+                 [cartInformation]="cartInformation"
+                 (removeEntityEvent)="orderStateService.removeOrderEntity(cartInformation.orderEntityId)">
+      </cart-card>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p-button *ngIf="orderStateService.state.orderEntityCount == 0" (click)="continueShopping()" label="Go to shop" styleClass="bg-primary-800 w-full uppercase mt-2"></p-button>
+
+    <div *ngIf="orderStateService.state.orderEntityCount > 0">
+      <div class="flex justify-content-between text-total-price">
+        <span class="">Total</span>
+        <span>{{UiHelper.FormatCurrency(orderStateService.state.order.totalPrice)}}</span>
+      </div>
+      <p-button (click)="continueShopping()" [mat-dialog-close]="true" label="Continue shopping" styleClass="bg-primary-800 w-full uppercase mt-2"></p-button>
+      <p-button (click)="routeHelper.goToPayment()" [mat-dialog-close]="true" label="Buy" styleClass="p-button-outlined p-button-secondary w-full uppercase mt-2"></p-button>
+    </div>
+  </div>
+</div>

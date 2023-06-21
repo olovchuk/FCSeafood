@@ -1,0 +1,11 @@
+.section {
+  background: url("/assets/images/home/home-bg-2.png") no-repeat center center;
+  background-size: cover;
+  padding: 0 !important;
+
+  div:first-child {
+    background: rgba(7, 7, 7, 0.6);
+    backdrop-filter: blur(4px);
+    padding: 50px 0;
+  }
+}
