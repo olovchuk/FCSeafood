@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
 
   async initMenu(): Promise<void> {
     let itemsProducts = [];
-    let categoryTModels = await this.commonService.getCategoryTListAsync()
+    let categoryTModels = await this.commonService.getCategoryTList()
 
     for (let i = 0; i < categoryTModels.length; i++) {
       let categoryTModel = categoryTModels[i];

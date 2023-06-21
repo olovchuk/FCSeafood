@@ -12,7 +12,7 @@ export class CommonService {
   constructor(private commonData: CommonData) {
   }
 
-  async getCategoryTListAsync(): Promise<CategoryTModel[]> {
+  async getCategoryTList(): Promise<CategoryTModel[]> {
     const response = await this.commonData.getCategoryTList();
     if (!response.isSuccessful)
       return [];
@@ -20,7 +20,7 @@ export class CommonService {
     return response.categoryTListModel;
   }
 
-  async getSubcategoryTListAsync(category: CategoryType): Promise<SubcategoryTModel[]> {
+  async getSubcategoryTList(category: CategoryType): Promise<SubcategoryTModel[]> {
     let categoryTypeRequest: CategoryTypeRequest = {
       categoryType: category
     };

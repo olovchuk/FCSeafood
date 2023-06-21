@@ -7,7 +7,7 @@ import { CategoryTypeValues } from "@common-enums/category.type";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'app-subcategory',
+  selector: 'shop-subcategory',
   templateUrl: './subcategory.component.html',
   styleUrls: ['./subcategory.component.scss']
 })
@@ -31,7 +31,7 @@ export class SubcategoryComponent implements OnInit, OnDestroy {
         }
 
         this.title = 'Choose subcategory'
-        this.subcategoryTListModel = await this.commonService.getSubcategoryTListAsync(categoryTypeValue!.id);
+        this.subcategoryTListModel = await this.commonService.getSubcategoryTList(categoryTypeValue!.id);
 
         resolve(null);
       });

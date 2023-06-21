@@ -15,6 +15,7 @@ import { token } from "@common-services/auth.service";
 import { AppSettings } from "@settings/app.settings";
 import { RefreshTokenInterceptor } from "@interceptors/refresh-token/refresh-token.interceptor";
 import { RefreshTokenGuestInterceptors } from "@interceptors/refresh-token-guest/refresh-token-guest.interceptors";
+import { SiteMenuModule } from "@modules-components/site-menu/site-menu.module";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RefreshTokenGuestInterceptors } from "@interceptors/refresh-token-guest
     MaterialModule,
     HttpClientModule,
     PopupsModule,
+    SiteMenuModule,
     NgOptimizedImage,
     JwtModule.forRoot({
       config: {

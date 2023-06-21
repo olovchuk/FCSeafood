@@ -4,7 +4,7 @@ import { ItemModel } from "@common-models/item.model";
 import { ShopFiltersStateService } from "@common-services/shop-filters-state/shop-filters-state.service";
 
 @Component({
-  selector: 'app-item-list',
+  selector: 'shop-item-list',
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.scss']
 })

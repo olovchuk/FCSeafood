@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { LocalStorageHelper } from "@common-helpers/local-storage.helper";
 import { ShopFiltersState } from "@common-states/shop-filters.state";
 import { CommonService } from "@common-services/common.service";
@@ -13,6 +13,8 @@ export const SHOP_FILTERS = 'shop_filters';
 export class ShopFiltersStateService {
   isInit: boolean = false;
   isDefault: boolean = true;
+
+  applyFiltersSubscription$: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(private shopFiltersState: ShopFiltersState,
               private commonService: CommonService) {
@@ -47,9 +49,8 @@ export class ShopFiltersStateService {
       this.shopFiltersState.priceFrom = shopFiltersLS.priceFrom;
       this.shopFiltersState.priceTo = shopFiltersLS.priceTo;
       this.isDefault = false;
-    }
-    else {
-      this.shopFiltersState.categoryTList = await this.commonService.getCategoryTListAsync();
+    } else {
+      this.shopFiltersState.categoryTList = await this.commonService.getCategoryTList();
       this.shopFiltersState.selectedCategoryType = this.shopFiltersState.categoryTList[0]?.type;
       this.shopFiltersState.subcategoryTList = this.shopFiltersState.categoryTList[0].subcategoryTModelList;
       this.shopFiltersState.selectedSubcategoryType = this.shopFiltersState.subcategoryTList[0]?.type;
@@ -78,7 +79,7 @@ export class ShopFiltersStateService {
       await this.init();
 
     this.shopFiltersState.selectedCategoryType = categoryType;
-    this.shopFiltersState.subcategoryTList = await this.commonService.getSubcategoryTListAsync(this.shopFiltersState.selectedCategoryType);
+    this.shopFiltersState.subcategoryTList = await this.commonService.getSubcategoryTList(this.shopFiltersState.selectedCategoryType);
     this.shopFiltersState.selectedSubcategoryType = this.shopFiltersState.subcategoryTList[0]?.type;
     this.save();
   }

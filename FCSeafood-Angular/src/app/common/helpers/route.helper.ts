@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CategoryType, CategoryTypeValues } from "@common-enums/category.type";
-import { SubcategoryType } from "@common-enums/subcategory.type";
 import { ShopFiltersStateService } from "@common-services/shop-filters-state/shop-filters-state.service";
 
 @Injectable({providedIn: 'root'})
@@ -77,8 +76,7 @@ export class RouteHelper {
     await this.redirect(this.paths.shop.category + this.separateSign + categoryTypeValue.value);
   }
 
-  async goToItems(subcategoryType: SubcategoryType) {
-    await this.shopFiltersStateService.changeSubcategory(subcategoryType);
+  async goToItems() {
     await this.redirect(this.paths.shop.items);
   }
 

@@ -20,6 +20,7 @@ export class FilterComponent {
 
   constructor(public routeHelper: RouteHelper,
               public shopFiltersStateService: ShopFiltersStateService) {
+    this.shopFiltersStateService.applyFiltersSubscription$.subscribe(() => this.applyFilters());
   }
 
   async priceSortDirectionChange(event: any): Promise<void> {
@@ -29,10 +30,12 @@ export class FilterComponent {
 
   async categoryTypeChange(event: any): Promise<void> {
     await this.shopFiltersStateService.changeCategory(event.value);
+    this.applyFilters();
   }
 
   async subcategoryTypeChange(event: any): Promise<void> {
     await this.shopFiltersStateService.changeSubcategory(event.value);
+    this.applyFilters();
   }
 
   async priceFromChange(event: any): Promise<void> {
