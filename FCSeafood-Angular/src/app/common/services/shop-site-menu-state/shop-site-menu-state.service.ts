@@ -29,8 +29,7 @@ export class ShopSiteMenuStateService {
 
   destroy(): void {
     this.isInit = false;
-    if (this.urlSubscription
-    )
+    if (this.urlSubscription)
       this.urlSubscription.unsubscribe();
   }
 
