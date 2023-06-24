@@ -3,6 +3,7 @@ import { UserInformationData } from "@common-data/user-information/user-informat
 import { UserIdRequest } from "@common-data/user-information/http/request/user-id.request";
 import { UserModel } from "@common-models/user.model";
 import { UpdateUserAddressRequest } from "@common-data/user-information/http/request/update-user-address.request";
+import { UpdateUserInformationRequest } from "@common-data/user-information/http/request/update-user-information.request";
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -17,7 +18,11 @@ export class UserService {
     return response.userModel;
   }
 
-  updateUserAddress(updateUserAddressRequest: UpdateUserAddressRequest): void {
-    this.userInformationData.updateUserAddress(updateUserAddressRequest);
+  async updateUserAddress(updateUserAddressRequest: UpdateUserAddressRequest): Promise<void> {
+    await this.userInformationData.updateUserAddress(updateUserAddressRequest);
+  }
+
+  async updateUserInformation(updateUserInformationRequest: UpdateUserInformationRequest): Promise<void> {
+    await this.userInformationData.updateUserInformation(updateUserInformationRequest);
   }
 }

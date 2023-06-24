@@ -1,0 +1,18 @@
+<div class="account-page">
+
+  <div>
+    <span class="title">Account</span>
+    <p-divider></p-divider>
+  </div>
+
+  <div class="content">
+    <div class="left-panel">
+      <div class="navigate-list">
+        <span (click)="routeHelper.goToPersonalInformation(); selectedPage = 1" [class]="selectedPage === 1 ? 'selected':''">Personal Information</span>
+        <span (click)="routeHelper.goToPurchases(); selectedPage = 2" [class]="selectedPage === 2 ? 'selected':''">Purchases</span>
+      </div>
+    </div>
+    <account-content class="w-full"></account-content>
+  </div>
+
+</div>

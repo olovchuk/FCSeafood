@@ -1,6 +1,5 @@
 using FCSeafood.BLL.Item;
 using FCSeafood.BLL.Item.Models.Params;
-using FCSeafood.BLL.User.Info.Models.Params;
 
 namespace FCSeafood.WebAPI.Controllers;
 

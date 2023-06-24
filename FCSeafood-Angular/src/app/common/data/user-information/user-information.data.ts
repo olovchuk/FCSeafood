@@ -7,6 +7,7 @@ import { UserInformationResponse } from "@common-data/user-information/http/resp
 import { UserResponse } from "@common-data/user-information/http/response/user.response";
 import { UserIdRequest } from "@common-data/user-information/http/request/user-id.request";
 import { UpdateUserAddressRequest } from "@common-data/user-information/http/request/update-user-address.request";
+import { UpdateUserInformationRequest } from "@common-data/user-information/http/request/update-user-information.request";
 
 @Injectable({providedIn: 'root'})
 export class UserInformationData {
@@ -34,7 +35,11 @@ export class UserInformationData {
     return response;
   }
 
-  updateUserAddress(updateUserAddressRequest: UpdateUserAddressRequest) {
-    this.http.post(this.settings.updateUserAddressEndpoint, updateUserAddressRequest);
+  async updateUserAddress(updateUserAddressRequest: UpdateUserAddressRequest): Promise<void> {
+    const response = await firstValueFrom(this.http.post(this.settings.updateUserAddressEndpoint, updateUserAddressRequest));
+  }
+
+  async updateUserInformation(updateUserInformationRequest: UpdateUserInformationRequest): Promise<void> {
+    const response = await firstValueFrom(this.http.post(this.settings.updateUserInformationEndpoint, updateUserInformationRequest));
   }
 }

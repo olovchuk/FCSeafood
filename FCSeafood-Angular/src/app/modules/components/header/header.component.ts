@@ -15,8 +15,6 @@ import { OrderStateService } from "@common-services/order-state/order-state.serv
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  items: MenuItem[] = [];
-
   constructor(private dialog: MatDialog,
               public authStateService: AuthStateService,
               private authService: AuthService,
@@ -29,16 +27,6 @@ export class HeaderComponent implements OnInit {
     await this.initMenu();
   }
 
-  showSignInPopup() {
-    this.dialog.open(SignInPopup, {
-      panelClass: ['animate__animated', 'animate__slideInRight', 'custom-container', 'border-primary-left'],
-      position: {right: '0%'},
-      minHeight: '100vh',
-      width: '550px',
-      maxWidth: '100vw'
-    });
-  }
-
   showCartPopup() {
     this.dialog.open(CartPopup, {
       panelClass: ['animate__animated', 'animate__slideInRight', 'custom-container', 'border-primary-left'],
@@ -47,6 +35,21 @@ export class HeaderComponent implements OnInit {
       width: '550px',
       maxWidth: '100vw'
     });
+  }
+
+  async accountClick(): Promise<void> {
+    if (!this.authStateService.IsAuthorized) {
+      this.dialog.open(SignInPopup, {
+        panelClass: ['animate__animated', 'animate__slideInRight', 'custom-container', 'border-primary-left'],
+        position: {right: '0%'},
+        minHeight: '100vh',
+        width: '550px',
+        maxWidth: '100vw'
+      });
+      return;
+    }
+
+    await this.routeHelper.goToPersonalInformation();
   }
 
   async signOut(): Promise<void> {
@@ -73,27 +76,5 @@ export class HeaderComponent implements OnInit {
         }
       );
     }
-
-    this.items = [
-      {
-        label: 'Products',
-        items: [...itemsProducts]
-      },
-      {
-        label: 'Recipes'
-      },
-      {
-        label: 'Shop for ingredients'
-      },
-      {
-        label: 'Best offers'
-      },
-      {
-        label: 'About us'
-      },
-      {
-        label: 'Blog'
-      }
-    ];
   }
 }

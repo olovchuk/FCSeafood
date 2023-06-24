@@ -1,0 +1,73 @@
+<div class="table-block">
+  <div class="header-block">
+    <span class="title">Information</span>
+    <i class="pi pi-user-edit" (click)="informationFormGroup.controls['isEdit'].setValue(!informationFormGroup.controls['isEdit'].value)"></i>
+  </div>
+
+  <div class="content-block">
+    <form [formGroup]="informationFormGroup">
+      <table>
+        <tr>
+          <td>Name</td>
+          <td>
+            <span *ngIf="!informationFormGroup.controls['isEdit'].value">{{informationFormGroup.controls['firstName'].value}}</span>
+            <div *ngIf="informationFormGroup.controls['isEdit'].value">
+              <input pInputText formControlName="firstName"/>
+              <small *ngIf="informationFormGroup.controls['firstName'].hasError('required') && isShowErrors" class="p-error"> Name is <strong>required</strong> </small>
+              <small *ngIf="informationFormGroup.controls['firstName'].hasError('minlength') && isShowErrors" class="p-error"> Name should have at least 2 characters</small>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Surname</td>
+          <td>
+            <span *ngIf="!informationFormGroup.controls['isEdit'].value">{{informationFormGroup.controls['lastName'].value}}</span>
+            <div *ngIf="informationFormGroup.controls['isEdit'].value">
+              <input pInputText formControlName="lastName"/>
+              <small *ngIf="informationFormGroup.controls['lastName'].hasError('required') && isShowErrors" class="p-error"> Surname is <strong>required</strong> </small>
+              <small *ngIf="informationFormGroup.controls['lastName'].hasError('minlength') && isShowErrors" class="p-error"> Surname should have at least 2 characters </small>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Gender</td>
+          <td>
+            <span *ngIf="!informationFormGroup.controls['isEdit'].value && gendersTList.length > 0">{{gendersTList[informationFormGroup.controls['genderType'].value - 1].name}}</span>
+            <div *ngIf="informationFormGroup.controls['isEdit'].value">
+              <p-dropdown [options]="gendersTList"
+                          formControlName="genderType"
+                          optionLabel="name"
+                          optionValue="type"
+                          styleClass="w-full">
+              </p-dropdown>
+              <small *ngIf="informationFormGroup.controls['genderType'].hasError('required') && isShowErrors" class="p-error"> Gender is <strong>required</strong> </small>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td>
+            <span *ngIf="!informationFormGroup.controls['isEdit'].value">{{informationFormGroup.controls['phone'].value}}</span>
+            <div *ngIf="informationFormGroup.controls['isEdit'].value">
+              <input pInputText formControlName="phone"/>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Date of birth</td>
+          <td>
+            <span *ngIf="!informationFormGroup.controls['isEdit'].value">{{UiHelper.FormatData(informationFormGroup.controls['dateOfBirth'].value)}}</span>
+            <div *ngIf="informationFormGroup.controls['isEdit'].value">
+              <p-calendar formControlName="dateOfBirth" [showIcon]="true" styleClass="w-full"></p-calendar>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngIf="informationFormGroup.controls['isEdit'].value" class="flex justify-content-end w-full">
+        <p-button (click)="confirm()" type="submit" label="Save"></p-button>
+      </div>
+
+    </form>
+  </div>
+</div>

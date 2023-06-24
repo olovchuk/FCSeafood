@@ -25,7 +25,11 @@ export class RouteHelper {
         category: '/shop/category'
       },
       payment: '/payment',
-      completeOrder: '/complete-order'
+      completeOrder: '/complete-order',
+      account: {
+        personalInformation: '/account/personal-information',
+        purchases: '/account/purchases'
+      }
     };
 
     this.query = {
@@ -93,5 +97,13 @@ export class RouteHelper {
       [this.query.trackingNumber]: trackingNumber
     }
     await this.redirect(this.paths.completeOrder, queryParams);
+  }
+
+  async goToPersonalInformation() {
+    await this.redirect(this.paths.account.personalInformation);
+  }
+
+  async goToPurchases() {
+    await this.redirect(this.paths.account.purchases);
   }
 }

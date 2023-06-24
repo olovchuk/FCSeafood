@@ -10,4 +10,18 @@ public class GenderTRepository : Base.BaseRepository<GenderTDbo> {
         var model = new Mapper(MapperConfig.ConfigureCommon).Map<GenderTModel>(dbo);
         return (true, model);
     }
+    
+    public static (bool success, IReadOnlyCollection<GenderTModel> models) ToModel(IEnumerable<GenderTDbo> listDbo) {
+        if (listDbo.Equals(null))
+            return (false, Array.Empty<GenderTModel>());
+
+        var listResult = new List<GenderTModel>();
+        foreach (var result in listDbo.Select(ToModel)) {
+            if (!result.success)
+                return (false, Array.Empty<GenderTModel>());
+            listResult.Add(result.model);
+        }
+
+        return (true, listResult);
+    }
 }

@@ -18,7 +18,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     ShopComponent,
-    ShopContentComponent,
     ShopContentComponent
   ],
   imports: [

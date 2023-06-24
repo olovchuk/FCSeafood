@@ -9,10 +9,16 @@ public class UserService {
 
     private readonly UserRepository _userRepository;
     private readonly UserCredentialRepository _credentialRepository;
+    private readonly AddressRepository _addressRepository;
 
-    public UserService(UserRepository userRepository, UserCredentialRepository credentialRepository) {
+    public UserService(
+        UserRepository userRepository
+      , UserCredentialRepository credentialRepository
+      , AddressRepository addressRepository
+    ) {
         _userRepository = userRepository;
         _credentialRepository = credentialRepository;
+        _addressRepository = addressRepository;
     }
 
     #region User
@@ -55,14 +61,36 @@ public class UserService {
         }
     }
 
+    public async Task UpdateUserAsync(UserModel userModel) {
+        try {
+            await _userRepository.UpdateAsync(userModel);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+        }
+    }
+
     public async Task UpdateUserAddressAsync(Guid userId, AddressModel addressModel) {
         try {
             var (isSuccessful, model) = await _userRepository.FindByConditionAsync(x => x.Id == userId);
             if (!isSuccessful)
                 return;
 
-            model!.Address = addressModel;
-            await _userRepository.UpdateAsync(model);
+            if (model!.Address == null) {
+                (isSuccessful, var newAddressModel) = await _addressRepository.InsertAsync(addressModel);
+                if (!isSuccessful)
+                    return;
+
+                model.Address = newAddressModel;
+                await _userRepository.UpdateAsync(model);
+                return;
+            }
+
+            (isSuccessful, var addressModelUpdate) = await _addressRepository.FindByConditionAsync(x => x.Id == model.Address.Id);
+            if (!isSuccessful)
+                return;
+
+            addressModel.Id = addressModelUpdate!.Id;
+            await _addressRepository.UpdateAsync(addressModel);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
         }

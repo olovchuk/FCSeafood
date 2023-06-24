@@ -61,24 +61,24 @@
     <div class="flex-wrapper">
       <div>
         <label>Apartment number <span class="text-red-600">*</span></label>
-        <input pInputText pKeyFilter="int" formControlName="apartmentNumber"/>
+        <p-inputNumber pKeyFilter="int" formControlName="apartmentNumber"/>
         <small *ngIf="orderFormGroup.controls['apartmentNumber'].hasError('required') && isShowErrors" class="p-error">Number is <strong>required</strong></small>
       </div>
 
       <div>
         <label>Floor</label>
-        <input pInputText pKeyFilter="int" formControlName="floor"/>
+        <p-inputNumber pKeyFilter="int" formControlName="floor"/>
       </div>
     </div>
 
     <div class="flex-wrapper">
       <div>
         <label>Entrance</label>
-        <input pInputText pKeyFilter="int" formControlName="entrance"/>
+        <p-inputNumber pKeyFilter="int" formControlName="entrance"/>
       </div>
       <div>
         <label>Intercom</label>
-        <input pInputText pKeyFilter="int" formControlName="intercom"/>
+        <p-inputNumber pKeyFilter="int" formControlName="intercom"/>
       </div>
     </div>
 

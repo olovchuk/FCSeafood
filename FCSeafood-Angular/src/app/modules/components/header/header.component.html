@@ -15,7 +15,7 @@
       <i class="pi pi-shopping-cart" pBadge [value]="this.orderStateService.state.orderEntityCount.toString()"></i>
     </p-button>
 
-    <p-button (onClick)="showSignInPopup()" styleClass="p-button-text"
+    <p-button (onClick)="accountClick()" styleClass="p-button-text"
               [pTooltip]="authStateService.IsAuthorized ? 'Account' : 'Sign In'" tooltipPosition="bottom">
       <i class="pi pi-user"></i>
     </p-button>

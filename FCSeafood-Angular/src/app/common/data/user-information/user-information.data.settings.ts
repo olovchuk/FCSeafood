@@ -11,4 +11,7 @@ export class UserInformationDataSettings {
 
   private _updateUserAddressEndpoint: string = '/api/User/UpdateUserAddress';
   updateUserAddressEndpoint: string = AppSettings.webApiHostUrl + this._updateUserAddressEndpoint;
+
+  private _updateUserInformationEndpoint: string = '/api/User/UpdateUserInformation';
+  updateUserInformationEndpoint: string = AppSettings.webApiHostUrl + this._updateUserInformationEndpoint;
 }

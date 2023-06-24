@@ -30,4 +30,10 @@ public class UserController : ControllerBase {
         await _userManager.UpdateUserAddressAsync(updateUserAddressParams);
         return Ok();
     }
+
+    [HttpPost("UpdateUserInformation")]
+    public async Task<IActionResult> UpdateUserInformationAsync(UpdateUserInformationParams updateUserInformationParams) {
+        await _userManager.UpdateUserInformationAsync(updateUserInformationParams);
+        return Ok();
+    }
 }

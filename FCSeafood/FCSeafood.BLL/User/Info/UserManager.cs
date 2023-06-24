@@ -52,4 +52,21 @@ public class UserManager {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
         }
     }
+
+    public async Task UpdateUserInformationAsync(UpdateUserInformationParams updateUserInformationParams) {
+        try {
+            var user = await _userService.GetUserAsync(updateUserInformationParams.UserId);
+            if (user is null)
+                return;
+
+            user.FirstName = updateUserInformationParams.FirstName;
+            user.LastName = updateUserInformationParams.LastName;
+            user.Gender.Type = updateUserInformationParams.GenderType;
+            user.Phone = updateUserInformationParams.Phone;
+            user.DateOfBirth = updateUserInformationParams.DateOfBirth;
+            await _userService.UpdateUserAsync(user);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+        }
+    }
 }

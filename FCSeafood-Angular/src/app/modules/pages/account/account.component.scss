@@ -1,0 +1,45 @@
+.account-page {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+
+  .title {
+    color: var(--grafit, #272727);
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 150%;
+    text-transform: uppercase;
+  }
+
+  .content {
+    display: flex;
+
+    .left-panel {
+      width: 400px;
+
+      .navigate-list {
+        display: flex;
+        flex-direction: column;
+
+        span {
+          cursor: pointer;
+
+          color: var(--grafit, #272727);
+          font-size: 28px;
+          font-weight: 300;
+          line-height: 150%;
+        }
+
+        span:hover {
+          margin-left: 10px;
+        }
+
+
+        .selected {
+          margin-left: 10px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

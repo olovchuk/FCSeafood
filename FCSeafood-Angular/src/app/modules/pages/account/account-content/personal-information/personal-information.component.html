@@ -1,0 +1,21 @@
+<div class="account-table">
+
+  <div class="table-block">
+    <div class="header-block">
+      <span class="title">Account type</span>
+    </div>
+
+    <div class="content-block">
+      <p-badge [value]="user.role.name" size="large"></p-badge>
+    </div>
+  </div>
+
+  <p-divider></p-divider>
+
+  <personal-information-block *ngIf="userInformation" [userInformation]="userInformation" (saveChanges)="saveUserInformation()"></personal-information-block>
+
+  <p-divider></p-divider>
+
+  <personal-address-block *ngIf="address" [address]="address" (saveChanges)="saveUserAddress()"></personal-address-block>
+
+</div>

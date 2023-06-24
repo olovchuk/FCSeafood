@@ -1,0 +1,47 @@
+.purchases-card {
+  color: var(--grafit-color);
+
+  .order-created-date {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+  }
+
+  .entity-block:not(:first-child) {
+    margin-top: 1rem;
+  }
+
+  .entity-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .entity-info {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 68px;
+        height: 60px;
+      }
+
+      span {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 150%;
+      }
+    }
+
+    .entity-price {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 150%;
+    }
+  }
+
+  .order-price {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 150%;
+  }
+}
