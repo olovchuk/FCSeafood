@@ -27,6 +27,16 @@ public class OrderService {
         }
     }
 
+    public async Task<OrderModel?> GetOrderAsync(Guid orderId) {
+        try {
+            var (_, model) = await _orderRepository.FindByConditionAsync(x => x.Id == orderId);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return null;
+        }
+    }
+
     public async Task<OrderModel?> GetOrderByUserAsync(Guid userId) {
         try {
             var (_, model) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);

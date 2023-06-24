@@ -18,6 +18,9 @@ public class OrderDbo {
     [Column("Created_Date")]
     public DateTime CreatedDate { get; set; } = DateTime.Now;
 
+    [Column("IsComplete")]
+    public bool IsComplete { get; set; }
+
     public List<OrderEntityDbo> Orders { get; set; } = new();
 
     public OrderDbo() { }
@@ -27,5 +30,6 @@ public class OrderDbo {
         UserDboId = model.User.Id;
         TotalPrice = model.TotalPrice;
         CreatedDate = model.CreatedDate;
+        IsComplete = model.IsComplete;
     }
 }
