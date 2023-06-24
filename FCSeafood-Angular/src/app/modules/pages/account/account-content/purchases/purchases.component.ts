@@ -11,7 +11,7 @@ import { DeliveryService } from "@common-services/delivery.service";
   styleUrls: ['./purchases.component.scss']
 })
 export class PurchasesComponent implements OnInit {
-  order!: OrderModel;
+  orderModels: OrderModel[] = [];
 
   constructor(private routeHelper: RouteHelper,
               private authStateService: AuthStateService,
@@ -25,8 +25,6 @@ export class PurchasesComponent implements OnInit {
       return;
     }
 
-    let order = await this.orderService.getOrderByUser({userId: this.authStateService.token.UserId});
-    if (order)
-      this.order = order;
+    this.orderModels = await this.orderService.getCompleteOrderList({userId: this.authStateService.token.UserId});
   }
 }
