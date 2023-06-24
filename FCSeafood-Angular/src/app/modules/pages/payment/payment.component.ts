@@ -31,13 +31,13 @@ export class PaymentComponent implements OnInit {
   note!: string;
 
   orderFormGroup: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.min(2)]),
-    surname: new FormControl('', [Validators.required, Validators.min(2)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    surname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     phone: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    country: new FormControl('', [Validators.required, Validators.min(2)]),
-    city: new FormControl('', [Validators.required, Validators.min(2)]),
-    street: new FormControl('', [Validators.required, Validators.min(2)]),
+    country: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    city: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    street: new FormControl('', [Validators.required, Validators.minLength(2)]),
     apartmentNumber: new FormControl('', [Validators.required]),
     floor: new FormControl(''),
     entrance: new FormControl(''),
@@ -152,6 +152,7 @@ export class PaymentComponent implements OnInit {
 
     this.orderStateService.Refresh();
     await this.routeHelper.goToOrderComplete(trackingNumber);
+    this.isShowErrors = false;
   }
 
   cardInformationValidator(control: AbstractControl): ValidationErrors | null {
