@@ -83,6 +83,16 @@ public class OrderManager {
         }
     }
 
+    public async Task<OrderListResponse> GetCompleteOrderListAsync(UserIdParams idParams) {
+        try {
+            var orderModelList = await _orderService.GetCompleteOrderListAsync(idParams.UserId);
+            return new OrderListResponse(true, "", orderModelList);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new OrderListResponse(false, ErrorMessage.Order.IsNotDefined, Array.Empty<OrderModel>());
+        }
+    }
+
     public async Task<CountResponse> GetOrderCountByUser(UserIdParams idParams) {
         try {
             var orderCount = await _orderService.GetOrderCountByUser(idParams.UserId);

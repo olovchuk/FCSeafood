@@ -9,6 +9,9 @@ export class OrderDataSettings {
   private _getOrderByUserEndpoint: string = '/api/Order/GetOrderByUser';
   getOrderByUserEndpoint: string = AppSettings.webApiHostUrl + this._getOrderByUserEndpoint;
 
+  private _getCompleteOrderListEndpoint: string = '/api/Order/GetCompleteOrderList';
+  getCompleteOrderListEndpoint: string = AppSettings.webApiHostUrl + this._getCompleteOrderListEndpoint;
+
   private _getOrderCountByUserEndpoint: string = '/api/Order/GetOrderCountByUser';
   getOrderCountByUserEndpoint: string = AppSettings.webApiHostUrl + this._getOrderCountByUserEndpoint;
 

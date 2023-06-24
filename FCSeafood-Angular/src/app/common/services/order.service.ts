@@ -22,6 +22,14 @@ export class OrderService {
     return response.order;
   }
 
+  async getCompleteOrderList(userIdRequest: UserIdRequest): Promise<OrderModel[]> {
+    const response = await this.orderData.getCompleteOrderList(userIdRequest);
+    if (!response.isSuccessful)
+      return [];
+
+    return response.orderModels;
+  }
+
   async getOrderCountByUser(userIdRequest: UserIdRequest): Promise<number> {
     const response = await this.orderData.getOrderCountByUser(userIdRequest);
     if (!response.isSuccessful)

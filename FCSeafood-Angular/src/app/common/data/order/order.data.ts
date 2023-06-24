@@ -10,6 +10,7 @@ import { ExistsResponse } from "@common-data/order/http/response/exists.response
 import { OrderOrderEntityIdsRequest } from "@common-data/order/http/request/order-order-entity-ids.request";
 import { CountResponse } from "@common-data/order/http/response/count.response";
 import { UserIdRequest } from "@common-data/user-information/http/request/user-id.request";
+import { OrderListResponse } from "@common-data/order/http/response/order-list.response";
 
 @Injectable({providedIn: 'root'})
 export class OrderData {
@@ -33,6 +34,13 @@ export class OrderData {
     params = params.append('UserId', userIdRequest.userId);
 
     return await firstValueFrom(this.http.get<OrderResponse>(this.settings.getOrderByUserEndpoint, {params: params}));
+  }
+
+  async getCompleteOrderList(userIdRequest: UserIdRequest): Promise<OrderListResponse> {
+    let params = new HttpParams();
+    params = params.append('UserId', userIdRequest.userId);
+
+    return await firstValueFrom(this.http.get<OrderListResponse>(this.settings.getCompleteOrderListEndpoint, {params: params}));
   }
 
   async getOrderCountByUser(userIdRequest: UserIdRequest): Promise<CountResponse> {
