@@ -16,6 +16,10 @@
 
   <p-divider></p-divider>
 
+  <personal-credentials-block *ngIf="userCredentials" [userCredentials]="userCredentials"></personal-credentials-block>
+
+  <p-divider></p-divider>
+
   <personal-address-block *ngIf="address" [address]="address" (saveChanges)="saveUserAddress()"></personal-address-block>
 
 </div>

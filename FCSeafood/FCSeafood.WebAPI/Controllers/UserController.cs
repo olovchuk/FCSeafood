@@ -19,6 +19,12 @@ public class UserController : ControllerBase {
         return Ok(await _userManager.GetUser(userIdParams));
     }
 
+
+    [HttpGet("GetUserCredentials")]
+    public async Task<IActionResult> GetUserCredentialsAsync([FromQuery] UserIdParams userIdParams) {
+        return Ok(await _userManager.GetUserCredentialsAsync(userIdParams));
+    }
+
     [HttpGet("GetUserInformation"), Authorize]
     public async Task<IActionResult> GetUserInformation() {
         var claimsValues = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);

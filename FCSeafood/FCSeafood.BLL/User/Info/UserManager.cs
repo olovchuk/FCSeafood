@@ -23,6 +23,19 @@ public class UserManager {
         }
     }
 
+    public async Task<CredentialResponse> GetUserCredentialsAsync(UserIdParams userIdParams) {
+        try {
+            var credential = await _userService.GetCredentialByUserIdAsync(userIdParams.UserId);
+            if (credential is null)
+                return new CredentialResponse(false, ErrorMessage.User.IsNotDefined, null);
+
+            return new CredentialResponse(true, "", credential);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new CredentialResponse(false, ErrorMessage.User.IsNotDefined, null);
+        }
+    }
+
     public async Task<UserInformationResponse> GetUserInformationAsync(UserIdParams userIdParams) {
         try {
             var user = await _userService.GetUserAsync(userIdParams.UserId);

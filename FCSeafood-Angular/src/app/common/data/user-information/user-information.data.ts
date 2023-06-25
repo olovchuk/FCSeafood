@@ -8,6 +8,7 @@ import { UserResponse } from "@common-data/user-information/http/response/user.r
 import { UserIdRequest } from "@common-data/user-information/http/request/user-id.request";
 import { UpdateUserAddressRequest } from "@common-data/user-information/http/request/update-user-address.request";
 import { UpdateUserInformationRequest } from "@common-data/user-information/http/request/update-user-information.request";
+import { CredentialResponse } from "@common-data/user-information/http/response/сredential.response";
 
 @Injectable({providedIn: 'root'})
 export class UserInformationData {
@@ -21,6 +22,17 @@ export class UserInformationData {
     params = params.append('UserId', userIdRequest.userId);
 
     const response = await firstValueFrom(this.http.get<UserResponse>(this.settings.getUserEndpoint, {params: params}));
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
+
+    return response;
+  }
+
+  async getCredentials(userIdRequest: UserIdRequest): Promise<CredentialResponse> {
+    let params = new HttpParams();
+    params = params.append('UserId', userIdRequest.userId);
+
+    const response = await firstValueFrom(this.http.get<CredentialResponse>(this.settings.getUserCredentialsEndpoint, {params: params}));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 

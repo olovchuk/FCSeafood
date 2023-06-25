@@ -12,6 +12,7 @@ import { DeliveryComponent } from './delivery/delivery.component';
 import { DeliveryCard } from './delivery/delivery-card/delivery.card';
 import { MaterialModule } from "@modules/material/material.module";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { CredentialsBlock } from './personal-information/credentials-block/credentials.block';
 
 const routes: Routes = [
   {path: '', redirectTo: 'personal-information', pathMatch: 'full'},
@@ -28,7 +29,8 @@ const routes: Routes = [
     PurchasesComponent,
     PurchasesCard,
     DeliveryComponent,
-    DeliveryCard
+    DeliveryCard,
+    CredentialsBlock
   ],
   imports: [
     RouterModule.forChild(routes),

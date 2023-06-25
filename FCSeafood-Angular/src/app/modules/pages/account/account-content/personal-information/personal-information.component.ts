@@ -20,6 +20,7 @@ export class PersonalInformationComponent implements OnInit {
   user: UserModel = new UserModel();
 
   userInformation!: UserInformation;
+  userCredentials!: UserCredentials;
   address!: AddressModel;
 
   constructor(private routeHelper: RouteHelper,
@@ -49,6 +50,13 @@ export class PersonalInformationComponent implements OnInit {
       phone: this.user.phone,
       dateOfBirth: this.user.dateOfBirth ?? new Date()
     };
+
+    let credential = await this.userService.getCredentials({userId: this.authStateService.token.UserId});
+    if (credential) {
+      this.userCredentials = {
+        email: credential.email
+      };
+    }
 
     if (this.user.address)
       this.address = this.user.address;
@@ -81,4 +89,8 @@ export class UserInformation {
   genderType: GenderType = GenderType.Unknown;
   phone: string | null = null;
   dateOfBirth: Date = new Date();
+}
+
+export class UserCredentials {
+  email: string = '';
 }
