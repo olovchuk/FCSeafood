@@ -9,6 +9,7 @@ import { PrimengModule } from "@modules/primeng/primeng.module";
 import { CartPopup } from './cart/cart.popup';
 import { CartCardComponent } from './cart/cart.card/cart.card.component';
 import { InputTextAreaPopup } from './input-text-area/input-text-area.popup';
+import { RefreshPasswordPopup } from './refresh-password/refresh-password.popup';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { InputTextAreaPopup } from './input-text-area/input-text-area.popup';
     SignUpPopup,
     CartPopup,
     CartCardComponent,
-    InputTextAreaPopup
+    InputTextAreaPopup,
+    RefreshPasswordPopup
   ],
   exports: [
     SignInPopup,
