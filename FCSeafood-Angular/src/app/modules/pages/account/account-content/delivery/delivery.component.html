@@ -1,0 +1,5 @@
+<div class="flex">
+  <ng-container *ngIf="deliveries.length > 0">
+    <account-delivery-card *ngFor="let delivery of deliveries" [delivery]="delivery" [deliveryStatusTList]="deliveryStatusTList"></account-delivery-card>
+  </ng-container>
+</div>
