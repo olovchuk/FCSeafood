@@ -37,9 +37,9 @@ public static class ErrorMessage {
     }
 
     public static class Authentication {
-        public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
-        public static string AuthenticationGuestFailed => "Something went wrong with initialization Guest. Please please contact us via freshcatch@gmail.com.";
-        public static string SignUpFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
+        public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via fcseafood.freshcatch@gmail.com.";
+        public static string AuthenticationGuestFailed => "Something went wrong with initialization Guest. Please please contact us via fcseafood.freshcatch@gmail.com.";
+        public static string SignUpFailed => "Authentication failed. Please please try to sign in again or contact us via fcseafood.freshcatch@gmail.com.";
         public static string EmailOrPasswordIncorrect => "Email or Password incorrect. Please try again.";
         public static string EmailIsNotValidate => "Email is incorrect. Please try again.";
         public static string PasswordIsNotValidate => "Password should have at least 8 characters.";
