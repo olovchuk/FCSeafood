@@ -46,4 +46,9 @@ public class CommonController : ControllerBase {
     public async Task<IActionResult> GetGenderTListAsync() {
         return Ok(await _commonManager.GetGenderTListAsync());
     }
+
+    [HttpGet("GetDeliveryStatusTList")]
+    public async Task<IActionResult> GetDeliveryStatusTListAsync() {
+        return Ok(await _commonManager.GetDeliveryStatusTListAsync());
+    }
 }

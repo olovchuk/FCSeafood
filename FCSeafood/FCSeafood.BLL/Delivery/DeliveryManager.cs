@@ -35,4 +35,14 @@ public class DeliveryManager {
             return new TrackingNumberResponse(false, ErrorMessage.Delivery.EntityInsertError, null);
         }
     }
+
+    public async Task<DeliveryListResponse> GetDeliveryListAsync(UserIdParams userIdParams) {
+        try {
+            var deliveryModels = await _deliveryService.GetDeliveryListAsync(userIdParams.UserId);
+            return new DeliveryListResponse(true, "", deliveryModels);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new DeliveryListResponse(false, ErrorMessage.Delivery.EntityInsertError, Enumerable.Empty<DeliveryModel>());
+        }
+    }
 }

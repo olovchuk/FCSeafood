@@ -20,6 +20,9 @@ export class AccountComponent implements OnInit {
       case this.routeHelper.paths.account.purchases:
         this.selectedPage = 2;
         break;
+      case this.routeHelper.paths.account.delivery:
+        this.selectedPage = 3;
+        break;
     }
   }
 }

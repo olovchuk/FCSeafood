@@ -10,6 +10,7 @@
       <div class="navigate-list">
         <span (click)="routeHelper.goToPersonalInformation(); selectedPage = 1" [class]="selectedPage === 1 ? 'selected':''">Personal Information</span>
         <span (click)="routeHelper.goToPurchases(); selectedPage = 2" [class]="selectedPage === 2 ? 'selected':''">Purchases</span>
+        <span (click)="routeHelper.goToDelivery(); selectedPage = 3" [class]="selectedPage === 3 ? 'selected':''">My Deliveries</span>
       </div>
     </div>
     <account-content class="w-full"></account-content>

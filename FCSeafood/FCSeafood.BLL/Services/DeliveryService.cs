@@ -36,6 +36,16 @@ public class DeliveryService {
         }
     }
 
+    public async Task<IReadOnlyCollection<DeliveryModel>> GetDeliveryListAsync(Guid userId) {
+        try {
+            var (_, models) = await _deliveryRepository.FindByConditionListAsync(x => x.UserDboId == userId);
+            return models;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return Array.Empty<DeliveryModel>();
+        }
+    }
+
     private string GenerateTrackingNumber() {
         var uniqueId = Guid.NewGuid().ToString("N");
         const string format = "ddMMyyyy-hhmm-ss-";

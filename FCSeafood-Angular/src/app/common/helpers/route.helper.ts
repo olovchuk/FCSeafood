@@ -28,7 +28,8 @@ export class RouteHelper {
       completeOrder: '/complete-order',
       account: {
         personalInformation: '/account/personal-information',
-        purchases: '/account/purchases'
+        purchases: '/account/purchases',
+        delivery: '/account/delivery'
       }
     };
 
@@ -105,5 +106,9 @@ export class RouteHelper {
 
   async goToPurchases() {
     await this.redirect(this.paths.account.purchases);
+  }
+
+  async goToDelivery() {
+    await this.redirect(this.paths.account.delivery);
   }
 }

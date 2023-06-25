@@ -8,11 +8,16 @@ import { InformationBlock } from './personal-information/information-block/infor
 import { AddressBlock } from './personal-information/address-block/address.block';
 import { PurchasesComponent } from './purchases/purchases.component';
 import { PurchasesCard } from './purchases/purchases-card/purchases.card';
+import { DeliveryComponent } from './delivery/delivery.component';
+import { DeliveryCard } from './delivery/delivery-card/delivery.card';
+import { MaterialModule } from "@modules/material/material.module";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 const routes: Routes = [
   {path: '', redirectTo: 'personal-information', pathMatch: 'full'},
   {path: 'personal-information', component: PersonalInformationComponent},
-  {path: 'purchases', component: PurchasesComponent}
+  {path: 'purchases', component: PurchasesComponent},
+  {path: 'delivery', component: DeliveryComponent}
 ];
 
 @NgModule({
@@ -21,9 +26,18 @@ const routes: Routes = [
     InformationBlock,
     AddressBlock,
     PurchasesComponent,
-    PurchasesCard
+    PurchasesCard,
+    DeliveryComponent,
+    DeliveryCard
   ],
-  imports: [RouterModule.forChild(routes), PrimengModule, NgForOf, NgOptimizedImage, ReactiveFormsModule],
+  imports: [
+    RouterModule.forChild(routes),
+    PrimengModule,
+    MaterialModule,
+    NgForOf,
+    NgOptimizedImage,
+    ReactiveFormsModule
+  ],
   exports: [RouterModule]
 })
 export class AccountContentModule {

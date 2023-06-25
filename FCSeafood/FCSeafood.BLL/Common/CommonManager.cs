@@ -105,4 +105,18 @@ public class CommonManager {
             );
         }
     }
+
+    public async Task<DeliveryStatusTListResponse> GetDeliveryStatusTListAsync() {
+        try {
+            var genderTListModel = await _commonService.GetDeliveryStatusTListAsync();
+            return new DeliveryStatusTListResponse(true, "", genderTListModel);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new DeliveryStatusTListResponse(
+                false
+              , ErrorMessage.Common.ErrorRetrievingData
+              , Enumerable.Empty<DeliveryStatusTModel>()
+            );
+        }
+    }
 }
