@@ -271,4 +271,28 @@ public class AuthManager {
             return new EmptyResponse(false, ErrorMessage.Email.Error);
         }
     }
+
+    public async Task<EmptyResponse> ForgotPasswordAsync(ForgotPasswordParams forgotPasswordParams) {
+        try {
+            var userModel = await _userService.GetUserByEmailAsync(forgotPasswordParams.UserEmail);
+            if (userModel is null)
+                return new EmptyResponse(false, ErrorMessage.User.IsNotDefined);
+
+            var userNewPassword = GeneratePassword(10);
+            await _userService.UpdateUserPassword(userModel.Id, HashHelper.HashSha256(userNewPassword));
+
+            await _emailService.SendEmailForgotPassword(userModel.Email, userModel.GetFullName, userNewPassword);
+            return new EmptyResponse(true, string.Empty);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new EmptyResponse(false, ErrorMessage.Email.Error);
+        }
+    }
+
+    private string GeneratePassword(int length) {
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var random = new Random();
+        var result = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+        return result;
+    }
 }

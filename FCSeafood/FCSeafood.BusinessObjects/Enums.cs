@@ -130,4 +130,5 @@ public struct EmailTemplateCode {
 public struct EmailTemplateParameters {
     public const string UserFullName = "{{UserFullName}}";
     public const string ConfirmUrl = "{{ConfirmUrl}}";
+    public const string NewPassword = "{{NewPassword}}";
 }

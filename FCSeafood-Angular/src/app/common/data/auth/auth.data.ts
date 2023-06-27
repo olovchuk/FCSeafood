@@ -10,6 +10,7 @@ import { SignUpRequest } from "@common-data/auth/http/request/sign-up.request";
 import { SignUpResponse } from "@common-data/auth/http/response/sign-up.response";
 import { MessageHelper } from "@common-helpers/message.helper";
 import { EmptyResponse } from "../../http/response/empty.response";
+import { ForgotPasswordRequest } from "@common-data/auth/http/request/forgot-password.request";
 
 @Injectable({providedIn: 'root'})
 export class AuthData {
@@ -58,6 +59,15 @@ export class AuthData {
 
   async resetPassword(): Promise<void> {
     const response = await firstValueFrom(this.http.post<EmptyResponse>(this.settings.resetPasswordEndpoint, {}));
+    if (response.isSuccessful)
+      this.messageHelper.success("The message was sent successfully, check your mail");
+
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
+  }
+
+  async forgotPassword(forgotPasswordRequest: ForgotPasswordRequest): Promise<void> {
+    const response = await firstValueFrom(this.http.post<EmptyResponse>(this.settings.forgotPasswordEndpoint, forgotPasswordRequest));
     if (response.isSuccessful)
       this.messageHelper.success("The message was sent successfully, check your mail");
 

@@ -6,6 +6,7 @@ import { AuthService } from "@common-services/auth.service";
 import { DialogRef } from "@angular/cdk/dialog";
 import { MatDialog } from "@angular/material/dialog";
 import { SignUpPopup } from "@modules-components/popups/sign-up/sign-up.popup";
+import { RefreshPasswordPopup } from "@modules-components/popups/refresh-password/refresh-password.popup";
 
 @Component({
   selector: 'sign-in-popup',
@@ -60,6 +61,12 @@ export class SignInPopup {
       minHeight: '100vh',
       width: '550px',
       maxWidth: '100vw'
+    });
+  }
+
+  openRefreshPasswordPopup() {
+    const refreshPasswordPopup = this.dialog.open(RefreshPasswordPopup, {
+      panelClass: ['animate__animated', 'animate__slideInUp', 'border-primary']
     });
   }
 }

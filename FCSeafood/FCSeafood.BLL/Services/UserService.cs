@@ -64,6 +64,19 @@ public class UserService {
         }
     }
 
+    public async Task<UserModel?> GetUserByEmailAsync(string email) {
+        try {
+            var credential = await GetCredentialByEmailAsync(email);
+            if (credential is null)
+                return null;
+
+            return await GetUserAsync(credential.Id);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return null;
+        }
+    }
+
     public async Task UpdateUserAsync(UserModel userModel) {
         try {
             await _userRepository.UpdateAsync(userModel);
@@ -213,6 +226,19 @@ public class UserService {
             return new SignUpResponse(false, ErrorMessage.Authentication.LastNameIsNotValidate);
 
         return new SignUpResponse(true, "");
+    }
+
+    public async Task UpdateUserPassword(Guid userId, string newPasswordHash) {
+        try {
+            var (isSuccessful, model) = await _credentialRepository.FindByConditionAsync(x => x.Id == userId);
+            if (!isSuccessful)
+                return;
+
+            model!.Password = newPasswordHash;
+            await _credentialRepository.UpdateAsync(model);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+        }
     }
 
     #endregion

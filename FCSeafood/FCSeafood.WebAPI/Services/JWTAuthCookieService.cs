@@ -95,4 +95,8 @@ public class JwtAuthCookieService {
     public async Task<EmptyResponse> ResetPasswordAsync(Guid userId) {
         return await this._authManager.ResetPasswordAsync(userId);
     }
+
+    public async Task<EmptyResponse> ForgotPasswordAsync(ForgotPasswordParams forgotPasswordParams) {
+        return await this._authManager.ForgotPasswordAsync(forgotPasswordParams);
+    }
 }

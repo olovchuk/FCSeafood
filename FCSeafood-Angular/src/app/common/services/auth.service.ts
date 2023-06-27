@@ -9,6 +9,7 @@ import { SignInResponse } from "@common-data/auth/http/response/sign-in.response
 import { SignUpRequest } from "@common-data/auth/http/request/sign-up.request";
 import { SignOutResponse } from "@common-data/auth/http/response/sign-out.response";
 import { SignUpResponse } from "@common-data/auth/http/response/sign-up.response";
+import { ForgotPasswordRequest } from "@common-data/auth/http/request/forgot-password.request";
 
 export const ACCESS_KEY = 'fcs_access_key';
 export const REFRESH_KEY = 'fcs_refresh_key';
@@ -96,5 +97,13 @@ export class AuthService {
 
   async resetPassword(): Promise<void> {
     await this.authData.resetPassword();
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    const forgotPasswordRequest: ForgotPasswordRequest = {
+      userEmail: email
+    };
+
+    await this.authData.forgotPassword(forgotPasswordRequest);
   }
 }

@@ -63,4 +63,18 @@ public class EmailService : EmailTemplate {
         Addresses.Add(address);
         await this.SendEmail();
     }
+
+    public async Task SendEmailForgotPassword(string address, string userFullName, string newPassword) {
+        var (isSuccessful, model) = _emailTemplateRepository.GetTemplate(EmailTemplateCode.ResetPasswordConfirm);
+        if (!isSuccessful)
+            return;
+
+        model.EmailBody.Body = model.EmailBody.Body.Replace(EmailTemplateParameters.UserFullName, userFullName);
+        model.EmailBody.Body = model.EmailBody.Body.Replace(EmailTemplateParameters.NewPassword, newPassword);
+
+        this.Code = model.Code;
+        this.EmailBody = model.EmailBody;
+        Addresses.Add(address);
+        await this.SendEmail();
+    }
 }

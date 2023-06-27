@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { DialogRef } from "@angular/cdk/dialog";
 import { MessageHelper } from "@common-helpers/message.helper";
+import { AuthService } from "@common-services/auth.service";
 
 @Component({
   selector: 'refresh-password-popup',
@@ -15,17 +16,17 @@ export class RefreshPasswordPopup {
   });
 
   constructor(private dialogRef: DialogRef<RefreshPasswordPopup>,
-              private messageHelper: MessageHelper) {
+              private messageHelper: MessageHelper,
+              private authService: AuthService) {
   }
 
-  confirm(): void {
+  async confirm(): Promise<void> {
     if (this.refreshPasswordFormGroup.status !== 'VALID') {
       this.isShowErrors = true;
       return;
     }
 
-    //TODO: SendEmail
-    this.messageHelper.success('The message was sent successfully. Check your mail');
+    await this.authService.forgotPassword(this.refreshPasswordFormGroup.get('email')?.value);
     this.dialogRef.close();
   }
 }
