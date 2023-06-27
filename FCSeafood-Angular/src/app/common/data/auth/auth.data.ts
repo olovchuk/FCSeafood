@@ -59,7 +59,7 @@ export class AuthData {
   async resetPassword(): Promise<void> {
     const response = await firstValueFrom(this.http.post<EmptyResponse>(this.settings.resetPasswordEndpoint, {}));
     if (response.isSuccessful)
-      this.messageHelper.success(response.message);
+      this.messageHelper.success("The message was sent successfully, check your mail");
 
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
