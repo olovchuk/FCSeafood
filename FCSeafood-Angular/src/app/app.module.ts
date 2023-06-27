@@ -16,6 +16,7 @@ import { AppSettings } from "@settings/app.settings";
 import { RefreshTokenInterceptor } from "@interceptors/refresh-token/refresh-token.interceptor";
 import { RefreshTokenGuestInterceptors } from "@interceptors/refresh-token-guest/refresh-token-guest.interceptors";
 import { SiteMenuModule } from "@modules-components/site-menu/site-menu.module";
+import { LoadingInterceptor } from "@interceptors/loading/loading.interceptor";
 
 @NgModule({
   declarations: [
@@ -51,6 +52,11 @@ import { SiteMenuModule } from "@modules-components/site-menu/site-menu.module";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RefreshTokenGuestInterceptors,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true
     }
   ],
