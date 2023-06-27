@@ -9,6 +9,7 @@ import { SignInRefreshResponse } from "@common-data/auth/http/response/sign-in-r
 import { SignUpRequest } from "@common-data/auth/http/request/sign-up.request";
 import { SignUpResponse } from "@common-data/auth/http/response/sign-up.response";
 import { MessageHelper } from "@common-helpers/message.helper";
+import { EmptyResponse } from "../../http/response/empty.response";
 
 @Injectable({providedIn: 'root'})
 export class AuthData {
@@ -53,5 +54,14 @@ export class AuthData {
       this.messageHelper.error(response.message);
 
     return response;
+  }
+
+  async resetPassword(): Promise<void> {
+    const response = await firstValueFrom(this.http.post<EmptyResponse>(this.settings.resetPasswordEndpoint, {}));
+    if (response.isSuccessful)
+      this.messageHelper.success(response.message);
+
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
   }
 }

@@ -10,15 +10,18 @@ public class UserService {
     private readonly UserRepository _userRepository;
     private readonly UserCredentialRepository _credentialRepository;
     private readonly AddressRepository _addressRepository;
+    private readonly ResetPasswordLRepository _resetPasswordLRepository;
 
     public UserService(
         UserRepository userRepository
       , UserCredentialRepository credentialRepository
       , AddressRepository addressRepository
+      , ResetPasswordLRepository resetPasswordLRepository
     ) {
         _userRepository = userRepository;
         _credentialRepository = credentialRepository;
         _addressRepository = addressRepository;
+        _resetPasswordLRepository = resetPasswordLRepository;
     }
 
     #region User
@@ -93,6 +96,49 @@ public class UserService {
             await _addressRepository.UpdateAsync(addressModel);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+        }
+    }
+
+    public async Task<int> GetCodeForResetPassword(Guid userId) {
+        try {
+            var code = new Random().Next(100000, 999999);
+            var resetPasswordLDbo = new ResetPasswordLDbo {
+                UserDboId = userId
+              , Code = code
+              , CreatedDate = DateTime.Now
+              , ExpirationDate = DateTime.Now.AddMinutes(10)
+            };
+
+            var (isSuccessful, model) = await _resetPasswordLRepository.InsertAsync(resetPasswordLDbo);
+            return !isSuccessful ? 0 : code;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return 0;
+        }
+    }
+
+    public async Task RemoveAllCodesForResetPasswordAsync(Guid userId) {
+        try {
+            var (isSuccessful, models) = await _resetPasswordLRepository.FindByConditionListAsync(x => x.UserDboId == userId);
+            if (!isSuccessful)
+                return;
+
+            await _resetPasswordLRepository.RemoveRangeAsync(models);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+        }
+    }
+
+    public async Task<bool> IsUserHaveCodesForResetPasswordAsync(Guid userId) {
+        try {
+            var (isSuccessful, models) = await _resetPasswordLRepository.FindByConditionListAsync(x => x.UserDboId == userId);
+            if (!isSuccessful)
+                return false;
+
+            return models.Count > 0;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return false;
         }
     }
 

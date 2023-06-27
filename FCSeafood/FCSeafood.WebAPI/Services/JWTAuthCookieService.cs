@@ -1,3 +1,4 @@
+using FCSeafood.BLL.http.Response;
 using FCSeafood.BLL.User.Auth;
 using FCSeafood.BLL.User.Auth.Models.Params;
 using FCSeafood.BLL.User.Auth.Models.Response;
@@ -89,5 +90,9 @@ public class JwtAuthCookieService {
         _cookieHelper.RemoveCookie(Configuration.GetValue<string>("TokenKeys:Refresh")!);
 
         return new SignOutResponse(true, "");
+    }
+
+    public async Task<EmptyResponse> ResetPasswordAsync(Guid userId) {
+        return await this._authManager.ResetPasswordAsync(userId);
     }
 }

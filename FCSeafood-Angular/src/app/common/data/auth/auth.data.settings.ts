@@ -14,4 +14,7 @@ export class AuthDataSettings {
 
   private _signUpEndpoint: string = '/api/Auth/SignUp';
   signUpEndpointUrl: string = AppSettings.webApiHostUrl + this._signUpEndpoint;
+
+  private _resetPasswordEndpoint: string = '/api/Auth/ResetPassword';
+  resetPasswordEndpoint: string = AppSettings.webApiHostUrl + this._resetPasswordEndpoint;
 }

@@ -93,4 +93,8 @@ export class AuthService {
     this.userInformationState.userInformation = new UserInformationModel();
     this.signOut$.emit({isSuccessful: true, message: ''});
   }
+
+  async resetPassword(): Promise<void> {
+    await this.authData.resetPassword();
+  }
 }

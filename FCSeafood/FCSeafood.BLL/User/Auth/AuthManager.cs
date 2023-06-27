@@ -1,3 +1,5 @@
+using FCSeafood.BLL.Settings;
+
 namespace FCSeafood.BLL.User.Auth;
 
 public class AuthManager {
@@ -7,15 +9,21 @@ public class AuthManager {
     private readonly UserService _userService;
     private readonly AuthJwtHelper _authJwtHelper;
     private readonly AuthRefreshJwtHelper _authRefreshJwtHelper;
+    private readonly EmailService _emailService;
+    private readonly GlobalSettings _globalSettings;
 
     public AuthManager(
         UserService userService
       , AuthJwtHelper authJwtHelper
       , AuthRefreshJwtHelper authRefreshJwtHelper
+      , EmailService emailService
+      , GlobalSettings globalSettings
     ) {
         _userService = userService;
         _authJwtHelper = authJwtHelper;
         _authRefreshJwtHelper = authRefreshJwtHelper;
+        _emailService = emailService;
+        _globalSettings = globalSettings;
     }
 
     public async Task<SignInResponse> SignInAsync(SignInParams singInParams) {
@@ -238,6 +246,29 @@ public class AuthManager {
               , RoleType.Unknown
               , null
             );
+        }
+    }
+
+    public async Task<EmptyResponse> ResetPasswordAsync(Guid userId) {
+        try {
+            var userModel = await _userService.GetUserAsync(userId);
+            if (userModel is null)
+                return new EmptyResponse(false, ErrorMessage.User.IsNotDefined);
+
+            if (await _userService.IsUserHaveCodesForResetPasswordAsync(userId)) {
+                await _userService.RemoveAllCodesForResetPasswordAsync(userId);
+            }
+
+            var code = await _userService.GetCodeForResetPassword(userId);
+            if (code <= 0)
+                return new EmptyResponse(false, ErrorMessage.User.IsNotDefined);
+
+            var confirmUrl = $"{_globalSettings.DomainUrl}/reset-password/{code}";
+            await _emailService.SendEmailResetPassword(userModel.Email, userModel.GetFullName, confirmUrl);
+            return new EmptyResponse(true, string.Empty);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new EmptyResponse(false, ErrorMessage.Email.Error);
         }
     }
 }

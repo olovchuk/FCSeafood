@@ -44,17 +44,17 @@ export class PersonalInformationComponent implements OnInit {
 
     this.user = userModel;
     this.userInformation = {
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      genderType: this.user.gender.type,
-      phone: this.user.phone,
+      firstName: this.user.firstName ?? "N/A",
+      lastName: this.user.lastName ?? "N/A",
+      genderType: 1,
+      phone: this.user.phone ?? "N/A",
       dateOfBirth: this.user.dateOfBirth ?? new Date()
     };
 
     let credential = await this.userService.getCredentials({userId: this.authStateService.token.UserId});
     if (credential) {
       this.userCredentials = {
-        email: credential.email
+        email: credential.email ?? "N/A"
       };
     }
 

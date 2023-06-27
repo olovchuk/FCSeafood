@@ -70,6 +70,7 @@ public static class MapperConfig {
                         memberOptions => memberOptions.Rating
                       , options => options.MapFrom(source => Enum.GetName(typeof(RatingType), source.RatingTDboId))
                     );
+                cfg.CreateMap<ResetPasswordLDbo, ResetPasswordLModel>();
                 cfg.CreateMap<UserCredentialDbo, UserCredentialModel>();
                 cfg.CreateMap<UserDbo, UserModel>();
             }

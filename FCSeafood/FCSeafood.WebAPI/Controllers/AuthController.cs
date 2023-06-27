@@ -39,4 +39,10 @@ public class AuthController : ControllerBase {
         var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
         return Ok(_jwtCookieAuthService.SignOut(new SignOutParams(claims.UserId)));
     }
+
+    [HttpPost("ResetPassword"), Authorize]
+    public async Task<IActionResult> ResetPasswordAsync() {
+        var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
+        return Ok(await _jwtCookieAuthService.ResetPasswordAsync(claims.UserId));
+    }
 }
