@@ -112,4 +112,8 @@ export class RouteHelper {
   async goToDelivery() {
     await this.redirect(this.paths.account.delivery);
   }
+
+  async goToAboutUs() {
+    location.href = 'https://lc.fcseafood.com/home#about-us';
+  }
 }

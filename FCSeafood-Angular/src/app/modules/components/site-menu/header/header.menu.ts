@@ -40,9 +40,17 @@ export class HeaderMenu implements OnInit {
       }
     }
 
-    this.menuItems = [{
-      label: 'Products',
-      items: productsItems
-    }];
+    this.menuItems = [
+      {
+        label: 'Products',
+        items: productsItems
+      },
+      {
+        label: 'About us',
+        command: async (): Promise<void> => {
+          await this.routeHelper.goToAboutUs();
+        }
+      }
+    ];
   }
 }
