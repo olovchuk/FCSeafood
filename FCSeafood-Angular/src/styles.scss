@@ -6148,14 +6148,14 @@ p-treeselect.p-treeselect-clearable {
 
 .p-menubar {
   padding: .5rem;
-  background: #eff3f8;
-  color: #043d75;
-  border: 1px solid #dfe7ef;
+  background: var(--primary-dark-color);
+  color: white;
+  border: none;
   border-radius: 0;
 
   .p-menuitem-link {
     padding: .75rem 1.25rem;
-    color: #043d75;
+    color: white;
     border-radius: 0;
     transition: box-shadow .2s;
     user-select: none;
@@ -6201,7 +6201,7 @@ p-treeselect.p-treeselect-clearable {
       user-select: none;
 
       .p-menuitem-text {
-        color: #043d75;
+        color: white;
       }
 
       .p-menuitem-icon {
@@ -6307,7 +6307,7 @@ p-treeselect.p-treeselect-clearable {
       display: flex;
       width: 2rem;
       height: 2rem;
-      color: #708da9;
+      color: white;
       border-radius: 50%;
       transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 

@@ -8,6 +8,7 @@ import { MenuItem } from "primeng/api";
 import { CommonService } from "@common-services/common.service";
 import { CartPopup } from "@modules-components/popups/cart/cart.popup";
 import { OrderStateService } from "@common-services/order-state/order-state.service";
+import { ShopFiltersStateService } from "@common-services/shop-filters-state/shop-filters-state.service";
 
 @Component({
   selector: 'app-header',
@@ -15,12 +16,15 @@ import { OrderStateService } from "@common-services/order-state/order-state.serv
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  menuItems: MenuItem[] = [];
+
   constructor(private dialog: MatDialog,
               public authStateService: AuthStateService,
               private authService: AuthService,
               public routeHelper: RouteHelper,
               private commonService: CommonService,
-              public orderStateService: OrderStateService) {
+              public orderStateService: OrderStateService,
+              private shopFiltersStateService: ShopFiltersStateService) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -57,24 +61,45 @@ export class HeaderComponent implements OnInit {
   }
 
   async initMenu(): Promise<void> {
-    let itemsProducts = [];
-    let categoryTModels = await this.commonService.getCategoryTList()
+    const categoryTList = await this.commonService.getCategoryTList();
 
-    for (let i = 0; i < categoryTModels.length; i++) {
-      let categoryTModel = categoryTModels[i];
-      let subcategoryTModelList = categoryTModel.subcategoryTModelList;
+    let productsItems: MenuItem[] = [];
+    for (let i = 0; i < categoryTList.length; i++) {
+      productsItems.push({
+        label: categoryTList[i].name,
+        items: []
+      });
 
-      let items = [];
-      for (let j = 0; j < subcategoryTModelList.length; j++) {
-        items.push({label: subcategoryTModelList[j].name});
+      for (let j = 0; j < categoryTList[i].subcategoryTModelList.length; j++) {
+        productsItems[i].items?.push({
+          label: categoryTList[i].subcategoryTModelList[j].name,
+          command: async (): Promise<void> => {
+            await this.shopFiltersStateService.changeCategory(categoryTList[i].type);
+            await this.shopFiltersStateService.changeSubcategory(categoryTList[i].subcategoryTModelList[j].type);
+            await this.shopFiltersStateService.applyFiltersSubscription$.emit();
+            await this.routeHelper.goToItems();
+          }
+        })
       }
-
-      itemsProducts.push(
-        {
-          label: categoryTModel.name,
-          items: items
-        }
-      );
     }
+
+    this.menuItems = [
+      {
+        label: 'Home',
+        command: async (): Promise<void> => {
+          await this.routeHelper.goToHome();
+        }
+      },
+      {
+        label: 'Products',
+        items: productsItems
+      },
+      {
+        label: 'About us',
+        command: async (): Promise<void> => {
+          await this.routeHelper.goToAboutUs();
+        }
+      }
+    ];
   }
 }

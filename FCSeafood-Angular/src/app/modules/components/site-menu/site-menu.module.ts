@@ -5,16 +5,13 @@ import { RouterModule } from "@angular/router";
 import { PrimengModule } from "@modules/primeng/primeng.module";
 import { MaterialModule } from "@modules/material/material.module";
 import { ReactiveFormsModule } from "@angular/forms";
-import { HeaderMenu } from './header/header.menu';
 
 @NgModule({
   declarations: [
-    ShopMenu,
-    HeaderMenu
+    ShopMenu
   ],
   exports: [
-    ShopMenu,
-    HeaderMenu
+    ShopMenu
   ],
   imports: [
     RouterModule,
