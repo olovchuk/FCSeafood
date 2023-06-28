@@ -16,7 +16,7 @@ public class EmailService : EmailTemplate {
         _emailTemplateRepository = emailTemplateRepository;
     }
 
-    private async Task SendEmail() {
+    private void SendEmail() {
         try {
             using var client = new SmtpClient(_emailSettings.Server, _emailSettings.Port);
             client.UseDefaultCredentials = false;
@@ -44,13 +44,13 @@ public class EmailService : EmailTemplate {
                 message.Attachments.Add(attachment);
             }
 
-            await client.SendMailAsync(message);
+            client.Send(message);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
         }
     }
 
-    public async Task SendEmailResetPassword(string address, string userFullName, string confirmUrl) {
+    public void SendEmailResetPassword(string address, string userFullName, string confirmUrl) {
         var (isSuccessful, model) = _emailTemplateRepository.GetTemplate(EmailTemplateCode.ResetPasswordConfirm);
         if (!isSuccessful)
             return;
@@ -61,11 +61,11 @@ public class EmailService : EmailTemplate {
         this.Code = model.Code;
         this.EmailBody = model.EmailBody;
         Addresses.Add(address);
-        await this.SendEmail();
+        this.SendEmail();
     }
 
-    public async Task SendEmailForgotPassword(string address, string userFullName, string newPassword) {
-        var (isSuccessful, model) = _emailTemplateRepository.GetTemplate(EmailTemplateCode.ResetPasswordConfirm);
+    public void SendEmailForgotPassword(string address, string userFullName, string newPassword) {
+        var (isSuccessful, model) = _emailTemplateRepository.GetTemplate(EmailTemplateCode.ForgotPassword);
         if (!isSuccessful)
             return;
 
@@ -75,6 +75,6 @@ public class EmailService : EmailTemplate {
         this.Code = model.Code;
         this.EmailBody = model.EmailBody;
         Addresses.Add(address);
-        await this.SendEmail();
+        this.SendEmail();
     }
 }

@@ -34,7 +34,8 @@ export class RouteHelper {
     };
 
     this.query = {
-      trackingNumber: 'tn'
+      trackingNumber: 'tn',
+      code: 'cd'
     }
   }
 

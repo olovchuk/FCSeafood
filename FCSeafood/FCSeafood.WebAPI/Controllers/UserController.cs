@@ -42,4 +42,11 @@ public class UserController : ControllerBase {
         await _userManager.UpdateUserInformationAsync(updateUserInformationParams);
         return Ok();
     }
+
+    [HttpPost("UpdateUserPassword"), Authorize]
+    public async Task<IActionResult> UpdateUserPasswordAsync(UpdateUserPasswordParams updateUserPasswordParams) {
+        var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
+        await _userManager.UpdateUserPasswordAsync(claims.UserId, updateUserPasswordParams.NewPassword);
+        return Ok();
+    }
 }

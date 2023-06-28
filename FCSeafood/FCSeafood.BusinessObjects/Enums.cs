@@ -125,6 +125,7 @@ public enum PaymentMethodType {
 
 public struct EmailTemplateCode {
     public const string ResetPasswordConfirm = "RESET_PASSWORD_CONFIRM";
+    public const string ForgotPassword = "FORGOT_PASSWORD";
 }
 
 public struct EmailTemplateParameters {

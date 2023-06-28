@@ -155,6 +155,18 @@ public class UserService {
         }
     }
 
+    public async Task<ResetPasswordLModel?> GetResetPassword(Guid userId, int code) {
+        try {
+            var (isSuccessful, model) = await _resetPasswordLRepository.FindByConditionAsync(
+                x => x.UserDboId == userId && x.Code == code
+            );
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return null;
+        }
+    }
+
     #endregion
 
     #region Credential

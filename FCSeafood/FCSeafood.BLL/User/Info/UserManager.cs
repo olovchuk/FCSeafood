@@ -82,4 +82,12 @@ public class UserManager {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
         }
     }
+
+    public async Task UpdateUserPasswordAsync(Guid userId, string newPassword) {
+        try {
+            await _userService.UpdateUserPassword(userId, HashHelper.HashSha256(newPassword));
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+        }
+    }
 }

@@ -46,6 +46,12 @@ public class AuthController : ControllerBase {
         return Ok(await _jwtCookieAuthService.ResetPasswordAsync(claims.UserId));
     }
 
+    [HttpPost("IsExistsResetPasswordCode"), Authorize]
+    public async Task<IActionResult> IsExistsResetPasswordCodeAsync(CodeParams codeParams) {
+        var claims = JwtClaimsHelper.GetUserClaims(Request.HttpContext.User.Claims);
+        return Ok(await _jwtCookieAuthService.IsExistsResetPasswordCodeAsync(claims.UserId, codeParams.Code));
+    }
+
     [HttpPost("ForgotPassword")]
     public async Task<IActionResult> ForgotPasswordAsync(ForgotPasswordParams forgotPasswordParams) {
         return Ok(await _jwtCookieAuthService.ForgotPasswordAsync(forgotPasswordParams));

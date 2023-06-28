@@ -17,4 +17,7 @@ export class UserInformationDataSettings {
 
   private _updateUserInformationEndpoint: string = '/api/User/UpdateUserInformation';
   updateUserInformationEndpoint: string = AppSettings.webApiHostUrl + this._updateUserInformationEndpoint;
+
+  private _updateUserPasswordEndpoint: string = '/api/User/UpdateUserPassword';
+  updateUserPasswordEndpoint: string = AppSettings.webApiHostUrl + this._updateUserPasswordEndpoint;
 }

@@ -263,9 +263,25 @@ public class AuthManager {
             if (code <= 0)
                 return new EmptyResponse(false, ErrorMessage.User.IsNotDefined);
 
-            var confirmUrl = $"{_globalSettings.DomainUrl}/reset-password/{code}";
-            await _emailService.SendEmailResetPassword(userModel.Email, userModel.GetFullName, confirmUrl);
+            var confirmUrl = $"{_globalSettings.DomainUrl}/account/reset-password?cd={code}";
+            _emailService.SendEmailResetPassword(userModel.Email, userModel.GetFullName, confirmUrl);
             return new EmptyResponse(true, string.Empty);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new EmptyResponse(false, ErrorMessage.Email.Error);
+        }
+    }
+
+    public async Task<EmptyResponse> IsExistsResetPasswordCodeAsync(Guid userId, int code) {
+        try {
+            var resetPasswordLModel = await _userService.GetResetPassword(userId, code);
+            if (resetPasswordLModel is null)
+                return new EmptyResponse(false, ErrorMessage.Authentication.ChangePasswordNotAllowed);
+
+            if (resetPasswordLModel.ExpirationDate <= DateTime.Now)
+                return new EmptyResponse(false, ErrorMessage.Authentication.PasswordResetExpired);
+
+            return new EmptyResponse(true, "");
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
             return new EmptyResponse(false, ErrorMessage.Email.Error);
@@ -281,7 +297,7 @@ public class AuthManager {
             var userNewPassword = GeneratePassword(10);
             await _userService.UpdateUserPassword(userModel.Id, HashHelper.HashSha256(userNewPassword));
 
-            await _emailService.SendEmailForgotPassword(userModel.Email, userModel.GetFullName, userNewPassword);
+            _emailService.SendEmailForgotPassword(userModel.Email, userModel.GetFullName, userNewPassword);
             return new EmptyResponse(true, string.Empty);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);

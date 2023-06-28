@@ -9,6 +9,7 @@ import { UserIdRequest } from "@common-data/user-information/http/request/user-i
 import { UpdateUserAddressRequest } from "@common-data/user-information/http/request/update-user-address.request";
 import { UpdateUserInformationRequest } from "@common-data/user-information/http/request/update-user-information.request";
 import { CredentialResponse } from "@common-data/user-information/http/response/сredential.response";
+import { UpdateUserPasswordRequest } from "@common-data/user-information/http/request/update-user-password.request";
 
 @Injectable({providedIn: 'root'})
 export class UserInformationData {
@@ -53,5 +54,9 @@ export class UserInformationData {
 
   async updateUserInformation(updateUserInformationRequest: UpdateUserInformationRequest): Promise<void> {
     const response = await firstValueFrom(this.http.post(this.settings.updateUserInformationEndpoint, updateUserInformationRequest));
+  }
+
+  async updateUserPassword(updateUserPasswordRequest: UpdateUserPasswordRequest): Promise<void> {
+    const response = await firstValueFrom(this.http.post(this.settings.updateUserPasswordEndpoint, updateUserPasswordRequest));
   }
 }

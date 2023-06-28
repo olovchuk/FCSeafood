@@ -52,6 +52,8 @@ public static class ErrorMessage {
         public static string InsertAddressFailed => "Something went wrong while adding address.";
         public static string InsertUserFailed => "Something went wrong while adding user.";
         public static string InsertCredentialFailed => "Something went wrong while adding credential.";
+        public static string ChangePasswordNotAllowed => "Password change is not allowed";
+        public static string PasswordResetExpired => "Password reset has expired";
     }
 
     public static class Cookie {

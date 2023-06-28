@@ -5,6 +5,7 @@ import { UserModel } from "@common-models/user.model";
 import { UpdateUserAddressRequest } from "@common-data/user-information/http/request/update-user-address.request";
 import { UpdateUserInformationRequest } from "@common-data/user-information/http/request/update-user-information.request";
 import { UserCredentialModel } from "@common-models/user-credential.model";
+import { UpdateUserPasswordRequest } from "@common-data/user-information/http/request/update-user-password.request";
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -33,5 +34,9 @@ export class UserService {
 
   async updateUserInformation(updateUserInformationRequest: UpdateUserInformationRequest): Promise<void> {
     await this.userInformationData.updateUserInformation(updateUserInformationRequest);
+  }
+
+  async updateUserPassword(updateUserPasswordRequest: UpdateUserPasswordRequest): Promise<void> {
+    await this.userInformationData.updateUserPassword(updateUserPasswordRequest);
   }
 }
