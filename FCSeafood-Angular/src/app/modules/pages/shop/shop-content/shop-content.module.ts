@@ -10,6 +10,7 @@ import { ItemComponent } from './item/item.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemCard } from './item-list/item-card/item.card';
 import { FilterComponent } from "@modules-pages/shop/panels/filter/filter.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 const routes: Routes = [
   {path: '', redirectTo: 'items', pathMatch: 'full'},
@@ -30,8 +31,8 @@ const routes: Routes = [
     ItemCard,
     FilterComponent
   ],
-  imports: [RouterModule.forChild(routes), PrimengModule, NgForOf, NgOptimizedImage],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes), PrimengModule, NgForOf, NgOptimizedImage, MatDialogModule],
+  exports: [RouterModule, FilterComponent]
 })
 export class ShopContentModule {
 }
