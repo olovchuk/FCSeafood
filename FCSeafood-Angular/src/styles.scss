@@ -80,6 +80,13 @@ img, svg, video {
   }
 }
 
+.no-data {
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 700;
+  font-style: italic;
+}
+
 .rotate-container {
   animation: rotate 4s linear infinite;
 }

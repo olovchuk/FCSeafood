@@ -1,3 +1,9 @@
+<ng-container *ngIf="deliveries.length <= 0">
+  <div class="flex justify-content-center">
+    <span class="no-data my-8">No Data</span>
+  </div>
+</ng-container>
+
 <div class="flex">
   <ng-container *ngIf="deliveries.length > 0">
     <account-delivery-card *ngFor="let delivery of deliveries" [delivery]="delivery" [deliveryStatusTList]="deliveryStatusTList"></account-delivery-card>

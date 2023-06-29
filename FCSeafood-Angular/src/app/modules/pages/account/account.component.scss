@@ -43,3 +43,18 @@
     }
   }
 }
+
+.account-menu {
+  display: none;
+  width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .left-panel {
+    display: none !important;
+  }
+
+  .account-menu {
+    display: block !important;
+  }
+}
