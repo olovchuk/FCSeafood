@@ -3,7 +3,7 @@
     <img [src]="cartInformation.imagePath" style="width: 140px; height: 130px" alt="">
 
     <div class="flex flex-column ml-3 mt-2 w-full">
-      <div class="text">{{cartInformation.name}}</div>
+      <div class="text text-great-wrap">{{cartInformation.name}}</div>
       <div class="text mt-1">Weight: {{cartInformation.quantityPerKg}} kg</div>
       <div class="text mt-1">Price: {{UiHelper.FormatCurrency(cartInformation.price)}}</div>
     </div>
