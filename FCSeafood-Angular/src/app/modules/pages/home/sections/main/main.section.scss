@@ -4,7 +4,10 @@
   padding: 20vh 0 !important;
 
   .card {
-    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    max-width: 570px;
     padding: 10px;
     margin-left: 5vw;
 
@@ -18,14 +21,19 @@
     h1 {
       margin: 1rem 0;
 
-      text-transform: uppercase;
-      font-size: 2rem;
+      font-size: 60px;
+      font-style: normal;
       font-weight: 900;
+      line-height: 150%;
+      letter-spacing: 7.2px;
+      text-transform: uppercase;
     }
 
     span {
       font-weight: 400;
       font-size: 28px;
+      font-style: normal;
+      line-height: 150%;
     }
   }
 }
