@@ -1,9 +1,9 @@
 <div class="section">
   <div class="content">
     <h3>Our suppliers</h3>
-    <div class="object">
+    <div class="objects">
       <div *ngIf="suppliersList.length === 0" class="no-data">No data</div>
-      <p-button *ngFor="let info of suppliersList" class="m-2"></p-button>
+      <span *ngFor="let info of suppliersList" class="supplier">{{info}}</span>
     </div>
   </div>
 </div>
