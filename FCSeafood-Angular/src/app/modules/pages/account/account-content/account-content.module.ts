@@ -40,7 +40,7 @@ const routes: Routes = [
     NgOptimizedImage,
     ReactiveFormsModule
   ],
-  exports: [RouterModule]
+    exports: [RouterModule, PurchasesCard]
 })
 export class AccountContentModule {
 }

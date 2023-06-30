@@ -10,6 +10,8 @@ import { CartPopup } from './cart/cart.popup';
 import { CartCardComponent } from './cart/cart.card/cart.card.component';
 import { InputTextAreaPopup } from './input-text-area/input-text-area.popup';
 import { RefreshPasswordPopup } from './refresh-password/refresh-password.popup';
+import { DeliveryFullInformationPopup } from './delivey-full-information/delivery-full-information.popup';
+import { AccountContentModule } from "@modules-pages/account/account-content/account-content.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { RefreshPasswordPopup } from './refresh-password/refresh-password.popup'
     CartPopup,
     CartCardComponent,
     InputTextAreaPopup,
-    RefreshPasswordPopup
+    RefreshPasswordPopup,
+    DeliveryFullInformationPopup
   ],
   exports: [
     SignInPopup,
@@ -30,7 +33,8 @@ import { RefreshPasswordPopup } from './refresh-password/refresh-password.popup'
     NgOptimizedImage,
     PrimengModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AccountContentModule
   ]
 })
 export class PopupsModule {
