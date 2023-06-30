@@ -95,17 +95,23 @@ export class HeaderComponent implements OnInit {
         items: productsItems
       },
       {
-        label: 'My order',
-        command: async (): Promise<void> => {
-          await this.routeHelper.goToPayment();
-        }
+        label: 'Recipes'
+      },
+      {
+        label: 'Shop for ingridients'
+      },
+      {
+        label: 'Best offers'
       },
       {
         label: 'About us',
         command: async (): Promise<void> => {
           await this.routeHelper.goToAboutUs();
         }
-      }
+      },
+      {
+        label: 'Blog'
+      },
     ];
   }
 }
