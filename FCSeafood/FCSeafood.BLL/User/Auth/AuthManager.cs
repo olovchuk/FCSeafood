@@ -264,7 +264,7 @@ public class AuthManager {
                 return new EmptyResponse(false, ErrorMessage.User.IsNotDefined);
 
             var confirmUrl = $"{_globalSettings.DomainUrl}/account/reset-password?cd={code}";
-            _emailService.SendEmailResetPassword(userModel.Email, userModel.GetFullName, confirmUrl);
+            await _emailService.SendEmailResetPassword(userModel.Email, userModel.GetFullName, confirmUrl);
             return new EmptyResponse(true, string.Empty);
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
