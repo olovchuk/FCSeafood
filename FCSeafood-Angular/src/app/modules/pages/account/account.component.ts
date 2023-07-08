@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouteHelper } from "@common-helpers/route.helper";
 import { MenuItem } from "primeng/api";
 import { expand } from "rxjs";
+import { UserInformationStateService } from "@common-services/user-information-state/user-information-state";
 
 @Component({
   selector: 'app-account',

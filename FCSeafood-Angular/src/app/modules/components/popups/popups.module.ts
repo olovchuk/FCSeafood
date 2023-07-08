@@ -12,6 +12,7 @@ import { InputTextAreaPopup } from './input-text-area/input-text-area.popup';
 import { RefreshPasswordPopup } from './refresh-password/refresh-password.popup';
 import { DeliveryFullInformationPopup } from './delivey-full-information/delivery-full-information.popup';
 import { AccountContentModule } from "@modules-pages/account/account-content/account-content.module";
+import { CookiePopup } from './cookie/cookie.popup';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AccountContentModule } from "@modules-pages/account/account-content/acc
     CartCardComponent,
     InputTextAreaPopup,
     RefreshPasswordPopup,
-    DeliveryFullInformationPopup
+    DeliveryFullInformationPopup,
+    CookiePopup
   ],
   exports: [
     SignInPopup,

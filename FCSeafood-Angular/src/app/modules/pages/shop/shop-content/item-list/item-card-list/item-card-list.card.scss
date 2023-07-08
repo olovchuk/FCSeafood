@@ -1,0 +1,43 @@
+.item-card-list {
+  width: 100%;
+  margin: 0.5rem;
+  display: flex;
+
+  .image {
+    height: 205px;
+    width: 330px;
+    object-fit: contain;
+  }
+
+  .name {
+    height: 70px;
+    width: 330px;
+
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 110%;
+    color: var(--grafit-color);
+  }
+
+  .payment-block {
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--gray-color)
+  }
+
+  .tags {
+    ::ng-deep .tag {
+      margin: 0.5rem;
+      font-weight: 300;
+      font-size: 1rem;
+    }
+  }
+}
