@@ -23,6 +23,11 @@ public class OrderController : ControllerBase {
         return Ok(await _orderManager.GetOrderByUserAsync(userIdParams));
     }
 
+    [HttpGet("GetCompleteOrderList")]
+    public async Task<IActionResult> GetCompleteOrderListAsync([FromQuery] UserIdParams userIdParams) {
+        return Ok(await _orderManager.GetCompleteOrderListAsync(userIdParams));
+    }
+
     [HttpGet("GetOrderCountByUser")]
     public async Task<IActionResult> GetOrderCountByUser([FromQuery] UserIdParams userIdParams) {
         return Ok(await _orderManager.GetOrderCountByUser(userIdParams));

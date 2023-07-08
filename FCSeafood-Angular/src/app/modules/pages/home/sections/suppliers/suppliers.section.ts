@@ -6,9 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./suppliers.section.scss', '../../home.component.scss']
 })
 export class SuppliersSection {
-  suppliersList: [];
+  suppliersList: string[];
 
   constructor() {
-    this.suppliersList = [];
+    this.suppliersList = [
+      'China',
+      'Argentina',
+      'Norway',
+      'Ukraine',
+      'Spain',
+      'Vietnam'
+    ];
   }
 }

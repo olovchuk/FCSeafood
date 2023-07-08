@@ -1,4 +1,7 @@
-<div class="filter-panel">
+<div class="filter-panel" [style.height.vh]="isPopupFullScreen ? 100 : -1">
+  <div *ngIf="isPopupFullScreen" class="close-popup-button">
+    <i class="pi pi-times cursor-pointer" style="font-size: 1.5rem" [mat-dialog-close]="true"></i>
+  </div>
 
   <div class="flex justify-content-between">
     <div class="flex">
@@ -50,7 +53,7 @@
   </p-dropdown>
 
   <div class="text-center">
-    <p-button (click)="applyFilters()" styleClass="p-button-secondary w-full text-center mt-5" label="Apply"></p-button>
+    <p-button (click)="applyFilters()" styleClass="p-button-secondary w-full text-center mt-5" label="Apply" [mat-dialog-close]="true"></p-button>
   </div>
 
 </div>

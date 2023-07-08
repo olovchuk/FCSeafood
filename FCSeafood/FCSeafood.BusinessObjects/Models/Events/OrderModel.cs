@@ -5,5 +5,6 @@ public class OrderModel {
     public UserModel User { get; set; } = new();
     public double TotalPrice { get; set; }
     public DateTime CreatedDate { get; set; } = DateTime.Now;
+    public bool IsComplete { get; set; }
     public List<OrderEntityModel> Orders { get; set; } = new();
 }

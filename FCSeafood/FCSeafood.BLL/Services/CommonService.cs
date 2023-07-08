@@ -9,15 +9,21 @@ public class CommonService {
     private readonly CategoryTRepository _categoryTRepository;
     private readonly SubcategoryTRepository _subcategoryTRepository;
     private readonly PaymentMethodTRepository _paymentMethodTRepository;
+    private readonly GenderTRepository _genderTRepository;
+    private readonly DeliveryStatusTRepository _deliveryStatusTRepository;
 
     public CommonService(
         CategoryTRepository categoryTRepository
       , SubcategoryTRepository subcategoryTRepository
       , PaymentMethodTRepository paymentMethodTRepository
+      , GenderTRepository genderTRepository
+      , DeliveryStatusTRepository deliveryStatusTRepository
     ) {
         _categoryTRepository = categoryTRepository;
         _subcategoryTRepository = subcategoryTRepository;
         _paymentMethodTRepository = paymentMethodTRepository;
+        _genderTRepository = genderTRepository;
+        _deliveryStatusTRepository = deliveryStatusTRepository;
     }
 
     #region CategoryType
@@ -106,6 +112,38 @@ public class CommonService {
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return Array.Empty<PaymentMethodTModel>();
+        }
+    }
+
+    #endregion
+
+    #region GenderType
+
+    public async Task<IReadOnlyCollection<GenderTModel>> GetGenderTListAsync() {
+        try {
+            var genderTListDbo = await _genderTRepository.GetAllAsync();
+
+            var (_, model) = GenderTRepository.ToModel(genderTListDbo);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return Array.Empty<GenderTModel>();
+        }
+    }
+
+    #endregion
+
+    #region DeliveryStatusType
+
+    public async Task<IReadOnlyCollection<DeliveryStatusTModel>> GetDeliveryStatusTListAsync() {
+        try {
+            var deliveryStatusTListDbo = await _deliveryStatusTRepository.GetAllAsync();
+
+            var (_, models) = DeliveryStatusTRepository.ToModel(deliveryStatusTListDbo);
+            return models;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return Array.Empty<DeliveryStatusTModel>();
         }
     }
 

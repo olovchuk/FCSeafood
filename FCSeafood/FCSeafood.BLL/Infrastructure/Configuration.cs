@@ -1,6 +1,8 @@
+using FCSeafood.BLL.Settings;
 using FCSeafood.DAL.Context;
 using FCSeafood.DAL.Events.Repository;
 using FCSeafood.DAL.Common.Repository;
+using FCSeafood.DAL.Notification.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,10 +19,15 @@ public static class Configuration {
 
         #region BLL
 
+        serviceCollection.AddSingleton<GlobalSettings>();
+        serviceCollection.AddScoped<IEmailSettings, EmailSettings>();
+        serviceCollection.AddSingleton<EmailSettings>();
+
         // Services
         serviceCollection.AddTransient<AddressService>();
         serviceCollection.AddTransient<CommonService>();
         serviceCollection.AddTransient<DeliveryService>();
+        serviceCollection.AddTransient<EmailService>();
         serviceCollection.AddTransient<ItemService>();
         serviceCollection.AddTransient<OrderService>();
         serviceCollection.AddTransient<UserService>();
@@ -53,6 +60,7 @@ public static class Configuration {
         serviceCollection.AddTransient<RoleTRepository>();
         serviceCollection.AddTransient<SubcategoryTRepository>();
         serviceCollection.AddTransient<TemperatureUnitTRepository>();
+        serviceCollection.AddTransient<EmailTemplateRepository>();
 
         // -- Event
         serviceCollection.AddTransient<AddressRepository>();
@@ -61,6 +69,7 @@ public static class Configuration {
         serviceCollection.AddTransient<OrderEntityRepository>();
         serviceCollection.AddTransient<OrderRepository>();
         serviceCollection.AddTransient<RatingLRepository>();
+        serviceCollection.AddTransient<ResetPasswordLRepository>();
         serviceCollection.AddTransient<UserCredentialRepository>();
         serviceCollection.AddTransient<UserRepository>();
 

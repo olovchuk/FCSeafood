@@ -7,6 +7,9 @@ import { UserInformationResponse } from "@common-data/user-information/http/resp
 import { UserResponse } from "@common-data/user-information/http/response/user.response";
 import { UserIdRequest } from "@common-data/user-information/http/request/user-id.request";
 import { UpdateUserAddressRequest } from "@common-data/user-information/http/request/update-user-address.request";
+import { UpdateUserInformationRequest } from "@common-data/user-information/http/request/update-user-information.request";
+import { CredentialResponse } from "@common-data/user-information/http/response/сredential.response";
+import { UpdateUserPasswordRequest } from "@common-data/user-information/http/request/update-user-password.request";
 
 @Injectable({providedIn: 'root'})
 export class UserInformationData {
@@ -26,6 +29,17 @@ export class UserInformationData {
     return response;
   }
 
+  async getCredentials(userIdRequest: UserIdRequest): Promise<CredentialResponse> {
+    let params = new HttpParams();
+    params = params.append('UserId', userIdRequest.userId);
+
+    const response = await firstValueFrom(this.http.get<CredentialResponse>(this.settings.getUserCredentialsEndpoint, {params: params}));
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
+
+    return response;
+  }
+
   async getUserInformation(): Promise<UserInformationResponse> {
     const response = await firstValueFrom(this.http.get<UserInformationResponse>(this.settings.getUserInformationEndpoint));
     if (!response.isSuccessful)
@@ -34,7 +48,15 @@ export class UserInformationData {
     return response;
   }
 
-  updateUserAddress(updateUserAddressRequest: UpdateUserAddressRequest) {
-    this.http.post(this.settings.updateUserAddressEndpoint, updateUserAddressRequest);
+  async updateUserAddress(updateUserAddressRequest: UpdateUserAddressRequest): Promise<void> {
+    const response = await firstValueFrom(this.http.post(this.settings.updateUserAddressEndpoint, updateUserAddressRequest));
+  }
+
+  async updateUserInformation(updateUserInformationRequest: UpdateUserInformationRequest): Promise<void> {
+    const response = await firstValueFrom(this.http.post(this.settings.updateUserInformationEndpoint, updateUserInformationRequest));
+  }
+
+  async updateUserPassword(updateUserPasswordRequest: UpdateUserPasswordRequest): Promise<void> {
+    const response = await firstValueFrom(this.http.post(this.settings.updateUserPasswordEndpoint, updateUserPasswordRequest));
   }
 }

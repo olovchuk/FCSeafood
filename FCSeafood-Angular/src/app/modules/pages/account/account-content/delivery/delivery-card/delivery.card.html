@@ -1,0 +1,66 @@
+<div class="delivery-card">
+
+  <span class="tracking-number">Tracking number</span>
+
+  <span #trackingNumber (click)="clipboardService.copy(trackingNumber.innerText)"
+        class="my-2 cursor-pointer" matTooltip="Copy">
+    {{delivery.trackingNumber}}
+  </span>
+
+  <table>
+    <tr>
+      <td>Status</td>
+      <td>
+        {{delivery.deliveryStatus.name}}
+        <ng-container [ngSwitch]="delivery.deliveryStatus.type">
+          <i *ngSwitchCase="DeliveryStatusType.Pending" class="pi pi-stopwatch"></i>
+          <i *ngSwitchCase="DeliveryStatusType.InProcess" class="pi pi-truck"></i>
+          <i *ngSwitchCase="DeliveryStatusType.Delivered" class="pi pi-check-circle" style="color: green"></i>
+          <i *ngSwitchCase="DeliveryStatusType.Undelivered" class="pi pi-exclamation-triangle" style="color: red"></i>
+          <i *ngSwitchCase="DeliveryStatusType.Rejected" class="pi pi-times-circle" style="color: red"></i>
+          <i *ngSwitchCase="DeliveryStatusType.Return" class="pi pi-times-circle" style="color: red"></i>
+          <i *ngSwitchCase="DeliveryStatusType.Delayed" class="pi pi-stopwatch"></i>
+          <i *ngSwitchCase="DeliveryStatusType.Cancelled" class="pi pi-times-circle" style="color: red"></i>
+        </ng-container>
+      </td>
+    </tr>
+    <tr>
+      <td>Payment</td>
+      <td>
+        {{delivery.paymentMethod.name}}
+        <i class="pi pi-money-bill" style="color: green"></i>
+      </td>
+    </tr>
+    <tr>
+      <td>Courier</td>
+      <td>
+        <ng-container *ngIf="!delivery.courier">
+          N/A
+        </ng-container>
+        <ng-container *ngIf="delivery.courier">
+          {{delivery.courier.firstName + ' ' + delivery.courier.lastName}}
+        </ng-container>
+      </td>
+    </tr>
+    <tr>
+      <td>Item count</td>
+      <td>
+        {{delivery.order.orders.length}}
+      </td>
+    </tr>
+    <tr>
+      <td>Total price</td>
+      <td>
+        {{UiHelper.FormatCurrency(delivery.order.totalPrice)}}
+      </td>
+    </tr>
+    <tr>
+      <td>Created date</td>
+      <td>
+        {{UiHelper.FormatData(delivery.createdDate)}}
+      </td>
+    </tr>
+  </table>
+
+  <p-button (click)="openDeliveryFullInformationPopup()" label="Details" styleClass="p-button-text"></p-button>
+</div>

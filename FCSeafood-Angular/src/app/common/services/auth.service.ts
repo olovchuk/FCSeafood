@@ -9,6 +9,9 @@ import { SignInResponse } from "@common-data/auth/http/response/sign-in.response
 import { SignUpRequest } from "@common-data/auth/http/request/sign-up.request";
 import { SignOutResponse } from "@common-data/auth/http/response/sign-out.response";
 import { SignUpResponse } from "@common-data/auth/http/response/sign-up.response";
+import { ForgotPasswordRequest } from "@common-data/auth/http/request/forgot-password.request";
+import { MessageService } from "primeng/api";
+import { MessageHelper } from "@common-helpers/message.helper";
 
 export const ACCESS_KEY = 'fcs_access_key';
 export const REFRESH_KEY = 'fcs_refresh_key';
@@ -50,7 +53,8 @@ export class AuthService {
   public signOut$: EventEmitter<SignOutResponse> = new EventEmitter<SignOutResponse>();
 
   constructor(private authData: AuthData,
-              private userInformationState: UserInformationState) {
+              private userInformationState: UserInformationState,
+              private messageHelper: MessageHelper) {
   }
 
   async signIn(email: string, password: string): Promise<SignInResponse> {
@@ -92,5 +96,27 @@ export class AuthService {
     MemoryTimeCacheHelper.Delete(ACCESS_KEY);
     this.userInformationState.userInformation = new UserInformationModel();
     this.signOut$.emit({isSuccessful: true, message: ''});
+  }
+
+  async resetPassword(): Promise<void> {
+    await this.authData.resetPassword();
+  }
+
+  async isExistsResetPasswordCode(code: number): Promise<boolean> {
+    const response = await this.authData.isExistsResetPasswordCode({code: code});
+    if (!response.isSuccessful) {
+      this.messageHelper.errorSticky(response.message);
+      return false;
+    }
+
+    return true;
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    const forgotPasswordRequest: ForgotPasswordRequest = {
+      userEmail: email
+    };
+
+    await this.authData.forgotPassword(forgotPasswordRequest);
   }
 }

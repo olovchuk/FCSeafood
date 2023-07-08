@@ -27,13 +27,35 @@ public class OrderService {
         }
     }
 
-    public async Task<OrderModel?> GetOrderByUserAsync(Guid userId) {
+    public async Task<OrderModel?> GetOrderAsync(Guid orderId) {
         try {
-            var (_, model) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId);
+            var (_, model) = await _orderRepository.FindByConditionAsync(x => x.Id == orderId);
             return model;
         } catch (Exception ex) {
             _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
             return null;
+        }
+    }
+
+    public async Task<OrderModel?> GetOrderByUserAsync(Guid userId) {
+        try {
+            var (_, model) = await _orderRepository.FindByConditionAsync(x => x.UserDboId == userId && x.IsComplete == false);
+            return model;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return null;
+        }
+    }
+
+    public async Task<IReadOnlyCollection<OrderModel>> GetCompleteOrderListAsync(Guid userId) {
+        try {
+            var (_, modelList) = await _orderRepository.FindByConditionListAsync(
+                x => x.UserDboId == userId && x.IsComplete == true
+            );
+            return modelList;
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Service.Global, ex.Message);
+            return Array.Empty<OrderModel>();
         }
     }
 

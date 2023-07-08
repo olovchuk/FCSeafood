@@ -9,6 +9,9 @@ import { PrimengModule } from "@modules/primeng/primeng.module";
 import { CartPopup } from './cart/cart.popup';
 import { CartCardComponent } from './cart/cart.card/cart.card.component';
 import { InputTextAreaPopup } from './input-text-area/input-text-area.popup';
+import { RefreshPasswordPopup } from './refresh-password/refresh-password.popup';
+import { DeliveryFullInformationPopup } from './delivey-full-information/delivery-full-information.popup';
+import { AccountContentModule } from "@modules-pages/account/account-content/account-content.module";
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { InputTextAreaPopup } from './input-text-area/input-text-area.popup';
     SignUpPopup,
     CartPopup,
     CartCardComponent,
-    InputTextAreaPopup
+    InputTextAreaPopup,
+    RefreshPasswordPopup,
+    DeliveryFullInformationPopup
   ],
   exports: [
     SignInPopup,
@@ -28,7 +33,8 @@ import { InputTextAreaPopup } from './input-text-area/input-text-area.popup';
     NgOptimizedImage,
     PrimengModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AccountContentModule
   ]
 })
 export class PopupsModule {

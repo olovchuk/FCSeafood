@@ -36,10 +36,14 @@ public static class ErrorMessage {
         public static string EntityInsertError => "Something went wrong while insert data.";
     }
 
+    public static class Email {
+        public static string Error => "Something went wrong, try again later";
+    }
+
     public static class Authentication {
-        public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
-        public static string AuthenticationGuestFailed => "Something went wrong with initialization Guest. Please please contact us via freshcatch@gmail.com.";
-        public static string SignUpFailed => "Authentication failed. Please please try to sign in again or contact us via freshcatch@gmail.com.";
+        public static string AuthenticationFailed => "Authentication failed. Please please try to sign in again or contact us via fcseafood.freshcatch@gmail.com.";
+        public static string AuthenticationGuestFailed => "Something went wrong with initialization Guest. Please please contact us via fcseafood.freshcatch@gmail.com.";
+        public static string SignUpFailed => "Authentication failed. Please please try to sign in again or contact us via fcseafood.freshcatch@gmail.com.";
         public static string EmailOrPasswordIncorrect => "Email or Password incorrect. Please try again.";
         public static string EmailIsNotValidate => "Email is incorrect. Please try again.";
         public static string PasswordIsNotValidate => "Password should have at least 8 characters.";
@@ -48,6 +52,8 @@ public static class ErrorMessage {
         public static string InsertAddressFailed => "Something went wrong while adding address.";
         public static string InsertUserFailed => "Something went wrong while adding user.";
         public static string InsertCredentialFailed => "Something went wrong while adding credential.";
+        public static string ChangePasswordNotAllowed => "Password change is not allowed";
+        public static string PasswordResetExpired => "Password reset has expired";
     }
 
     public static class Cookie {

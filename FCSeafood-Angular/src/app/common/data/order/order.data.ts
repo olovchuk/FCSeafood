@@ -4,13 +4,13 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { MessageHelper } from "@common-helpers/message.helper";
 import { OrderDataSettings } from "@common-data/order/order.data.settings";
 import { OrderResponse } from "@common-data/order/http/response/order.response";
-import { OrderUserRequest } from "@common-data/order/http/request/order-user.request";
 import { OrderSimpleResponse } from "@common-data/order/http/response/order-simple.response";
 import { OrderEntityRequest } from "@common-data/order/http/request/order-entity.request";
 import { ExistsResponse } from "@common-data/order/http/response/exists.response";
-import { UserItemIdsRequest } from "@common-data/order/http/request/user-item-ids.request";
 import { OrderOrderEntityIdsRequest } from "@common-data/order/http/request/order-order-entity-ids.request";
 import { CountResponse } from "@common-data/order/http/response/count.response";
+import { UserIdRequest } from "@common-data/user-information/http/request/user-id.request";
+import { OrderListResponse } from "@common-data/order/http/response/order-list.response";
 
 @Injectable({providedIn: 'root'})
 export class OrderData {
@@ -29,16 +29,23 @@ export class OrderData {
     return response;
   }
 
-  async getOrderByUser(orderUserRequest: OrderUserRequest): Promise<OrderResponse> {
+  async getOrderByUser(userIdRequest: UserIdRequest): Promise<OrderResponse> {
     let params = new HttpParams();
-    params = params.append('UserId', orderUserRequest.id);
+    params = params.append('UserId', userIdRequest.userId);
 
     return await firstValueFrom(this.http.get<OrderResponse>(this.settings.getOrderByUserEndpoint, {params: params}));
   }
 
-  async getOrderCountByUser(orderUserRequest: OrderUserRequest): Promise<CountResponse> {
+  async getCompleteOrderList(userIdRequest: UserIdRequest): Promise<OrderListResponse> {
     let params = new HttpParams();
-    params = params.append('UserId', orderUserRequest.id);
+    params = params.append('UserId', userIdRequest.userId);
+
+    return await firstValueFrom(this.http.get<OrderListResponse>(this.settings.getCompleteOrderListEndpoint, {params: params}));
+  }
+
+  async getOrderCountByUser(userIdRequest: UserIdRequest): Promise<CountResponse> {
+    let params = new HttpParams();
+    params = params.append('UserId', userIdRequest.userId);
 
     const response = await firstValueFrom(this.http.get<CountResponse>(this.settings.getOrderCountByUserEndpoint, {params: params}));
     if (!response.isSuccessful)

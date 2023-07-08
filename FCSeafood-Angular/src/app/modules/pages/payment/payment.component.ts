@@ -31,13 +31,13 @@ export class PaymentComponent implements OnInit {
   note!: string;
 
   orderFormGroup: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.min(2)]),
-    surname: new FormControl('', [Validators.required, Validators.min(2)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    surname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     phone: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    country: new FormControl('', [Validators.required, Validators.min(2)]),
-    city: new FormControl('', [Validators.required, Validators.min(2)]),
-    street: new FormControl('', [Validators.required, Validators.min(2)]),
+    country: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    city: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    street: new FormControl('', [Validators.required, Validators.minLength(2)]),
     apartmentNumber: new FormControl('', [Validators.required]),
     floor: new FormControl(''),
     entrance: new FormControl(''),
@@ -109,14 +109,14 @@ export class PaymentComponent implements OnInit {
   }
 
   isAddressChanged(): boolean {
-    return !(this.orderFormGroup.get('country')?.value !== this.user.address?.country ||
+    return this.orderFormGroup.get('country')?.value !== this.user.address?.country ||
       this.orderFormGroup.get('city')?.value !== this.user.address?.city ||
       this.orderFormGroup.get('street')?.value !== this.user.address?.street ||
       this.orderFormGroup.get('apartmentNumber')?.value !== this.user.address?.apartmentNumber ||
       this.orderFormGroup.get('entrance')?.value !== this.user.address?.entrance ||
       this.orderFormGroup.get('floor')?.value !== this.user.address?.floor ||
       this.orderFormGroup.get('intercom')?.value !== this.user.address?.intercom ||
-      this.orderFormGroup.get('zipCode')?.value !== this.user.address?.zipCode);
+      this.orderFormGroup.get('zipCode')?.value !== this.user.address?.zipCode;
   }
 
   async confirm(): Promise<void> {
@@ -137,7 +137,7 @@ export class PaymentComponent implements OnInit {
         intercom: this.orderFormGroup.get('intercom')?.value,
         zipCode: this.orderFormGroup.get('zipCode')?.value
       };
-      this.userService.updateUserAddress({userId: this.authStateService.token.UserId, addressModel: address});
+      await this.userService.updateUserAddress({userId: this.authStateService.token.UserId, addressModel: address});
     }
 
     let insertDeliveryRequest: InsertDeliveryRequest = {
@@ -152,6 +152,7 @@ export class PaymentComponent implements OnInit {
 
     this.orderStateService.Refresh();
     await this.routeHelper.goToOrderComplete(trackingNumber);
+    this.isShowErrors = false;
   }
 
   cardInformationValidator(control: AbstractControl): ValidationErrors | null {

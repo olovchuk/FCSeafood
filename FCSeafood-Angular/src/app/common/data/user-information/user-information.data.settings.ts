@@ -9,6 +9,15 @@ export class UserInformationDataSettings {
   private _getUserEndpoint: string = '/api/User/GetUser';
   getUserEndpoint: string = AppSettings.webApiHostUrl + this._getUserEndpoint;
 
+  private _getUserCredentialsEndpoint: string = '/api/User/GetUserCredentials';
+  getUserCredentialsEndpoint: string = AppSettings.webApiHostUrl + this._getUserCredentialsEndpoint;
+
   private _updateUserAddressEndpoint: string = '/api/User/UpdateUserAddress';
   updateUserAddressEndpoint: string = AppSettings.webApiHostUrl + this._updateUserAddressEndpoint;
+
+  private _updateUserInformationEndpoint: string = '/api/User/UpdateUserInformation';
+  updateUserInformationEndpoint: string = AppSettings.webApiHostUrl + this._updateUserInformationEndpoint;
+
+  private _updateUserPasswordEndpoint: string = '/api/User/UpdateUserPassword';
+  updateUserPasswordEndpoint: string = AppSettings.webApiHostUrl + this._updateUserPasswordEndpoint;
 }

@@ -62,6 +62,44 @@ img, svg, video {
   }
 }
 
+.loading-overlay {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+
+  &.visible {
+    transition: 0.3s;
+    display: flex;
+  }
+}
+
+.no-data {
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.rotate-container {
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .text-great-wrap {
   word-break: break-all;
   white-space: pre-line;
@@ -1073,7 +1111,6 @@ p-chips {
   }
 
   .p-dropdown-items {
-    padding: 0.75rem 0;
 
     .p-dropdown-item {
       margin: 0;
@@ -5023,7 +5060,7 @@ p-treeselect.p-treeselect-clearable {
   }
 
   .p-card-content {
-    padding: 1.25rem 0;
+    /*padding: 1.25rem 0;*/
   }
 
   .p-card-footer {
@@ -6118,14 +6155,14 @@ p-treeselect.p-treeselect-clearable {
 
 .p-menubar {
   padding: .5rem;
-  background: #eff3f8;
-  color: #043d75;
-  border: 1px solid #dfe7ef;
+  background: var(--primary-dark-color);
+  color: white;
+  border: none;
   border-radius: 0;
 
   .p-menuitem-link {
     padding: .75rem 1.25rem;
-    color: #043d75;
+    color: white;
     border-radius: 0;
     transition: box-shadow .2s;
     user-select: none;
@@ -6171,7 +6208,7 @@ p-treeselect.p-treeselect-clearable {
       user-select: none;
 
       .p-menuitem-text {
-        color: #043d75;
+        color: white;
       }
 
       .p-menuitem-icon {
@@ -6277,7 +6314,7 @@ p-treeselect.p-treeselect-clearable {
       display: flex;
       width: 2rem;
       height: 2rem;
-      color: #708da9;
+      color: white;
       border-radius: 50%;
       transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 

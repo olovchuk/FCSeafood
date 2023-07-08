@@ -8,6 +8,8 @@ import { SubcategoryTRequest } from "@common-data/common/http/request/subcategor
 import { SubcategoryTListResponse } from "@common-data/common/http/response/subcategory-type-list.response";
 import { CategoryTypeRequest } from "@common-data/common/http/request/category-type.request";
 import { PaymentMethodTListResponse } from "@common-data/common/http/response/payment-method-type-list.response";
+import { GenderTListResponse } from "@common-data/common/http/response/gender-type-list.response";
+import { DeliveryStatusTListResponse } from "@common-data/common/http/response/delivery-status-type-list.response";
 
 @Injectable({providedIn: 'root'})
 export class CommonData {
@@ -67,6 +69,22 @@ export class CommonData {
 
   async getPaymentMethodTList(): Promise<PaymentMethodTListResponse> {
     const response = await firstValueFrom(this.http.get<PaymentMethodTListResponse>(this.settings.getPaymentMethodTListEndpoint));
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
+
+    return response;
+  }
+
+  async getGenderTList(): Promise<GenderTListResponse> {
+    const response = await firstValueFrom(this.http.get<GenderTListResponse>(this.settings.getGenderTListEndpoint));
+    if (!response.isSuccessful)
+      this.messageHelper.error(response.message);
+
+    return response;
+  }
+
+  async getDeliveryStatusTList(): Promise<DeliveryStatusTListResponse> {
+    const response = await firstValueFrom(this.http.get<DeliveryStatusTListResponse>(this.settings.getDeliveryStatusTListEndpoint));
     if (!response.isSuccessful)
       this.messageHelper.error(response.message);
 

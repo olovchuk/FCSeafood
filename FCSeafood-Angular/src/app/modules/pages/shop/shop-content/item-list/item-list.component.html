@@ -1,3 +1,10 @@
+<div class="buttons-sections">
+  <p-button (click)="openFiltersFullScreen()">
+    <span class="button-filters-text">Filters</span>
+    <img ngSrc="assets/icons/filter.svg" alt="" class="right-auto ml-2" height="22" width="21">
+  </p-button>
+</div>
+
 <div class="flex">
 
   <div class="left-panel">
@@ -6,7 +13,7 @@
 
   <div class="flex justify-content-center w-full">
     <div class="flex flex-wrap justify-content-center w-full max-3-block">
-      <shop-item-card *ngFor="let item of itemModels" [item]="item" class="m-3"></shop-item-card>
+      <shop-item-card *ngFor="let item of itemModels" [item]="item" class="m-3" ></shop-item-card>
     </div>
   </div>
 

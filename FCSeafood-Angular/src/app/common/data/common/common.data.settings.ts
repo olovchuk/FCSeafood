@@ -20,4 +20,10 @@ export class CommonDataSettings {
 
   private _getPaymentMethodTListEndpoint: string = '/api/Common/GetPaymentMethodTList';
   getPaymentMethodTListEndpoint: string = AppSettings.webApiHostUrl + this._getPaymentMethodTListEndpoint;
+
+  private _getGenderTListEndpoint: string = '/api/Common/GetGenderTList';
+  getGenderTListEndpoint: string = AppSettings.webApiHostUrl + this._getGenderTListEndpoint;
+
+  private _getDeliveryStatusTListEndpoint: string = '/api/Common/GetDeliveryStatusTList';
+  getDeliveryStatusTListEndpoint: string = AppSettings.webApiHostUrl + this._getDeliveryStatusTListEndpoint;
 }

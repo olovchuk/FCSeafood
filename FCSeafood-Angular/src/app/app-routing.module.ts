@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'complete-order',
     loadChildren: () => import('./modules/pages/complete-order/complete-order.module').then(m => m.CompleteOrderModule),
   },
+  {
+    path: 'account',
+    loadChildren: () => import('./modules/pages/account/account.module').then(m => m.AccountModule),
+  },
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: '**', redirectTo: 'error', pathMatch: 'full'}
 ];

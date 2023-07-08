@@ -12,6 +12,8 @@ import { CategoryType } from "@common-enums/category.type";
 export class FilterComponent {
   @Output('applyEvent') applyEvent = new EventEmitter<number>();
 
+  isPopupFullScreen: boolean = false;
+
   priceFrom: number | null = null;
   priceTo: number | null = null;
 

@@ -1,0 +1,19 @@
+<div class="purchases-card">
+  <span class="order-created-date">{{UiHelper.FormatData(order.createdDate)}}</span>
+
+  <p-divider></p-divider>
+
+  <div *ngFor="let entity of order.orders" class="entity-block">
+    <div class="entity-info">
+      <img [src]="entity.item.imagePath" alt="">
+      <span class="mx-2 text-great-wrap">{{entity.item.name}}</span>
+    </div>
+    <span class="entity-price">{{UiHelper.FormatCurrency(entity.price)}}</span>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div class="flex justify-content-end w-full">
+    <span class="order-price">Total: {{UiHelper.FormatCurrency(order.totalPrice)}}</span>
+  </div>
+</div>

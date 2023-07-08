@@ -1,0 +1,52 @@
+.account-table {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.table-block {
+  .header-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      color: var(--grafit-color);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 150%;
+    }
+
+    i {
+      cursor: pointer;
+      font-size: 1.8rem;
+    }
+  }
+
+  .content-block {
+    margin-left: 1rem;
+
+    table {
+      border-collapse: collapse;
+
+      tr td {
+        padding: 0.3rem 0;
+        color: var(--grafit-color);
+        font-size: 22px;
+        align-items: center;
+
+        input {
+          width: 100%;
+        }
+
+        span {
+          line-height: 150%;
+        }
+      }
+
+      tr td:nth-child(2) {
+        padding-left: 20px;
+      }
+    }
+  }
+}

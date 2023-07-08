@@ -14,4 +14,13 @@
     color: white;
     cursor: pointer;
   }
+
+  .close-popup-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 2rem;
+    color: white;
+    margin-bottom: 100px;
+  }
 }

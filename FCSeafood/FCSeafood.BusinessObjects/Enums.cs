@@ -122,3 +122,14 @@ public enum PaymentMethodType {
 }
 
 #endregion
+
+public struct EmailTemplateCode {
+    public const string ResetPasswordConfirm = "RESET_PASSWORD_CONFIRM";
+    public const string ForgotPassword = "FORGOT_PASSWORD";
+}
+
+public struct EmailTemplateParameters {
+    public const string UserFullName = "{{UserFullName}}";
+    public const string ConfirmUrl = "{{ConfirmUrl}}";
+    public const string NewPassword = "{{NewPassword}}";
+}

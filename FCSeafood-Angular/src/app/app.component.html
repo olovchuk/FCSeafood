@@ -11,3 +11,7 @@
     <app-footer></app-footer>
   </div>
 </div>
+
+<div [class]="loadingStateService.state.show ? 'visible' : ''" class="loading-overlay">
+  <img ngSrc="assets/FCSeafood_small_logo.svg" width="256" height="256" alt="" class="rotate-container">
+</div>

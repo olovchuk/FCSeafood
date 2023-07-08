@@ -14,4 +14,14 @@ export class AuthDataSettings {
 
   private _signUpEndpoint: string = '/api/Auth/SignUp';
   signUpEndpointUrl: string = AppSettings.webApiHostUrl + this._signUpEndpoint;
+
+  private _resetPasswordEndpoint: string = '/api/Auth/ResetPassword';
+  resetPasswordEndpoint: string = AppSettings.webApiHostUrl + this._resetPasswordEndpoint;
+
+
+  private _isExistsResetPasswordCodeEndpoint: string = '/api/Auth/IsExistsResetPasswordCode';
+  isExistsResetPasswordCodeEndpoint: string = AppSettings.webApiHostUrl + this._isExistsResetPasswordCodeEndpoint;
+
+  private _forgotPasswordEndpoint: string = '/api/Auth/ForgotPassword';
+  forgotPasswordEndpoint: string = AppSettings.webApiHostUrl + this._forgotPasswordEndpoint;
 }

@@ -91,4 +91,32 @@ public class CommonManager {
             );
         }
     }
+
+    public async Task<GenderTListResponse> GetGenderTListAsync() {
+        try {
+            var genderTListModel = await _commonService.GetGenderTListAsync();
+            return new GenderTListResponse(true, "", genderTListModel);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new GenderTListResponse(
+                false
+              , ErrorMessage.Common.ErrorRetrievingData
+              , Enumerable.Empty<GenderTModel>()
+            );
+        }
+    }
+
+    public async Task<DeliveryStatusTListResponse> GetDeliveryStatusTListAsync() {
+        try {
+            var genderTListModel = await _commonService.GetDeliveryStatusTListAsync();
+            return new DeliveryStatusTListResponse(true, "", genderTListModel);
+        } catch (Exception ex) {
+            _logger.LogError("{Global}\\r\\nError: [{ExMessage}]", ErrorMessage.Manager.Global, ex.Message);
+            return new DeliveryStatusTListResponse(
+                false
+              , ErrorMessage.Common.ErrorRetrievingData
+              , Enumerable.Empty<DeliveryStatusTModel>()
+            );
+        }
+    }
 }

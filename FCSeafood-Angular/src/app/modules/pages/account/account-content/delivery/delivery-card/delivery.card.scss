@@ -1,0 +1,31 @@
+.delivery-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+  color: var(--grafit-color);
+
+  .tracking-number {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
+  table {
+    border-collapse: collapse;
+
+    tr td {
+      padding: 0.3rem 0;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 150%;
+    }
+
+    tr td:last-child {
+      padding-left: 20px;
+    }
+  }
+}

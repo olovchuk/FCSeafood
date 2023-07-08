@@ -6,3 +6,24 @@
 .max-4-block {
   max-width: calc(330px * 4 + (1.5rem * 8))
 }
+
+.buttons-sections {
+  display: none;
+
+  .button-filters-text {
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .left-panel {
+    display: none !important;
+  }
+
+  .buttons-sections {
+    display: block !important;
+  }
+}

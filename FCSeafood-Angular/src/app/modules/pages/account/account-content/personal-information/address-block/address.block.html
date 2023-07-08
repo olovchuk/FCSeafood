@@ -1,0 +1,96 @@
+<div class="table-block">
+  <div class="header-block">
+    <span class="title">Delivery address</span>
+    <i class="pi pi-user-edit" (click)="addressFormGroup.controls['isEdit'].setValue(!addressFormGroup.controls['isEdit'].value)"></i>
+  </div>
+
+  <div class="content-block">
+    <form [formGroup]="addressFormGroup">
+      <table>
+        <tr>
+          <td>Country</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['country'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <input pInputText formControlName="country"/>
+              <small *ngIf="addressFormGroup.controls['country'].hasError('required') && isShowErrors" class="p-error"> Country is <strong>required</strong> </small>
+              <small *ngIf="addressFormGroup.controls['country'].hasError('minlength') && isShowErrors" class="p-error"> Country should have at least 2 characters</small>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>City</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['city'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <input pInputText formControlName="city"/>
+              <small *ngIf="addressFormGroup.controls['city'].hasError('required') && isShowErrors" class="p-error"> City is <strong>required</strong> </small>
+              <small *ngIf="addressFormGroup.controls['city'].hasError('minlength') && isShowErrors" class="p-error"> City should have at least 2 characters</small>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>Street</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['street'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <input pInputText formControlName="street"/>
+              <small *ngIf="addressFormGroup.controls['street'].hasError('required') && isShowErrors" class="p-error"> Street is <strong>required</strong> </small>
+              <small *ngIf="addressFormGroup.controls['street'].hasError('minlength') && isShowErrors" class="p-error"> Street should have at least 2 characters</small>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>Apartment number</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['apartmentNumber'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <p-inputNumber pKeyFilter="int" formControlName="apartmentNumber"/>
+              <small *ngIf="addressFormGroup.controls['apartmentNumber'].hasError('required') && isShowErrors" class="p-error"> Apartment number is <strong>required</strong> </small>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>Entrance</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['entrance'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <p-inputNumber pKeyFilter="int" formControlName="entrance"/>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>Floor</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['floor'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <p-inputNumber pKeyFilter="int" formControlName="floor"/>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>Intercom</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['intercom'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <p-inputNumber pKeyFilter="int" formControlName="intercom"/>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <td>Zip code</td>
+          <td>
+            <span *ngIf="!addressFormGroup.controls['isEdit'].value">{{addressFormGroup.controls['zipCode'].value}}</span>
+            <ng-container *ngIf="addressFormGroup.controls['isEdit'].value">
+              <input pInputText formControlName="zipCode"/>
+            </ng-container>
+          </td>
+        </tr>
+      </table>
+
+      <div *ngIf="addressFormGroup.controls['isEdit'].value" class="flex justify-content-end w-full">
+        <p-button (click)="confirm()" type="submit" label="Save"></p-button>
+      </div>
+    </form>
+  </div>
+</div>
