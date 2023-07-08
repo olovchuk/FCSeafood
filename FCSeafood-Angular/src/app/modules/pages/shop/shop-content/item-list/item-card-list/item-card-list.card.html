@@ -1,0 +1,20 @@
+<div class="item-card-list flex">
+
+  <img class="image" [src]="item.imagePath" alt="">
+
+  <div class="flex flex-column w-full h-full ml-3">
+    <div>
+      <span class="name text-great-wrap flex align-items-center">{{item.name}}</span>
+      <div class="mt-3"><span class="payment-block">Price: {{UiHelper.FormatCurrency(item.price)}}/kg</span></div>
+    </div>
+    <div class="flex justify-content-end h-full">
+      <div class="flex flex-wrap mt-6">
+        <p-button (click)="addToCart()" label="Add to cart" class="mx-2" styleClass="p-button-rounded w-full uppercase"></p-button>
+        <p-button (click)="routeHelper.goToItem(item.code)" class="mx-2" label="Details" styleClass="p-button-outlined p-button-rounded w-full uppercase"></p-button>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

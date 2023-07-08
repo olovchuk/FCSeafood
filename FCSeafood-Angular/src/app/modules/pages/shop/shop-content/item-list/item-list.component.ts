@@ -14,6 +14,8 @@ import { Subscription } from "rxjs";
 export class ItemListComponent implements OnInit, OnDestroy {
   itemModels: ItemModel[] = [];
 
+  isShowList: boolean = false;
+
   applySubscription!: Subscription;
 
   constructor(private itemService: ItemService,

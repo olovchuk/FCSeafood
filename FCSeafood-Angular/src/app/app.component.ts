@@ -10,6 +10,9 @@ import { CookieHelper } from "@common-helpers/cookie.helper";
 import { SignUpResponse } from "@common-data/auth/http/response/sign-up.response";
 import { OrderStateService } from "@common-services/order-state/order-state.service";
 import { LoadingStateService } from "@common-services/loading-state/loading-state.service";
+import { DeliveryFullInformationPopup } from "@modules-components/popups/delivey-full-information/delivery-full-information.popup";
+import { MatDialog } from "@angular/material/dialog";
+import { CookiePopup } from "@modules-components/popups/cookie/cookie.popup";
 
 @Component({
   selector: 'app-root',
@@ -27,7 +30,8 @@ export class AppComponent implements OnInit, OnDestroy {
               private userInformationData: UserInformationData,
               private userInformationStateService: UserInformationStateService,
               private orderStateService: OrderStateService,
-              public loadingStateService: LoadingStateService) {
+              public loadingStateService: LoadingStateService,
+              private dialog: MatDialog) {
     this.signInSubscription = authService.signIn$.subscribe(next => this._onSignIn(next));
     this.signOutSubscription = authService.signOut$.subscribe(next => this._onSignOut(next));
   }

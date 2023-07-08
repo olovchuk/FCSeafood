@@ -11,11 +11,32 @@
     <shop-filter (applyEvent)="applyFilters()"></shop-filter>
   </div>
 
-  <div class="flex justify-content-center w-full">
-    <div class="flex flex-wrap justify-content-center w-full max-3-block">
-      <shop-item-card *ngFor="let item of itemModels" [item]="item" class="m-3" ></shop-item-card>
+  <div class="w-full">
+
+    <div class="flex">
+      <p-button (click)="isShowList = false" styleClass="p-button-text">
+        <img ngSrc="assets/icons/dots_2.svg" height="25" width="25">
+      </p-button>
+      <p-button (click)="isShowList = true" styleClass="p-button-text">
+        <img ngSrc="assets/icons/dots.svg" height="25" width="25">
+      </p-button>
     </div>
+
+    <div *ngIf="!isShowList" class="flex justify-content-center w-full">
+      <div class="flex flex-wrap justify-content-center w-full max-3-block">
+        <shop-item-card *ngFor="let item of itemModels" [item]="item" class="m-3"></shop-item-card>
+      </div>
+    </div>
+
+
+    <div *ngIf="isShowList" class="flex justify-content-center w-full">
+      <div class="flex flex-wrap flex-column w-full">
+        <shop-item-card-list *ngFor="let item of itemModels" [item]="item" class="m-3"></shop-item-card-list>
+      </div>
+    </div>
+
   </div>
+
 
 </div>
 

@@ -27,6 +27,10 @@ img, svg, video {
   border: 3px solid var(--primary-color);
 }
 
+.bg-primary-transparent {
+  background-color: rgba(83, 132, 135, 0.25);
+}
+
 .mat-mdc-dialog-container .mdc-dialog__surface {
   border-radius: 0 !important;
 }
